@@ -1,0 +1,542 @@
+; 'Omnisistem MX-25 Blinder Mode 1, 3 DMX', 3 DMX Channels, filename: UKOMX251.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   10-06-10   John Rogers       Created
+;   05-10-12   Peter Budd        Edited added cells
+;   11-10-12   Peter Budd        Created from showtec matrix 5x5 blinder
+;   11-10-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   04-01-15   Nic Morris        Changed manufacturer name to 'Unknown'
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_OmMX25M1                         mode=Mode 1, 3 DMX  3 DMX Channels
+NAME "Unknown" "Omnisistem MX-25 Blinder 3ch"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 3 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=509
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+8     1   L    2   100   1N   0   1   "Static Macro"      4     0     0
+8    61   L    3   100   1N   0   1   "Dynamic Macr"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Omnisistem
+MX-25 Blinder
+Mode 1, 3 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Static Macros
+0   9    "No Macro"
+10  10   "Program 1"
+11  11   "Program 2"
+12  12   "Program 3"
+13  13   "Program 4"
+14  14   "Program 5"
+15  15   "Program 6"
+16  16   "Program 7"
+17  17   "Program 8"
+18  18   "Program 9"
+19  19   "Program 10"
+20  20   "Program 11"
+21  21   "Program 12"
+22  22   "Program 13"
+23  23   "Program 14"
+24  24   "Program 15"
+25  25   "Program 16"
+26  26   "Program 17"
+27  27   "Program 18"
+28  28   "Program 19"
+29  29   "Program 20"
+30  30   "Program 21"
+31  31   "Program 22"
+32  32   "Program 23"
+33  33   "Program 24"
+34  34   "Program 25"
+35  35   "Program 26"
+36  36   "Program 27"
+37  37   "Program 28"
+38  38   "Program 29"
+39  39   "Program 30"
+40  40   "Program 31"
+41  41   "Program 32"
+42  42   "Program 33"
+43  43   "Program 34"
+44  44   "Program 35"
+45  45   "Program 36"
+46  46   "Program 37"
+47  47   "Program 38"
+48  48   "Program 39"
+49  49   "Program 40"
+50  50   "Program 41"
+51  51   "Program 42"
+52  52   "Program 43"
+53  53   "Program 44"
+54  54   "Program 45"
+55  55   "Program 46"
+56  56   "Program 47"
+57  57   "Program 48"
+58  58   "Program 49"
+59  59   "Program 50"
+60  60   "Program 51"
+61  61   "Program 52"
+62  62   "Program 53"
+63  63   "Program 54"
+64  64   "Program 55"
+65  65   "Program 56"
+66  66   "Program 57"
+67  67   "Program 58"
+68  68   "Program 59"
+69  69   "Program 60"
+70  70   "Program 61"
+71  71   "Program 62"
+72  72   "Program 63"
+73  73   "Program 64"
+74  74   "Program 65"
+75  75   "Program 66"
+76  76   "Program 67"
+77  77   "Program 68"
+78  78   "Program 69"
+79  79   "Program 70"
+80  80   "Program 71"
+81  81   "Program 72"
+82  82   "Program 73"
+83  83   "Program 74"
+84  84   "Program 75"
+85  85   "Program 76"
+86  86   "Program 77"
+87  87   "Program 78"
+88  88   "Program 79"
+89  89   "Program 80"
+90  90   "Program 81"
+91  91   "Program 82"
+92  92   "Program 83"
+93  93   "Program 84"
+94  94   "Program 85"
+95  95   "Program 86"
+96  96   "Program 87"
+97  97   "Program 88"
+98  98   "Program 89"
+99  99   "Program 90"
+100 100  "Program 91"
+101 101  "Program 92"
+102 102  "Program 93"
+103 103  "Program 94"
+104 104  "Program 95"
+105 105  "Program 96"
+106 106  "Program 97"
+107 107  "Program 98"
+108 108  "Program 99"
+109 109  "Program 100"
+110 110  "Program 101"
+111 111  "Program 102"
+112 112  "Program 103"
+113 113  "Program 104"
+114 114  "Program 105"
+115 115  "Program 106"
+116 116  "Program 107"
+117 117  "Program 108"
+118 118  "Program 109"
+119 119  "Program 110"
+120 120  "Program 111"
+121 121  "Program 112"
+122 122  "Program 113"
+123 123  "Program 114"
+124 124  "Program 115"
+125 125  "Program 116"
+126 126  "Program 117"
+127 127  "Program 118"
+128 128  "Program 119"
+129 129  "Program 120"
+130 130  "Program 121"
+131 131  "Program 122"
+132 132  "Program 123"
+133 133  "Program 124"
+134 134  "Program 125"
+135 135  "Program 126"
+136 136  "Program 127"
+137 137  "Program 128"
+138 138  "Program 129"
+139 139  "Program 130"
+140 140  "Program 131"
+141 141  "Program 132"
+142 142  "Program 133"
+143 143  "Program 134"
+144 144  "Program 135"
+145 145  "Program 136"
+146 146  "Program 137"
+147 147  "Program 138"
+148 148  "Program 139"
+149 149  "Program 140"
+150 150  "Program 141"
+151 151  "Program 142"
+152 152  "Program 143"
+153 153  "Program 144"
+154 154  "Program 145"
+155 155  "Program 146"
+156 249  "No Effect"
+250 255  "Macro"
+REND
+
+RANGE 3  ;Dynamic Macros
+0   0    "No Macro"
+1   1    "Number 1"
+2   2    "Number 2"
+3   3    "Number 3"
+4   4    "Number 4"
+5   5    "Number 5"
+6   6    "Number 6"
+7   7    "Number 7"
+8   8    "Number 8"
+9   9    "Number 9"
+10  10   "Number 10"
+11  11   "Number 11"
+12  12   "Number 12"
+13  13   "Number 13"
+14  14   "Number 14"
+15  15   "Number 15"
+16  16   "Number 16"
+17  17   "Number 17"
+18  18   "Number 18"
+19  19   "Number 19"
+20  20   "Number 20"
+21  21   "Number 21"
+22  22   "Number 22"
+23  23   "Number 23"
+24  24   "Number 24"
+25  25   "Number 25"
+26  26   "Number 26"
+27  27   "Number 27"
+28  28   "Number 28"
+29  29   "Number 29"
+30  30   "Number 30"
+31  31   "Character 1"
+32  32   "Character 2"
+33  33   "Character 3"
+34  34   "Character 4"
+35  35   "Character 5"
+36  36   "Character 6"
+37  37   "Character 7"
+38  38   "Character 8"
+39  39   "Character 9"
+40  40   "Characte 10"
+41  41   "Characte 11"
+42  42   "Characte 12"
+43  43   "Characte 13"
+44  44   "Characte 14"
+45  45   "Characte 15"
+46  46   "Characte 16"
+47  47   "Characte 17"
+48  48   "Characte 18"
+49  49   "Characte 19"
+50  50   "Characte 20"
+51  51   "Characte 21"
+52  52   "Characte 22"
+53  53   "Characte 23"
+54  54   "Characte 24"
+55  55   "Characte 25"
+56  56   "Characte 26"
+57  57   "Scene 1"
+58  58   "Scene 2"
+59  59   "Scene 3"
+60  60   "Scene 4"
+61  61   "Scene 5"
+62  62   "Scene 6"
+63  63   "Scene 7"
+64  64   "Scene 8"
+65  65   "Scene 9"
+66  66   "Scene 10"
+67  67   "Scene 11"
+68  68   "Scene 12"
+69  69   "Scene 13"
+70  70   "Scene 14"
+71  71   "Scene 15"
+72  72   "Scene 16"
+73  73   "Scene 17"
+74  74   "Scene 18"
+75  75   "Scene 19"
+76  76   "Scene 20"
+77  77   "Scene 21"
+78  78   "Scene 22"
+79  79   "Scene 23"
+80  80   "Scene 24"
+81  81   "Scene 25"
+82  82   "Scene 26"
+83  83   "Scene 27"
+84  84   "Scene 28"
+85  85   "Scene 29"
+86  86   "Scene 30"
+87  87   "Scene 31"
+88  88   "Scene 32"
+89  89   "Scene 33"
+90  90   "Scene 34"
+91  91   "Scene 35"
+92  92   "Scene 36"
+93  93   "Scene 37"
+94  94   "Scene 38"
+95  95   "Scene 39"
+96  96   "Scene 40"
+97  97   "Scene 41"
+98  98   "Scene 42"
+99  99   "Scene 43"
+100 100  "Scene 44"
+101 101  "Scene 45"
+102 102  "Scene 46"
+103 103  "Scene 47"
+104 104  "Scene 48"
+105 105  "Scene 49"
+106 106  "Scene 50"
+107 107  "Scene 51"
+108 108  "Scene 52"
+109 109  "Scene 53"
+110 110  "Scene 54"
+111 111  "Scene 55"
+112 112  "Scene 56"
+113 113  "Scene 57"
+114 114  "Scene 58"
+115 115  "Scene 59"
+116 116  "Scene 60"
+117 117  "Scene 61"
+118 118  "Scene 62"
+119 119  "Scene 63"
+120 120  "Scene 64"
+121 121  "Scene 65"
+122 122  "Scene 66"
+123 123  "Scene 67"
+124 124  "Scene 68"
+125 125  "Scene 69"
+126 126  "Scene 70"
+127 127  "Scene 71"
+128 128  "Scene 72"
+129 129  "Scene 73"
+130 130  "Scene 74"
+131 131  "Scene 75"
+132 132  "Scene 76"
+133 133  "Scene 77"
+134 134  "Scene 78"
+135 135  "Scene 79"
+136 136  "Scene 80"
+137 137  "Scene 81"
+138 138  "Scene 82"
+139 139  "Scene 83"
+140 140  "Scene 84"
+141 141  "Scene 85"
+142 142  "Scene 86"
+143 143  "Scene 87"
+144 144  "Scene 88"
+145 145  "Scene 89"
+146 146  "Scene 90"
+147 147  "Scene 91"
+148 148  "Scene 92"
+149 149  "Scene 93"
+150 150  "Scene 94"
+151 151  "Scene 95"
+152 152  "Scene 96"
+153 153  "Scene 97"
+154 154  "Scene 98"
+155 155  "Scene 99"
+156 156  "Scene 100"
+157 157  "Scene 101"
+158 158  "Scene 102"
+159 159  "Scene 103"
+160 160  "Scene 104"
+161 161  "Scene 105"
+162 162  "Scene 106"
+163 163  "Scene 107"
+164 164  "Scene 108"
+165 165  "Scene 109"
+166 166  "Scene 110"
+167 167  "Scene 111"
+168 168  "Scene 112"
+169 169  "Scene 113"
+170 170  "Scene 114"
+171 171  "Scene 115"
+172 172  "Scene 116"
+173 173  "Scene 117"
+174 174  "Scene 118"
+175 175  "Scene 119"
+176 176  "Scene 120"
+177 177  "Scene 121"
+178 178  "Scene 122"
+179 179  "Scene 123"
+180 180  "Scene 124"
+181 181  "Scene 125"
+182 182  "Scene 126"
+183 183  "Scene 127"
+184 184  "Scene 128"
+185 185  "Scene 129"
+186 186  "Scene 130"
+187 187  "Scene 131"
+188 188  "Scene 132"
+189 189  "Scene 133"
+190 190  "Scene 134"
+191 191  "Scene 135"
+192 192  "Scene 136"
+193 193  "Scene 137"
+194 194  "Scene 138"
+195 195  "Scene 139"
+196 196  "Scene 140"
+197 197  "Scene 141"
+198 198  "Scene 142"
+199 199  "Scene 143"
+200 200  "Scene 144"
+201 201  "Scene 145"
+202 202  "Scene 146"
+203 203  "Scene 147"
+204 204  "Scene 148"
+205 205  "Scene 149"
+206 206  "Scene 150"
+207 207  "Scene 151"
+208 208  "Scene 152"
+209 209  "Scene 153"
+210 210  "Scene 154"
+211 211  "Scene 155"
+212 212  "Scene 156"
+213 213  "Scene 157"
+214 214  "Scene 158"
+215 215  "Scene 159"
+216 216  "Scene 160"
+217 217  "Scene 161"
+218 218  "Scene 162"
+219 219  "Scene 163"
+220 220  "Scene 164"
+221 221  "Scene 165"
+222 222  "Scene 166"
+223 223  "Scene 167"
+224 224  "Scene 168"
+225 225  "Scene 169"
+226 226  "Scene 170"
+227 227  "Scene 171"
+228 228  "Scene 172"
+229 229  "Scene 173"
+230 230  "Scene 174"
+231 231  "Scene 175"
+232 232  "Scene 176"
+233 233  "Scene 177"
+234 234  "Scene 178"
+235 235  "Scene 179"
+236 236  "Scene 180"
+237 237  "Scene 181"
+238 238  "Scene 182"
+239 239  "Scene 183"
+240 240  "Scene 184"
+241 241  "Scene 185"
+242 242  "Scene 186"
+243 243  "Scene 187"
+244 244  "Scene 188"
+245 245  "Scene 189"
+246 246  "Scene 190"
+247 247  "Scene 191"
+248 248  "Scene 192"
+249 249  "Scene 193"
+250 250  "Scene 194"
+251 251  "Scene 195"
+252 252  "Scene 196"
+253 253  "Scene 197"
+254 254  "Scene 198"
+255 255  "Scene 199"
+REND
+

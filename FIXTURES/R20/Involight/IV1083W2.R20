@@ -1,0 +1,230 @@
+; 'Involight LED MH1083W 11 DMX', 11 DMX Channels, filename: IV1083W2.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   29-12-14   Nic Morris        Created
+;   29-12-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-12-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  IV1083W2                            mode=11 DMX  11 DMX Channels
+NAME "Involight" "LED MH1083W 11 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  11  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 11 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             128     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            128     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           2     0     0
+6     1   L    4   100   1N   0   1   "Shut Adj 1"        0     0     0
+2     1   L    5   100   1N   0   1   "Shut Op Time"      0     0     0
+6    61   L    6   100   1N   0   1   "Shut Adj 2"        0     0     0
+4     1   L    7   100   1N   0   1   "Colour Macro"     11     0     0
+1     1   H    8   100   1N   H   1   "Dimmer"          255     0     0
+4    61   L    9   100   1N   0   1   "White"             0     0     0
+9     1   L   10   100   1N   0   1   "Macro"             4     0     0
+5     1   L   11   100   1N   0   1   "Saturation"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Involight LED MH1083W
+11 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   3
+"Open"               31   2
+"Slow Strobe"        32  44
+"Fast Strobe"        33  7F
+"Closed"             38   6
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Shutter
+0   3    "Open"
+4   7    "Closed"
+8   127  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Manu %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Colour Macro
+0   22   "Open"
+23  45   "R"
+46  68   "G"
+69  91   "B"
+92  114  "W"
+115 137  "RG"
+138 160  "RB"
+161 183  "GB"
+184 206  "RGW"
+207 229  "RBW"
+230 255  "GBW"
+REND
+
+RANGE 8  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Macro
+0   7    "Open"
+8   14   "White"
+15  21   "Red"
+22  28   "Green"
+29  35   "Cyan"
+36  42   "White"
+43  49   "Macro 1"
+50  56   "Macro 2"
+57  63   "Macro 3"
+64  70   "Macro 4"
+71  77   "Macro 5"
+78  84   "Macro 6"
+85  91   "Macro 7"
+92  98   "Macro 8"
+99  105  "Macro 9"
+106 112  "Macro 10"
+113 119  "Macro 11"
+120 126  "Macro 12"
+127 133  "Macro 13"
+134 140  "Macro 14"
+141 147  "Macro 15"
+148 154  "Macro 16"
+155 161  "Macro 17"
+162 168  "Macro 18"
+169 175  "Macro 19"
+176 182  "Macro 20"
+183 189  "Macro 21"
+190 196  "Macro 22"
+197 203  "Macro 23"
+204 210  "Macro 24"
+211 217  "Macro 25"
+218 224  "Macro 26"
+225 228  "Macro 27"
+229 231  "Macro 28"
+232 255  "Moveable"
+REND
+
+RANGE 11  ;Saturation
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

@@ -1,0 +1,39 @@
+DEVICE 0_INFO
+NAME "Avolites" "Database  created on 17Oct2016"
+
+TYPE 1 0 M
+
+MIRROR 0 0 0
+
+DEVICEADDRESS
+"Personality Database"
+""
+"Created:"
+"17 Oct 2016"
+""
+"Avolites Ltd."
+""
+"Handle  %2d"h
+"Fixture %s"n
+"DMX     %03d"d
+DAEND
+
+MINDMX=1
+MAXDMX=512
+DIVBY=1
+
+DMX
+END
+
+TEXT
+Personality Database
+
+Created:
+17 Oct 2016
+
+Avolites Ltd.
+END
+
+ATTR
+Function Obsolete
+END

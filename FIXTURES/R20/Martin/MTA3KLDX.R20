@@ -1,0 +1,479 @@
+; 'Martin Atomic 3000 LED Extended', 14 DMX Channels, filename: MTA3KLDX.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   30-12-15   Nic Morris        Created
+;   08-01-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-12-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MTA3KLDX                            mode=Extended  14 DMX Channels
+NAME "Martin" "Atomic 3000 LED Extended"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Extended"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+2     1   L    2   100   1N   0   1   "Duration"          0     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           0     0     0
+9     1   L    4   100   1N   P   1   "Effect"            0     0     0
+11   61   L    5   100   1N   0   1   "Control"           0     0     0
+6     1   L    6   100   1N   0   1   "FX Sel"            0     0     0
+7     1   L    7   100   1N   0   1   "FX Adj"          127     0     0
+7    61   L    8   100   1N   0   1   "FX Sync"           0     0     0
+12   61   L    9   100   1N   0   1   "Aura Shutter"     34     0     0
+11    1   L   10   100   1N   0   1   "Aura Dimmer"       0     0     0
+20    1   L   11   100   1N   T   1   "Red"             255   255     0
+20   61   L   12   100   1N   U   1   "Green"           255   255     0
+19   61   L   13   100   1N   V   1   "Blue"            255     0   229
+4    61   L   14   100   1N   A   1   "Colour"            4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin
+Atomic 3000 LED
+Extended
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1  11  12  13
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   5
+"data"                0   C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Linear"    2   5
+"data"                0  17
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Square"    3   5
+"data"                0  18
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Inv Sq"    4   5
+"data"                0  19
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim S-Curve"   5   5
+"data"                0  1A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Video Track ON"  6   5
+"data"                0  24
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Video Track OFF"  7   5
+"data"                0  25
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display ON"    8   5
+"data"                0  34
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display OFF"   9   5
+"data"                0  35
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Auto"     10   5
+"data"                0  36
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Full"     11   5
+"data"                0  37
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Med"      12   5
+"data"                0  38
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Low"      13   5
+"data"                0  39
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Ultra Low" 14   5
+"data"                0  3A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Strobe LED"   15   5
+"data"                0  3B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Strobe Xenon" 16   5
+"data"                0  3C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Duration
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Shutter
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Effect
+0   5    "Open"
+6   42   "Open Pulse"
+43  85   "Close Pulse"
+86  128  "Pulse"
+129 171  "Random"
+172 214  "Lightning"
+215 255  "Spikes"
+REND
+
+RANGE 5  ;Control
+0   9    "Safe"
+10  14   "Reset"
+23  23   "Dim Linear"
+24  24   "Dim Square"
+25  25   "Dim Inv Sq"
+26  26   "Dim S-Curve"
+36  36   "Video Track"
+37  37   "Video Track"
+52  52   "Display ON"
+53  53   "Display OFF"
+54  54   "Fan Auto"
+55  55   "Fan Full"
+56  56   "Fan Med"
+57  57   "Fan Low"
+58  58   "Fan U-Low"
+59  59   "Strobe LED"
+60  60   "Strobe Xen"
+REND
+
+RANGE 6  ;FX Sel
+0   0    "Open"
+1   1    "Wave"
+2   2    "Step"
+3   3    "Pulse"
+6   6    "Double Strb"
+7   7    "Triple Strb"
+11  11   "Up/Dn/Flash"
+12  12   "Up/Fl/Dn/Fl"
+13  13   "Rnd Levels"
+20  20   "House Light"
+51  51   "Aura Pulse"
+54  54   "Aura Ramp"
+56  56   "Rain Wave"
+57  57   "Rain Step"
+58  58   "Rain Pulse"
+61  61   "RGB Wave"
+62  62   "RGB Step"
+63  63   "RGB Pulse"
+66  66   "CMY Wave"
+67  67   "CMY Step"
+68  68   "CMY Pulse"
+71  71   "Mix2W Wave"
+72  72   "Mix2W Step"
+73  73   "Mix2W Pulse"
+76  76   "Rnd Mx Wave"
+77  77   "Rnd Mx Step"
+78  78   "Rnd Mx Pls"
+81  81   "Rnd Sbtl Wv"
+84  84   "RWB Fade"
+85  85   "FWB Snap"
+96  96   "Fire"
+97  97   "Water"
+98  98   "Ice"
+99  99   "Hot+Cold"
+100 100  "Warm+Fuzzy"
+101 101  "Silver+Gold "
+102 102  "Gold+Silver"
+104 104  "Circ Slim"
+105 105  "Circ Wide"
+108 108  "Double Slim"
+109 109  "Double Wide"
+112 112  "Vert Scrl"
+113 113  "Horiz Scrl"
+116 116  "NiteRdr Slm"
+117 117  "NiteRdr Wde"
+118 118  "NiteRdr CW"
+120 120  "4 Seg Scrol"
+121 121  "6 Seg Scrol"
+124 124  "Police Car1"
+125 125  "Police Car2"
+126 126  "Police Car3"
+130 130  "Full Bumps"
+131 131  "Splt Bump H"
+132 132  "Splt Bump V"
+133 133  "Rnd Bump V"
+134 134  "Rnd Bump H"
+135 135  "C-Shk V"
+136 136  "C-Shk H"
+137 137  "C-Shk V noB"
+138 138  "C-Shk H noB"
+144 144  "Swim Pool"
+145 145  "Elec Arc"
+152 152  "Thunder"
+153 153  "Welding"
+154 154  "3 Step Strb"
+155 155  "Tick Tock"
+156 156  "A Rmp Bm Fl"
+157 157  "Bm Rmp A Fl"
+161 161  "Police Car4"
+162 162  "Police Car5"
+163 163  "Police Car6"
+164 164  "Police Car7"
+165 165  "Police Car8"
+166 166  "Police Car9"
+REND
+
+RANGE 7  ;FX Adj
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;FX Sync
+0   0    "No Sync"
+1   1    "Offset 10"
+2   2    "Offset 20"
+3   3    "Offset 30"
+4   4    "Offset 40"
+5   5    "Offset 50"
+6   6    "Offset 60"
+7   7    "Offset 70"
+8   8    "Offset 80"
+9   9    "Offset 90"
+10  10   "Offset 100"
+11  11   "Offset 110"
+12  12   "Offset 120"
+13  13   "Offset 130"
+14  14   "Offset 140"
+15  15   "Offset 150"
+16  16   "Offset 160"
+17  17   "Offset 170"
+18  18   "Offset 180"
+19  19   "Offset 190"
+20  20   "Offset 200"
+21  21   "Offset 210"
+22  22   "Offset 220"
+23  23   "Offset 230"
+24  24   "Offset 240"
+25  25   "Offset 250"
+26  26   "Offset 260"
+27  27   "Offset 270"
+28  28   "Offset 280"
+29  29   "Offset 290"
+30  30   "Offset 300"
+31  31   "Offset 310"
+32  32   "Offset 320"
+33  33   "Offset 330"
+34  34   "Offset 340"
+35  35   "Offset 350"
+36  36   "All Sync"
+101 120  "Rnd Start"
+121 140  "Rnd Dur"
+REND
+
+RANGE 9  ;Aura Shutter
+0   19   "Closed"
+20  49   "Open"
+50  200  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+211 255  "Rnd St %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Aura Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Colour
+0   9    "No Macro"
+11  15   "LEE 790"
+16  20   "LEE 157"
+21  25   "LEE 332"
+26  30   "LEE 328"
+31  35   "LEE 345"
+36  40   "LEE 194"
+41  45   "LEE 181"
+46  50   "LEE 071"
+51  55   "LEE 120"
+56  60   "LEE 079"
+61  65   "LEE 132"
+66  70   "LEE 200"
+71  75   "LEE 161"
+76  80   "LEE 201"
+81  85   "LEE 202"
+86  90   "LEE 117"
+91  95   "LEE 353"
+96  100  "LEE 118"
+101 105  "LEE 116"
+106 110  "LEE 124"
+111 115  "LEE 139"
+116 120  "LEE 089"
+121 125  "LEE 122"
+126 130  "LEE 738"
+131 135  "LEE 088"
+136 140  "LEE 100"
+141 145  "LEE 104"
+146 150  "LEE 179"
+151 155  "LEE 105"
+156 160  "LEE 021"
+161 165  "LEE 778"
+166 170  "LEE 135"
+171 175  "LEE 164"
+176 180  "Magenta"
+181 185  "Medium Lav"
+186 190  "White"
+191 214  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+215 219  "No Scroll"
+220 243  "Sc CCW %3d%%"(c-a)*100/(b-a)
+244 247  "Fast"
+248 251  "Medium"
+252 255  "Slow"
+REND
+

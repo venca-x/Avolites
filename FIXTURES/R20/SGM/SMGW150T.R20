@@ -1,0 +1,429 @@
+; 'SGM Giotto Synthesis 1500 19 DMX, 16bit', 19 DMX Channels, filename: SMGW150T.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   22-06-10   John Rogers       Created from SGM_Giotto Synthesis 700 Wash.d4
+;   19-04-12   Locate Fix        Updated locate, power on, highlight and lowlight values to valid values
+;   08-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-05-12   Peter Budd        Checked and corrected ranges
+;   19-06-12   Peter Budd		 Updated shutter range
+;   10-08-12   Peter Budd        corrected ranges
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SM_GW1500T                          mode=19 DMX, 16bit  19 DMX Channels
+NAME "SGM" "Giotto Synthesis 1500 19 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  19  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 19 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+2     1   L    5   100   1N   G   1   "Iris"            255     0     0
+4     1   I    6   100   1N   A   1   "Colour 1"         11     0     0
+15    1   L    7   100   1N   Q   1   "Frost"             0     0     0
+2    61   L    8   100   1N   O   1   "Shutter"         220     0     0
+1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
+15   61   L   10   100   1N   L   1   "Beam Shaper"       0     0     0
+12    1   L   11   100   1N   G   1   "Beam Shaper "      0     0     0
+18    1   L   12   100   1N   0   1   "Macro"             4     0     0
+5    61   L   13   100   1N   L   1   "Focus"           127     0     0
+5     1   L   14   100   1N   Q   1   "Zoom"            127     0     0
+10    1   L   15   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   16   100   1N   C   1   "Magenta"           0     0   255
+8    61   L   17   100   1N   0   1   "Control"          95     0     0
+9    61   L   18   100   1N   D   1   "Yellow"            0   255    51
+9     1   L   19   100   1N   0   1   "CTO"               0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+SGM
+Giotto Synthesis 1500
+19 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   8
+"Open"               31  DC
+"Slow Strobe"        32  40
+"Fast Strobe"        33  77
+"Slow Pulse"         36  A9
+"Fast Pulse"         37  B9
+"Closed"             38   4
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  15  16  18
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  7F  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Magenta"            10   0  FF   0
+"Lavender"            8  4A  91   F
+"Ultra Violet"        9  CC  FF   0
+PFEND
+
+PFTABLE "Beam"       -1  14   5   7
+"Zoom Small"         41   0  FF   0
+"Zoom Medium"        42  7F  FF   0
+"Zoom Large"         43  FF  FF   0
+"Iris Small"         44  7F   0   0
+"Iris Medium"        45  7F  7F   0
+"Iris Large"         46  7F  FF   0
+"Frost Off"          47  7F  FF   0
+"Frost Full"         48  7F  FF  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  17
+"data"                0  96
+"delay"               1  6E
+"data"                0  5F
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2  17
+"data"                0  14
+"delay"               1  6E
+"data"                0  5F
+"delay"               1   A
+MEND
+
+MACRO "Reset"         3  17
+"data"                0  FF
+"delay"               1  3C
+"data"                0  5F
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Iris
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour 1
+0   22   "Open"
+23  45   "Red"
+46  68   "Green"
+69  91   "Blue"
+92  114  "Wood"
+115 239  "Scroll %3d%%"(c-a)*100/(b-a)
+240 255  "Music"
+REND
+
+RANGE 7  ;Frost
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Shutter
+0   7    "Closed"
+8   119  "Strobe %3d%%"(c-a)*100/(b-a)
+120 152  "Music Strob"
+153 185  "Music"
+186 255  "Open"
+REND
+
+RANGE 9  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Beam Shaper
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Beam Shaper Rotate
+0   255  "Ind %3d.%d°"(c-a)*180/(b-a),10*((c-a)*180%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Macro
+0   7    "Safe"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 13  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Control
+0   10   "Safe"
+20  20   "Lamp Off"
+61  129  "Safe"
+150 150  "Lamp On"
+180 239  "Safe"
+255 255  "Reset All"
+REND
+
+RANGE 18  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;CTO
+0   255  "CTO %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

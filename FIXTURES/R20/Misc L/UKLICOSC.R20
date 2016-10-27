@@ -1,0 +1,201 @@
+; 'Light Initiative Costume Controller', 4 DMX Channels, filename: UKLICOSC.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   20-06-15   Nic Morris        Created
+;   20-06-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   20-06-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKLICOSC                            mode=4 DMX  4 DMX Channels
+NAME "Misc L" "Light Initia Costume Controller"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 4 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   L    1   100   1N   0   1   "Show ID"           8     0     0
+9    61   L    2   100   1N   0   1   "Control"           0     0     0
+11    1   L    3   100   1N   0   1   "Reserved"          0     0     0
+10    1   L    4   100   1N   0   1   "Assign PB Di"      5     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Light Initiative
+Costume Controller
+4 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Show ID
+0   15   "Show ID 0"
+16  30   "Show ID 1"
+31  45   "Show ID 2"
+46  60   "Show ID 3"
+61  75   "Show ID 4"
+76  90   "Show ID 5"
+91  105  "Show ID 6"
+106 120  "Show ID 7"
+121 135  "Show ID 8"
+136 255  "Show ID 9"
+REND
+
+RANGE 2  ;Control
+0   0    "Live"
+85  85   "Record"
+128 128  "Playback"
+240 240  "Prime"
+255 255  "Quick Rec"
+REND
+
+RANGE 4  ;Assign PB Dim
+0   10   "Full Int"
+11  11   "Assign C 11"
+12  12   "Assign C 12"
+13  13   "Assign C 13"
+14  14   "Assign C 14"
+15  15   "Assign C 15"
+16  16   "Assign C 16"
+17  17   "Assign C 17"
+18  18   "Assign C 18"
+19  19   "Assign C 19"
+20  20   "Assign C 20"
+21  21   "Assign C 21"
+22  22   "Assign C 22"
+23  23   "Assign C 23"
+24  24   "Assign C 24"
+25  25   "Assign C 25"
+26  26   "Assign C 26"
+27  27   "Assign C 27"
+28  28   "Assign C 28"
+29  29   "Assign C 29"
+30  30   "Assign C 30"
+31  31   "Assign C 31"
+32  32   "Assign C 32"
+33  33   "Assign C 33"
+34  34   "Assign C 34"
+35  35   "Assign C 35"
+36  36   "Assign C 36"
+37  37   "Assign C 37"
+38  38   "Assign C 38"
+39  39   "Assign C 39"
+40  40   "Assign C 40"
+41  41   "Assign C 41"
+42  42   "Assign C 42"
+43  43   "Assign C 43"
+44  44   "Assign C 44"
+45  45   "Assign C 45"
+46  46   "Assign C 46"
+47  47   "Assign C 47"
+48  48   "Assign C 48"
+49  49   "Assign C 49"
+50  50   "Assign C 50"
+51  51   "Assign C 51"
+52  52   "Assign C 52"
+53  53   "Assign C 53"
+54  54   "Assign C 54"
+55  55   "Assign C 55"
+56  56   "Assign C 56"
+57  57   "Assign C 57"
+58  58   "Assign C 58"
+59  59   "Assign C 59"
+60  60   "Assign C 60"
+REND
+

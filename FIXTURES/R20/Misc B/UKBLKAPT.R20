@@ -1,0 +1,215 @@
+; 'Blizzard Lighting Kaptivator', 11 DMX Channels, filename: UKBLKAPT.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   21-12-14   Nic Morris        Created
+;   21-12-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   21-12-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKBLKAPT                            mode=11 DMX  11 DMX Channels
+NAME "Unknown" "Blizzard Lighting Kaptivator"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  11  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 11 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+11    1   L    1   100   1N   0   1   "Mode"            224     0     0
+6     1   L    2   100   1N   0   1   "Pattern Sel"       0     0     0
+4     1   L    3   100   1N   A   1   "Colour"            0     0     0
+3    61   L    4   100   1N   E   1   "X Move"           64     0     0
+3     1   L    5   100   1N   F   1   "Y Move"           64     0     0
+2    61   L    6   100   1N   0   1   "X Dim"           150     0     0
+2     1   L    7   100   1N   0   1   "Y Dim"           150     0     0
+7     1   L    8   100   1N   0   1   "Rotation"          0     0     0
+5     1   L    9   100   1N   Q   1   "Zoom"              0     0     0
+8     1   L   10   100   1N   0   1   "Drawing"          32     0     0
+8    61   L   11   100   1N   0   1   "Rolling"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Blizzard Lighting
+Kaptivator
+11 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Mode
+0   63   "Laser Off"
+64  95   "Sound Beam"
+96  127  "Sound Singl"
+128 159  "Auto Beam"
+160 191  "Auto Single"
+192 255  "DMX"
+REND
+
+RANGE 2  ;Pattern Sel
+0   239  "Patt %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 255  "Anim %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 3  ;Colour
+0   1    "Laser Off"
+2   69   "Macro 1"
+70  79   "Macro 2"
+80  89   "Macro 3"
+90  99   "Macro 4"
+100 109  "Macro 5"
+110 119  "Macro 6"
+120 129  "Macro 7"
+130 139  "Macro 8"
+140 179  "Macro 9"
+180 219  "Macro 10"
+220 255  "Macro 11"
+REND
+
+RANGE 4  ;X Move
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 160  "Left %3d%%"(c-a)*100/(b-a)
+161 192  "Right %3d%%"(c-a)*100/(b-a)
+193 224  "L/R  %3d%%"(c-a)*100/(b-a)
+225 239  "Jump %3d%%"(c-a)*100/(b-a)
+240 247  "Prism %3d%%"(c-a)*100/(b-a)
+248 255  "Obliq %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Y Move
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 160  "Up %3d%%"(c-a)*100/(b-a)
+161 192  "Down %3d%%"(c-a)*100/(b-a)
+193 224  "Up/Dn %3d%%"(c-a)*100/(b-a)
+225 239  "Sq 1 %3d%%"(c-a)*100/(b-a)
+240 247  "Sq 2 %3d%%"(c-a)*100/(b-a)
+248 255  "Obliq %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;X Dim
+0   150  "Man %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+151 255  "Auto %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Y Dim
+0   150  "Man %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+151 255  "Auto %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Rotation
+0   180  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+181 224  "Sp CW  %3d%%"(c-a)*100/(b-a)
+225 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Zoom
+0   159  "Man %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+160 191  "Auto + %3d%%"(c-a)*100/(b-a)
+192 223  "Auto - %3d%%"(c-a)*100/(b-a)
+224 255  "Auto+- %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Drawing
+0   64   "Manual"
+65  255  "Auto"
+REND
+
+RANGE 11  ;Rolling
+0   128  "Y %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 255  "X %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

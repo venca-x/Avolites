@@ -1,0 +1,239 @@
+; 'Martin Roboscan Pro 218 MkII Mode 2', 8 DMX Channels, filename: MTRP2182.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   04-12-03   Oliver Waits      Created
+;   04-12-03   Greg Brown        Checked
+;   18-12-03   Greg Brown        Tested on Fixture by client, and changes made
+;   09-02-04   Lena Gallagher    Error Found 1. Reset Macro - Should reset 253-255
+;   09-02-04   Lena Gallagher    Error Found 2. Shutter - Should locate 6-120 (Locate)
+;   09-02-04   Lena Gallagher    Error Found 3. Dimmer - Needs working to meet values on datasheet
+;   09-02-04   Lena Gallagher    Error Found 4. colour - Value error
+;   09-02-04   Lena Gallagher    Error Found 5. Speed PT - Speed interval fast to slow
+;   01-11-04   Phil Rogers       Shortened short name
+;   06-04-06   Ed                Moved gobo func into gobo group
+;   18-07-06   D4 Pers Fixer     Updated Colour ID to Colour1
+;   18-07-06   D4 Pers Fixer     Updated Pan Power on to Locate value
+;   18-07-06   D4 Pers Fixer     Updated Tilt Power on to Locate value
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   30-03-12   Peter Budd        Updated fixture type from nothing to fixed
+;   05-08-13   Peter Budd        Created from the Martin Roboscan Pro 218.
+;   05-08-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_RP2182_2                         mode=Mode 2  8 DMX Channels
+NAME "Martin" "Roboscan Pro 218 MkII Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"           6     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+4     1   I    3   100   1N   A   1   "Colour"          246     0     0
+6     1   I    4   100   1N   I   1   "Gobo"            247     0     0
+3    61   L    5   100   1N   E   1   "Pan"             128     0     0
+3     1   L    6   100   1N   F   1   "Tilt"            128     0     0
+8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L    8   100   1N   0   1   "Speed"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin
+Roboscan Pro 218 MkII
+Mode 2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   1
+"data"                0   6
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   5    "Closed"
+5   6    "Open"
+81  208  "Strob %2d Hz"(c-a)*50/(b-a)
+209 230  "Auto"
+231 252  "Music"
+253 255  "Reset"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Colour
+0   10   "Op/FlR %3d%%"(c-a)*100/(b-a)
+11  22   "Fl Rd/ %3d%%"(c-a)*100/(b-a)
+22  33   "Lt Bl/ %3d%%"(c-a)*100/(b-a)
+33  44   "Frn Gr %3d%%"(c-a)*100/(b-a)
+44  55   "Yell/G %3d%%"(c-a)*100/(b-a)
+55  66   "Grn/Ma %3d%%"(c-a)*100/(b-a)
+66  77   "Mauve/ %3d%%"(c-a)*100/(b-a)
+77  88   "Dk Bl/ %3d%%"(c-a)*100/(b-a)
+88  99   "Cyan/R %3d%%"(c-a)*100/(b-a)
+99  110  "Red/Lt %3d%%"(c-a)*100/(b-a)
+110 121  "Lt Or/ %3d%%"(c-a)*100/(b-a)
+121 132  "Lt Grn %3d%%"(c-a)*100/(b-a)
+132 143  "Amber/ %3d%%"(c-a)*100/(b-a)
+143 154  "Pnk/Dk %3d%%"(c-a)*100/(b-a)
+154 165  "Dk Lav %3d%%"(c-a)*100/(b-a)
+165 176  "Dk Or/ %3d%%"(c-a)*100/(b-a)
+176 187  "M1/M2 %3d%%"(c-a)*100/(b-a)
+187 190  "Multicolour"
+191 193  "Multicolour"
+194 196  "Dark Orange"
+197 199  "Dark Lavend"
+200 202  "Pink"
+203 205  "Amber"
+206 208  "Light Green"
+209 211  "Light Orang"
+212 214  "Red"
+215 217  "Cyan"
+218 220  "Deep Blue"
+221 223  "Mauve"
+224 226  "Green"
+227 229  "Yellow"
+230 232  "Fern Green"
+233 235  "Light Blue"
+236 238  "Flame Red"
+237 255  "Open"
+REND
+
+RANGE 4  ;Gobo
+187 190  "Turbine"
+191 193  "Window"
+194 196  "Bars"
+197 199  "Dot Circle"
+200 202  "Raster/Dot"
+203 205  "Flash"
+206 208  "Cone/Flash"
+209 211  "Bells/Cone"
+212 214  "Dots"
+215 217  "Star"
+218 220  "Triangle"
+221 223  "Cone/Tri"
+224 226  "Arrow"
+227 229  "Horizontal "
+230 232  "Vertical Ba"
+233 235  "Dot"
+236 238  "Half"
+239 255  "Open"
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;P/T Speed
+0   0    "Tracking"
+1   251  "%3d%%"100-((c-a)*100/(b-a))
+252 255  "BO on Chang"
+REND
+
+RANGE 8  ;Speed
+0   251  "%3d%%"100-((c-a)*100/(b-a))
+252 255  "Fast"
+REND
+

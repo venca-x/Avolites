@@ -1,0 +1,353 @@
+; "Amptown ControLite PML Zoom With Shutters", 23 DMX channels, filename :AmPMLZom.r20
+;
+;  05-04-07     D.Milligan     Created from PML Zoom
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  AMP_PMLZmFS                                   29 DMX channels
+NAME "Amptown Controlite" "PML Zoom, Framing Shutters"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE   1   29   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  440 270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=484
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+1   1   H   1   100 1N H  1  "Dimmer"     255  255  255
+2  61   I   2   100 1N O  1  "Shutter"    255  255  255
+3  61   s   3   100 1N E  1  "Pan"        128    0    0
+0   0   L   4   100 1N E  1  "Pan Low"    128    0    0
+3   1   s   5   100 1N F  1  "Tilt"       128    0    0
+0   0   L   6   100 1N F  1  "Tilt Low"   128    0    0
+9  61   L   7   100 1N D  1  "Yellow"       0    0    0
+10 61   L   8   100 1N C  1  "Magenta"      0    0    0
+10  1   L   9   100 1N B  1  "Cyan"         0    0    0
+4  61   I  10   100 1N 0  1  "CTO"          0    0    0
+4   1   I  11   100 1N A  1  "Color"        0    0    0
+6   1   I  12   100 1N I  1  "Gobo1"        0    0    0
+7   1   I  13   100 1N K  1  "Gobo 1 Rot"   0    0    0
+2   1   L  14   100 1I G  1  "Iris"       255    0    0
+19  1   I  15   100 1N P  1  "Prism"        0    0    0
+19 61   L  16   100 1N o  1  "Prism Rot"    0    0    0
+9   1   I  17   100 1N S  1  "Frost"        0    0    0
+11  1   I  18   100 1N 0  1  "Lens"         0    0    0
+5   1   L  19   100 1N Q  1  "Zoom"       128  128  128
+5  61   L  20   100 1N L  1  "Focus"      128    0    0
+15  1   L  21   100 1N 0  1  "Frame 1"      0    0    0
+15 61   L  22   100 1N 0  1  "F1 Angle"     0    0    0
+16  1   L  23   100 1N 0  1  "Frame 2"      0    0    0
+16 61   L  24   100 1N 0  1  "F2 Angle"     0    0    0
+17  1   L  25   100 1N 0  1  "Frame 3"      0    0    0
+17 61   L  26   100 1N 0  1  "F3 Angle"     0    0    0
+18  1   L  27   100 1N 0  1  "Frame 4"      0    0    0
+18 61   L  28   100 1N 0  1  "F4 Angle"     0    0    0
+20  1   I  29   100 1N 0  1  "Control"      0    0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Amptown
+PML Zoom with Framing
+29 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+PFTABLE "Positions" -1 3   5
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; A color table,       cyan,  yellow, magenta
+PFTABLE "Color" 29       9       7       8
+"White"          1      ff      ff      ff
+"Red"            2      80      22       6
+"Amber"          3      b3       2      37
+"Yellow"         4      ff      19      dc
+"Green"          5      24      2e      f4
+"Cyan"           6      23      7c      f5
+"Blue"           7      21      f7      2c
+"Lavender"       8      49      fc      1c
+"UltraViolet"    9       0      86       4
+"Magenta"       10      86      6c       0
+"lee 101"	-1	FF	 0	D8
+"lee 102"	-1	EA	1D	BE
+"lee 103"	-1	FF	5D	D7
+"lee 104"	-1	FF	0	C6
+"lee 105"	-1	F5	2C	9A
+"lee 106"	-1	94	10	10
+"lee 107"	-1	FF	70	B2
+"lee 108"	-1	FF	38	B5
+"lee 109"	-1	FF	58	B9
+"lee 110"	-1	FF	58	AE
+"lee 111"	-1	FF	4C	4D
+"lee 113"	-1	F6	33	0
+"lee 115"	-1	23	2D	FD
+"lee 116"	-1	0	31	EC
+"lee 117"	-1	C8	83	F9
+"lee 118"	-1	20	61	F8
+"lee 119"	-1	C	EF	D8
+"lee 120"	-1	0	F1	98
+"lee 121"	-1	B3	1	FF
+"lee 122"	-1	63	14	FF
+"lee 124"	-1	1E	0	E2
+"lee 126"	-1	FA	D1	D
+"lee 127"	-1	E3	3E	40
+"lee 128"	-1	FF	81	2
+"lee 129"	-1	0	0	0
+"lee 130"	-1	FF	FF	FF
+"lee 131"	-1	3B	2E	D9
+"lee 132"	-1	1F	DA	FF
+"lee 134"	-1	FF	21	81
+"lee 135"	-1	FF	0	1B
+"lee 136"	-1	FF	B8	D6
+"lee 137"	-1	D8	B8	D2
+"lee 138"	-1	D7	33	E9
+"lee 139"	-1	27	0	FA
+"lee 140"	-1	79	57	F4
+"lee 141"	-1	1C	73	F8
+"lee 142"	-1	87	87	C1
+"lee 143"	-1	3A	51	D3
+"lee 144"	-1	44	56	E0
+"lee 145"	-1	0	0	0
+"lee 147"	-1	F5	2C	9A
+"lee 148"	-1	E5	28	1B
+"lee 151"	-1	FB	96	C9
+"lee 152"	-1	FB	59	D0
+"lee 153"	-1	FB	59	C3
+"lee 154"	-1	FB	59	CE
+"lee 156"	-1	F2	35	AB
+"lee 158"	-1	FF	15	41
+"lee 159"	-1	FF	90	E0
+"lee 161"	-1	8C	C4	E2
+"lee 162"	-1	FF	7B	D9
+"lee 164"	-1	45	AA	E2
+"lee 165"	-1	61	BE	F1
+"lee 166"	-1	F7	28	28
+"lee 169"	-1	FF	B4	E0
+"lee 170"	-1	C8	71	AD
+"lee 172"	-1	1A	4A	F0
+"lee 174"	-1	DD	D8	EE
+"lee 176"	-1	EF	46	82
+"lee 179"	-1	FF	0	B0
+"lee 180"	-1	57	B5	48
+"lee 181"	-1	0	C4	21
+"lee 182"	-1	D7	0	0
+"lee 183"	-1	7	60	F3
+"lee 184"	-1	0	0	0
+"lee 185"	-1	0	0	0
+"lee 186"	-1	0	0	0
+"lee 187"	-1	0	0	0
+"lee 188"	-1	0	0	0
+"lee 189"	-1	0	0	0
+"lee 190"	-1	0	0	0
+PFEND
+
+; Macros
+
+MACRO "Lamp On"       1  29
+"data"                0  4C
+"delay"               1  60
+"data"                0  00
+MEND
+
+MACRO "Lamp Off"      2  29
+"data"                0  7E
+"delay"               1  60
+"data"                0  00
+MEND
+
+MACRO "Reset Servo"   3  29
+"data"                0  CA
+"delay"               1  60
+"data"                0  00
+MEND
+
+MACRO "Reset Step"    4  29
+"data"                0  CC
+"delay"               1  60
+"data"                0  00
+MEND
+
+MACRO "Reset S&S"     5  29
+"data"                0  CB
+"delay"               1  60
+"data"                0  00
+MEND
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 2  ;Shutter
+0   10   "Closed"
+11  210  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+211 240  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+241 255  "Open"
+REND
+
+RANGE 11  ;Colour 1
+0   0    "Open"
+1   43   "Op/C1 %3d%%"0+(((c-a)*100)/(b-a))
+44  44   "Colour 1"
+45  87   "C1/C2 %3d%%"0+(((c-a)*100)/(b-a))
+88  88   "Colour 2"
+89  131  "C2/C3 %3d%%"0+(((c-a)*100)/(b-a))
+132 132  "Colour 3"
+133 176  "C3/C4 %3d%%"0+(((c-a)*100)/(b-a))
+177 177  "Colour 4"
+178 219  "C4/Op %3d%%"0+(((c-a)*100)/(b-a))
+220 220  "Open"
+REND
+
+RANGE 22  ;F1 Angle
+0   0    "Open"
+1   60   "Op/Lf %3d%%"0+(((c-a)*100)/(b-a))
+61  66   "Left"
+67  126  "Lf/Op %3d%%"100-(((c-a)*100)/(b-a))
+127 188  "Op/Rt %3d%%"0+(((c-a)*100)/(b-a))
+189 194  "Right"
+195 255  "Rt/Op %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 24  ;F2 Angle
+0   0    "Open"
+1   60   "Op/Lf %3d%%"0+(((c-a)*100)/(b-a))
+61  66   "Left"
+67  126  "Lf/Op %3d%%"100-(((c-a)*100)/(b-a))
+127 188  "Op/Rt %3d%%"0+(((c-a)*100)/(b-a))
+189 194  "Right"
+195 255  "Rt/Op %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 26  ;F3 Angle
+0   0    "Open"
+1   60   "Op/Lf %3d%%"0+(((c-a)*100)/(b-a))
+61  66   "Left"
+67  126  "Lf/Op %3d%%"100-(((c-a)*100)/(b-a))
+127 188  "Op/Rt %3d%%"0+(((c-a)*100)/(b-a))
+189 194  "Right"
+195 255  "Rt/Op %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 28  ;F4 Angle
+0   0    "Open"
+1   60   "Op/Lf %3d%%"0+(((c-a)*100)/(b-a))
+61  66   "Left"
+67  126  "Lf/Op %3d%%"100-(((c-a)*100)/(b-a))
+127 188  "Op/Rt %3d%%"0+(((c-a)*100)/(b-a))
+189 194  "Right"
+195 255  "Rt/Op %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 29  ;Control
+0   50   "Safe"
+51  100  "Lamp On"
+101 150  "Lamp Off"
+151 175  "LED On"
+176 200  "LED Off"
+201 201  "Safe"
+202 202  "Reset Servo"
+203 203  "Reset S&S"
+204 204  "Reset Step"
+205 255  "Safe"
+REND
+

@@ -1,0 +1,283 @@
+; 'Gele GL-1200YB', 24 DMX Channels, filename: UKG120YB.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   15-05-13   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-08-13   Peter Budd        Corrected ranges.
+;   28-02-14   Nic Morris        Changed manufacturer name to 'Unknown'
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_Gl1200YB                         mode=Mode 1  24 DMX Channels
+NAME "Misc G" "Gele GL-1200YB"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  24  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=488
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+5     1   L    1   100   1N   G   1   "Iris"            128     0     0
+4    61   L    2   100   1N   A   1   "Colour"          0     0     0
+1     1   H    3   100   1N   H   1   "Dimmer"          128     0     0
+2    61   L    4   100   1N   O   1   "Strobe"          232     0     0
+3    61   s    5   100   1N   E   1   "Pan"             128     0     0
+0     0   L    7   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    8   100   1N   F   1   "Tilt Low"        128     0     0
+8    61   L    9   100   1N   0   1   "P/T Speed"       100     0     0
+6     1   I   10   100   1N   I   1   "Gobo 1"          0     0     0
+6    61   I   11   100   1N   J   1   "Gobo 2"          0     0     0
+7    61   L   12   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+9     1   I   13   100   1N   P   1   "Prism"            13     0     0
+7     1   L   14   100   1N   R   1   "Prism Rot"         0     0     0
+5    61   L   15   100   1N   L   1   "Zoom"            127     0     0
+2     1   L   16   100   1N   G   1   "Focus"           127     0     0
+4     1   I   17   100   1N   A   1   "CMY"               0     0     0
+8     1   L   18   100   1N   0   1   "CMY Speed"       255     0     0
+10    1   L   19   100   1N   B   1   "Cyan"              0     0   227
+10   61   L   20   100   1N   C   1   "Magenta"           0     0   227
+9    61   L   21   100   1N   D   1   "Yellow"            0   227    45
+15    1   L   22   100   1N   S   1   "Frost"             0     0     0
+20    1   L   23   100   1N   0   1   "Lamp On-Off"     252     0     0
+20   61   L   24   100   1N   0   1   "Reset"           238     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Gele GL-1200YB
+Mode 1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Iris
+0   128  "Smal %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 167  "Big  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+168 208  "Smal %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+209 249  "Big  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+250 255  "Bigg %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Colour
+0   8    "Open"
+9   16   "Red"
+17  24   "Yellow"
+25  32   "Purple"
+33  40   "Green"
+41  48   "Orange"
+49  56   "Baby Blue"
+57  63   "Pink"
+64  65   "Pink/Op"
+72  73   "Pink/Blue"
+80  81   "Blue/Oran"
+88  89   "Orange/Gr"
+90  96   "Green/Pur"
+104 105  "Purple/Ye"
+113 120  "Yellow/Re"
+121 128  "Red/White"
+129 189  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+190 249  "Sc CCW %3d%%"(c-a)*100/(b-a)
+250 255  "Fast R %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 3  ;Dimmer
+0   128  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 255  "Full %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Strobe
+0   55   "Strobe %3d%%"(c-a)*100/(b-a)
+56  207  "Strobe %3d%%"(c-a)*100/(b-a)
+208 255  "Open"
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Gobo 1
+0   13   "Open"
+14  26   "Snow"
+27  39   "Water Wave"
+40  52   "Stars"
+53  63   "Sunflo %3d%%"(c-a)*100/(b-a)
+64  73   "Sunflo %3d%%"(c-a)*100/(b-a)
+74  83   "Stars  %3d%%"(c-a)*100/(b-a)
+84  93   "Water  %3d%%"(c-a)*100/(b-a)
+94  103  "Snow S %3d%%"100-((c-a)*100/(b-a))
+104 140  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+141 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 11  ;Gobo 2
+0   13   "Open"
+14  26   "Clouds"
+27  39   "Two Circle"
+40  52   "Roseo"
+53  63   "Spray"
+64  73   "Open"
+74  83   "Spray  %3d%%"(c-a)*100/(b-a)
+84  93   "Roseo  %3d%%"(c-a)*100/(b-a)
+94  103  "Two Ci %3d%%"(c-a)*100/(b-a)
+104 113  "Cloud  %3d%%"100-((c-a)*100/(b-a))
+114 150  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+151 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 12  ;Gobo 2 Rot
+0   128  "Index %3d%%"(c-a)*100/(b-a)
+129 192  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+193 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 13  ;Prism
+0   26   "Open"
+27  52   "4 Prism"
+53  78   "Strip Mirro"
+79  104  "Cylinder Mi"
+105 129  "Blur"
+130 191  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 14  ;Prism Rot
+0   128  "Orient %3d%%"(c-a)*100/(b-a)
+129 192  "Sp CW %3d%%"(c-a)*100/(b-a)
+193 255  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 15  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;CMY
+0   199  "Color Mix"
+200 255  "Col Scroll"
+REND
+
+RANGE 19  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Frost
+0   255  "Fog %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Lamp On-Off
+216 230  "Lamp Off"
+248 255  "Lamp On"
+REND
+
+RANGE 24  ;Reset
+232 245  "Reset All"
+REND
+

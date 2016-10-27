@@ -1,0 +1,447 @@
+; 'Chauvet Rogue R1 FX-B Basic', 18 DMX Channels, filename: CHR1FXB1.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   09-01-16   Nic Morris        Created
+;   10-03-16   Nic Morris        Created from Chauvet MKX1 (dev only)
+;   10-03-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   10-03-16   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CHR1FXB1                            mode=Basic  18 DMX Channels
+NAME "Chauvet" "Rogue R1 FX-B Basic"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  18  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Basic"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=494
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             128     0     0
+5     1   L    2   100   1N   0   1   "Pan Spin"          0     0     0
+3     1   L    3   100   1N   F   1   "Tilt"            128     0     0
+5    61   L    4   100   1N   0   1   "Tilt Spin"         0     0     0
+15   61   L    5   100   1N   0   1   "Tilt Offset"       0     0     0
+13    1   L    6   100   1N   0   1   "Tilt Macro"        0     0     0
+13   61   L    7   100   1N   0   1   "Tilt Mac Spd"    128     0     0
+11    1   L    8   100   1N   0   1   "Control"           0     0     0
+1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L   10   100   1N   O   1   "Shutter"          22     0     0
+4     1   L   11   100   1N   0   1   "Colour Macro"      0     0     0
+6     1   L   12   100   1N   0   1   "LED"               2     0     0
+7     1   L   13   100   1N   0   1   "LED Macro"         0     0     0
+8     1   L   14   100   1N   0   1   "LED Mac Spd"     127     0     0
+10    1   L   15   100   1N   T   1   "Red"             255   255     0
+10   61   L   16   100   1N   U   1   "Green"           255   255     0
+9    61   L   17   100   1N   V   1   "Blue"            255     0   229
+9     1   L   18   100   1N   0   1   "White"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet Rogue R1 FX-B
+Basic
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  10
+"Open"               31  16
+"Slow Strobe"        32  2C
+"Fast Strobe"        33  19
+"Slow Pulse"         36  4D
+"Fast Pulse"         37  46
+"Closed"             38   A
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  15  16  17
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset Pan"     1   8
+"data"                0  39
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Tilt"    2   8
+"data"                0  3E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset All"     3   8
+"data"                0  48
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Fast"      4   8
+"data"                0  89
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Smooth"    5   8
+"data"                0  8E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Pan Spin
+0   0    "Safe"
+1   127  "CW  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 128  "Stop"
+129 255  "CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Tilt Spin
+0   0    "Safe"
+1   127  "CW  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 128  "Stop"
+129 255  "CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt Macro
+0   47   "Safe"
+48  55   "Macro 1"
+56  63   "Macro 2"
+64  71   "Macro 3"
+72  79   "Macro 4"
+80  87   "Macro 5"
+88  95   "Macro 6"
+96  103  "Macro 7"
+104 111  "Macro 8"
+112 119  "Macro 9"
+120 127  "Macro 10"
+128 135  "Macro 11"
+136 143  "Macro 12"
+144 151  "Macro 13"
+152 159  "Macro 14"
+160 167  "Macro 15"
+168 175  "Macro 16"
+176 183  "Macro 17"
+184 191  "Macro 18"
+192 199  "Macro 19"
+200 207  "Macro 20"
+208 215  "Macro 21"
+216 223  "Macro 22"
+224 231  "Macro 23"
+232 239  "Macro 24"
+240 247  "Macro 25"
+248 255  "Macro 26"
+REND
+
+RANGE 7  ;Tilt Mac Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 8  ;Control
+0   9    "Safe"
+10  14   "Tilt BO"
+15  19   "Tilt Stop"
+20  24   "1 Fix Mac"
+25  29   "2 Fix Mac 1"
+30  34   "2 Fix Mac 2"
+35  39   "4 Fix Mac 1"
+40  44   "4 Fix Mac 2"
+45  49   "4 Fix Mac 3"
+50  54   "4 Fix Mac 4"
+55  59   "Reset Pan"
+60  64   "Reset Tilt"
+70  74   "Reset All"
+80  84   "P/T Invert"
+85  89   "Pan Invert"
+90  94   "Tilt Invert"
+95  99   "Pan Normal"
+100 104  "Tilt Normal"
+105 109  "P/T Normal"
+115 119  "Single Head"
+120 124  "Individual "
+135 139  "Dim Fast"
+140 144  "Dim Smooth"
+REND
+
+RANGE 9  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Shutter
+0   19   "Closed"
+20  24   "Open"
+25  64   "Strobe %3d%%"100-((c-a)*100/(b-a))
+70  84   "Op Pls %3d%%"100-((c-a)*100/(b-a))
+90  104  "Cl Pls %3d%%"100-((c-a)*100/(b-a))
+110 124  "Rnd St %3d%%"100-((c-a)*100/(b-a))
+130 144  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+150 164  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+170 184  "Pulse %3d%%"100-((c-a)*100/(b-a))
+190 204  "Rnd Pl %3d%%"100-((c-a)*100/(b-a))
+210 224  "Pulse %3d%%"100-((c-a)*100/(b-a))
+230 244  "Rnd Pl %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;Colour Macro
+0   13   "Open"
+14  21   "Colour 1"
+22  29   "Colour 2"
+30  37   "Colour 3"
+38  45   "Colour 4"
+46  53   "Colour 5"
+54  61   "Colour 6"
+62  69   "Colour 7"
+70  77   "Colour 8"
+78  85   "Colour 9"
+86  93   "Colour 10"
+94  101  "Colour 11"
+102 109  "Colour 12"
+110 117  "Colour 13"
+118 125  "Colour 14"
+126 133  "Colour 15"
+134 185  "Open"
+186 207  "Sc CW  %3d%%"(c-a)*100/(b-a)
+208 213  "No Scroll"
+214 235  "Sc CCW %3d%%"100-((c-a)*100/(b-a))
+236 240  "Open"
+241 255  "Jump %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 12  ;LED
+0   5    "All On"
+6   11   "2,3,4,5"
+12  17   "3,4,5"
+18  23   "4,5"
+24  29   "5"
+30  35   "All Off"
+36  41   "1"
+42  47   "1,2"
+48  53   "1,2,3"
+54  59   "1,2,3,4"
+60  65   "All On"
+66  71   "All Off"
+72  77   "1"
+78  83   "2"
+84  89   "3"
+90  95   "4"
+96  101  "5"
+102 107  "All Off"
+108 113  "1,2"
+114 119  "2,3"
+120 125  "3,4"
+126 131  "4,5"
+132 137  "1,5"
+138 143  "All Off"
+144 149  "2,3,4,5"
+150 155  "1,3,4,5"
+156 161  "1,2,4,5"
+162 167  "1,2,3,5"
+168 173  "1,2,3,4"
+174 179  "All Off"
+180 185  "5"
+186 191  "4,5"
+192 197  "3,4,5"
+198 203  "2,3,4,5"
+204 209  "All On"
+210 215  "All Off"
+216 221  "1,2,3"
+222 227  "2,3,4"
+228 233  "3,4,5"
+234 239  "1,4,5"
+240 245  "1,2,5"
+246 255  "All On"
+REND
+
+RANGE 13  ;LED Macro
+0   15   "Safe"
+16  20   "Macro 1"
+21  25   "Macro 2"
+26  30   "Macro 3"
+31  35   "Macro 4"
+36  40   "Macro 5"
+41  45   "Macro 6"
+46  50   "Macro 7"
+51  55   "Macro 8"
+56  60   "Macro 9"
+61  65   "Macro 10"
+66  70   "Macro 11"
+71  75   "Macro 12"
+76  80   "Macro 13"
+81  85   "Macro 14"
+86  90   "Macro 15"
+91  95   "Macro 16"
+96  100  "Macro 17"
+101 105  "Macro 18"
+106 110  "Macro 19"
+111 115  "Macro 20"
+116 120  "Macro 21"
+121 125  "Macro 22"
+126 130  "Macro 23"
+131 135  "Macro 24"
+136 140  "Auto 1"
+141 145  "Auto 2"
+146 150  "Auto 3"
+151 155  "Auto 4"
+156 160  "Auto 5"
+161 165  "Auto 6"
+166 170  "Auto 7"
+171 175  "Auto 8"
+176 180  "Auto 9"
+181 185  "Auto 10"
+186 190  "Auto 11"
+191 195  "Auto 12"
+196 200  "Auto 13"
+201 205  "Auto 14"
+206 210  "Auto 15"
+211 215  "Auto 16"
+216 220  "Auto 17"
+221 225  "Auto 18"
+226 230  "Auto 19"
+231 235  "Auto 20"
+236 240  "Auto 21"
+241 245  "Auto 22"
+246 250  "Auto 23"
+251 255  "Auto 24"
+REND
+
+RANGE 14  ;LED Mac Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

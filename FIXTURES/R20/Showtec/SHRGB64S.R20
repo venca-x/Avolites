@@ -1,0 +1,419 @@
+; 'Showtec LED PAR64S', 7 DMX Channels, filename: SHRGB64S.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   15-02-07   D.Milligan        Created from LED Par 575
+;   15-02-07   D.Milligan        Checked
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   23-05-12   Alessandro Fantin Created
+;   23-05-12   Peter Budd        Checked
+;   23-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SH_RGBPR64S                         mode=7 DMX, 8bit  7 DMX Channels
+NAME "Showtec" "LED PAR64S"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 7 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
+4     1   L    4   100   1N   0   1   "Macro"             8     0     0
+8     1   L    5   100   1N   0   1   "Speed/Strobe"      8     0     0
+8    61   L    6   100   1N   0   1   "Control"          31     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec LED PAR64S
+7 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   1   2   3
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Macro
+0   15   "Safe"
+16  16   "Macro 1"
+17  17   "Macro 2"
+18  18   "Macro 3"
+19  19   "Macro 4"
+20  20   "Macro 5"
+21  21   "Macro 6"
+22  22   "Macro 7"
+23  23   "Macro 8"
+24  24   "Macro 9"
+25  25   "Macro 10"
+26  26   "Macro 11"
+27  27   "Macro 12"
+28  28   "Macro 13"
+29  29   "Macro 14"
+30  30   "Macro 15"
+31  31   "Macro 16"
+32  32   "Macro 17"
+33  33   "Macro 18"
+34  34   "Macro 19"
+35  35   "Macro 20"
+36  36   "Macro 21"
+37  37   "Macro 22"
+38  38   "Macro 23"
+39  39   "Macro 24"
+40  40   "Macro 25"
+41  41   "Macro 26"
+42  42   "Macro 27"
+43  43   "Macro 28"
+44  44   "Macro 29"
+45  45   "Macro 30"
+46  46   "Macro 31"
+47  47   "Macro 32"
+48  48   "Macro 33"
+49  49   "Macro 34"
+50  50   "Macro 35"
+51  51   "Macro 36"
+52  52   "Macro 37"
+53  53   "Macro 38"
+54  54   "Macro 39"
+55  55   "Macro 40"
+56  56   "Macro 41"
+57  57   "Macro 42"
+58  58   "Macro 43"
+59  59   "Macro 44"
+60  60   "Macro 45"
+61  61   "Macro 46"
+62  62   "Macro 47"
+63  63   "Macro 48"
+64  64   "Macro 49"
+65  65   "Macro 50"
+66  66   "Macro 51"
+67  67   "Macro 52"
+68  68   "Macro 53"
+69  69   "Macro 54"
+70  70   "Macro 55"
+71  71   "Macro 56"
+72  72   "Macro 57"
+73  73   "Macro 58"
+74  74   "Macro 59"
+75  75   "Macro 60"
+76  76   "Macro 61"
+77  77   "Macro 62"
+78  78   "Macro 63"
+79  79   "Macro 64"
+80  80   "Macro 65"
+81  81   "Macro 66"
+82  82   "Macro 67"
+83  83   "Macro 68"
+84  84   "Macro 69"
+85  85   "Macro 70"
+86  86   "Macro 71"
+87  87   "Macro 72"
+88  88   "Macro 73"
+89  89   "Macro 74"
+90  90   "Macro 75"
+91  91   "Macro 76"
+92  92   "Macro 77"
+93  93   "Macro 78"
+94  94   "Macro 79"
+95  95   "Macro 80"
+96  96   "Macro 81"
+97  97   "Macro 82"
+98  98   "Macro 83"
+99  99   "Macro 84"
+100 100  "Macro 85"
+101 101  "Macro 86"
+102 102  "Macro 87"
+103 103  "Macro 88"
+104 104  "Macro 89"
+105 105  "Macro 90"
+106 106  "Macro 91"
+107 107  "Macro 92"
+108 108  "Macro 93"
+109 109  "Macro 94"
+110 110  "Macro 95"
+111 111  "Macro 96"
+112 112  "Macro 97"
+113 113  "Macro 98"
+114 114  "Macro 99"
+115 115  "Macro 100"
+116 116  "Macro 101"
+117 117  "Macro 102"
+118 118  "Macro 103"
+119 119  "Macro 104"
+120 120  "Macro 105"
+121 121  "Macro 106"
+122 122  "Macro 107"
+123 123  "Macro 108"
+124 124  "Macro 109"
+125 125  "Macro 110"
+126 126  "Macro 111"
+127 127  "Macro 112"
+128 128  "Macro 113"
+129 129  "Macro 114"
+130 130  "Macro 115"
+131 131  "Macro 116"
+132 132  "Macro 117"
+133 133  "Macro 118"
+134 134  "Macro 119"
+135 135  "Macro 120"
+136 136  "Macro 121"
+137 137  "Macro 122"
+138 138  "Macro 123"
+139 139  "Macro 124"
+140 140  "Macro 125"
+141 141  "Macro 126"
+142 142  "Macro 127"
+143 143  "Macro 128"
+144 144  "Macro 129"
+145 145  "Macro 130"
+146 146  "Macro 131"
+147 147  "Macro 132"
+148 148  "Macro 133"
+149 149  "Macro 134"
+150 150  "Macro 135"
+151 151  "Macro 136"
+152 152  "Macro 137"
+153 153  "Macro 138"
+154 154  "Macro 139"
+155 155  "Macro 140"
+156 156  "Macro 141"
+157 157  "Macro 142"
+158 158  "Macro 143"
+159 159  "Macro 144"
+160 160  "Macro 145"
+161 161  "Macro 146"
+162 162  "Macro 147"
+163 163  "Macro 148"
+164 164  "Macro 149"
+165 165  "Macro 150"
+166 166  "Macro 151"
+167 167  "Macro 152"
+168 168  "Macro 153"
+169 169  "Macro 154"
+170 170  "Macro 155"
+171 171  "Macro 156"
+172 172  "Macro 157"
+173 173  "Macro 158"
+174 174  "Macro 159"
+175 175  "Macro 160"
+176 176  "Macro 161"
+177 177  "Macro 162"
+178 178  "Macro 163"
+179 179  "Macro 164"
+180 180  "Macro 165"
+181 181  "Macro 166"
+182 182  "Macro 167"
+183 183  "Macro 168"
+184 184  "Macro 169"
+185 185  "Macro 170"
+186 186  "Macro 171"
+187 187  "Macro 172"
+188 188  "Macro 173"
+189 189  "Macro 174"
+190 190  "Macro 175"
+191 191  "Macro 176"
+192 192  "Macro 177"
+193 193  "Macro 178"
+194 194  "Macro 179"
+195 195  "Macro 180"
+196 196  "Macro 181"
+197 197  "Macro 182"
+198 198  "Macro 183"
+199 199  "Macro 184"
+200 200  "Macro 185"
+201 201  "Macro 186"
+202 202  "Macro 187"
+203 203  "Macro 188"
+204 204  "Macro 189"
+205 205  "Macro 190"
+206 206  "Macro 191"
+207 207  "Macro 192"
+208 208  "Macro 193"
+209 209  "Macro 194"
+210 210  "Macro 195"
+211 211  "Macro 196"
+212 212  "Macro 197"
+213 213  "Macro 198"
+214 214  "Macro 199"
+215 215  "Macro 200"
+216 216  "Macro 201"
+217 217  "Macro 202"
+218 218  "Macro 203"
+219 219  "Macro 204"
+220 220  "Macro 205"
+221 221  "Macro 206"
+222 222  "Macro 207"
+223 223  "Macro 208"
+224 224  "Macro 209"
+225 225  "Macro 210"
+226 226  "Macro 211"
+227 227  "Macro 212"
+228 228  "Macro 213"
+229 229  "Macro 214"
+230 230  "Macro 215"
+231 231  "Macro 216"
+232 232  "Macro 217"
+233 233  "Macro 218"
+234 234  "Macro 219"
+235 235  "Macro 220"
+236 236  "Macro 221"
+237 237  "Macro 222"
+238 238  "Macro 223"
+239 239  "Macro 224"
+240 240  "Macro 225"
+241 241  "Macro 226"
+242 242  "Macro 227"
+243 243  "Macro 228"
+244 244  "Macro 229"
+245 245  "Macro 230"
+246 246  "Macro 231"
+247 247  "Macro 232"
+248 248  "Macro 233"
+249 249  "Macro 234"
+250 250  "Macro 235"
+251 251  "Macro 236"
+252 252  "Macro 237"
+253 253  "Macro 238"
+254 254  "Macro 239"
+255 255  "Macro 240"
+REND
+
+RANGE 5  ;Speed/Strobe
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Control
+0   31   "Dim %3d%%"(c-a)*100/(b-a)
+32  63   "Light  %3d%%"(c-a)*100/(b-a)
+64  95   "Light  %3d%%"(c-a)*100/(b-a)
+96  127  "Dec/In %3d%%"(c-a)*100/(b-a)
+128 159  "Col Macro"
+160 191  "3Col Flash"
+192 223  "7Col Flash"
+224 255  "Music"
+REND
+
+RANGE 7  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

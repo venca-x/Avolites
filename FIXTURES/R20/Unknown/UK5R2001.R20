@@ -1,0 +1,290 @@
+; 'Unknown 5R 200W Beam 13 DMX', 13 DMX Channels, filename: UK5R2001.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   12-03-14   Nic Morris        Created
+;   12-03-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-03-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK5R2001                            mode=13 DMX  13 DMX Channels
+NAME "Unknown" "5R 200W Beam 13 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   450  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 13 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=499
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    3   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    2   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+8    61   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+1     1   H    6   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    7   100   1N   O   1   "Shutter"         255     0     0
+4     1   L    8   100   1N   0   1   "Colour"            0     0     0
+6     1   L    9   100   1N   I   1   "Gobo"              0     0     0
+5    61   L   10   100   1N   L   1   "Focus"           127     0     0
+9     1   L   11   100   1N   P   1   "Prism"             0     0     0
+8     1   L   12   100   1N   R   1   "Prism Rot"         0     0     0
+11    1   L   13   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Unknown 5R 200W Beam
+13 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   7
+"Open"               31  FF
+"Slow Strobe"        32  78
+"Fast Strobe"        33  E7
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Gobo"       -1   9
+"Open"               11   0
+"Gobo 1"             12   8
+"Gobo 2"             13   E
+"Gobo 3"             14  14
+"Gobo 4"             15  1A
+"Gobo 5"             16  20
+"Gobo 6"             17  26
+"Gobo 7"             18  2C
+"Gobo 8"             19  32
+"Gobo 9"             20  38
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  13
+"data"                0  FD
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Shutter
+0   0    "Closed"
+8   231  "Stro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+255 255  "Open"
+REND
+
+RANGE 8  ;Colour
+0   0    "Open"
+11  21   "Colour 1"
+22  32   "Colour 2"
+33  43   "Colour 3"
+44  54   "Colour 4"
+55  65   "Colour 5"
+66  76   "Colour 6"
+77  87   "Colour 7"
+88  98   "Colour 8"
+99  109  "Colour 9"
+110 120  "Colour 10"
+121 131  "Colour 11"
+132 142  "Colour 12"
+143 154  "Colour 13"
+155 165  "Colour 14"
+166 210  "Scroll %3d%%"(c-a)*100/(b-a)
+211 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Gobo
+0   0    "Open"
+6   11   "Gobo 1"
+12  17   "Gobo 2"
+18  23   "Gobo 3"
+24  29   "Gobo 4"
+30  35   "Gobo 5"
+36  41   "Gobo 6"
+42  47   "Gobo 7"
+48  53   "Gobo 8"
+54  59   "Gobo 9"
+60  61   "Gobo 10"
+65  70   "Gobo 11"
+71  76   "Gobo 12"
+77  82   "Gobo 13"
+83  88   "Gobo 14"
+89  94   "Gobo 15"
+95  100  "Gobo 16"
+101 106  "Gobo 17"
+107 112  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+113 118  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+119 124  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+125 130  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+131 136  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+137 142  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+143 148  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+149 154  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+155 160  "Gobo 9 %3d%%"(c-a)*100/(b-a)
+161 166  "Gobo 8 %3d%%"(c-a)*100/(b-a)
+167 172  "Gobo 7 %3d%%"(c-a)*100/(b-a)
+173 178  "Gobo 6 %3d%%"(c-a)*100/(b-a)
+179 184  "Gobo 5 %3d%%"(c-a)*100/(b-a)
+185 190  "Gobo 4 %3d%%"(c-a)*100/(b-a)
+191 196  "Gobo 3 %3d%%"(c-a)*100/(b-a)
+197 202  "Gobo 2 %3d%%"(c-a)*100/(b-a)
+203 209  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+210 215  "Open"
+216 235  "Scroll %3d%%"(c-a)*100/(b-a)
+236 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Prism
+0   0    "Open"
+64  127  "8 Facet"
+128 191  "3 Facet"
+192 255  "Frost %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 12  ;Prism Rot
+0   0    "No Spin"
+16  135  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+136 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Control
+0   0    "Safe"
+48  63   "Individual "
+64  79   "LED Chase"
+80  95   "LED Run"
+96  111  "LED Jump"
+112 127  "LED Edacity"
+128 143  "LED Groupin"
+144 159  "Image 1"
+160 175  "Image 2"
+176 191  "Image 3"
+192 207  "Image 4"
+208 223  "Image 5"
+224 239  "Image 6"
+240 250  "Total Progr"
+251 255  "Reset"
+REND
+

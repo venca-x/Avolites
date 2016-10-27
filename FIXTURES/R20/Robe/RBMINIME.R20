@@ -1,0 +1,756 @@
+; 'Robe Robin MiniMe', 24 DMX Channels, filename: RBMINIME.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   27-03-13   Peter Budd        Created
+;   22-04-13   Peter Budd        Updated to latest specs
+;   29-11-13   Peter Budd        Moved Keystone to Gobo 2, to ensure the wheels are on the same page.
+;   10-12-13   Peter Budd        Added additional detail to bring into line with latest spec.
+;   18-02-14   Nic Morris        Updated to version 1.2 spec in response to manufacturer request.
+;   18-02-14   Nic Morris        Fixed duplicate range in control.  Added missing macros.
+;   18-02-14   Nic Morris        Simplified shutter.  Inverted speed wheel direction.  Added colour function index.
+;   18-02-14   Nic Morris        Added Eff_Speed to Effect_Func function updates.
+;   18-02-14   Nic Morris        Added standard and max functions to P/T speed.
+;   18-02-14   Nic Morris        Modified zoom functions to ensure real size is absolute.
+;   18-02-14   Nic Morris        Changed keystone to 255 value range and set default at 128.
+;   18-02-14   Nic Morris        Fixed duplicate ranges in colour.  Increased Gobo Rot wheel resolution.
+;   12-03-14   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RB_MiniMe                           mode=24 DMX, 16bit  24 DMX Channels
+NAME "Robe" "Robin MiniMe"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  24  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 24 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=488
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+11    1   L    6   100   1N   0   1   "Control"           0     0     0
+5     1   L    7   100   1N   Q   1   "Zoom"            128     0     0
+5    61   L    8   100   1N   L   1   "Focus"           127     0     0
+6    61   L    9   100   1N   0   1   "Key Vertical"    128     0     0
+12    1   L   10   100   1N   0   1   "Key Horizont"    128     0     0
+10    1   L   11   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   12   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   13   100   1N   D   1   "Yellow"            0   255    51
+4     1   L   14   100   1N   A   1   "Colour"            0     0     0
+4    61   L   15   100   1N   0   1   "Colour Macro"      0     0     0
+14    1   L   16   100   1N   0   1   "Gobo Func"        16     0     0
+6     1   L   17   100   1N   0   1   "Gobo"              0     0     0
+8    61   L   18   100   1N   0   1   "Video Speed"       0     0     0
+7     1   s   19   100   1N   0   1   "Gobo Rot"          0     0     0
+0     0   L   20   100   1N   0   1   "Gobo Rot Low"      0     0     0
+9     1   L   21   100   1N   0   1   "Effect"            0     0     0
+13    1   L   22   100   1N   0   1   "Effect Speed"      0     0     0
+2    61   L   23   100   1N   O   1   "Shutter"         255     0     0
+1     1   H   24   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Robin MiniMe
+24 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  23
+"Open"               31  FF
+"Slow Strobe"        32  50
+"Fast Strobe"        33  5F
+"Slow Pulse"         36  88
+"Fast Pulse"         37  8F
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  11  12  13
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  7F  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Magenta"            10   0  FF   0
+"Lavender"            8  4A  91   F
+"Ultra Violet"        9  CC  FF   0
+PFEND
+
+PFTABLE "Beam"       -1   7
+"Zoom Small"         41  81
+"Zoom Medium"        42  C0
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   6
+"data"                0  CC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset P/T"     2   6
+"data"                0  90
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Focus"   3   6
+"data"                0  B8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Software"  4   6
+"data"                0  C2
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Keep aspect ratio ON"  5   6
+"data"                0  84
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Keep aspect ratio OFF"  6   6
+"data"                0  89
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Internal HDMI"  7   6
+"data"                0  D6
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "External HDMI"  8   6
+"data"                0  E0
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Save Autokeystoning"  9   6
+"data"                0  E8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Speed Mode" 10  23   6
+"data"                0   0  36
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "P/T Time Mode" 11  23   6
+"data"                0   0  40
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "BO on P/T"    12  23   6
+"data"                0   0  4A
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "Disable BO on P/T" 13  23   6
+"data"                0   0  54
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "Ceiling On"   14  23   6
+"data"                0   0  5C
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "Ceiling Off"  15  23   6
+"data"                0   0  61
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "Rear Projection On" 16  23   6
+"data"                0   0  66
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+MACRO "Rear Projection Off" 17  23   6
+"data"                0   0  6B
+"delay"               1  3C
+"data"                0  FF   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   0    "Standard"
+1   1    "Max"
+2   255  "Spee %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Control
+0   0    "Safe"
+50  59   "P/T Speed M"
+60  69   "P/T Time Mo"
+70  79   "BO on P/T"
+80  89   "Disable BO "
+90  94   "Ceiling On"
+95  99   "Ceiling Off"
+100 104  "Rear Projec"
+105 109  "Rear Projec"
+130 134  "Keep aspect"
+135 139  "Keep aspect"
+140 149  "Reset P/T"
+180 189  "Reset Focus"
+190 199  "Reset Softw"
+200 209  "Reset"
+210 219  "Internal HD"
+220 229  "External HD"
+230 234  "Save Autoke"
+REND
+
+RANGE 7  ;Zoom
+0   127  "Zoom - %3d%%"100-((c-a)*100/(b-a))
+128 128  "Real Size"
+129 255  "Zoom %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Colour
+0   0    "Open"
+1   15   "Open/B %3d%%"(c-a)*100/(b-a)
+16  16   "Blue"
+17  55   "Blue/C %3d%%"(c-a)*100/(b-a)
+56  56   "Cyan"
+57  95   "Cyan/G %3d%%"(c-a)*100/(b-a)
+96  96   "Green"
+97  134  "Green/ %3d%%"(c-a)*100/(b-a)
+135 135  "Yellow"
+136 174  "Yellow %3d%%"(c-a)*100/(b-a)
+175 175  "Red"
+176 214  "Red/Ma %3d%%"(c-a)*100/(b-a)
+215 215  "Magenta"
+216 247  "Magent %3d%%"(c-a)*100/(b-a)
+248 255  "Blue"
+REND
+
+RANGE 15  ;Colour Macro
+0   0    "No Macro"
+1   1    "Horiz Lin W"
+2   2    "Horiz Lin B"
+3   3    "Vert Lin Wh"
+4   4    "Vert Lin Bl"
+5   5    "Diag Shade "
+6   6    "Diag Shade "
+7   7    "Horiz Lin W"
+8   8    "Horiz Lin R"
+9   9    "Vert Lin Re"
+10  10   "Vert Lin Wh"
+11  11   "Diag Shade "
+12  12   "Diag Shade "
+13  13   "Horiz White"
+14  14   "Horiz Grn/W"
+15  15   "Vert Lin Gr"
+16  16   "Vert Lin Wh"
+17  17   "Diagonal Wh"
+18  18   "Diagonal Gr"
+19  19   "Horiz White"
+20  20   "Horiz Blue/"
+21  21   "Vert Blue/W"
+22  22   "Vert White/"
+23  23   "Diag White/"
+24  24   "Diag Blue/W"
+25  25   "Horiz White"
+26  26   "Horiz Cyan/"
+27  27   "Vert Cyan/W"
+28  28   "Vert White/"
+29  29   "Diag White/"
+30  30   "Diag Cyan/W"
+31  31   "Horiz White"
+32  32   "Horiz Mg/Wh"
+33  33   "Vert Mg/Whi"
+34  34   "Vert White/"
+35  35   "Diag White/"
+36  36   "Diag Mg/Whi"
+37  37   "Horiz White"
+38  38   "Horiz Yell/"
+39  39   "Vert Yell/W"
+40  40   "Vert White/"
+41  41   "Diag White/"
+42  42   "Diag Yell/W"
+43  43   "RGBW Shades"
+44  44   "CMYW Shades"
+45  45   "RGBY Shades"
+46  46   "RMBG Shades"
+47  47   "Reserved 47"
+48  48   "Reserved 48"
+49  49   "Reserved 49"
+50  50   "Blck/White "
+51  51   "Blck/White "
+52  52   "Red/White S"
+53  53   "Red/White F"
+54  54   "Green/White"
+55  55   "Green/White"
+56  56   "Blue/White "
+57  57   "Blue/White "
+58  58   "Yell/White "
+59  59   "Yell/White "
+60  60   "Mg/White Sl"
+61  61   "Mg/White Fa"
+62  62   "Cyan/White "
+63  63   "Cyan/White "
+64  64   "RGBY Slow"
+65  65   "RGBY Med"
+66  66   "RGBY Fast"
+67  67   "Reserved 67"
+68  68   "Reserved 68"
+69  69   "Reserved 69"
+70  70   "Horiz Lin W"
+71  71   "Horiz Lin W"
+72  72   "Vert Lin Wh"
+73  73   "Vert Lin Wh"
+74  74   "Diag Blck/W"
+75  75   "Diag Blck/W"
+76  76   "Shade Blck/"
+77  77   "Shade Blck/"
+78  78   "Shade Blck/"
+79  79   "Shade Blck/"
+80  80   "Horiz White"
+81  81   "Horiz White"
+82  82   "Vert White/"
+83  83   "Vert Red/Wh"
+84  84   "Diag Red/Wh"
+85  85   "Diag White/"
+86  86   "Shade Red/W"
+87  87   "Shade Red/W"
+88  88   "Shade Red/W"
+89  89   "Shade Red/W"
+90  90   "Horiz White"
+91  91   "Horiz White"
+92  92   "Vert White/"
+93  93   "Vert White/"
+94  94   "Diag Grn/Wh"
+95  95   "Diag Grn/Wh"
+96  96   "Shade Grn/W"
+97  97   "Shade Grn/W"
+98  98   "Shade Grn/W"
+99  99   "Shade Grn/W"
+100 100  "Horiz White"
+101 101  "Horiz White"
+102 102  "Vert White/"
+103 103  "Vert White/"
+104 104  "Diag Blue/W"
+105 105  "Diag Blue/W"
+106 106  "Shade Blue/"
+107 107  "Shade Blue/"
+108 108  "Shade Blue/"
+109 109  "Shade Blue/"
+110 110  "Horiz White"
+111 111  "Horiz White"
+112 112  "Vert White/"
+113 113  "Vert White/"
+114 114  "Diag Cyan/W"
+115 115  "Diag Cyan/W"
+116 116  "Shade Cyan/"
+117 117  "Shade Cyan/"
+118 118  "Shade Cyan/"
+119 119  "Shade Cyan/"
+120 120  "Horiz White"
+121 121  "Horiz White"
+122 122  "Vert White/"
+123 123  "Vert White/"
+124 124  "Diag Mg/Whi"
+125 125  "Diag Mg/Whi"
+126 126  "Shade Mg/Wh"
+127 127  "Shade Mg/Wh"
+128 128  "Shade Mg/Wh"
+129 129  "Shade Mg/Wh"
+130 130  "Horiz White"
+131 131  "Horiz White"
+132 132  "Vert White/"
+133 133  "Vert White/"
+134 134  "Diag Yell/W"
+135 135  "Diag White/"
+136 136  "Yell/White "
+137 137  "Yell/White "
+138 138  "Yell/White "
+139 139  "Yell/White "
+140 140  "RGBW Slow C"
+141 141  "RGBW Fast C"
+142 142  "RGBW Slow C"
+143 143  "RGBW Fast C"
+144 144  "Random Blac"
+145 145  "Random Blac"
+146 146  "Random Whit"
+147 147  "Random Whit"
+148 148  "Random Col "
+149 149  "Rand Col Fa"
+150 150  "Horiz Black"
+151 151  "Horiz Black"
+152 152  "Vert Black/"
+153 153  "Vert Black/"
+154 154  "Diag Black/"
+155 155  "Diag Black/"
+156 156  "Black/Rand "
+157 157  "Black/Rand "
+158 158  "Black/Rand "
+159 159  "Black/Rand "
+160 160  "Rand Col 2/"
+161 161  "Rand Col 2/"
+162 162  "Rand Col 2/"
+163 163  "Rand Col 2/"
+164 164  "Rand Col 4/"
+165 165  "Rand Col 4/"
+166 166  "Rand Col 4/"
+167 167  "Rand Col 4/"
+168 168  "Horiz Col/S"
+169 169  "Horiz Col/F"
+170 170  "Vert Col/Sl"
+171 171  "Vert Col/Sl"
+172 172  "Diag Col/Sl"
+173 173  "Diag Col/Fa"
+174 174  "Horiz/Vert/"
+175 175  "Horiz/Vert/"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 16  ;Gobo Func
+0   31   "Factory"
+32  63   "Internal Cu"
+64  95   "External Cu"
+96  255  "Reserved"
+REND
+
+RANGE 18  ;Video Speed
+0   0    "Original"
+1   1    "First Frame"
+2   254  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+255 255  "Original"
+REND
+
+RANGE 19  ;Gobo Rot
+0   127  "Ind %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+128 191  "Spin C %3d%%"100-((c-a)*100/(b-a))
+192 193  "No Spin"
+194 255  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Effect
+0   0    "Open"
+1   1    "Random"
+2   2    "Blend"
+3   3    "Left->Right"
+4   4    "Right->Left"
+5   5    "Stripe Left"
+6   6    "Stripe Righ"
+7   7    "3-Stripe Le"
+8   8    "3-Stripe Ri"
+9   9    "6-Stripe Le"
+10  10   "6-Stripe Ri"
+11  11   "Trans Up->D"
+12  12   "Trans Dwn->"
+13  13   "VStripe Tra"
+14  14   "VStripe Tra"
+15  15   "3-Stripe Up"
+16  16   "3-Stripe Dw"
+17  17   "6-Stripe Up"
+18  18   "6-Stripe Dw"
+19  19   "Trans 2 Lef"
+20  20   "Trans 2 Rig"
+21  21   "Trans 2 Up-"
+22  22   "Trans 2 Dow"
+23  23   "Iris Trans "
+24  24   "Iris Trans "
+25  25   "Iris Trans "
+26  26   "Iris Trans "
+27  27   "Iris Trans "
+28  28   "Iris Trans "
+29  29   "Move Trans "
+30  30   "Move Trans "
+31  31   "Move Trans "
+32  32   "Move Trans "
+33  33   "Drop Trans"
+34  34   "Simple Tran"
+35  35   "Pixel Trans"
+36  36   "Trans Via B"
+37  37   "Trans with "
+38  38   "Cross Tran"
+39  39   "Picture in "
+40  40   "Direct"
+41  41   "Trans with "
+42  42   "Trans with "
+43  43   "Trans with "
+44  44   "Trans with "
+45  45   "Zoom Out"
+46  46   "Zoom In"
+47  47   "Zoom Horiz"
+48  48   "Zoom Vert"
+49  79   "Reserved"
+80  80   "Kaleidoscop"
+81  81   "Kaleidoscop"
+82  82   "Kaleidoscop"
+83  83   "Kaleidoscop"
+84  84   "Kaleidoscop"
+85  85   "Sunflower K"
+86  86   "Sunflower K"
+87  87   "Sunflower K"
+88  88   "Sunflower K"
+89  89   "Sunflower K"
+90  99   "Reserved"
+100 100  "Circle Iris"
+101 101  "Circle Iris"
+102 102  "Vert Ellips"
+103 103  "Horz Ellips"
+104 104  "Reserved"
+105 105  "Pos/Neg"
+106 106  "White/Neg"
+107 107  "Pos/Neg"
+108 108  "Pixeling"
+109 179  "Reserved"
+180 180  "Circular Ir"
+181 181  "Elliptical "
+182 182  "Elliptical "
+183 183  "Black Mask"
+184 184  "Inverse Bla"
+185 185  "White Mask"
+186 186  "Inverse Whi"
+187 187  "Gobo/ Video"
+188 188  "Gobo/ Video"
+189 189  "Reserved"
+190 190  "Crossfade"
+191 191  "Addition"
+192 192  "Subtraction"
+193 193  "Multiplicat"
+194 194  "Minimum"
+195 195  "Maximum"
+196 255  "Reserved"
+REND
+
+RANGE 23  ;Shutter
+0   0    "Closed"
+64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+128 143  "Open P %3d%%"(c-a)*100/(b-a)
+144 159  "Close  %3d%%"100-((c-a)*100/(b-a))
+192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 24  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

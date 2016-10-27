@@ -1,0 +1,324 @@
+; 'URC GoldPix 77 57 DMX pt2', 33 DMX Channels, filename: UKUGP572.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   14-05-14   Nic Morris        Created.  Dev note - two part channels will need to be unhidden for r20 export
+;   05-04-15   Nic Morris        Updated to latest spec
+;   05-04-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-04-15   Nic Morris        Checked
+;   07-04-15   Nic Morris        Adjusted Gobo ranges in response to customer bug report
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKUGP572                            mode=57 DMX pt2  33 DMX Channels
+NAME "Misc U" "URC GoldPix 77 57 DMX pt2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  33  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 57 DMX pt2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=479
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Dimmer 25"       255     0     0
+10   61   L    2   100   1N   0   1   "Dimmer 26"       255     0     0
+9     1   L    3   100   1N   0   1   "Dimmer 27"       255     0     0
+9    61   L    4   100   1N   0   1   "Dimmer 28"       255     0     0
+8     1   L    5   100   1N   0   1   "Dimmer 29"       255     0     0
+8    61   L    6   100   1N   0   1   "Dimmer 30"       255     0     0
+7     1   L    7   100   1N   0   1   "Dimmer 31"       255     0     0
+7    61   L    8   100   1N   0   1   "Dimmer 32"       255     0     0
+6     1   L    9   100   1N   0   1   "Dimmer 33"       255     0     0
+6    61   L   10   100   1N   0   1   "Dimmer 34"       255     0     0
+5     1   L   11   100   1N   0   1   "Dimmer 35"       255     0     0
+5    61   L   12   100   1N   0   1   "Dimmer 36"       255     0     0
+4     1   L   13   100   1N   0   1   "Dimmer 37"       255     0     0
+4    61   L   14   100   1N   0   1   "Dimmer 38"       255     0     0
+20    1   L   15   100   1N   0   1   "Dimmer 39"       255     0     0
+20   61   L   16   100   1N   0   1   "Dimmer 40"       255     0     0
+19    1   L   17   100   1N   0   1   "Dimmer 41"       255     0     0
+19   61   L   18   100   1N   0   1   "Dimmer 42"       255     0     0
+18    1   L   19   100   1N   0   1   "Dimmer 43"       255     0     0
+18   61   L   20   100   1N   0   1   "Dimmer 44"       255     0     0
+17    1   L   21   100   1N   0   1   "Dimmer 45"       255     0     0
+17   61   L   22   100   1N   0   1   "Dimmer 46"       255     0     0
+16    1   L   23   100   1N   0   1   "Dimmer 47"       255     0     0
+16   61   L   24   100   1N   0   1   "Dimmer 48"       255     0     0
+15    1   L   25   100   1N   0   1   "Dimmer 49"       255     0     0
+12    1   L   26   100   1N   0   1   "FG Dim"            0     0     0
+12   61   L   27   100   1N   0   1   "BG Dim"            0     0     0
+2     1   L   28   100   1N   0   1   "Alpha"             0     0     0
+3     1   L   29   100   1N   I   1   "Gobo"              5     0     0
+3    61   L   30   100   1N   K   1   "Gobo Spd"          5     0     0
+1     1   H   31   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L   32   100   1N   O   1   "Shutter"           5     0     0
+11    1   L   33   100   1N   0   1   "Dim Mode"         26     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+URC GoldPix 77
+57 DMX pt2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer 25
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Dimmer 26
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Dimmer 27
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Dimmer 28
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Dimmer 29
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Dimmer 30
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Dimmer 31
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Dimmer 32
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Dimmer 33
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Dimmer 34
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Dimmer 35
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Dimmer 36
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Dimmer 37
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Dimmer 38
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Dimmer 39
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Dimmer 40
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Dimmer 41
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Dimmer 42
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Dimmer 43
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Dimmer 44
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Dimmer 45
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Dimmer 46
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Dimmer 47
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Dimmer 48
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Dimmer 49
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;FG Dim
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;BG Dim
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Alpha
+0   0    "No Function"
+1   127  "Num %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Alph %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Gobo
+0   10   "Safe"
+11  20   "Cross"
+21  29   "Box"
+30  38   "Sq Implode"
+39  47   "Sq Explode"
+48  56   "Dmd Implode"
+57  65   "Dmd Explode"
+66  74   "2 Line Spin"
+75  83   "Tri Spin"
+84  92   "Tri-Down"
+93  101  "Tri-Up"
+102 110  "Bowtie"
+111 119  "One-Line"
+120 128  "Hop Up"
+129 137  "Hop Down"
+138 146  "Hop Up/Dn"
+147 155  "T-Spin"
+156 164  "Inv T-Spin"
+165 173  "Dmd Spin"
+174 182  "Hop Left"
+183 191  "Hop Right"
+192 200  "Hop LR"
+201 209  "Double Vert"
+210 218  "Double Horz"
+219 227  "Diag Right"
+228 255  "Reset"
+REND
+
+RANGE 30  ;Gobo Spd
+0   10   "No Spin"
+11  100  "Index %3d%%"(c-a)*100/(b-a)
+101 149  "No Spin"
+150 202  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+203 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 31  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 32  ;Shutter
+0   10   "Open"
+11  255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Dim Mode
+0   51   "Default"
+52  101  "Off"
+102 152  "Mode 1"
+153 203  "Mode 2"
+204 255  "Mode 3"
+REND
+

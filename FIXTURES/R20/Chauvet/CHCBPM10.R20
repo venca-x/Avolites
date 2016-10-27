@@ -1,0 +1,448 @@
+; 'Chauvet COLORband Pix-M 10 DMX, 8bit', 10 DMX Channels, filename: CHCBPM10.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   01-12-10   John Rogers       Created
+;   19-06-11   Nic Morris        Fixed power on and locate.  Fixed wheel mapping errors.
+;   19-06-11   Nic Morris        Added pixel mapper combatibility.
+;   03-08-12   Peter Budd        Created from COLORband Tri
+;   15-05-13   Peter Budd        Created from the Chauvet COLORband Pix.
+;   15-05-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CH_CbPxM10                          mode=10 DMX, 8bit  10 DMX Channels
+NAME "Chauvet" "COLORband Pix-M 10 DMX, 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 10 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
+4     1   L    4   100   1N   0   1   "Colour Macro"      8     0     0
+2    61   L    5   100   1N   O   1   "Shutter"           8     0     0
+4    61   L    6   100   1N   0   1   "Macro"            16     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+3     1   L    8   100   1N   F   1   "Tilt"            127     0     0
+8     1   L    9   100   1N   0   1   "Tilt Speed"        0     0     0
+8    61   L   10   100   1N   0   1   "Dimmer Mode"      26     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet
+COLORband Pix-M
+10 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   1   2   3
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Colour Macro
+0   15   "No Macro"
+16  16   "Macros 16"
+17  17   "Macros 17"
+18  18   "Macros 18"
+19  19   "Macros 19"
+20  20   "Macros 20"
+21  21   "Macros 21"
+22  22   "Macros 22"
+23  23   "Macros 23"
+24  24   "Macros 24"
+25  25   "Macros 25"
+26  26   "Macros 26"
+27  27   "Macros 27"
+28  28   "Macros 28"
+29  29   "Macros 29"
+30  30   "Macros 30"
+31  31   "Macros 31"
+32  32   "Macros 32"
+33  33   "Macros 33"
+34  34   "Macros 34"
+35  35   "Macros 35"
+36  36   "Macros 36"
+37  37   "Macros 37"
+38  38   "Macros 38"
+39  39   "Macros 39"
+40  40   "Macros 40"
+41  41   "Macros 41"
+42  42   "Macros 42"
+43  43   "Macros 43"
+44  44   "Macros 44"
+45  45   "Macros 45"
+46  46   "Macros 46"
+47  47   "Macros 47"
+48  48   "Macros 48"
+49  49   "Macros 49"
+50  50   "Macros 50"
+51  51   "Macros 51"
+52  52   "Macros 52"
+53  53   "Macros 53"
+54  54   "Macros 54"
+55  55   "Macros 55"
+56  56   "Macros 56"
+57  57   "Macros 57"
+58  58   "Macros 58"
+59  59   "Macros 59"
+60  60   "Macros 60"
+61  61   "Macros 61"
+62  62   "Macros 62"
+63  63   "Macros 63"
+64  64   "Macros 64"
+65  65   "Macros 65"
+66  66   "Macros 66"
+67  67   "Macros 67"
+68  68   "Macros 68"
+69  69   "Macros 69"
+70  70   "Macros 70"
+71  71   "Macros 71"
+72  72   "Macros 72"
+73  73   "Macros 73"
+74  74   "Macros 74"
+75  75   "Macros 75"
+76  76   "Macros 76"
+77  77   "Macros 77"
+78  78   "Macros 78"
+79  79   "Macros 79"
+80  80   "Macros 80"
+81  81   "Macros 81"
+82  82   "Macros 82"
+83  83   "Macros 83"
+84  84   "Macros 84"
+85  85   "Macros 85"
+86  86   "Macros 86"
+87  87   "Macros 87"
+88  88   "Macros 88"
+89  89   "Macros 89"
+90  90   "Macros 90"
+91  91   "Macros 91"
+92  92   "Macros 92"
+93  93   "Macros 93"
+94  94   "Macros 94"
+95  95   "Macros 95"
+96  96   "Macros 96"
+97  97   "Macros 97"
+98  98   "Macros 98"
+99  99   "Macros 99"
+100 100  "Macros 100"
+101 101  "Macros 101"
+102 102  "Macros 102"
+103 103  "Macros 103"
+104 104  "Macros 104"
+105 105  "Macros 105"
+106 106  "Macros 106"
+107 107  "Macros 107"
+108 108  "Macros 108"
+109 109  "Macros 109"
+110 110  "Macros 110"
+111 111  "Macros 111"
+112 112  "Macros 112"
+113 113  "Macros 113"
+114 114  "Macros 114"
+115 115  "Macros 115"
+116 116  "Macros 116"
+117 117  "Macros 117"
+118 118  "Macros 118"
+119 119  "Macros 119"
+120 120  "Macros 120"
+121 121  "Macros 121"
+122 122  "Macros 122"
+123 123  "Macros 123"
+124 124  "Macros 124"
+125 125  "Macros 125"
+126 126  "Macros 126"
+127 127  "Macros 127"
+128 128  "Macros 128"
+129 129  "Macros 129"
+130 130  "Macros 130"
+131 131  "Macros 131"
+132 132  "Macros 132"
+133 133  "Macros 133"
+134 134  "Macros 134"
+135 135  "Macros 135"
+136 136  "Macros 136"
+137 137  "Macros 137"
+138 138  "Macros 138"
+139 139  "Macros 139"
+140 140  "Macros 140"
+141 141  "Macros 141"
+142 142  "Macros 142"
+143 143  "Macros 143"
+144 144  "Macros 144"
+145 145  "Macros 145"
+146 146  "Macros 146"
+147 147  "Macros 147"
+148 148  "Macros 148"
+149 149  "Macros 149"
+150 150  "Macros 150"
+151 151  "Macros 151"
+152 152  "Macros 152"
+153 153  "Macros 153"
+154 154  "Macros 154"
+155 155  "Macros 155"
+156 156  "Macros 156"
+157 157  "Macros 157"
+158 158  "Macros 158"
+159 159  "Macros 159"
+160 160  "Macros 160"
+161 161  "Macros 161"
+162 162  "Macros 162"
+163 163  "Macros 163"
+164 164  "Macros 164"
+165 165  "Macros 165"
+166 166  "Macros 166"
+167 167  "Macros 167"
+168 168  "Macros 168"
+169 169  "Macros 169"
+170 170  "Macros 170"
+171 171  "Macros 171"
+172 172  "Macros 172"
+173 173  "Macros 173"
+174 174  "Macros 174"
+175 175  "Macros 175"
+176 176  "Macros 176"
+177 177  "Macros 177"
+178 178  "Macros 178"
+179 179  "Macros 179"
+180 180  "Macros 180"
+181 181  "Macros 181"
+182 182  "Macros 182"
+183 183  "Macros 183"
+184 184  "Macros 184"
+185 185  "Macros 185"
+186 186  "Macros 186"
+187 187  "Macros 187"
+188 188  "Macros 188"
+189 189  "Macros 189"
+190 190  "Macros 190"
+191 191  "Macros 191"
+192 192  "Macros 192"
+193 193  "Macros 193"
+194 194  "Macros 194"
+195 195  "Macros 195"
+196 196  "Macros 196"
+197 197  "Macros 197"
+198 198  "Macros 198"
+199 199  "Macros 199"
+200 200  "Macros 200"
+201 201  "Macros 201"
+202 202  "Macros 202"
+203 203  "Macros 203"
+204 204  "Macros 204"
+205 205  "Macros 205"
+206 206  "Macros 206"
+207 207  "Macros 207"
+208 208  "Macros 208"
+209 209  "Macros 209"
+210 210  "Macros 210"
+211 211  "Macros 211"
+212 212  "Macros 212"
+213 213  "Macros 213"
+214 214  "Macros 214"
+215 215  "Macros 215"
+216 216  "Macros 216"
+217 217  "Macros 217"
+218 218  "Macros 218"
+219 219  "Macros 219"
+220 220  "Macros 220"
+221 221  "Macros 221"
+222 222  "Macros 222"
+223 223  "Macros 223"
+224 224  "Macros 224"
+225 225  "Macros 225"
+226 226  "Macros 226"
+227 227  "Macros 227"
+228 228  "Macros 228"
+229 229  "Macros 229"
+230 230  "Macros 230"
+231 231  "Macros 231"
+232 232  "Macros 232"
+233 233  "Macros 233"
+234 234  "Macros 234"
+235 235  "Macros 235"
+236 236  "Macros 236"
+237 237  "Macros 237"
+238 238  "Macros 238"
+239 239  "Macros 239"
+240 240  "Macros 240"
+241 241  "Macros 241"
+242 242  "Macros 242"
+243 243  "Macros 243"
+244 244  "Macros 244"
+245 245  "Macros 245"
+246 246  "Macros 246"
+247 247  "Macros 247"
+248 248  "Macros 248"
+249 249  "Macros 249"
+250 250  "Macros 250"
+251 251  "Macros 251"
+252 252  "Macros 252"
+253 253  "Macros 253"
+254 254  "Macros 254"
+255 255  "Macros 255"
+REND
+
+RANGE 5  ;Shutter
+0   15   "Open"
+16  255  "Str %2d.%d Hz"6+((c-a)*12/(b-a)),10*(6+((c-a)*12%(b-a)))/(b-a)
+REND
+
+RANGE 6  ;Macro
+0   31   "No Macro"
+32  45   "Macro 1"
+46  59   "Macro 2"
+60  72   "Macro 3"
+73  86   "Macro 4"
+87  100  "Macro 5"
+101 113  "Macro 6"
+114 127  "Macro 7"
+128 141  "Macro 8"
+142 154  "Macro 9"
+155 168  "Macro 10"
+169 182  "Macro 11"
+183 195  "Macro 12"
+196 209  "Macro 13"
+210 223  "Macro 14"
+224 255  "Sound"
+REND
+
+RANGE 7  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Tilt Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 10  ;Dimmer Mode
+0   51   "Manual"
+52  101  "Off"
+102 152  "Fast"
+153 203  "Medium"
+204 255  "Slow"
+REND
+

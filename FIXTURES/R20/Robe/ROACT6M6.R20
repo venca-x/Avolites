@@ -1,0 +1,369 @@
+; 'Robe Robin Actor 6 Mode 6, 37 DMX', 37 DMX Channels, filename: ROACT6M6.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   21-09-10   John Rogers       Created from Robe_Robin 600E Wash.d4
+;   09-11-10   John Rogers       Tested against fixture.
+;   07-01-11   John Rogers       Added Physical Movement info.
+;   12-01-11   John Rogers       Added Robe updates including new modes.
+;   31-03-11   John Rogers       Updated Macros.
+;   19-10-11   Nic Morris        Removed PT Speed update from Control.  Removed shutter update from colour.
+;   19-10-11   Nic Morris        Increased wheel resolution.  Shortened names for Expert LCD.  Reordered shutter.
+;   19-10-11   Nic Morris        Added missing macros.  Added pixel mapper compatibility.
+;   07-11-11   John Rogers       Removed Virtual Dimmer from Cells.
+;   07-12-11   John Rogers       Edited Colour Macro Zone Effects to Value range.
+;   17-02-12   Peter Budd        Created from Robe Robin 600 LED Wash
+;   08-03-12   Peter Budd        Edited added reserved channels and mode 6
+;   29-03-12   Peter Budd        Edited corrected compatibility attribute channel layout.
+;   14-08-12   Peter Budd        Edited corrected control channel and updated name
+;   14-08-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-08-12   Peter Budd        Updated ranges
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  Ro_Actor6M6                         mode=Mode 6, 37 DMX  37 DMX Channels
+NAME "Robe" "Robin Actor 6 Mode 6, 37 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  37  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 6, 37 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=475
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+14   61   L    1   100   1N   0   1   "Reserved"          0     0     0
+15    1   L    2   100   1N   0   1   "Reserved"          0     0     0
+15   61   L    3   100   1N   0   1   "Reserved"          0     0     0
+16    1   L    4   100   1N   0   1   "Reserved"          0     0     0
+16   61   L    5   100   1N   0   1   "Reserved"          0     0     0
+8     1   L    6   100   1N   0   1   "Control"          14     0     0
+10    1   s    7   100   1N   0   1   "Red 1"           255   255     0
+0     0   L    8   100   1N   0   1   "Red 1 Low"       255   255     0
+10   61   s    9   100   1N   0   1   "Green 1"         255   255     0
+0     0   L   10   100   1N   0   1   "Green 1 Low"     255   255     0
+9    61   s   11   100   1N   0   1   "Blue 1"          255     0   230
+0     0   L   12   100   1N   0   1   "Blue 1 Low"      255     0   230
+9     1   s   13   100   1N   0   1   "White 1"           0     0     0
+0     0   L   14   100   1N   0   1   "White 1 Low"       0     0     0
+20    1   S   15   100   1N   0   1   "Red 2"           255   255     0
+0     0   I   16   100   1N   0   1   "Red 2 Low"       255   255     0
+20   61   S   17   100   1N   0   1   "Green 2"         255   255     0
+0     0   I   18   100   1N   0   1   "Green 2 Low"     255   255     0
+19   61   S   19   100   1N   0   1   "Blue 2"          255     0   230
+0     0   I   20   100   1N   0   1   "Blue 2 Low"      255     0   230
+19    1   s   21   100   1N   0   1   "White 2"           0     0     0
+0     0   L   22   100   1N   0   1   "White 2 Low"       0     0     0
+18    1   s   23   100   1N   H   1   "Red 3"           255   255     0
+0     0   L   24   100   1N   H   1   "Red 3 Low"       255   255     0
+18   61   s   25   100   1N   H   1   "Green 3"         255   255     0
+0     0   L   26   100   1N   H   1   "Green 3 Low"     255   255     0
+17   61   s   27   100   1N   H   1   "Blue 3"          255     0   230
+0     0   L   28   100   1N   H   1   "Blue 3 Low"      255     0   230
+17    1   S   29   100   1N   N   1   "White 3"           0     0     0
+0     0   I   30   100   1N   N   1   "White 3 Low"       0     0     0
+4     1   I   31   100   1N   A   1   "CTO"               0     0     0
+4    61   L   32   100   1N   0   1   "Colour Macro"      0     0     0
+5     1   s   33   100   1N   Q   1   "Zoom"            128     0     0
+0     0   L   34   100   1N   Q   1   "Zoom Low"        128     0     0
+2    61   L   35   100   1N   O   1   "Shutter"           0     0     0
+1     1   H   36   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s   37   100   1N   H   1   "Dimmer Low"      255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Robin Actor 6
+Mode 6, 37 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  35
+"Open"               31  F0
+"Slow Strobe"        32  50
+"Fast Strobe"        33  5F
+"Slow Random Strobe"  34  D0
+"Fast Random Strobe"  35  DF
+"Slow Pulse"         36  88
+"Fast Pulse"         37  8F
+"Closed"             38  10
+PFEND
+
+PFTABLE "Colour"     -1   7  15  23   9  17  25  11  19  27
+"Open"                1  FF  FF  FF  FF  FF  FF  FF  FF  FF
+"Red"                 2  FF  FF  FF   0   0   0   0   0   0
+"Amber"               3  FF  FF  FF  80  80  80   0   0   0
+"Yellow"              4  FF  FF  FF  FF  FF  FF   0   0   0
+"Green"               5   0   0   0  FF  FF  FF   0   0   0
+"Cyan"                6   0   0   0  FF  FF  FF  FF  FF  FF
+"Blue"                7   0   0   0   0   0   0  FF  FF  FF
+"Purple"              9  80  80  80   0   0   0  FF  FF  FF
+"Magenta"            10  FF  FF  FF   0   0   0  FF  FF  FF
+"Lavender"            8  B5  B5  B5  6E  6E  6E  F0  F0  F0
+PFEND
+
+PFTABLE "Beam"       -1  33
+"Zoom Small"         41   0
+"Zoom Medium"        42  80
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset All"     1  35   6
+"data"                0  10   0
+"delay"               1  32
+"data"                0  F0   E
+MEND
+
+MACRO "Theatre Mode  ON"  2  35   6
+"data"                0  10  B8
+"delay"               1  3C
+"data"                0  F0   E
+MEND
+
+MACRO "Theatre Mode  OFF"  3  35   6
+"data"                0  10  BE
+"delay"               1  3C
+"data"                0  F0   E
+MEND
+
+MACRO "Reset Zoom"    4   6
+"data"                0  B8
+"delay"               1  3C
+"data"                0   E
+MEND
+
+MACRO "Reset All"     5   6
+"data"                0  CC
+"delay"               1  3C
+"data"                0   E
+MEND
+
+MACRO "Disable Fans"  6  35   6
+"data"                0  10   0
+"delay"               1  3C
+"data"                0  F0   E
+MEND
+
+MACRO "Wired DMX"     7  35   6
+"data"                0  10  F0
+"delay"               1  3C
+"data"                0  F0   E
+MEND
+
+MACRO "Wireless DMX"  8  35   6
+"data"                0  10  F8
+"delay"               1  3C
+"data"                0  F0   E
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 6  ;Control
+0   29   "Safe"
+30  39   "RGBW ColMix"
+40  49   "CMY Col Mix"
+50  169  "Reserved"
+170 179  "Save DMX"
+180 189  "Reset Zoom"
+190 199  "Reserved"
+200 209  "Reset All"
+210 239  "Reserved"
+240 240  "Disable Fan"
+241 255  "Fan Sp %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Red 1
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Green 1
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Blue 1
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;White 1
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Red 2
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Green 2
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Blue 2
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;White 2
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Red 3
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Green 3
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Blue 3
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;White 3
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 32  ;Colour Macros
+0   0    "Open"
+1   2    "2700 K"
+3   3    "2700 K Halo"
+4   5    "3200 K"
+6   6    "3200 K Halo"
+7   9    "4200 K"
+10  12   "5600 K"
+13  15   "8000 K"
+16  16   "Blue"
+17  55   "Bl/LtB %3d%%"(c-a)*100/(b-a)
+56  56   "Light Blue"
+57  95   "LtB/Gr %3d%%"(c-a)*100/(b-a)
+96  96   "Green"
+97  134  "Grn/Yl %3d%%"(c-a)*100/(b-a)
+135 135  "Yellow"
+136 174  "Yel/Rd %3d%%"(c-a)*100/(b-a)
+175 175  "Red"
+176 214  "Red/Ma %3d%%"(c-a)*100/(b-a)
+215 215  "Magenta"
+216 246  "Mag/Bl %3d%%"(c-a)*100/(b-a)
+247 247  "Blue"
+248 248  "Rainbow Fad"
+249 249  "Rainbow Eff"
+250 250  "Zone Eff 1"
+251 251  "Zone Eff 2"
+252 252  "Zone Eff 3"
+253 253  "Zone Eff 4"
+254 254  "Zone Eff 5"
+255 255  "Zone Eff 6"
+REND
+
+RANGE 33  ;Zoom
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;Shutter
+0   31   "Closed"
+32  63   "Zone 3 %3d%%"(c-a)*100/(b-a)
+64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  111  "ZFx Fw %3d%%"(c-a)*100/(b-a)
+112 127  "ZFx Rv %3d%%"100-((c-a)*100/(b-a))
+128 143  "Pls Op %3d%%"(c-a)*100/(b-a)
+144 159  "Pls Cl %3d%%"100-((c-a)*100/(b-a))
+160 175  "Rnd Zn %3d%%"(c-a)*100/(b-a)
+176 191  "RZn St %3d%%"100-((c-a)*100/(b-a))
+192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
+REND
+
+RANGE 36  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+

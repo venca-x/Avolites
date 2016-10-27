@@ -1,0 +1,463 @@
+; 'JB Systems Twin Effect Laser Mode 2', 10 DMX Channels, filename: JSTWELRB.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   07-02-12   Peter Budd        Created
+;   08-02-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-02-12   Peter Budd        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  JSTwinELsrB                         mode=Mode 2  10 DMX Channels
+NAME "JB Systems" "Twin Effect Laser Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+8    61   L    1   100   1N   0   1   "Modes"           212     0     0
+6     1   I    2   100   1N   I   1   "Grating"           0     0     0
+5     1   L    3   100   1N   Q   1   "Zoom"             64     0     0
+9    61   L    4   100   1N   0   1   "X-Roll"            0     0     0
+10    1   I    5   100   1N   P   1   "Y-Roll"            0     0     0
+10   61   L    6   100   1N   R   1   "Z-Roll"            0     0     0
+3    61   L    7   100   1N   E   1   "X-Axis"           50     0     0
+3     1   L    8   100   1N   F   1   "Y-Axis"           50     0     0
+4     1   I    9   100   1N   A   1   "Colour"            0     0     0
+7     1   L   10   100   1N   K   1   "Rot"               0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+JB Systems
+Twin Effect Laser
+Mode 2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Modes
+0   24   "Blackout"
+25  49   "Auto Grate"
+50  74   "Sound Grate"
+75  99   "Auto Pat"
+100 124  "Sound Pat"
+125 149  "Auto Grate"
+150 174  "Sound Grate"
+200 224  "DMX B"
+REND
+
+RANGE 2  ;Grating
+0   20   "Pattern 0"
+21  42   "Pattern 1"
+43  63   "Pattern 2"
+64  84   "Pattern 3"
+85  106  "Pattern 4"
+107 127  "Pattern 5"
+128 148  "Pattern 6"
+149 170  "Pattern 7"
+171 191  "Pattern 8"
+192 212  "Pattern 9"
+213 234  "Pattern 10"
+235 255  "Pattern 11"
+REND
+
+RANGE 3  ;Zoom
+0   127  "Zoom %3d%%"100-((c-a)*100/(b-a))
+128 169  "In %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+170 209  "Out %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+210 255  "IO %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;X-Roll
+0   127  "Fixed  %3d%%"(c-a)*100/(b-a)
+128 191  "CW %3d%%"(c-a)*100/(b-a)
+192 255  "CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Y-Roll
+0   127  "Fixed  %3d%%"(c-a)*100/(b-a)
+128 191  "CW %3d%%"(c-a)*100/(b-a)
+192 255  "CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Z-Roll
+0   127  "Fixed  %3d%%"(c-a)*100/(b-a)
+128 191  "CW %3d%%"(c-a)*100/(b-a)
+192 255  "CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;X-Axis
+0   0    "X Pos 0"
+1   1    "X Pos 1"
+2   2    "X Pos 2"
+3   3    "X Pos 3"
+4   4    "X Pos 4"
+5   5    "X Pos 5"
+6   6    "X Pos 6"
+7   7    "X Pos 7"
+8   8    "X Pos 8"
+9   9    "X Pos 9"
+10  10   "X Pos 10"
+11  11   "X Pos 11"
+12  12   "X Pos 12"
+13  13   "X Pos 13"
+14  14   "X Pos 14"
+15  15   "X Pos 15"
+16  16   "X Pos 16"
+17  17   "X Pos 17"
+18  18   "X Pos 18"
+19  19   "X Pos 19"
+20  20   "X Pos 20"
+21  21   "X Pos 21"
+22  22   "X Pos 22"
+23  23   "X Pos 23"
+24  24   "X Pos 24"
+25  25   "X Pos 25"
+26  26   "X Pos 26"
+27  27   "X Pos 27"
+28  28   "X Pos 28"
+29  29   "X Pos 29"
+30  30   "X Pos 30"
+31  31   "X Pos 31"
+32  32   "X Pos 32"
+33  33   "X Pos 33"
+34  34   "X Pos 34"
+35  35   "X Pos 35"
+36  36   "X Pos 36"
+37  37   "X Pos 37"
+38  38   "X Pos 38"
+39  39   "X Pos 39"
+40  40   "X Pos 40"
+41  41   "X Pos 41"
+42  42   "X Pos 42"
+43  43   "X Pos 43"
+44  44   "X Pos 44"
+45  45   "X Pos 45"
+46  46   "X Pos 46"
+47  47   "X Pos 47"
+48  48   "X Pos 48"
+49  49   "X Pos 49"
+50  50   "X Pos 50"
+51  51   "X Pos 51"
+52  52   "X Pos 52"
+53  53   "X Pos 53"
+54  54   "X Pos 54"
+55  55   "X Pos 55"
+56  56   "X Pos 56"
+57  57   "X Pos 57"
+58  58   "X Pos 58"
+59  59   "X Pos 59"
+60  60   "X Pos 60"
+61  61   "X Pos 61"
+62  62   "X Pos 62"
+63  63   "X Pos 63"
+64  64   "X Pos 64"
+65  65   "X Pos 65"
+66  66   "X Pos 66"
+67  67   "X Pos 67"
+68  68   "X Pos 68"
+69  69   "X Pos 69"
+70  70   "X Pos 70"
+71  71   "X Pos 71"
+72  72   "X Pos 72"
+73  73   "X Pos 73"
+74  74   "X Pos 74"
+75  75   "X Pos 75"
+76  76   "X Pos 76"
+77  77   "X Pos 77"
+78  78   "X Pos 78"
+79  79   "X Pos 79"
+80  80   "X Pos 80"
+81  81   "X Pos 81"
+82  82   "X Pos 82"
+83  83   "X Pos 83"
+84  84   "X Pos 84"
+85  85   "X Pos 85"
+86  86   "X Pos 86"
+87  87   "X Pos 87"
+88  88   "X Pos 88"
+89  89   "X Pos 89"
+90  90   "X Pos 90"
+91  91   "X Pos 91"
+92  92   "X Pos 92"
+93  93   "X Pos 93"
+94  94   "X Pos 94"
+95  95   "X Pos 95"
+96  96   "X Pos 96"
+97  97   "X Pos 97"
+98  98   "X Pos 98"
+99  99   "X Pos 99"
+100 100  "X Pos 100"
+101 101  "X Pos 101"
+102 102  "X Pos 102"
+103 103  "X Pos 103"
+104 104  "X Pos 104"
+105 105  "X Pos 105"
+106 106  "X Pos 106"
+107 107  "X Pos 107"
+108 108  "X Pos 108"
+109 109  "X Pos 109"
+110 110  "X Pos 110"
+111 111  "X Pos 111"
+112 112  "X Pos 112"
+113 113  "X Pos 113"
+114 114  "X Pos 114"
+115 115  "X Pos 115"
+116 116  "X Pos 116"
+117 117  "X Pos 117"
+118 118  "X Pos 118"
+119 119  "X Pos 119"
+120 120  "X Pos 120"
+121 121  "X Pos 121"
+122 122  "X Pos 122"
+123 123  "X Pos 123"
+124 124  "X Pos 124"
+125 125  "X Pos 125"
+126 126  "X Pos 126"
+127 127  "X Pos 127"
+128 191  "CW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Y-Axis
+0   0    "Y Pos 0"
+1   1    "Y Pos 1"
+2   2    "Y Pos 2"
+3   3    "Y Pos 3"
+4   4    "Y Pos 4"
+5   5    "Y Pos 5"
+6   6    "Y Pos 6"
+7   7    "Y Pos 7"
+8   8    "Y Pos 8"
+9   9    "Y Pos 9"
+10  10   "Y Pos 10"
+11  11   "Y Pos 11"
+12  12   "Y Pos 12"
+13  13   "Y Pos 13"
+14  14   "Y Pos 14"
+15  15   "Y Pos 15"
+16  16   "Y Pos 16"
+17  17   "Y Pos 17"
+18  18   "Y Pos 18"
+19  19   "Y Pos 19"
+20  20   "Y Pos 20"
+21  21   "Y Pos 21"
+22  22   "Y Pos 22"
+23  23   "Y Pos 23"
+24  24   "Y Pos 24"
+25  25   "Y Pos 25"
+26  26   "Y Pos 26"
+27  27   "Y Pos 27"
+28  28   "Y Pos 28"
+29  29   "Y Pos 29"
+30  30   "Y Pos 30"
+31  31   "Y Pos 31"
+32  32   "Y Pos 32"
+33  33   "Y Pos 33"
+34  34   "Y Pos 34"
+35  35   "Y Pos 35"
+36  36   "Y Pos 36"
+37  37   "Y Pos 37"
+38  38   "Y Pos 38"
+39  39   "Y Pos 39"
+40  40   "Y Pos 40"
+41  41   "Y Pos 41"
+42  42   "Y Pos 42"
+43  43   "Y Pos 43"
+44  44   "Y Pos 44"
+45  45   "Y Pos 45"
+46  46   "Y Pos 46"
+47  47   "Y Pos 47"
+48  48   "Y Pos 48"
+49  49   "Y Pos 49"
+50  50   "Y Pos 50"
+51  51   "Y Pos 51"
+52  52   "Y Pos 52"
+53  53   "Y Pos 53"
+54  54   "Y Pos 54"
+55  55   "Y Pos 55"
+56  56   "Y Pos 56"
+57  57   "Y Pos 57"
+58  58   "Y Pos 58"
+59  59   "Y Pos 59"
+60  60   "Y Pos 60"
+61  61   "Y Pos 61"
+62  62   "Y Pos 62"
+63  63   "Y Pos 63"
+64  64   "Y Pos 64"
+65  65   "Y Pos 65"
+66  66   "Y Pos 66"
+67  67   "Y Pos 67"
+68  68   "Y Pos 68"
+69  69   "Y Pos 69"
+70  70   "Y Pos 70"
+71  71   "Y Pos 71"
+72  72   "Y Pos 72"
+73  73   "Y Pos 73"
+74  74   "Y Pos 74"
+75  75   "Y Pos 75"
+76  76   "Y Pos 76"
+77  77   "Y Pos 77"
+78  78   "Y Pos 78"
+79  79   "Y Pos 79"
+80  80   "Y Pos 80"
+81  81   "Y Pos 81"
+82  82   "Y Pos 82"
+83  83   "Y Pos 83"
+84  84   "Y Pos 84"
+85  85   "Y Pos 85"
+86  86   "Y Pos 86"
+87  87   "Y Pos 87"
+88  88   "Y Pos 88"
+89  89   "Y Pos 89"
+90  90   "Y Pos 90"
+91  91   "Y Pos 91"
+92  92   "Y Pos 92"
+93  93   "Y Pos 93"
+94  94   "Y Pos 94"
+95  95   "Y Pos 95"
+96  96   "Y Pos 96"
+97  97   "Y Pos 97"
+98  98   "Y Pos 98"
+99  99   "Y Pos 99"
+100 100  "Y Pos 100"
+101 101  "Y Pos 101"
+102 102  "Y Pos 102"
+103 103  "Y Pos 103"
+104 104  "Y Pos 104"
+105 105  "Y Pos 105"
+106 106  "Y Pos 106"
+107 107  "Y Pos 107"
+108 108  "Y Pos 108"
+109 109  "Y Pos 109"
+110 110  "Y Pos 110"
+111 111  "Y Pos 111"
+112 112  "Y Pos 112"
+113 113  "Y Pos 113"
+114 114  "Y Pos 114"
+115 115  "Y Pos 115"
+116 116  "Y Pos 116"
+117 117  "Y Pos 117"
+118 118  "Y Pos 118"
+119 119  "Y Pos 119"
+120 120  "Y Pos 120"
+121 121  "Y Pos 121"
+122 122  "Y Pos 122"
+123 123  "Y Pos 123"
+124 124  "Y Pos 124"
+125 125  "Y Pos 125"
+126 126  "Y Pos 126"
+127 127  "Y Pos 127"
+128 191  "CW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Colour
+0   16   "Red"
+17  31   "Green"
+32  49   "Red+Grn"
+50  255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Rot
+0   0    "Open"
+1   75   "CW %3d%%"(c-a)*100/(b-a)
+76  150  "Open"
+151 255  "CCW %3d%%"(c-a)*100/(b-a)
+REND
+

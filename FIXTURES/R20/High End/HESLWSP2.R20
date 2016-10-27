@@ -1,0 +1,418 @@
+; 'High End SolaWash Pro 2000', 36 DMX Channels, filename: HESLWSP2.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   01-02-15   Nic Morris        Created
+;   30-03-15   Nic Morris        Added missing prism function ranges and removed animation functions in response to customer bug report.
+;   30-03-15   Nic Morris        Revised blades in line with latest documentation in response to customer bug report.
+;   30-03-15   Nic Morris        Revised animation functions in line with latest documentation in response to customer bug report.
+;   19-09-15   Nic Morris        Revised blades against actual fixture.
+;   27-09-15   Nic Morris        Revised fixed colour function names against physical fixture.
+;   27-09-15   Nic Morris        Added stop function to animation in line with latest spec (1.0.7)
+;   27-09-15   Nic Morris        Updated control functions and macros to latest spec (1.0.7)
+;   02-12-15   Nic Morris        Increased macro delay and tested with actual fixture.
+;   25-05-16   AtlaBaseLibraryUpdaterAdded AltaBase information
+;   03-07-16   Nic Morris        Created from High End SoloSpot Pro 1500
+;   03-07-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-07-16   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HESLWSP2                            mode=Standard, 36 DMX  36 DMX Channels
+NAME "High End" "SolaWash Pro 2000"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  36  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  265
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Standard, 36 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=476
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
+9     1   L    5   100   1N   0   1   "C-Mix Func"        0     0     0
+10    1   L    6   100   1N   B   1   "Cyan"            255   255     0
+10   61   L    7   100   1N   C   1   "Magenta"         255   255     0
+9    61   L    8   100   1N   D   1   "Yellow"          255     0   204
+8     1   L    9   100   1N   0   1   "CTO"             255     0     0
+14    1   L   10   100   1N   0   1   "Colour 1 Fun"      0     0     0
+4     1   L   11   100   1N   A   1   "Colour 1"          0     0     0
+14   61   L   12   100   1N   0   1   "Colour 2 Fun"      0     0     0
+4    61   L   13   100   1N   N   1   "Colour 2"          0     0     0
+20    1   L   14   100   1N   0   1   "Blade 1A"          0     0     0
+20   61   L   15   100   1N   0   1   "Blade 1B"          0     0     0
+19    1   L   16   100   1N   0   1   "Blade 2A"          0     0     0
+19   61   L   17   100   1N   0   1   "Blade 2B"          0     0     0
+18    1   L   18   100   1N   0   1   "Blade 3A"          0     0     0
+18   61   L   19   100   1N   0   1   "Blade 3B"          0     0     0
+17    1   L   20   100   1N   0   1   "Blade 4A"          0     0     0
+17   61   L   21   100   1N   0   1   "Blade 4B"          0     0     0
+16    1   s   22   100   1N   0   1   "Blade All Ro"    128     0     0
+0     0   L   23   100   1N   0   1   "Blade Al Low"    128     0     0
+15    1   L   24   100   1N   S   1   "Frost 1"         255     0     0
+15   61   L   25   100   1N   0   1   "Frost 2"         255     0     0
+5    61   s   26   100   1N   L   1   "Focus"           127     0     0
+0     0   L   27   100   1N   L   1   "Focus Low"       127     0     0
+5     1   s   28   100   1N   Q   1   "Zoom"            127     0     0
+0     0   L   29   100   1N   Q   1   "Zoom Low"        127     0     0
+12    1   L   30   100   1N   G   1   "Iris"            255     0     0
+2     1   L   31   100   1N   0   1   "Shutter Func"      0     0     0
+2    61   L   32   100   1N   O   1   "Shutter"         242     0     0
+1     1   H   33   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s   34   100   1N   H   1   "Dimmer Low"      255     0     0
+8    61   L   35   100   1N   0   1   "MSpeed"            0     0     0
+11    1   L   36   100   1N   0   1   "Control"           4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End
+SolaWash Pro 2000
+Standard, 36 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  32
+"Open"               31  E6
+"Slow Strobe"        32  7E
+"Fast Strobe"        33  E5
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6   7   8
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  80   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B6  6E  F0
+"Ultra Violet"        9  33   0  FF
+PFEND
+
+PFTABLE "Beam"       -1  28  30
+"Zoom Small"         41   0  FF
+"Zoom Medium"        42  7F  FF
+"Zoom Large"         43  FF  FF
+"Iris Small"         44  7F   0
+"Iris Medium"        45  7F  7F
+"Iris Large"         46  7F  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  32  36
+"data"                0   0  3A
+"delay"               1  5A
+"data"                0  F2   4
+MEND
+
+MACRO "P/T MSpeed OFF"  2  36
+"data"                0   E
+"delay"               1  5A
+"data"                0   4
+MEND
+
+MACRO "Display OFF"   3  32  36
+"data"                0   0  18
+"delay"               1  5A
+"data"                0  F2   4
+MEND
+
+MACRO "Display ON"    4  32  36
+"data"                0   0  20
+"delay"               1  5A
+"data"                0  F2   4
+MEND
+
+MACRO "Shutdown"      5  32  36
+"data"                0   0  48
+"delay"               1  C8
+"data"                0  F2   4
+MEND
+
+MACRO "Sound"         6  32  36
+"data"                0   0  91
+"delay"               1  5A
+"data"                0  F2   4
+MEND
+
+MACRO "Fan Studio"    7  36
+"data"                0  4F
+"delay"               1  5A
+"data"                0   4
+MEND
+
+MACRO "Fan Continuous"  8  36
+"data"                0  56
+"delay"               1  5A
+"data"                0   4
+MEND
+
+MACRO "Fan Standard"  9  36
+"data"                0  5D
+"delay"               1  5A
+"data"                0   4
+MEND
+
+MACRO "Disable P/T"  10  32  36
+"data"                0   0  64
+"delay"               1  5A
+"data"                0  F2   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;C-Mix Func
+0   31   "Pure Mix"
+32  47   "Cycle"
+48  63   "Random"
+64  79   "Continuous"
+REND
+
+RANGE 6  ;Cyan
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Magenta
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 8  ;Yellow
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 9  ;CTO
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 10  ;Colour 1 Func
+0   15   "Fixed"
+16  31   "Scroll CW"
+32  47   "Scroll CCW"
+48  63   "Index"
+64  79   "Scan"
+80  95   "Random"
+REND
+
+RANGE 12  ;Colour 2 Func
+0   15   "Fixed"
+16  31   "Scroll CW"
+32  47   "Scroll CCW"
+48  63   "Index"
+64  79   "Scan"
+80  95   "Random"
+REND
+
+RANGE 14  ;Blade 1A
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Blade 1B
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Blade 2A
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Blade 2B
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Blade 3A
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Blade 3B
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Blade 4A
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Blade 4B
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Blade All Rot
+0   127  "-ve %3d%%"100-((c-a)*100/(b-a))
+128 128  "Normal"
+129 255  "+ve %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Frost 1
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 25  ;Frost 2
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 26  ;Focus
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Zoom
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 30  ;Iris
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;Shutter Func
+0   31   "Normal"
+32  63   "Random"
+64  95   "Sync"
+REND
+
+RANGE 32  ;Shutter
+0   23   "Closed"
+24  229  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+230 255  "Open"
+REND
+
+RANGE 33  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;MSpeed
+0   3    "Disable"
+4   255  "Speed %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 36  ;Control
+0   9    "Safe"
+10  19   "P/T MSpeed"
+20  28   "Display OFF"
+29  35   "Display ON"
+49  68   "Reset"
+69  75   "Shutdown"
+76  82   "Fan Studio"
+83  89   "Fan Cont"
+90  96   "Fan Std"
+97  103  "Disable P/T"
+131 160  "Sound"
+161 171  "Program 1"
+172 182  "Program 2"
+183 193  "Program 3"
+194 204  "Program 4"
+205 215  "Program 5"
+216 226  "Program 6"
+227 237  "Program 7"
+REND
+

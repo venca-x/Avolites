@@ -1,0 +1,316 @@
+; 'Silver Star YX-2004 Cartoon Laser', 10 DMX Channels, filename: SSYX24CL.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   08-02-12   Peter Budd        Created
+;   08-02-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-02-12   Peter Budd        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SS_YX204CL                          mode=10 DMX, 8bit  10 DMX Channels
+NAME "Silver Star" "YX-2004 Cartoon Laser"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 10 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   L    1   100   1N   0   1   "Control"         160     0     0
+2    61   L    2   100   1N   O   1   "Blanking"          0     0     0
+6     1   I    3   100   1N   I   1   "Picture"           0     0     0
+9    61   L    4   100   1N   0   1   "Roll"              0     0     0
+7     1   L    5   100   1N   K   1   "Dot Rot"           0     0     0
+3    61   L    6   100   1N   E   1   "Move"             32     0     0
+5     1   L    7   100   1N   Q   1   "Stretch"          32     0     0
+8     1   L    8   100   1N   0   1   "Speed"           255     0     0
+8    61   L    9   100   1N   0   1   "Draw Speed"      255     0     0
+2     1   L   10   100   1N   G   1   "Size"              5     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Silver Star
+YX-2004 Cartoon Laser
+10 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   63   "Music"
+64  127  "Auto"
+128 191  "Manual Musc"
+192 255  "Manual Auto"
+REND
+
+RANGE 2  ;Blanking
+0   63   "Blank %3d%%"(c-a)*100/(b-a)
+64  127  "Flux %3d%%"(c-a)*100/(b-a)
+128 191  "No Bl %3d%%"(c-a)*100/(b-a)
+192 255  "Closed %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 3  ;Picture
+0   2    "Picture 0"
+3   5    "Picture 1"
+6   8    "Picture 2"
+9   11   "Picture 3"
+12  14   "Picture 4"
+15  17   "Picture 5"
+18  20   "Picture 6"
+21  23   "Picture 7"
+24  26   "Picture 8"
+27  29   "Picture 9"
+30  32   "Picture 10"
+33  35   "Picture 11"
+36  38   "Picture 12"
+39  41   "Picture 13"
+42  44   "Picture 14"
+45  47   "Picture 15"
+48  50   "Picture 16"
+51  53   "Picture 17"
+54  56   "Picture 18"
+57  59   "Picture 19"
+60  62   "Picture 20"
+63  64   "Picture 21"
+65  67   "Picture 22"
+68  70   "Picture 23"
+71  73   "Picture 24"
+74  76   "Picture 25"
+77  79   "Picture 26"
+80  82   "Picture 27"
+83  85   "Picture 28"
+86  88   "Picture 29"
+89  91   "Picture 30"
+92  94   "Picture 31"
+95  97   "Picture 32"
+98  100  "Picture 33"
+101 103  "Picture 34"
+104 106  "Picture 35"
+107 109  "Picture 36"
+110 112  "Picture 37"
+113 115  "Picture 38"
+116 118  "Picture 39"
+119 121  "Picture 40"
+122 124  "Picture 41"
+125 127  "Picture 42"
+128 130  "Picture 43"
+131 133  "Picture 44"
+134 136  "Picture 45"
+137 139  "Picture 46"
+140 142  "Picture 47"
+143 145  "Picture 48"
+146 148  "Picture 49"
+149 151  "Picture 50"
+152 154  "Picture 51"
+155 157  "Picture 52"
+158 160  "Picture 53"
+161 163  "Picture 54"
+164 166  "Picture 55"
+167 169  "Picture 56"
+170 172  "Picture 57"
+173 175  "Picture 58"
+176 178  "Picture 59"
+179 181  "Picture 60"
+182 184  "Picture 61"
+185 187  "Picture 62"
+188 190  "Picture 63"
+191 192  "Picture 64"
+193 195  "Picture 65"
+196 198  "Picture 66"
+199 201  "Picture 67"
+202 204  "Picture 68"
+205 207  "Picture 69"
+208 210  "Picture 70"
+211 213  "Picture 71"
+214 216  "Picture 72"
+217 219  "Picture 73"
+220 222  "Picture 74"
+223 225  "Picture 75"
+226 228  "Picture 76"
+229 231  "Picture 77"
+232 234  "Picture 78"
+235 237  "Picture 79"
+238 240  "Picture 80"
+241 243  "Picture 81"
+244 246  "Picture 82"
+247 249  "Picture 83"
+250 252  "Picture 84"
+253 255  "Picture 85"
+REND
+
+RANGE 4  ;Roll
+0   63   "NoRoll %3d%%"(c-a)*100/(b-a)
+64  127  "Horz %3d%%"(c-a)*100/(b-a)
+128 191  "Vert %3d%%"(c-a)*100/(b-a)
+192 255  "H+V %3d%%"(c-a)*100/(b-a)
+REND
+
+
+RANGE 6  ;Move
+0   63   "No Move"
+64  127  "Horz %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Vert %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "H+V %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Stretch
+0   63   "No Stretch"
+64  126  "Horz %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+127 191  "Vert %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "H+V %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Speed
+0   20   "0"
+21  42   "1"
+43  63   "2"
+64  84   "3"
+85  106  "4"
+107 127  "5"
+128 148  "6"
+149 170  "7"
+171 191  "8"
+192 212  "9"
+213 234  "10"
+235 255  "11"
+REND
+
+RANGE 9  ;Draw Speed
+0   20   "0"
+21  42   "1"
+43  63   "2"
+64  84   "3"
+85  106  "4"
+107 127  "5"
+128 148  "6"
+149 170  "7"
+171 191  "8"
+192 212  "9"
+213 234  "10"
+235 255  "11"
+REND
+
+RANGE 10  ;Size
+0   9    "Size 0"
+10  19   "Size 1"
+20  29   "Size 2"
+30  38   "Size 3"
+39  48   "Size 4"
+49  58   "Size 5"
+59  68   "Size 6"
+69  78   "Size 7"
+79  88   "Size 8"
+89  97   "Size 9"
+98  107  "Size 10"
+108 117  "Size 11"
+118 127  "Size 12"
+128 137  "Size 13"
+138 147  "Size 14"
+148 157  "Size 15"
+158 166  "Size 16"
+167 176  "Size 17"
+177 186  "Size 18"
+187 196  "Size 19"
+197 206  "Size 20"
+207 216  "Size 21"
+217 225  "Size 22"
+226 235  "Size 23"
+236 245  "Size 24"
+246 255  "Size 25"
+REND
+

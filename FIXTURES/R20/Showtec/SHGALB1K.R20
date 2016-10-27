@@ -1,0 +1,307 @@
+; 'Showtec Galactic B1000', 13 DMX Channels, filename: SHGALB1K.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   21-10-14   Nic Morris        Created
+;   21-10-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   21-10-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SHGALB1K                            mode=13 DMX  13 DMX Channels
+NAME "Showtec" "Galactic B1000"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 13 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=499
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+11    1   L    1   100   1N   0   1   "Control"         238     0     0
+6     1   L    2   100   1N   I   1   "Pattern"           0     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           8     0     0
+3    61   L    4   100   1N   E   1   "X-Move"            0     0     0
+3     1   L    5   100   1N   F   1   "Y-Move"            0     0     0
+5     1   L    6   100   1N   Q   1   "Zoom"              5     0     0
+7    61   L    7   100   1N   0   1   "Y-Roll"            5     0     0
+7     1   L    8   100   1N   0   1   "X-Roll"            5     0     0
+6    61   L    9   100   1N   0   1   "Z-Roll"            0     0     0
+9    61   L   10   100   1N   0   1   "Clipping"          5     0     0
+9     1   L   11   100   1N   0   1   "Wave"              5     0     0
+11   61   L   12   100   1N   0   1   "Reserved"          0     0     0
+8     1   L   13   100   1N   0   1   "Patterns"         32     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec
+Galactic B1000
+13 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   73   "Laser OFF"
+74  110  "PRG"
+111 147  "ILD"
+148 165  "Auto 1"
+166 184  "Auto 2"
+185 202  "Sound 1"
+203 221  "Sound 2"
+222 255  "DMX"
+REND
+
+RANGE 2  ;Pattern
+0   2    "Pattern 1"
+3   5    "Pattern 2"
+6   8    "Pattern 3"
+9   11   "Pattern 4"
+12  14   "Pattern 5"
+15  17   "Pattern 6"
+18  20   "Pattern 7"
+21  23   "Pattern 8"
+24  26   "Pattern 9"
+27  29   "Pattern 10"
+30  32   "Pattern 11"
+33  35   "Pattern 12"
+36  38   "Pattern 13"
+39  41   "Pattern 14"
+42  44   "Pattern 15"
+45  47   "Pattern 16"
+48  50   "Pattern 17"
+51  53   "Pattern 18"
+54  56   "Pattern 19"
+57  59   "Pattern 20"
+60  62   "Pattern 21"
+63  65   "Pattern 22"
+66  68   "Pattern 23"
+69  71   "Pattern 24"
+72  74   "Pattern 25"
+75  77   "Pattern 26"
+78  80   "Pattern 27"
+81  83   "Pattern 28"
+84  86   "Pattern 29"
+87  89   "Pattern 30"
+90  92   "Pattern 31"
+93  95   "Pattern 32"
+96  98   "Pattern 33"
+99  101  "Pattern 34"
+102 104  "Pattern 35"
+105 107  "Pattern 36"
+108 110  "Pattern 37"
+111 113  "Pattern 38"
+114 116  "Pattern 39"
+117 119  "Pattern 40"
+120 122  "Pattern 41"
+123 125  "Pattern 42"
+126 128  "Pattern 43"
+129 131  "Pattern 44"
+132 134  "Pattern 45"
+135 137  "Pattern 46"
+138 140  "Pattern 47"
+141 143  "Pattern 48"
+144 146  "Pattern 49"
+147 149  "Pattern 50"
+150 152  "Pattern 51"
+153 155  "Pattern 52"
+156 158  "Pattern 53"
+159 161  "Pattern 54"
+162 164  "Pattern 55"
+165 167  "Pattern 56"
+168 173  "Pattern 57"
+174 176  "Pattern 58"
+177 179  "Pattern 59"
+180 182  "Pattern 60"
+183 185  "Pattern 61"
+186 188  "Pattern 62"
+189 191  "Pattern 63"
+192 194  "Pattern 64"
+195 197  "Pattern 65"
+198 200  "Pattern 66"
+201 203  "Pattern 67"
+204 206  "Pattern 68"
+207 209  "Pattern 69"
+210 212  "Pattern 70"
+213 215  "Pattern 71"
+216 218  "Pattern 72"
+219 221  "Pattern 73"
+222 224  "Pattern 74"
+225 227  "Pattern 75"
+228 230  "Pattern 76"
+231 233  "Pattern 77"
+234 236  "Pattern 78"
+237 239  "Pattern 79"
+240 242  "Pattern 80"
+243 245  "Pattern 81"
+246 248  "Pattern 82"
+249 251  "Pattern 83"
+252 254  "Pattern 84"
+255 255  "Pattern 85"
+REND
+
+RANGE 3  ;Shutter
+0   5    "Closed"
+6   10   "Open"
+11  199  "Stro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+200 255  "Sound"
+REND
+
+RANGE 4  ;X-Move
+0   125  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 185  "Auto %3d%%"(c-a)*100/(b-a)
+186 225  "Rnd Speed"
+226 245  "Rnd Pos"
+246 255  "Sound"
+REND
+
+RANGE 5  ;Y-Move
+0   125  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 185  "Auto %3d%%"(c-a)*100/(b-a)
+186 225  "Rnd Speed"
+226 245  "Rnd Pos"
+246 255  "Sound"
+REND
+
+RANGE 6  ;Zoom
+0   10   "Normal"
+11  100  "Zoom %3d%%"(c-a)*100/(b-a)
+101 150  "Op Pls %3d%%"(c-a)*100/(b-a)
+151 200  "Cl Pls %3d%%"(c-a)*100/(b-a)
+201 255  "Pulse %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Y-Roll
+0   10   "No Spin"
+11  110  "Index %3d%%"(c-a)*100/(b-a)
+111 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;X-Roll
+0   10   "No Spin"
+11  110  "Index %3d%%"(c-a)*100/(b-a)
+111 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Z-Roll
+0   0    "No Spin"
+1   180  "Inde %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+181 217  "Sp CW  %3d%%"(c-a)*100/(b-a)
+218 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Clipping
+0   10   "Normal"
+11  74   "Fixed"
+75  104  "Out %3d%%"(c-a)*100/(b-a)
+105 144  "In %3d%%"(c-a)*100/(b-a)
+145 184  "Bounce %3d%%"(c-a)*100/(b-a)
+185 224  "On %3d%%"(c-a)*100/(b-a)
+225 255  "Off %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 11  ;Wave
+0   10   "Normal"
+11  199  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+200 255  "Size %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 13  ;Patterns
+0   63   "Normal"
+64  127  "Points"
+128 191  "Blanking"
+192 255  "Dots"
+REND
+

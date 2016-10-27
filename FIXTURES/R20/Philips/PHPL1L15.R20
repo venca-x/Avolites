@@ -1,0 +1,558 @@
+; 'Philips PL1 LED 15 DMX, 16bit', 15 DMX Channels, filename: UKPL1L15.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   07-06-12   Peter Budd        Created
+;   08-06-12   Peter Budd        Created from Philips PLCYC LED
+;   08-06-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-08-12   Peter Budd        Changed Manufacturer to Philips
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PH_PL1LED15                         mode=15 DMX, 16bit  15 DMX Channels
+NAME "Philips" "PL1 LED 15 DMX, 16bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 15 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    2   100   1N   H   1   "Dimmer Low"      255     0     0
+10    1   s    3   100   1N   T   1   "Red"             255   255     0
+0     0   L    4   100   1N   T   1   "Red Low"         255   255     0
+10   61   s    5   100   1N   U   1   "Green"           255   255     0
+0     0   L    6   100   1N   U   1   "Green Low"       255   255     0
+9    61   s    7   100   1N   V   1   "Blue"            255     0   230
+0     0   L    8   100   1N   V   1   "Blue Low"        255     0   230
+9     1   s    9   100   1N   0   1   "White"             0     0     0
+0     0   L   10   100   1N   0   1   "White Low"         0     0     0
+4     1   L   11   100   1N   0   1   "Colour Macro"      2     0     0
+20   61   L   12   100   1N   0   1   "Reserved"          0     0     0
+8     1   L   13   100   1N   0   1   "Intensity Ti"    255     0     0
+8    61   L   14   100   1N   0   1   "Colour Time"     255     0     0
+20    1   L   15   100   1N   0   1   "Control"           1     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Philips PL1 LED
+15 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   3   5   7
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  80   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  80   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset to Default"  1  15
+"data"                0   8
+"delay"               1  3C
+"data"                0   1
+MEND
+
+MACRO "Reset All"     2  15
+"data"                0  FC
+"delay"               1  3C
+"data"                0   1
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Colour Macro
+0   3    "Open"
+4   7    "Closed"
+8   11   "Scratch Pad"
+12  15   "Warm"
+16  19   "Cool"
+20  23   "Daylight"
+24  27   "Arc White"
+28  31   "Red"
+32  35   "Yellow"
+36  39   "Daylight Bl"
+40  43   "Magenta"
+44  47   "Aqua"
+48  51   "Medium Ambe"
+52  55   "Lavender"
+56  59   "Blue"
+60  63   "Light Pink"
+64  67   "Green"
+68  71   "Pink"
+72  75   "Amber White"
+76  79   "Dark Fuchsi"
+80  83   "Light Amber"
+84  87   "Steel Blue"
+88  91   "Light Green"
+92  95   "Orange"
+96  99   "Medium Pink"
+100 103  "Cyan"
+104 107  "Purple"
+108 111  "Colour 1"
+112 115  "Colour 2"
+116 119  "Colour 3"
+120 123  "Colour 4"
+124 127  "Colour 5"
+128 131  "Colour 6"
+132 132  "Reserve 132"
+133 133  "Reserve 133"
+134 134  "Reserve 134"
+135 135  "Reserve 135"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 13  ;Intensity Time
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 14  ;Colour Time
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 15  ;Control
+0   2    "No Macro"
+3   4    "Display"
+5   10   "Reset to De"
+11  13   "Quiet Mode"
+14  19   "Normal Mode"
+20  21   "Preset 1"
+22  23   "Preset 2"
+24  25   "Preset 3"
+26  27   "Preset 4"
+28  29   "Preset 5"
+30  31   "Preset 6"
+32  33   "Preset 7"
+34  35   "Preset 8"
+36  37   "Preset 9"
+38  39   "Preset 10"
+40  41   "Preset 11"
+42  43   "Preset 12"
+44  45   "Preset 13"
+46  47   "Preset 14"
+48  49   "Preset 15"
+50  51   "Preset 16"
+52  53   "Preset 17"
+54  55   "Preset 18"
+56  57   "Preset 19"
+58  59   "Preset 20"
+60  61   "Preset 21"
+62  63   "Preset 22"
+64  65   "Preset 23"
+66  67   "Preset 24"
+68  69   "Preset 25"
+70  71   "Preset 26"
+72  73   "Preset 27"
+74  75   "Preset 28"
+76  77   "Preset 29"
+78  79   "Preset 30"
+80  81   "Preset 31"
+82  82   "Reserved 82"
+83  83   "Reserved 83"
+84  84   "Reserved 84"
+85  85   "Reserved 85"
+86  86   "Reserved 86"
+87  87   "Reserved 87"
+88  88   "Reserved 88"
+89  89   "Reserved 89"
+90  90   "Reserved 90"
+91  91   "Reserved 91"
+92  92   "Reserved 92"
+93  93   "Reserved 93"
+94  94   "Reserved 94"
+95  95   "Reserved 95"
+96  96   "Reserved 96"
+97  97   "Reserved 97"
+98  98   "Reserved 98"
+99  99   "Reserved 99"
+100 100  "Reserve 100"
+101 101  "Reserve 101"
+102 102  "Reserve 102"
+103 103  "Reserve 103"
+104 104  "Reserve 104"
+105 105  "Reserve 105"
+106 106  "Reserve 106"
+107 107  "Reserve 107"
+108 108  "Reserve 108"
+109 109  "Reserve 109"
+110 110  "Reserve 110"
+111 111  "Reserve 111"
+112 112  "Reserve 112"
+113 113  "Reserve 113"
+114 114  "Reserve 114"
+115 115  "Reserve 115"
+116 116  "Reserve 116"
+117 117  "Reserve 117"
+118 118  "Reserve 118"
+119 119  "Reserve 119"
+120 120  "Reserve 120"
+121 121  "Reserve 121"
+122 122  "Reserve 122"
+123 123  "Reserve 123"
+124 124  "Reserve 124"
+125 125  "Reserve 125"
+126 126  "Reserve 126"
+127 127  "Reserve 127"
+128 128  "Reserve 128"
+129 129  "Reserve 129"
+130 130  "Reserve 130"
+131 131  "Reserve 131"
+132 132  "Reserve 132"
+133 133  "Reserve 133"
+134 134  "Reserve 134"
+135 135  "Reserve 135"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 255  "Reset All"
+REND
+

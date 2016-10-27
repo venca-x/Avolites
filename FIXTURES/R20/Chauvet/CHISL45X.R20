@@ -1,0 +1,354 @@
+; 'Chauvet Intimidator Spot LED 450 14 DMX, 16bit', 14 DMX Channels, filename: CHISL45X.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   22-07-10   Jonathan Moreton  Created from Q-Spot 150 LED
+;   19-04-12   Locate Fix        Updated locate, power on, highlight and lowlight values to valid values
+;   17-06-13   Peter Budd        Created from the Chauvet Q-Spot 260 LED.
+;   17-06-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CH_ISL45014                         mode=14 DMX, 16bit  14 DMX Channels
+NAME "Chauvet" "Intimidator Spot LED 450 14DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 14 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+4     1   I    6   100   1N   A   1   "Colour"            4    20    12
+6    61   I    7   100   1N   J   1   "Gobo"              4     0     0
+7    61   L    8   100   1N   M   1   "Gobo Rot"          0     0     0
+9     1   I    9   100   1N   P   1   "Prism"             4     0     0
+5    61   L   10   100   1N   L   1   "Focus"           127     0     0
+1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L   12   100   1N   O   1   "Shutter"           6     0     0
+10    1   L   13   100   1N   0   1   "Control"           4     0     0
+10   61   L   14   100   1N   0   1   "P/T Macro"         4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet
+Intimidator Spot LED 450
+14 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  12
+"Open"               31   6
+"Slow Strobe"        32  2A
+"Fast Strobe"        33  4C
+"Slow Pulse"         36  B4
+"Fast Pulse"         37  D7
+"Closed"             38   2
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6
+"Open"                1   4
+"Red"                 2  2C
+"Yellow"              3  14
+"Yellow"              4  14
+"Green"               5  24
+"Light Blue"          6  34
+"Blue"                7   C
+"Blue"                9   C
+"Pink"               10  1C
+"Pink"                8  1C
+PFEND
+
+PFTABLE "Gobo"       -1   7
+"Open"               11   4
+"Gobo 1"             12   C
+"Gobo 2"             13  14
+"Gobo 3"             14  1C
+"Gobo 4"             15  24
+"Gobo 5"             16  2C
+"Gobo 6"             17  34
+"Gobo 7"             18  3C
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset Pan"     1  13
+"data"                0  64
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Tilt"    2  13
+"data"                0  6C
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Colour"  3  13
+"data"                0  74
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Gobo"    4  13
+"data"                0  7C
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Gobo Rotate"  5  13
+"data"                0  84
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Prism"   6  13
+"data"                0  8C
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Focus"   7  13
+"data"                0  94
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset"         8  13
+"data"                0  9C
+"delay"               1  3C
+"data"                0   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Colour
+0   7    "Open"
+8   15   "Blue"
+16  23   "Yellow"
+24  31   "Pink"
+32  39   "Green"
+40  47   "Red"
+48  55   "Light Blue"
+56  63   "Orange Red"
+64  66   "Open"
+67  78   "Op/Bl %3d%%"(c-a)*100/(b-a)
+79  92   "Bl/Yl %3d%%"(c-a)*100/(b-a)
+93  107  "Yll/Pk %3d%%"(c-a)*100/(b-a)
+108 120  "Pnk/Gr %3d%%"(c-a)*100/(b-a)
+121 136  "Grn/Rd %3d%%"(c-a)*100/(b-a)
+137 152  "Rd/LtB %3d%%"(c-a)*100/(b-a)
+153 170  "LBl/Or %3d%%"(c-a)*100/(b-a)
+171 212  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+213 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Gobo
+0   7    "Open"
+8   15   "Gobo 1"
+16  23   "Gobo 2"
+24  31   "Gobo 3"
+32  39   "Gobo 4"
+40  47   "Gobo 5"
+48  55   "Gobo 6"
+56  63   "Gobo 7"
+64  71   "Gobo 7 %3d%%"(c-a)*100/(b-a)
+72  79   "Gobo 6 %3d%%"(c-a)*100/(b-a)
+80  87   "Gobo 5 %3d%%"(c-a)*100/(b-a)
+88  95   "Gobo 4 %3d%%"(c-a)*100/(b-a)
+96  103  "Gobo 3 %3d%%"(c-a)*100/(b-a)
+104 111  "Gobo 2 %3d%%"(c-a)*100/(b-a)
+119 119  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+120 127  "Open"
+128 191  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Gobo Rot
+0   60   "Index %3d%%"(c-a)*100/(b-a)
+61  158  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+159 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Prism
+0   7    "Open"
+8   12   "Prism"
+13  130  "Spin %3d%%"100-((c-a)*100/(b-a))
+131 247  "No Spin"
+REND
+
+RANGE 10  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Shutter
+0   3    "Closed"
+4   7    "Open"
+8   76   "Strobe %3d%%"(c-a)*100/(b-a)
+77  145  "Pulse %3d%%"(c-a)*100/(b-a)
+146 215  "Rnd St %3d%%"(c-a)*100/(b-a)
+216 255  "Open"
+REND
+
+RANGE 13  ;Control
+0   7    "Safe"
+8   15   "BO on P/T"
+16  23   "BO on Colou"
+24  31   "BO on Gobo"
+32  39   "NO BO onM/C"
+40  47   "No BO onM/G"
+48  55   "No BO on Al"
+56  95   "Safe"
+96  103  "Reset Pan"
+104 111  "Reset Tilt"
+112 119  "Reset Colou"
+120 127  "Reset Gobo"
+128 135  "Reset Gobo "
+136 143  "Reset Prism"
+144 151  "Reset Focus"
+152 159  "Reset"
+160 255  "Safe"
+REND
+
+RANGE 14  ;P/T Macro
+0   7    "No Macro"
+8   23   "Macro 1"
+24  39   "Macro 2"
+40  55   "Macro 3"
+56  71   "Macro 4"
+72  87   "Macro 5"
+88  103  "Macro 6"
+104 119  "Macro 7"
+120 135  "Macro 8"
+136 151  "Sound 1"
+152 167  "Sound 2"
+168 183  "Sound 3"
+184 199  "Sound 4"
+200 215  "Sound 5"
+216 231  "Sound 6"
+232 247  "Sound 7"
+248 255  "Sound 8"
+REND
+

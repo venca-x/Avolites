@@ -1,0 +1,279 @@
+; 'BriteQ PowerMatrix5x5 11 DMX', 11 DMX Channels, filename: UKBQ5X5D.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   28-06-15   Nic Morris        Created
+;   28-06-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-06-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKBQ5X5D                            mode=11 DMX  11 DMX Channels
+NAME "Misc B" "BriteQ PowerMatrix5x5 11 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  11  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 11 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
+1     1   H    4   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    5   100   1N   O   1   "Shutter"           2     0     0
+2     1   L    6   100   1N   0   1   "FX Dimmer"         0     0     0
+6     1   L    7   100   1N   0   1   "FX Playback"       4     0     0
+7     1   L    8   100   1N   0   1   "FX Group"         16     0     0
+7    61   L    9   100   1N   0   1   "FX Sequence"       6     0     0
+4     1   L   10   100   1N   0   1   "FX Colour"         6     0     0
+4    61   L   11   100   1N   0   1   "BG Colour"         6     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+BriteQ PowerMatrix5x5
+11 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   1   2   3
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Shutter
+0   4    "Open"
+5   24   "Sound %3d%%"(c-a)*100/(b-a)
+25  34   "Open"
+35  255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;FX Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;FX Playback
+0   7    "Stop"
+8   120  "Speed %3d%%"100-((c-a)*100/(b-a))
+121 124  "Step 1"
+125 128  "Step 2"
+129 132  "Step 3"
+133 136  "Step 4"
+137 140  "Step 5"
+141 144  "Step 6"
+145 148  "Step 7"
+149 152  "Step 8"
+153 156  "Step 9"
+157 160  "Step 10"
+161 164  "Step 11"
+165 168  "Step 12"
+169 172  "Step 13"
+173 176  "Step 14"
+177 180  "Step 15"
+181 185  "Step 16"
+186 189  "Step 17"
+190 193  "Step 18"
+194 197  "Step 19"
+198 201  "Step 20"
+202 205  "Step 21"
+206 209  "Step 22"
+210 213  "Step 23"
+214 217  "Step 24"
+218 221  "Step 25"
+222 225  "Step 26"
+226 229  "Step 27"
+230 233  "Step 28"
+234 237  "Step 29"
+238 241  "Step 30"
+242 245  "Step 31"
+246 249  "Step 32"
+250 255  "Reset Step1"
+REND
+
+RANGE 8  ;FX Group
+0   31   "Group 1"
+32  63   "Group 2"
+64  95   "Group 3"
+96  127  "Group 4"
+128 159  "Group 5"
+160 191  "Group 6"
+192 223  "Group 7"
+224 255  "Group 8"
+REND
+
+RANGE 9  ;FX Sequence
+0   12   "Sequence 1"
+13  24   "Sequence 2"
+25  36   "Sequence 3"
+37  48   "Sequence 4"
+49  60   "Sequence 5"
+61  72   "Sequence 6"
+73  84   "Sequence 7"
+85  96   "Sequence 8"
+97  108  "Sequence 9"
+109 120  "Sequence 10"
+121 132  "Sequence 11"
+133 144  "Sequence 12"
+145 156  "Sequence 13"
+157 168  "Sequence 14"
+169 180  "Sequence 15"
+181 255  "Sequence 16"
+REND
+
+RANGE 10  ;FX Colour
+0   12   "Red"
+13  24   "Green"
+25  36   "Blue"
+37  48   "R/ G"
+49  60   "G/ B"
+61  72   "R/ B"
+73  84   "R/ G/ B"
+85  96   "Colour 1"
+97  108  "Colour 2"
+109 120  "Colour 3"
+121 132  "Colour 4"
+133 144  "Colour 5"
+145 156  "Colour 6"
+157 168  "Colour 7"
+169 180  "Colour 8"
+181 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 11  ;BG Colour
+0   12   "Off"
+13  24   "Red"
+25  36   "Green"
+37  48   "Blue"
+49  60   "R/ G"
+61  72   "G/ B"
+73  84   "R/ B"
+85  96   "R/ G/ B"
+97  108  "Colour 1"
+109 120  "Colour 2"
+121 132  "Colour 3"
+133 144  "Colour 4"
+145 156  "Colour 5"
+157 168  "Colour 6"
+169 180  "Colour 7"
+181 192  "Colour 8"
+193 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+

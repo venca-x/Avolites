@@ -1,0 +1,257 @@
+; 'Inoage Madrix Micro', 3 DMX Channels, filename: UKMDRXMC.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   29-02-12   Peter Budd        Created
+;   01-03-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-03-12   Peter Budd        Checked
+;   01-03-12   Peter Budd        Changed Manufacturer name to unknown, changed light name.
+;   23-12-15   Nic Morris        Changed manufacturer from Unknown to Inoage
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_MadrixMc                         mode=Micro  3 DMX Channels
+NAME "Misc I" "Inoage Madrix Micro"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Micro"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=509
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+5    61   L    1   100   1N   0   1   "Storage"           0     0     0
+8     1   L    2   100   1N   0   1   "Fade Time"       255     0     0
+1     1   H    3   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Inoage Madrix
+Micro
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Storage
+0   1    "Store A 1"
+2   3    "Store A 2"
+4   5    "Store A 3"
+6   7    "Store A 4"
+8   9    "Store A 5"
+10  11   "Store A 6"
+12  13   "Store A 7"
+14  15   "Store A 8"
+16  17   "Store A 9"
+18  19   "Store A 10"
+20  21   "Store A 11"
+22  23   "Store A 12"
+24  25   "Store A 13"
+26  27   "Store A 14"
+28  29   "Store A 15"
+30  31   "Store A 16"
+32  33   "Store A 17"
+34  35   "Store A 18"
+36  37   "Store A 19"
+38  39   "Store A 20"
+40  41   "Store A 21"
+42  43   "Store A 22"
+44  45   "Store A 23"
+46  47   "Store A 24"
+48  49   "Store A 25"
+50  51   "Store A 26"
+52  53   "Store A 27"
+54  55   "Store A 28"
+56  57   "Store A 29"
+58  59   "Store A 30"
+60  62   "Store A 31"
+63  64   "Store A 32"
+65  66   "Store A 33"
+67  68   "Store A 34"
+69  70   "Store A 35"
+71  72   "Store A 36"
+73  74   "Store A 37"
+75  76   "Store A 38"
+77  78   "Store A 39"
+79  80   "Store A 40"
+81  82   "Store A 41"
+83  84   "Store A 42"
+85  86   "Store A 43"
+87  88   "Store A 44"
+89  90   "Store A 45"
+91  92   "Store A 46"
+93  94   "Store A 47"
+95  96   "Store A 48"
+97  98   "Store A 49"
+99  100  "Store A 50"
+101 102  "Store A 51"
+103 104  "Store A 52"
+105 106  "Store A 53"
+107 108  "Store A 54"
+109 110  "Store A 55"
+111 112  "Store A 56"
+113 114  "Store A 57"
+115 116  "Store A 58"
+117 118  "Store A 59"
+119 120  "Store A 60"
+121 122  "Store B 1"
+123 124  "Store B 2"
+125 126  "Store B 3"
+127 128  "Store B 4"
+129 130  "Store B 5"
+131 132  "Store B 6"
+133 134  "Store B 7"
+135 136  "Store B 8"
+137 138  "Store B 9"
+139 140  "Store B 10"
+141 142  "Store B 11"
+143 144  "Store B 12"
+145 146  "Store B 13"
+147 148  "Store B 14"
+149 150  "Store B 15"
+151 152  "Store B 16"
+153 154  "Store B 17"
+155 156  "Store B 18"
+157 158  "Store B 19"
+159 160  "Store B 20"
+161 162  "Store B 21"
+163 164  "Store B 22"
+165 166  "Store B 23"
+167 168  "Store B 24"
+169 170  "Store B 25"
+171 172  "Store B 26"
+173 174  "Store B 27"
+175 176  "Store B 28"
+177 178  "Store B 29"
+179 180  "Store B 30"
+181 182  "Store B 31"
+183 184  "Store B 32"
+185 186  "Store B 33"
+187 188  "Store B 34"
+189 190  "Store B 35"
+191 192  "Store B 36"
+193 194  "Store B 37"
+195 196  "Store B 38"
+197 198  "Store B 39"
+199 200  "Store B 40"
+201 202  "Store B 41"
+203 204  "Store B 42"
+205 206  "Store B 43"
+207 208  "Store B 44"
+209 210  "Store B 45"
+211 212  "Store B 46"
+213 214  "Store B 47"
+215 216  "Store B 48"
+217 218  "Store B 49"
+219 220  "Store B 50"
+221 222  "Store B 51"
+223 224  "Store B 52"
+225 226  "Store B 53"
+227 228  "Store B 54"
+229 230  "Store B 55"
+231 232  "Store B 56"
+233 234  "Store B 57"
+235 236  "Store B 58"
+237 238  "Store B 59"
+239 240  "Store B 60"
+REND
+
+RANGE 2  ;Fade Time
+0   255  "Time %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

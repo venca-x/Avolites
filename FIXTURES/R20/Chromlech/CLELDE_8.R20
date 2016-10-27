@@ -1,0 +1,262 @@
+; 'Chromlech Elidy Effect, 8 DMX', 8 DMX Channels, filename: CLELDE_8.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   12-07-13   Peter Budd        Created
+;   02-08-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CL_ElidyE_8                         mode=Effect, 8 DMX  8 DMX Channels
+NAME "Chromlech" "Elidy Effect, 8 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Effect, 8 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    2   100   1N   H   1   "Dimmer Low"      255     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           0     0     0
+2     1   L    4   100   1N   G   1   "Iris"              0     0     0
+6     1   L    5   100   1N   0   1   "Bank"              0     0     0
+7     1   I    6   100   1N   I   1   "Bank Rot"          0     0     0
+9    61   L    7   100   1N   K   1   "Symmetry"         16     0     0
+10   61   L    8   100   1N   0   1   "Fade Out"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chromlech Elidy
+Effect, 8 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Shutter
+0   0    "Open"
+5   66   "Strobe %3d%%"(c-a)*100/(b-a)
+67  69   "Open"
+70  131  "Pulse %3d%%"(c-a)*100/(b-a)
+132 193  "Rnd St %3d%%"(c-a)*100/(b-a)
+194 255  "Rnd Pu %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Iris
+0   64   "RW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+65  128  "RB %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 191  "SW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "SB %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Bank
+0   0    "Open"
+3   5    "Factory 1"
+6   8    "Factory 2"
+9   11   "Factory 3"
+12  14   "Factory 4"
+15  17   "Factory 5"
+18  20   "Factory 6"
+21  23   "Factory 7"
+24  26   "Factory 8"
+27  29   "Factory 9"
+30  32   "Factory 10"
+33  35   "Factory 11"
+36  38   "Factory 12"
+39  41   "Factory 13"
+42  44   "Factory 14"
+45  47   "Factory 15"
+48  50   "Factory 16"
+51  53   "Factory 17"
+54  56   "Factory 18"
+57  59   "Factory 19"
+60  62   "Factory 20"
+63  65   "Factory 21"
+66  68   "Factory 22"
+69  71   "Factory 23"
+72  74   "Factory 24"
+75  77   "Factory 25"
+78  80   "Factory 26"
+81  83   "Factory 27"
+84  86   "Factory 28"
+87  89   "Factory 29"
+90  92   "Factory 30"
+93  95   "Factory 31"
+96  98   "Factory 32"
+99  101  "Factory 33"
+102 104  "Factory 34"
+105 107  "Factory 35"
+108 110  "Factory 36"
+111 113  "Factory 37"
+114 116  "Factory 38"
+117 119  "Factory 39"
+120 122  "Factory 40"
+123 125  "Factory 41"
+126 128  "Factory 42"
+129 131  "Factory 43"
+132 134  "Factory 44"
+135 137  "Factory 45"
+138 140  "Factory 46"
+141 143  "Factory 47"
+144 146  "Factory 48"
+147 149  "Factory 49"
+150 152  "Factory 50"
+153 155  "Factory 51"
+156 158  "Factory 52"
+159 161  "Factory 53"
+162 164  "Factory 54"
+165 167  "Factory 55"
+168 170  "Factory 56"
+171 173  "Factory 57"
+174 176  "Factory 58"
+177 179  "Factory 59"
+180 182  "Factory 60"
+183 185  "Factory 61"
+186 188  "Factory 62"
+189 191  "Factory 63"
+192 194  "Factory 64"
+195 197  "User 1"
+198 200  "User 2"
+201 203  "User 3"
+204 206  "User 4"
+207 209  "User 5"
+210 212  "User 6"
+213 215  "User 7"
+216 218  "User 8"
+219 221  "User 9"
+222 225  "User 10"
+226 228  "User 11"
+229 231  "User 12"
+232 234  "User 13"
+235 237  "User 14"
+238 240  "User 15"
+241 243  "User 16"
+244 246  "User 17"
+247 249  "User 18"
+250 252  "User 19"
+253 255  "User 20"
+REND
+
+RANGE 6  ;Bank Rot
+0   1    "No Spin"
+2   63   "Sp CW %3d%%"100-((c-a)*100/(b-a))
+64  64   "No Spin"
+65  126  "Sp CCW %3d%%"(c-a)*100/(b-a)
+127 127  "Stop"
+128 255  "Inde %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Symmetry
+0   31   "No Symmetry"
+32  63   "Horizontal"
+64  95   "Vertical"
+96  127  "H+V"
+128 159  "90 No Symm"
+160 191  "90 Horizont"
+192 223  "90 Vertical"
+224 255  "90 H+V"
+REND
+
+RANGE 8  ;Fade Out
+0   127  "Norm %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 254  "Fade %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+255 255  "Low Voltage"
+REND
+

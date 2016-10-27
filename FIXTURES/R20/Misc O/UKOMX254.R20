@@ -1,0 +1,408 @@
+; 'Omnisistem MX-25 Blinder Mode 4, 28 DMX', 28 DMX Channels, filename: UKOMX254.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   10-06-10   John Rogers       Created
+;   05-10-12   Peter Budd        Edited added cells
+;   11-10-12   Peter Budd        Created from showtec matrix 5x5 blinder
+;   12-09-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-09-15   Pers Creator      Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_OmMX25M4                         mode=Mode 4, 28 DMX  28 DMX Channels
+NAME "Misc O" "Om MX-25 Blinder Mode 4, 28 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  28  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 4, 28 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=484
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+5     1   L    2   100   1N   0   1   "Static Macro"      4     0     0
+5    61   L    3   100   1N   0   1   "Dynamic Macr"      0     0     0
+10    1   L    4   100   1N   0   1   "Lamp 1"          255     0     0
+10   61   L    5   100   1N   0   1   "Lamp 2"          255     0     0
+9     1   L    6   100   1N   0   1   "Lamp 3"          255     0     0
+9    61   L    7   100   1N   0   1   "Lamp 4"          255     0     0
+8     1   L    8   100   1N   0   1   "Lamp 5"          255     0     0
+8    61   L    9   100   1N   0   1   "Lamp 6"          255     0     0
+7     1   L   10   100   1N   0   1   "Lamp 7"          255     0     0
+7    61   L   11   100   1N   0   1   "Lamp 8"          255     0     0
+6     1   L   12   100   1N   0   1   "Lamp 9"          255     0     0
+6    61   L   13   100   1N   0   1   "Lamp10"          255     0     0
+20    1   L   14   100   1N   0   1   "Lamp 11"         255     0     0
+20   61   L   15   100   1N   0   1   "Lamp 12"         255     0     0
+19    1   L   16   100   1N   0   1   "Lamp 13"         255     0     0
+19   61   L   17   100   1N   0   1   "Lamp 14"         255     0     0
+18    1   L   18   100   1N   0   1   "Lamp 15"         255     0     0
+18   61   L   19   100   1N   0   1   "Lamp 16"         255     0     0
+17    1   L   20   100   1N   0   1   "Lamp 17"         255     0     0
+17   61   L   21   100   1N   0   1   "Lamp 18"         255     0     0
+16    1   L   22   100   1N   0   1   "Lamp 19"         255     0     0
+16   61   L   23   100   1N   0   1   "Lamp 20"         255     0     0
+15    1   L   24   100   1N   0   1   "Lamp 21"         255     0     0
+15   61   L   25   100   1N   0   1   "Lamp 22"         255     0     0
+14    1   L   26   100   1N   0   1   "Lamp 23"         255     0     0
+14   61   L   27   100   1N   0   1   "Lamp 24"         255     0     0
+13    1   L   28   100   1N   0   1   "Lamp 25"         255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Omnisistem
+MX-25 Blinder
+Mode 4, 28 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Static Macros
+0   9    "No Macro"
+10  10   "Program 1"
+11  11   "Program 2"
+12  12   "Program 3"
+13  13   "Program 4"
+14  14   "Program 5"
+15  15   "Program 6"
+16  16   "Program 7"
+17  17   "Program 8"
+18  18   "Program 9"
+19  19   "Program 10"
+20  20   "Program 11"
+21  21   "Program 12"
+22  22   "Program 13"
+23  23   "Program 14"
+24  24   "Program 15"
+25  25   "Program 16"
+26  26   "Program 17"
+27  27   "Program 18"
+28  28   "Program 19"
+29  29   "Program 20"
+30  30   "Program 21"
+31  31   "Program 22"
+32  32   "Program 23"
+33  33   "Program 24"
+34  34   "Program 25"
+35  35   "Program 26"
+36  36   "Program 27"
+37  37   "Program 28"
+38  38   "Program 29"
+39  39   "Program 30"
+40  40   "Program 31"
+41  41   "Program 32"
+42  42   "Program 33"
+43  43   "Program 34"
+44  44   "Program 35"
+45  45   "Program 36"
+46  46   "Program 37"
+47  47   "Program 38"
+48  48   "Program 39"
+49  49   "Program 40"
+50  50   "Program 41"
+51  51   "Program 42"
+52  52   "Program 43"
+53  53   "Program 44"
+54  54   "Program 45"
+55  55   "Program 46"
+56  56   "Program 47"
+57  57   "Program 48"
+58  58   "Program 49"
+59  59   "Program 50"
+60  60   "Program 51"
+61  61   "Program 52"
+62  62   "Program 53"
+63  63   "Program 54"
+64  64   "Program 55"
+65  65   "Program 56"
+66  66   "Program 57"
+67  67   "Program 58"
+68  68   "Program 59"
+69  69   "Program 60"
+70  70   "Program 61"
+71  71   "Program 62"
+72  72   "Program 63"
+73  73   "Program 64"
+74  74   "Program 65"
+75  75   "Program 66"
+76  76   "Program 67"
+77  77   "Program 68"
+78  78   "Program 69"
+79  79   "Program 70"
+80  80   "Program 71"
+81  81   "Program 72"
+82  82   "Program 73"
+83  83   "Program 74"
+84  84   "Program 75"
+85  85   "Program 76"
+86  86   "Program 77"
+87  87   "Program 78"
+88  88   "Program 79"
+89  89   "Program 80"
+90  90   "Program 81"
+91  91   "Program 82"
+92  92   "Program 83"
+93  93   "Program 84"
+94  94   "Program 85"
+95  95   "Program 86"
+96  96   "Program 87"
+97  97   "Program 88"
+98  98   "Program 89"
+99  99   "Program 90"
+100 100  "Program 91"
+101 101  "Program 92"
+102 102  "Program 93"
+103 103  "Program 94"
+104 104  "Program 95"
+105 105  "Program 96"
+106 106  "Program 97"
+107 107  "Program 98"
+108 108  "Program 99"
+109 109  "Program 100"
+110 110  "Program 101"
+111 111  "Program 102"
+112 112  "Program 103"
+113 113  "Program 104"
+114 114  "Program 105"
+115 115  "Program 106"
+116 116  "Program 107"
+117 117  "Program 108"
+118 118  "Program 109"
+119 119  "Program 110"
+120 120  "Program 111"
+121 121  "Program 112"
+122 122  "Program 113"
+123 123  "Program 114"
+124 124  "Program 115"
+125 125  "Program 116"
+126 126  "Program 117"
+127 127  "Program 118"
+128 128  "Program 119"
+129 129  "Program 120"
+130 130  "Program 121"
+131 131  "Program 122"
+132 132  "Program 123"
+133 133  "Program 124"
+134 134  "Program 125"
+135 135  "Program 126"
+136 136  "Program 127"
+137 137  "Program 128"
+138 138  "Program 129"
+139 139  "Program 130"
+140 140  "Program 131"
+141 141  "Program 132"
+142 142  "Program 133"
+143 143  "Program 134"
+144 144  "Program 135"
+145 145  "Program 136"
+146 146  "Program 137"
+147 147  "Program 138"
+148 148  "Program 139"
+149 149  "Program 140"
+150 150  "Program 141"
+151 151  "Program 142"
+152 152  "Program 143"
+153 153  "Program 144"
+154 154  "Program 145"
+155 155  "Program 146"
+156 249  "No Effect"
+250 255  "Macro"
+REND
+
+RANGE 4  ;Lamp 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Lamp 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Lamp 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Lamp 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Lamp 5
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Lamp 6
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Lamp 7
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Lamp 8
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Lamp 9
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Lamp10
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Lamp 11
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Lamp 12
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Lamp 13
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Lamp 14
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Lamp 15
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Lamp 16
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Lamp 17
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Lamp 18
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Lamp 19
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Lamp 20
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Lamp 21
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Lamp 22
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Lamp 23
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Lamp 24
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Lamp 25
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

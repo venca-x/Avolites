@@ -1,0 +1,458 @@
+; 'Martin Mac 2000 Profile 20 DMX, 8 Bit', 20 DMX Channels, filename: MT2000P8.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   31-07-09   Jonathan Moreton  Fixed Iris Range Table
+;   11-08-09   David Hunt        Edited Macros to match R20s
+;   25-08-09   Jonathan Moreton  Fixed Gobo1Rot
+;   17-01-11   Brad White        Fixed Gobo2Rot
+;   18-01-11   John Rogers       Added Palettes.
+;   20-01-11   Nic Morris        Fixed Colour1 ranges.
+;   20-01-11   Nic Morris        Added CMY conditionals
+;   20-01-11   Nic Morris        Shortened Gobo Func names for Expert LCD
+;   20-01-11   Nic Morris        Fixed all function update errors.
+;   20-01-11   Nic Morris        Adjusted gobo rotate direction
+;   20-01-11   Nic Morris        Added CTC raw range
+;   20-01-11   Nic Morris        Added ranges for Effect Speed
+;   20-01-11   Nic Morris        Fixed shutter pulse ranges.
+;   23-01-11   Nic Morris        Increased raw range to 65535
+;   23-01-11   Nic Morris        Fixed power on and locate
+;   23-01-11   Nic Morris        Revised macros
+;   25-01-11   Nic Morris        Added GoboRot to macros since GoboFunc might modify its condition.
+;   26-01-11   Nic Morris        Simplified Effect and increased spin wheel resolution.
+;   26-01-11   Nic Morris        Standardised Func names
+;   26-01-11   Nic Morris        Added GoboRot to Gobo update.
+;   22-02-11   Nic Morris        Swapped Spin CW and CCW ranges.  Standardised spin names.
+;   22-02-11   Nic Morris        Added function index for colour and gobo to work across conditions.
+;   22-02-11   Nic Morris        Reversed iris and iris open pulse wheel direction.
+;   22-02-11   Nic Morris        Changed gobo func order so shake and non-shake are adjacent to one another.
+;   05-11-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-11-11   Nic Morris        Re-exported to ensure Macros are correct.  Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac2KP8B                         mode=20 DMX, 8 Bit  20 DMX Channels
+NAME "Martin" "Mac 2000 Profile 20 DMX, 8 Bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  20  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  267
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 20 DMX, 8 Bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=492
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          34     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    3   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    4   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    5   100   1N   D   1   "Yellow"            0   255    76
+4    61   L    6   100   1N   0   1   "CTC"               0     0     0
+4     1   L    7   100   1N   A   1   "Colour"          190   190   190
+6     1   L    8   100   1N   I   1   "Gobo 1"            4     0     0
+7     1   L    9   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+6    61   L   10   100   1N   J   1   "Gobo 2"            4     0     0
+7    61   L   11   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+9     1   L   12   100   1N   P   1   "Effect"            0     0     0
+19    1   L   13   100   1N   R   1   "Effect Rotat"      0     0     0
+2     1   L   14   100   1N   G   1   "Iris"              0     0     0
+5    61   L   15   100   1N   L   1   "Focus"           127     0     0
+5     1   L   16   100   1N   Q   1   "Zoom"            142     0     0
+3    61   L   17   100   1N   E   1   "Pan"             128     0     0
+3     1   L   18   100   1N   F   1   "Tilt"            128     0     0
+8     1   L   19   100   1N   0   1   "MSpeed"            1     0     0
+8    61   L   20   100   1N   0   1   "Eff Speed"         0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin
+Mac 2000 Profile
+20 DMX, 8 Bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  22
+"Slow Strobe"        32  3D
+"Fast Strobe"        33  32
+"Slow Random Strobe"  34  B2
+"Fast Random Strobe"  35  93
+"Slow Pulse"         36  5A
+"Fast Pulse"         37  63
+"Closed"             38   A
+PFEND
+
+PFTABLE "Pan/Tilt"   -1  17  18
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   3   4   5
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  7F  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Magenta"            10   0  FF   0
+"Lavender"            8  4A  91   F
+"Ultra Violet"        9  CC  FF   0
+PFEND
+
+PFTABLE "Gobo"       -1   8  10
+"Open"               11   4   4
+"Jet Fan"            12  25   4
+"Pipe Dreams"        13  2A   4
+"Double Worms"       14  2F   4
+"Inverted King Star"  15  34   4
+"Limbo"              16  39   4
+"Limbo Donut"        17   4  25
+"Triangle Cones"     18   4  2A
+"Congo Star"         19   4  2F
+"Space Sun"          20   4  34
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   1  10  11   3   4   5   7   8   9
+"data"                0   0  20   0  FF  FF  FF  A2  20   0
+"delay"               1   A
+"data"                0  E8  20   0  FF  FF  FF  A2  20   0
+"delay"               1  3C
+"data"                0  22   4   0   0   0   0  BE   4   0
+MEND
+
+MACRO "Lamp Off"      2   1  10  11   3   4   5   7   8   9
+"data"                0   0  20   0  FF  FF  FF  A2  20   0
+"delay"               1   A
+"data"                0  FC  20   0  FF  FF  FF  A2  20   0
+"delay"               1  3C
+"data"                0  22   4   0   0   0   0  BE   4   0
+MEND
+
+MACRO "Reset"         3   1  10  11   3   4   5   7   8   9
+"data"                0   0  20   0  FF  FF  FF  A2  20   0
+"delay"               1   A
+"data"                0  D4  20   0  FF  FF  FF  A2  20   0
+"delay"               1  3C
+"data"                0  22   4   0   0   0   0  BE   4   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  72   "Strobe %3d%%"100-((c-a)*100/(b-a))
+73  79   "Open Low Pw"
+80  99   "Open P %3d%%"(c-a)*100/(b-a)
+100 119  "Clse P %3d%%"(c-a)*100/(b-a)
+120 127  "Open"
+128 147  "Rnd  (Fast)"
+148 167  "Rnd (Med)"
+168 187  "Rnd (Slow)"
+188 190  "Open"
+191 193  "ORnd Pls (F"
+194 196  "ORnd Pls (S"
+197 199  "CRnd Pls (F"
+200 202  "CRnd Pls (S"
+203 207  "Safe"
+208 217  "Reset Fixtu"
+228 237  "Lamp On"
+248 255  "Lamp Off"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;CTC
+0   0    "CID HMI 600"
+8   8    "E Flash 590"
+16  16   "Film 5800K"
+25  25   "Daylight 57"
+41  41   "Carbon 5000"
+107 107  "White 4700K"
+165 165  "CSI 4000K"
+197 197  "White 3600K"
+206 206  "Tungsten 35"
+214 214  "Tungsten 34"
+230 230  "Tungsten 32"
+247 247  "Tungsten@80"
+255 255  "Tungsten@65"
+REND
+
+RANGE 7  ;Colour
+0   19   "White- %3d%%"(c-a)*100/(b-a)
+20  39   "Red-Gr %3d%%"(c-a)*100/(b-a)
+40  59   "Green- %3d%%"(c-a)*100/(b-a)
+60  79   "Blue-U %3d%%"(c-a)*100/(b-a)
+80  99   "UV-Tri %3d%%"(c-a)*100/(b-a)
+100 119  "Trp Cn %3d%%"(c-a)*100/(b-a)
+120 139  "Highwa %3d%%"(c-a)*100/(b-a)
+140 159  "Dots-O %3d%%"(c-a)*100/(b-a)
+160 163  "Dots"
+164 167  "Highways"
+168 171  "Triple Cone"
+172 175  "UV"
+176 179  "Blue"
+180 183  "Green"
+184 187  "Red"
+188 191  "No Scroll"
+192 217  "Scroll %3d%%"100-((c-a)*100/(b-a))
+218 243  "Scro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+244 247  "Random Fast"
+248 251  "Random Med"
+252 255  "Random Slow"
+REND
+
+RANGE 8  ;Gobo 1
+0   9    "Open"
+10  14   "Jet Fan"
+15  19   "Pipe Dreams"
+20  24   "Double Worm"
+25  29   "Inverted Ki"
+30  34   "Limbo"
+35  39   "Jet Fan"
+40  44   "Pipe Dreams"
+45  49   "Double Worm"
+50  54   "Inverted Ki"
+55  59   "Limbo"
+60  74   "Jet Fa %3d%%"(c-a)*100/(b-a)
+75  89   "Pipe D %3d%%"(c-a)*100/(b-a)
+90  104  "Worms  %3d%%"(c-a)*100/(b-a)
+105 119  "Inv Ki %3d%%"(c-a)*100/(b-a)
+120 134  "Limbo  %3d%%"(c-a)*100/(b-a)
+135 149  "Jet Fa %3d%%"(c-a)*100/(b-a)
+150 164  "Pipe D %3d%%"(c-a)*100/(b-a)
+165 179  "Worms  %3d%%"(c-a)*100/(b-a)
+180 194  "Inv Ki %3d%%"(c-a)*100/(b-a)
+195 209  "Limbo  %3d%%"(c-a)*100/(b-a)
+210 232  "Scroll %3d%%"(c-a)*100/(b-a)
+233 255  "Scroll %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 9  ;Gobo 1 Rot
+0   2    "No Spin"
+3   127  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+128 252  "Spin C %3d%%"100-((c-a)*100/(b-a))
+253 255  "No Spin"
+REND
+
+RANGE 10  ;Gobo 2
+0   9    "Open"
+10  14   "Limbo Donut"
+15  19   "Triangle Co"
+20  24   "Congo Star"
+25  29   "Space Sun"
+30  34   "Waves"
+35  39   "Limbo Donut"
+40  44   "Triangle Co"
+45  49   "Congo Star"
+50  54   "Space Sun"
+55  59   "Waves"
+60  74   "Limbo  %3d%%"(c-a)*100/(b-a)
+75  89   "Tri Co %3d%%"(c-a)*100/(b-a)
+90  104  "Congo  %3d%%"(c-a)*100/(b-a)
+105 119  "Space  %3d%%"(c-a)*100/(b-a)
+120 134  "Waves  %3d%%"(c-a)*100/(b-a)
+135 149  "Limbo  %3d%%"(c-a)*100/(b-a)
+150 164  "Tri Co %3d%%"(c-a)*100/(b-a)
+165 179  "Congo  %3d%%"(c-a)*100/(b-a)
+180 194  "Space  %3d%%"(c-a)*100/(b-a)
+195 209  "Waves  %3d%%"(c-a)*100/(b-a)
+210 232  "Scroll %3d%%"(c-a)*100/(b-a)
+233 255  "Scroll %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;Gobo 2 Rot
+0   2    "No Spin"
+3   127  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+128 252  "Spin C %3d%%"100-((c-a)*100/(b-a))
+253 255  "No Spin"
+REND
+
+RANGE 12  ;Effect
+0   0    "Open"
+1   175  "Fros %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+176 183  "Effect 1 In"
+184 191  "Effect 2 In"
+192 199  "Effect 1 Sp"
+200 207  "Effect 2 Sp"
+216 220  "Macro 1"
+221 225  "Macro 2"
+226 230  "Macro 3"
+231 235  "Macro 4"
+236 240  "Macro 5"
+241 245  "Macro 6"
+246 250  "Macro 7"
+251 255  "Macro 8"
+REND
+
+RANGE 13  ;Effect Rotate
+0   2    "No Spin"
+3   127  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 252  "Spin C %3d%%"100-((c-a)*100/(b-a))
+253 255  "No Spin"
+REND
+
+RANGE 14  ;Iris
+0   199  "Iris %3d%%"100-((c-a)*100/(b-a))
+200 215  "Closed"
+216 229  "Open P %3d%%"100-((c-a)*100/(b-a))
+230 243  "Clse P %3d%%"100-((c-a)*100/(b-a))
+244 246  "Rdm Op Pls "
+247 249  "Rdm Op Pls "
+250 252  "Rdm Cl Pls "
+253 255  "Rdm Cl Pls "
+REND
+
+RANGE 15  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Zoom
+0   12   "28"
+13  26   "27"
+27  39   "26"
+40  53   "25"
+54  66   "24"
+67  80   "23"
+81  93   "22"
+94  107  "21"
+108 120  "20"
+121 134  "19"
+135 147  "18"
+148 161  "17"
+162 174  "16"
+175 188  "15"
+189 201  "14"
+202 215  "13"
+216 228  "12"
+229 242  "11"
+243 255  "10"
+REND
+
+RANGE 17  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;MSpeed
+0   2    "Tracking"
+3   242  "Speed %3d%%"100-((c-a)*100/(b-a))
+243 245  "Tracking Sl"
+246 248  "Tracking No"
+249 251  "Tracking Fa"
+252 255  "BO moving"
+REND
+
+RANGE 20  ;Eff Speed
+0   2    "Tracking"
+3   239  "Spee %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 242  "Studio Mode"
+243 245  "Studio Mode"
+246 248  "Shortcuts O"
+249 251  "Shortcuts O"
+252 255  "Blackout to"
+REND
+

@@ -1,0 +1,597 @@
+; 'JB Lighting Sparx 7 Mode 2', 44 DMX Channels, filename: VSSPARX2.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   29-10-13   Peter Budd        Created
+;   11-02-14   RGB Power on UpdaterUpdated RGB Power on values to match Locate.
+;   15-04-14   Nic Morris        Added compatibility and export r20.
+;   15-04-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   15-04-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VSSPARX2                            mode=Mode 2  44 DMX Channels
+NAME "JB Lighting" "Sparx 7 Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  44  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   430  300
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=468
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+11    1   L    5   100   1N   0   1   "Control"         255     0     0
+2    61   L    6   100   1N   O   1   "Shutter"          56     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+5     1   L    8   100   1N   Q   1   "Zoom"            127     0     0
+16    1   L    9   100   1N   I   1   "Mapping"           0     0     0
+6     1   L   10   100   1N   K   1   "Pattern Mode"      0     0     0
+6    61   L   11   100   1N   J   1   "Pattern"           0     0     0
+7    61   L   12   100   1N   M   1   "Pattern Rot"     128     0     0
+14    1   L   13   100   1N   A   1   "Colour Sprea"      0     0     0
+5    61   L   14   100   1N   0   1   "Sparkle"           0     0     0
+7     1   L   15   100   1N   0   1   "Sparkle Rot"       0     0     0
+4    61   L   16   100   1N   0   1   "CTO"               0     0     0
+4     1   L   17   100   1N   A   1   "Colour"            0     0     0
+8     1   L   18   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L   19   100   1N   0   1   "Effect Speed"      0     0     0
+11   61   L   20   100   1N   0   1   "BO on Move"        0     0     0
+10    1   s   21   100   1N   T   1   "Red 1"           255   255     0
+0     0   L   22   100   1N   T   1   "Red 1 Low"       255   255     0
+10   61   s   23   100   1N   U   1   "Green 1"         255   255     0
+0     0   L   24   100   1N   U   1   "Green 1 Low"     255   255     0
+9    61   s   25   100   1N   V   1   "Blue 1"          255     0   230
+0     0   L   26   100   1N   V   1   "Blue 1 Low"      255     0   230
+9     1   s   27   100   1N   0   1   "White 1"           0     0     0
+0     0   L   28   100   1N   0   1   "White 1 Low"       0     0     0
+20    1   s   29   100   1N   0   1   "Red 2"           255   255     0
+0     0   L   30   100   1N   0   1   "Red 2 Low"       255   255     0
+20   61   s   31   100   1N   0   1   "Green 2"         255   255     0
+0     0   L   32   100   1N   0   1   "Green 2 Low"     255   255     0
+19   61   s   33   100   1N   0   1   "Blue 2"          255     0   230
+0     0   L   34   100   1N   0   1   "Blue 2 Low"      255     0   230
+19    1   s   35   100   1N   0   1   "White 2"           0     0     0
+0     0   L   36   100   1N   0   1   "White 2 Low"       0     0     0
+18    1   s   37   100   1N   0   1   "Red 3"           255   255     0
+0     0   L   38   100   1N   0   1   "Red 3 Low"       255   255     0
+18   61   s   39   100   1N   0   1   "Green 3"         255   255     0
+0     0   L   40   100   1N   0   1   "Green 3 Low"     255   255     0
+17   61   s   41   100   1N   0   1   "Blue 3"          255     0   230
+0     0   L   42   100   1N   0   1   "Blue 3 Low"      255     0   230
+17    1   s   43   100   1N   0   1   "White 3"           0     0     0
+0     0   L   44   100   1N   0   1   "White 3 Low"       0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+JB Lighting Sparx 7
+Mode 2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  21  29  37  23  31  39  25  33  41
+"Open"                1  FF  FF  FF  FF  FF  FF  FF  FF  FF
+"Red"                 2  FF  FF  FF   0   0   0   0   0   0
+"Amber"               3  FF  FF  FF  80  80  80   0   0   0
+"Yellow"              4  FF  FF  FF  FF  FF  FF   0   0   0
+"Green"               5   0   0   0  FF  FF  FF   0   0   0
+"Cyan"                6   0   0   0  FF  FF  FF  FF  FF  FF
+"Blue"                7   0   0   0   0   0   0  FF  FF  FF
+"Purple"              9  80  80  80   0   0   0  FF  FF  FF
+"Magenta"            10  FF  FF  FF   0   0   0  FF  FF  FF
+"Lavender"            8  B5  B5  B5  6E  6E  6E  F0  F0  F0
+PFEND
+
+PFTABLE "Beam"       -1   8
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   5
+"data"                0  F4
+"delay"               1  3C
+"data"                0  FF
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Control
+0   7    "M1 Fade Out"
+8   15   "M1 Col 8500"
+16  23   "M1 Col 6500"
+24  31   "M1 Col Pick"
+32  39   "M2 Fade Out"
+40  47   "M2 Col 8500"
+48  55   "M2 Col 6500"
+56  63   "M2 Col Pick"
+64  71   "M3 Fade Out"
+72  79   "M3 Col 8500"
+80  87   "M4 Col 6500"
+88  95   "M4 Col Pick"
+96  103  "M5 Fade Out"
+104 111  "M5 Col 8500"
+112 119  "M5 Col 6500"
+120 127  "M5 Col Pick"
+128 135  "M6 Fade Out"
+136 143  "M6 Col 8500"
+144 151  "M6 Col 6500"
+152 159  "M6 Col Pick"
+160 207  "Safe"
+208 215  "Cam 50Hz"
+216 223  "Cam 60Hz"
+224 231  "FLEX"
+232 239  "Safe"
+240 247  "Reset"
+255 255  "Safe"
+REND
+
+RANGE 6  ;Shutter
+0   15   "Closed"
+16  95   "Open"
+96  110  "Pulse %3d%%"(c-a)*100/(b-a)
+111 111  "Open"
+112 125  "Fade %3d%%"(c-a)*100/(b-a)
+126 126  "Open"
+127 127  "Closed"
+128 142  "Open P %3d%%"(c-a)*100/(b-a)
+143 143  "Open"
+144 158  "Close  %3d%%"(c-a)*100/(b-a)
+159 159  "Closed"
+160 174  "Fade %3d%%"(c-a)*100/(b-a)
+175 175  "Closed"
+176 190  "Random %3d%%"(c-a)*100/(b-a)
+191 191  "Closed"
+192 206  "Rnd St %3d%%"(c-a)*100/(b-a)
+207 207  "Open"
+208 222  "S Rnd  %3d%%"(c-a)*100/(b-a)
+223 223  "Open"
+224 254  "S Rnd  %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 7  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Mapping
+0   0    "No Mapping"
+1   1    "Mapping 1"
+2   2    "Mapping 2"
+3   3    "Mapping 3"
+4   4    "Mapping 4"
+5   5    "Mapping 5"
+6   6    "Mapping 6"
+7   7    "Mapping 7"
+8   8    "Mapping 8"
+9   9    "Mapping 9"
+10  10   "Mapping 10"
+11  11   "Mapping 11"
+12  12   "Mapping 12"
+13  13   "Mapping 13"
+14  14   "Mapping 14"
+15  15   "Mapping 15"
+16  16   "Mapping 16"
+17  17   "Mapping 17"
+18  18   "Mapping 18"
+19  19   "Mapping 19"
+20  20   "Mapping 20"
+21  21   "Mapping 21"
+22  22   "Mapping 22"
+23  23   "Mapping 23"
+24  24   "Mapping 24"
+25  25   "Mapping 25"
+26  26   "Mapping 26"
+27  27   "Mapping 27"
+28  28   "Mapping 28"
+29  29   "Mapping 29"
+30  30   "Mapping 30"
+31  31   "Mapping 31"
+32  32   "Mapping 32"
+33  33   "Mapping 33"
+34  34   "Mapping 34"
+35  35   "Mapping 35"
+36  36   "Mapping 36"
+37  37   "Mapping 37"
+38  38   "Mapping 38"
+39  39   "Mapping 39"
+40  40   "Mapping 40"
+41  41   "Mapping 41"
+42  42   "Mapping 42"
+43  43   "Mapping 43"
+44  99   "Reserved"
+100 100  "Number 0"
+101 101  "Number 1"
+102 102  "Number 2"
+103 103  "Number 3"
+104 104  "Number 4"
+105 105  "Number 5"
+106 106  "Number 6"
+107 107  "Number 7"
+108 108  "Number 8"
+109 109  "Number 9"
+110 110  "Smiley Big"
+111 111  "Smiley Sml"
+112 219  "Reserved"
+220 220  "Static 1"
+221 221  "Static 2"
+222 222  "Static 3"
+223 223  "Static 4"
+224 224  "Static 5"
+225 225  "Static 6"
+226 255  "Reserved"
+REND
+
+RANGE 10  ;Pattern Mode
+0   0    "Fade"
+1   1    "Switch"
+2   2    "Switch CW"
+3   3    "Switch CCW"
+4   4    "Rnd Fls Reg"
+5   5    "Rnd Snp Reg"
+6   6    "Rnd Fls Reg"
+7   7    "Rnd Rmp Reg"
+8   8    "Rnd Fls Rnd"
+9   9    "Rnd Snp Rnd"
+10  10   "Rnd Fls Rnd"
+11  11   "Rnd Opn Rnd"
+12  31   "Effects"
+32  32   "Fade"
+33  33   "Switch"
+34  34   "Switch CW"
+35  35   "Switch CCW"
+36  36   "Rnd Fls Reg"
+37  37   "Rnd Snp Reg"
+38  38   "Rnd Fls Reg"
+39  39   "Rnd Rmp Reg"
+40  40   "Rnd Fls Rnd"
+41  41   "Rnd Snp Rnd"
+42  42   "Rnd Fls Rnd"
+43  43   "Rnd Opn Rnd"
+44  63   "Effects"
+64  64   "Fade"
+65  65   "Switch"
+66  66   "Switch CW"
+67  67   "Switch CCW"
+68  68   "Rnd Fls Reg"
+69  69   "Rnd Snp Reg"
+70  70   "Rnd Fls Reg"
+71  71   "Rnd Rmp Reg"
+72  72   "Rnd Fls Rnd"
+73  73   "Rnd Snp Rnd"
+74  74   "Rnd Fls Rnd"
+75  75   "Rnd Opn Rnd"
+76  95   "Effects"
+96  96   "Fade"
+97  97   "Switch"
+98  98   "Switch CW"
+99  99   "Switch CCW"
+100 100  "Rnd Fls Reg"
+101 101  "Rnd Snp Reg"
+102 102  "Rnd Fls Reg"
+103 103  "Rnd Rmp Reg"
+104 104  "Rnd Fls Rnd"
+105 105  "Rnd Snp Rnd"
+106 106  "Rnd Fls Rnd"
+107 107  "Rnd Opn Rnd"
+108 127  "Effects"
+128 128  "Fade"
+129 129  "Switch"
+130 130  "Switch CW"
+131 131  "Switch CCW"
+132 132  "Rnd Fls Reg"
+133 133  "Rnd Snp Reg"
+134 134  "Rnd Fls Reg"
+135 135  "Rnd Rmp Reg"
+136 136  "Rnd Fls Rnd"
+137 137  "Rnd Snp Rnd"
+138 138  "Rnd Fls Rnd"
+139 139  "Rnd Opn Rnd"
+140 159  "Effects"
+160 160  "Fade"
+161 161  "Switch"
+162 162  "Switch CW"
+163 163  "Switch CCW"
+164 164  "Rnd Fls Reg"
+165 165  "Rnd Snp Reg"
+166 166  "Rnd Fls Reg"
+167 167  "Rnd Rmp Reg"
+168 168  "Rnd Fls Rnd"
+169 169  "Rnd Snp Rnd"
+170 170  "Rnd Fls Rnd"
+171 171  "Rnd Opn Rnd"
+172 191  "Effects"
+192 192  "Macros 192"
+193 193  "Macros 193"
+194 194  "Macros 194"
+195 195  "Macros 195"
+196 196  "Macros 196"
+197 197  "Macros 197"
+198 198  "Macros 198"
+199 199  "Macros 199"
+200 200  "Macros 200"
+201 201  "Macros 201"
+202 202  "Macros 202"
+203 203  "Macros 203"
+204 204  "Macros 204"
+205 205  "Macros 205"
+206 206  "Macros 206"
+207 207  "Macros 207"
+208 208  "Macros 208"
+209 209  "Macros 209"
+210 210  "Macros 210"
+211 211  "Macros 211"
+212 212  "Macros 212"
+213 213  "Macros 213"
+214 214  "Macros 214"
+215 215  "Macros 215"
+216 216  "Macros 216"
+217 217  "Macros 217"
+218 218  "Macros 218"
+219 219  "Macros 219"
+220 220  "Macros 220"
+221 221  "Macros 221"
+222 222  "Macros 222"
+223 223  "Macros 223"
+224 224  "Macros 224"
+225 225  "Macros 225"
+226 226  "Macros 226"
+227 227  "Macros 227"
+228 228  "Macros 228"
+229 229  "Macros 229"
+230 230  "Macros 230"
+231 231  "Macros 231"
+232 232  "Macros 232"
+233 233  "Macros 233"
+234 234  "Macros 234"
+235 235  "Macros 235"
+REND
+
+RANGE 11  ;Pattern
+0   0    "Open"
+1   1    "Pattern 1"
+2   2    "Pattern 2"
+3   3    "Pattern 3"
+4   4    "Pattern 4"
+5   5    "Pattern 5"
+6   6    "Pattern 6"
+7   7    "Pattern 7"
+128 135  "Random Patt"
+REND
+
+RANGE 12  ;Pattern Rot
+0   126  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+127 128  "No Spin"
+129 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 13  ;Colour Spread
+0   0    "Spread"
+1   63   "Index CW"
+64  127  "Spin CW"
+128 128  "No Spin"
+129 191  "Index CCW"
+192 255  "Spin CCW"
+REND
+
+RANGE 14  ;Sparkle
+0   0    "Open"
+1   255  "Int %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Sparkle Rot
+0   127  "Fade %3d%%"(c-a)*100/(b-a)
+128 255  "Speed %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 16  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Colour
+0   1    "Open"
+2   3    "White"
+8   15   "Red"
+16  23   "Yellow"
+24  31   "Magenta"
+32  39   "Green"
+40  47   "Amber"
+48  55   "Blue"
+56  63   "Cyan"
+64  64   "2700K"
+65  65   "2700K Tung"
+66  66   "3200K"
+67  67   "3200K Tung"
+68  68   "4200K"
+69  69   "5600K"
+70  70  "6500K"
+71  191  "8000K"
+192 222  "Scroll %3d%%"100-((c-a)*100/(b-a))
+223 224  "No Scroll"
+225 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 18  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 19  ;Effect Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 20  ;BO on Move
+0   0    "Safe"
+1   70   "Shutter on "
+71  95   "BO on P/T M"
+96  127  "BO on Col"
+128 159  "No Function"
+160 223  "BO on P/T/C"
+224 255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 21  ;Red 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Green 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Blue 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;White 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Red 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;Green 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Blue 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;White 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 37  ;Red 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 39  ;Green 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 41  ;Blue 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 43  ;White 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

@@ -1,0 +1,733 @@
+; 'Chromlech Elidy Effect, 14 DMX', 14 DMX Channels, filename: CLELDE14.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   12-07-13   Peter Budd        Created
+;   02-08-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CL_ElidyE14                         mode=Effect, 14 DMX  14 DMX Channels
+NAME "Chromlech" "Elidy Effect, 14 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Effect, 14 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    2   100   1N   H   1   "Dimmer Low"      255     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           0     0     0
+2     1   L    4   100   1N   G   1   "Iris"              0     0     0
+8     1   L    5   100   1N   I   1   "Mix A/B"           0     0     0
+8    61   L    6   100   1N   0   1   "Mix Type"          4     0     0
+6     1   L    7   100   1N   0   1   "Bank A"            0     0     0
+7     1   I    8   100   1N   I   1   "Bank A Rotat"      0     0     0
+6    61   L    9   100   1N   0   1   "Bank B"            0     0     0
+7    61   I   10   100   1N   J   1   "Bank B Rotat"      0     0     0
+9    61   L   11   100   1N   K   1   "Symmetry"         16     0     0
+10    1   L   12   100   1N   P   1   "Effect"            4     0     0
+9     1   I   13   100   1N   P   1   "FX Value"          0     0     0
+10   61   L   14   100   1N   0   1   "Fade Out"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chromlech Elidy
+Effect, 14 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Shutter
+0   0    "Open"
+5   66   "Strobe %3d%%"(c-a)*100/(b-a)
+67  69   "Open"
+70  131  "Pulse %3d%%"(c-a)*100/(b-a)
+132 193  "Rnd St %3d%%"(c-a)*100/(b-a)
+194 255  "Rnd Pu %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Iris
+0   64   "RW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+65  128  "RB %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 191  "SW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 255  "SB %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Mix A/B
+0   127  "A /  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 128  "A + B"
+129 255  "B /  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Mix Type
+0   7    "Crossfade"
+8   15   "Manual fade"
+16  23   "White fade"
+24  31   "Black fade"
+32  39   "Mask"
+40  47   "A Nor B"
+48  55   "B Nor A"
+56  63   "XOR"
+64  64   "Reserved 64"
+65  65   "Reserved 65"
+66  66   "Reserved 66"
+67  67   "Reserved 67"
+68  68   "Reserved 68"
+69  69   "Reserved 69"
+70  70   "Reserved 70"
+71  71   "Reserved 71"
+72  72   "Reserved 72"
+73  73   "Reserved 73"
+74  74   "Reserved 74"
+75  75   "Reserved 75"
+76  76   "Reserved 76"
+77  77   "Reserved 77"
+78  78   "Reserved 78"
+79  79   "Reserved 79"
+80  80   "Reserved 80"
+81  81   "Reserved 81"
+82  82   "Reserved 82"
+83  83   "Reserved 83"
+84  84   "Reserved 84"
+85  85   "Reserved 85"
+86  86   "Reserved 86"
+87  87   "Reserved 87"
+88  88   "Reserved 88"
+89  89   "Reserved 89"
+90  90   "Reserved 90"
+91  91   "Reserved 91"
+92  92   "Reserved 92"
+93  93   "Reserved 93"
+94  94   "Reserved 94"
+95  95   "Reserved 95"
+96  96   "Reserved 96"
+97  97   "Reserved 97"
+98  98   "Reserved 98"
+99  99   "Reserved 99"
+100 100  "Reserve 100"
+101 101  "Reserve 101"
+102 102  "Reserve 102"
+103 103  "Reserve 103"
+104 104  "Reserve 104"
+105 105  "Reserve 105"
+106 106  "Reserve 106"
+107 107  "Reserve 107"
+108 108  "Reserve 108"
+109 109  "Reserve 109"
+110 110  "Reserve 110"
+111 111  "Reserve 111"
+112 112  "Reserve 112"
+113 113  "Reserve 113"
+114 114  "Reserve 114"
+115 115  "Reserve 115"
+116 116  "Reserve 116"
+117 117  "Reserve 117"
+118 118  "Reserve 118"
+119 119  "Reserve 119"
+120 120  "Reserve 120"
+121 121  "Reserve 121"
+122 122  "Reserve 122"
+123 123  "Reserve 123"
+124 124  "Reserve 124"
+125 125  "Reserve 125"
+126 126  "Reserve 126"
+127 127  "Reserve 127"
+128 128  "Reserve 128"
+129 129  "Reserve 129"
+130 130  "Reserve 130"
+131 131  "Reserve 131"
+132 132  "Reserve 132"
+133 133  "Reserve 133"
+134 134  "Reserve 134"
+135 135  "Reserve 135"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 7  ;Bank A
+0   0    "Open"
+3   5    "Factory 1"
+6   8    "Factory 2"
+9   11   "Factory 3"
+12  14   "Factory 4"
+15  17   "Factory 5"
+18  20   "Factory 6"
+21  23   "Factory 7"
+24  26   "Factory 8"
+27  29   "Factory 9"
+30  32   "Factory 10"
+33  35   "Factory 11"
+36  38   "Factory 12"
+39  41   "Factory 13"
+42  44   "Factory 14"
+45  47   "Factory 15"
+48  50   "Factory 16"
+51  53   "Factory 17"
+54  56   "Factory 18"
+57  59   "Factory 19"
+60  62   "Factory 20"
+63  65   "Factory 21"
+66  68   "Factory 22"
+69  71   "Factory 23"
+72  74   "Factory 24"
+75  77   "Factory 25"
+78  80   "Factory 26"
+81  83   "Factory 27"
+84  86   "Factory 28"
+87  89   "Factory 29"
+90  92   "Factory 30"
+93  95   "Factory 31"
+96  98   "Factory 32"
+99  101  "Factory 33"
+102 104  "Factory 34"
+105 107  "Factory 35"
+108 110  "Factory 36"
+111 113  "Factory 37"
+114 116  "Factory 38"
+117 119  "Factory 39"
+120 122  "Factory 40"
+123 125  "Factory 41"
+126 128  "Factory 42"
+129 131  "Factory 43"
+132 134  "Factory 44"
+135 137  "Factory 45"
+138 140  "Factory 46"
+141 143  "Factory 47"
+144 146  "Factory 48"
+147 149  "Factory 49"
+150 152  "Factory 50"
+153 155  "Factory 51"
+156 158  "Factory 52"
+159 161  "Factory 53"
+162 164  "Factory 54"
+165 167  "Factory 55"
+168 170  "Factory 56"
+171 173  "Factory 57"
+174 176  "Factory 58"
+177 179  "Factory 59"
+180 182  "Factory 60"
+183 185  "Factory 61"
+186 188  "Factory 62"
+189 191  "Factory 63"
+192 194  "Factory 64"
+195 197  "User 1"
+198 200  "User 2"
+201 203  "User 3"
+204 206  "User 4"
+207 209  "User 5"
+210 212  "User 6"
+213 215  "User 7"
+216 218  "User 8"
+219 221  "User 9"
+222 225  "User 10"
+226 228  "User 11"
+229 231  "User 12"
+232 234  "User 13"
+235 237  "User 14"
+238 240  "User 15"
+241 243  "User 16"
+244 246  "User 17"
+247 249  "User 18"
+250 252  "User 19"
+253 255  "User 20"
+REND
+
+RANGE 8  ;Bank A Rotate
+0   0    "No Spin"
+2   126  "Spin C %3d%%"100-((c-a)*100/(b-a))
+127 128  "No Spin"
+129 252  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+253 255  "Stop"
+REND
+
+RANGE 9  ;Bank B
+0   0    "Open"
+3   5    "Factory 1"
+6   8    "Factory 2"
+9   11   "Factory 3"
+12  14   "Factory 4"
+15  17   "Factory 5"
+18  20   "Factory 6"
+21  23   "Factory 7"
+24  26   "Factory 8"
+27  29   "Factory 9"
+30  32   "Factory 10"
+33  35   "Factory 11"
+36  38   "Factory 12"
+39  41   "Factory 13"
+42  44   "Factory 14"
+45  47   "Factory 15"
+48  50   "Factory 16"
+51  53   "Factory 17"
+54  56   "Factory 18"
+57  59   "Factory 19"
+60  62   "Factory 20"
+63  65   "Factory 21"
+66  68   "Factory 22"
+69  71   "Factory 23"
+72  74   "Factory 24"
+75  77   "Factory 25"
+78  80   "Factory 26"
+81  83   "Factory 27"
+84  86   "Factory 28"
+87  89   "Factory 29"
+90  92   "Factory 30"
+93  95   "Factory 31"
+96  98   "Factory 32"
+99  101  "Factory 33"
+102 104  "Factory 34"
+105 107  "Factory 35"
+108 110  "Factory 36"
+111 113  "Factory 37"
+114 116  "Factory 38"
+117 119  "Factory 39"
+120 122  "Factory 40"
+123 125  "Factory 41"
+126 128  "Factory 42"
+129 131  "Factory 43"
+132 134  "Factory 44"
+135 137  "Factory 45"
+138 140  "Factory 46"
+141 143  "Factory 47"
+144 146  "Factory 48"
+147 149  "Factory 49"
+150 152  "Factory 50"
+153 155  "Factory 51"
+156 158  "Factory 52"
+159 161  "Factory 53"
+162 164  "Factory 54"
+165 167  "Factory 55"
+168 170  "Factory 56"
+171 173  "Factory 57"
+174 176  "Factory 58"
+177 179  "Factory 59"
+180 182  "Factory 60"
+183 185  "Factory 61"
+186 188  "Factory 62"
+189 191  "Factory 63"
+192 194  "Factory 64"
+195 197  "User 1"
+198 200  "User 2"
+201 203  "User 3"
+204 206  "User 4"
+207 209  "User 5"
+210 212  "User 6"
+213 215  "User 7"
+216 218  "User 8"
+219 221  "User 9"
+222 225  "User 10"
+226 228  "User 11"
+229 231  "User 12"
+232 234  "User 13"
+235 237  "User 14"
+238 240  "User 15"
+241 243  "User 16"
+244 246  "User 17"
+247 249  "User 18"
+250 252  "User 19"
+253 255  "User 20"
+REND
+
+RANGE 10  ;Bank B Rotate
+0   0    "No Spin"
+2   126  "Spin C %3d%%"100-((c-a)*100/(b-a))
+127 128  "No Spin"
+129 252  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+253 255  "Stop"
+REND
+
+RANGE 11  ;Symmetry
+0   31   "No Symmetry"
+32  63   "Horizontal"
+64  95   "Vertical"
+96  127  "H+V"
+128 159  "90 No Symm"
+160 191  "90 Horizont"
+192 223  "90 Vertical"
+224 255  "90 H+V"
+REND
+
+RANGE 12  ;Effect
+0   7    "No Effect"
+8   14   "Negative"
+15  23   "Symmetry"
+24  31   "Blur"
+32  39   "Index A"
+40  47   "Index B"
+48  55   "Iris Rdn FX"
+56  63   "Iris Rdn FX"
+64  71   "Iris Rdn FX"
+72  79   "Iris Rdn FX"
+80  87   "Iris Sq FX "
+88  95   "Iris Sq FX "
+96  103  "Iris Sq FX "
+104 111  "Iris Sq FX "
+112 112  "Reserve 112"
+113 113  "Reserve 113"
+114 114  "Reserve 114"
+115 115  "Reserve 115"
+116 116  "Reserve 116"
+117 117  "Reserve 117"
+118 118  "Reserve 118"
+119 119  "Reserve 119"
+120 120  "Reserve 120"
+121 121  "Reserve 121"
+122 122  "Reserve 122"
+123 123  "Reserve 123"
+124 124  "Reserve 124"
+125 125  "Reserve 125"
+126 126  "Reserve 126"
+127 127  "Reserve 127"
+128 128  "Reserve 128"
+129 129  "Reserve 129"
+130 130  "Reserve 130"
+131 131  "Reserve 131"
+132 132  "Reserve 132"
+133 133  "Reserve 133"
+134 134  "Reserve 134"
+135 135  "Reserve 135"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 14  ;Fade Out
+0   127  "Norm %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 254  "Fade %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+255 255  "Low Voltage"
+REND
+

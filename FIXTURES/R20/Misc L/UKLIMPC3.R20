@@ -1,0 +1,257 @@
+; 'Light-Inc Matrix-Panel 25 RGBW 8 DMX', 8 DMX Channels, filename: UKLIMPC3.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   15-03-15   Nic Morris        Created
+;   15-03-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   15-03-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKLIMPC3                            mode=8 DMX  8 DMX Channels
+NAME "Misc L" "Ligh Matrix-Panel 25 RGBW 8 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+9     1   L    5   100   1N   0   1   "White"             0     0     0
+4    61   L    6   100   1N   0   1   "Colour Macro"     10     0     0
+4     1   L    7   100   1N   A   1   "Colour"            3     0     0
+2    61   L    8   100   1N   O   1   "Shutter"           4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Light-Inc
+Matrix-Panel 25 RGBW
+8 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour Macro
+0   19   "Open"
+20  23   "Red"
+24  27   "Green"
+28  31   "Blue"
+32  35   "Macro 1"
+36  39   "Macro 2"
+40  43   "Macro 3"
+48  51   "Macro 4"
+52  55   "Macro 5"
+56  59   "Macro 6"
+60  63   "Macro 7"
+64  67   "Macro 8"
+68  71   "Macro 9"
+80  83   "Macro 10"
+84  87   "Macro 11"
+88  91   "Macro 12"
+92  95   "Macro 13"
+96  99   "Macro 14"
+100 103  "Macro 15"
+104 107  "Macro 16"
+108 111  "Macro 17"
+112 115  "Macro 18"
+120 123  "Macro 19"
+124 127  "Macro 20"
+128 131  "Macro 21"
+132 135  "Macro 22"
+136 139  "Macro 23"
+140 143  "Macro 24"
+144 147  "Macro 25"
+148 151  "Macro 26"
+152 155  "Macro 27"
+156 159  "Macro 28"
+160 163  "Macro 29"
+164 167  "Macro 30"
+168 171  "Macro 31"
+172 175  "Macro 32"
+176 179  "Macro 33"
+180 183  "Macro 34"
+184 187  "Macro 35"
+188 191  "Macro 36"
+192 193  "Macro 37"
+194 197  "Macro 38"
+198 203  "Macro 39"
+204 207  "Macro 40"
+208 211  "Macro 41"
+212 215  "Macro 42"
+216 219  "Macro 43"
+220 223  "Macro 44"
+224 255  "Macro 45"
+REND
+
+RANGE 7  ;Colour
+0   6    "Safe"
+7   27   "Blue"
+28  34   "Green"
+35  41   "Macro 1"
+42  48   "Macro 2"
+49  55   "Macro 3"
+56  62   "Macro 4"
+63  69   "Macro 5"
+70  76   "Macro 6"
+77  83   "Macro 7"
+84  90   "Macro 8"
+91  97   "Macro 9"
+98  104  "Macro 10"
+105 111  "Macro 11"
+112 118  "Macro 12"
+119 125  "Macro 13"
+126 132  "Macro 14"
+133 139  "Macro 15"
+140 146  "Macro 16"
+147 153  "Macro 17"
+154 160  "Macro 18"
+161 167  "Macro 19"
+168 174  "Macro 20"
+175 181  "Macro 21"
+182 188  "Macro 22"
+189 195  "Macro 23"
+196 202  "Macro 24"
+203 209  "Macro 25"
+210 216  "Macro 26"
+217 223  "Macro 27"
+224 230  "Macro 28"
+231 237  "Macro 29"
+238 244  "Macro 30"
+245 255  "Macro 31"
+REND
+
+RANGE 8  ;Shutter
+0   8    "Open"
+9   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

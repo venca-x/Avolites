@@ -1,0 +1,490 @@
+; 'Resolume Avenue 3 Master', 23 DMX Channels, filename: UKRESA3M.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   03-06-11   John Rogers       Created
+;   25-10-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   04-05-12   Peter Budd        Corrected BPM Range
+;   23-12-15   Nic Morris        Changed manufacturer from Unknown to Resolume
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_ResAve3M                         mode=Master  23 DMX Channels
+NAME "Misc R" "Resolume Avenue 3 Master"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  23  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Master"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=489
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Intensity"       255     0     0
+4     1   I    2   100   1N   0   1   "Bypass"            0     0     0
+4    61   I    3   100   1N   0   1   "Clear"             0     0     0
+15   61   L    4   100   1N   0   1   "Crossfader"      127     0     0
+10   61   L    5   100   1N   0   1   "Trigger Colu"      0     0     0
+10    1   L    6   100   1N   0   1   "Select Deck"       0     0     0
+5     1   L    7   100   1N   0   1   "Dial 1"            0     0     0
+5    61   L    8   100   1N   0   1   "Dial 2"            0     0     0
+6     1   L    9   100   1N   0   1   "Dial 3"            0     0     0
+6    61   L   10   100   1N   0   1   "Dial 4"            0     0     0
+7     1   L   11   100   1N   0   1   "Dial 5"            0     0     0
+7    61   L   12   100   1N   0   1   "Dial 6"            0     0     0
+8     1   L   13   100   1N   0   1   "BPM"              60     0     0
+8    61   L   14   100   1N   0   1   "Tap"               0     0     0
+18   61   L   15   100   1N   0   1   "Resync"            0     0     0
+18    1   L   16   100   1N   0   1   "Pause"             0     0     0
+20    1   L   17   100   1N   0   1   "Volume"          196     0     0
+20   61   L   18   100   1N   0   1   "Audio Pan"         0     0     0
+9     1   L   19   100   1N   0   1   "Fade Out"        255     0     0
+15    1   L   20   100   1N   0   1   "Scale"            26     0     0
+3     1   L   21   100   1N   0   1   "Rotate X"          0     0     0
+3    61   L   22   100   1N   0   1   "Rotate Y"        128     0     0
+13    1   L   23   100   1N   0   1   "Rotate Z"        128     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Resolume
+Avenue 3
+Master
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Intensity
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Bypass
+0   0    "Off"
+1   1    "On"
+REND
+
+RANGE 3  ;Clear
+0   0    "Off"
+1   1    "On"
+REND
+
+RANGE 4  ;Crossfader
+0   255  "A - B %4d%%"-100+((c-a)*200/(b-a))
+REND
+
+RANGE 7  ;Dial 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Dial 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Dial 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Dial 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Dial 5
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Dial 6
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;BPM
+0    0   "BPM 2"
+1    1   "BPM 2"
+2    2   "BPM 4"
+3    3   "BPM 6"
+4    4   "BPM 8"
+5    5   "BPM 10"
+6    6   "BPM 12"
+7    7   "BPM 14"
+8    8   "BPM 16"
+9    9   "BPM 18"
+10    10   "BPM 20"
+11    11   "BPM 22"
+12    12   "BPM 24"
+13    13   "BPM 25"
+14    14   "BPM 27"
+15    15   "BPM 29"
+16    16   "BPM 31"
+17    17   "BPM 33"
+18    18   "BPM 35"
+19    19   "BPM 37"
+20    20   "BPM 39"
+21    21   "BPM 41"
+22    22   "BPM 43"
+23    23   "BPM 45"
+24    24   "BPM 47"
+25    25   "BPM 49"
+26    26   "BPM 51"
+27    27   "BPM 53"
+28    28   "BPM 55"
+29    29   "BPM 57"
+30    30   "BPM 59"
+31    31   "BPM 61"
+32    32   "BPM 63"
+33    33   "BPM 65"
+34    34   "BPM 67"
+35    35   "BPM 69"
+36    36   "BPM 71"
+37    37   "BPM 73"
+38    38   "BPM 75"
+39    39   "BPM 76"
+40    40   "BPM 78"
+41    41   "BPM 80"
+42    42   "BPM 82"
+43    43   "BPM 84"
+44    44   "BPM 86"
+45    45   "BPM 88"
+46    46   "BPM 90"
+47    47   "BPM 92"
+48    48   "BPM 94"
+49    49   "BPM 96"
+50    50   "BPM 98"
+51    51   "BPM 100"
+52    52   "BPM 102"
+53    53   "BPM 104"
+54    54   "BPM 106"
+55    55   "BPM 108"
+56    56   "BPM 110"
+57    57   "BPM 112"
+58    58   "BPM 114"
+59    59   "BPM 116"
+60    60   "BPM 118"
+61    61   "BPM 120"
+62    62   "BPM 122"
+63    63   "BPM 124"
+64    64   "BPM 125"
+65    65   "BPM 127"
+66    66   "BPM 129"
+67    67   "BPM 131"
+68    68   "BPM 133"
+69    69   "BPM 135"
+70    70   "BPM 137"
+71    71   "BPM 139"
+72    72   "BPM 141"
+73    73   "BPM 143"
+74    74   "BPM 145"
+75    75   "BPM 147"
+76    76   "BPM 149"
+77    77   "BPM 151"
+78    78   "BPM 153"
+79    79   "BPM 155"
+80    80   "BPM 157"
+81    81   "BPM 159"
+82    82   "BPM 161"
+83    83   "BPM 163"
+84    84   "BPM 165"
+85    85   "BPM 167"
+86    86   "BPM 169"
+87    87   "BPM 171"
+88    88   "BPM 173"
+89    89   "BPM 175"
+90    90   "BPM 176"
+91    91   "BPM 178"
+92    92   "BPM 180"
+93    93   "BPM 182"
+94    94   "BPM 184"
+95    95   "BPM 186"
+96    96   "BPM 188"
+97    97   "BPM 190"
+98    98   "BPM 192"
+99    99   "BPM 194"
+100    100   "BPM 196"
+101    101   "BPM 198"
+102    102   "BPM 200"
+103    103   "BPM 202"
+104    104   "BPM 204"
+105    105   "BPM 206"
+106    106   "BPM 208"
+107    107   "BPM 210"
+108    108   "BPM 212"
+109    109   "BPM 214"
+110    110   "BPM 216"
+111    111   "BPM 218"
+112    112   "BPM 220"
+113    113   "BPM 222"
+114    114   "BPM 224"
+115    115   "BPM 225"
+116    116   "BPM 227"
+117    117   "BPM 229"
+118    118   "BPM 231"
+119    119   "BPM 233"
+120    120   "BPM 235"
+121    121   "BPM 237"
+122    122   "BPM 239"
+123    123   "BPM 241"
+124    124   "BPM 243"
+125    125   "BPM 245"
+126    126   "BPM 247"
+127    127   "BPM 249"
+128    128   "BPM 251"
+129    129   "BPM 253"
+130    130   "BPM 255"
+131    131   "BPM 257"
+132    132   "BPM 259"
+133    133   "BPM 261"
+134    134   "BPM 263"
+135    135   "BPM 265"
+136    136   "BPM 267"
+137    137   "BPM 269"
+138    138   "BPM 271"
+139    139   "BPM 273"
+140    140   "BPM 275"
+141    141   "BPM 276"
+142    142   "BPM 278"
+143    143   "BPM 280"
+144    144   "BPM 282"
+145    145   "BPM 284"
+146    146   "BPM 286"
+147    147   "BPM 288"
+148    148   "BPM 290"
+149    149   "BPM 292"
+150    150   "BPM 294"
+151    151   "BPM 296"
+152    152   "BPM 298"
+153    153   "BPM 300"
+154    154   "BPM 302"
+155    155   "BPM 304"
+156    156   "BPM 306"
+157    157   "BPM 308"
+158    158   "BPM 310"
+159    159   "BPM 312"
+160    160   "BPM 314"
+161    161   "BPM 316"
+162    162   "BPM 318"
+163    163   "BPM 320"
+164    164   "BPM 322"
+165    165   "BPM 324"
+166    166   "BPM 325"
+167    167   "BPM 327"
+168    168   "BPM 329"
+169    169   "BPM 331"
+170    170   "BPM 333"
+171    171   "BPM 335"
+172    172   "BPM 337"
+173    173   "BPM 339"
+174    174   "BPM 341"
+175    175   "BPM 343"
+176    176   "BPM 345"
+177    177   "BPM 347"
+178    178   "BPM 349"
+179    179   "BPM 351"
+180    180   "BPM 353"
+181    181   "BPM 355"
+182    182   "BPM 357"
+183    183   "BPM 359"
+184    184   "BPM 361"
+185    185   "BPM 363"
+186    186   "BPM 365"
+187    187   "BPM 367"
+188    188   "BPM 369"
+189    189   "BPM 371"
+190    190   "BPM 373"
+191    191   "BPM 375"
+192    192   "BPM 376"
+193    193   "BPM 378"
+194    194   "BPM 380"
+195    195   "BPM 382"
+196    196   "BPM 384"
+197    197   "BPM 386"
+198    198   "BPM 388"
+199    199   "BPM 390"
+200    200   "BPM 392"
+201    201   "BPM 394"
+202    202   "BPM 396"
+203    203   "BPM 398"
+204    204   "BPM 400"
+205    205   "BPM 402"
+206    206   "BPM 404"
+207    207   "BPM 406"
+208    208   "BPM 408"
+209    209   "BPM 410"
+210    210   "BPM 412"
+211    211   "BPM 414"
+212    212   "BPM 416"
+213    213   "BPM 418"
+214    214   "BPM 420"
+215    215   "BPM 422"
+216    216   "BPM 424"
+217    217   "BPM 425"
+218    218   "BPM 427"
+219    219   "BPM 429"
+220    220   "BPM 431"
+221    221   "BPM 433"
+222    222   "BPM 435"
+223    223   "BPM 437"
+224    224   "BPM 439"
+225    225   "BPM 441"
+226    226   "BPM 443"
+227    227   "BPM 445"
+228    228   "BPM 447"
+229    229   "BPM 449"
+230    230   "BPM 451"
+231    231   "BPM 453"
+232    232   "BPM 455"
+233    233   "BPM 457"
+234    234   "BPM 459"
+235    235   "BPM 461"
+236    236   "BPM 463"
+237    237   "BPM 465"
+238    238   "BPM 467"
+239    239   "BPM 469"
+240    240   "BPM 471"
+241    241   "BPM 473"
+242    242   "BPM 475"
+243    243   "BPM 476"
+244    244   "BPM 478"
+245    245   "BPM 480"
+246    246   "BPM 482"
+247    247   "BPM 484"
+248    248   "BPM 486"
+249    249   "BPM 488"
+250    250   "BPM 490"
+251    251   "BPM 492"
+252    252   "BPM 494"
+253    253   "BPM 496"
+254    254   "BPM 498"
+255    255   "BPM 500"
+REND
+
+RANGE 14  ;Tap
+0   0    "Off"
+1   1    "Tap"
+REND
+
+RANGE 15  ;Resync
+0   0    "Off"
+1   1    "Resync"
+REND
+
+RANGE 16  ;Pause
+0   0    "Off"
+1   1    "Pause"
+REND
+
+RANGE 17  ;Volume
+0   255  "db %3d/53"-40+((c-a)*52/(b-a))
+REND
+
+RANGE 18  ;Audio Pan
+0   255  "%4d%%"-100+((c-a)*200/(b-a))
+REND
+
+RANGE 19  ;Fade Out
+0   255  "Fade %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Scale
+0   255  "%4d.%d%%"(c-a)*1000/(b-a),10*((c-a)*1000%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Rotate X
+0   255  "%4d°"-180+((c-a)*360/(b-a))
+REND
+
+RANGE 22  ;Rotate Y
+0   255  "%4d°"-180+((c-a)*360/(b-a))
+REND
+
+RANGE 23  ;Rotate Z
+0   255  "%4d°"-180+((c-a)*360/(b-a))
+REND
+

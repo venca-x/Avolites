@@ -1,0 +1,412 @@
+; 'Ehrgeiz Supernova RGBW Advanced', 19 DMX Channels, filename: UKERSNC2.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   19-08-16   Nic Morris        Created
+;   19-08-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-08-16   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKERSNC2                            mode=Advanced  19 DMX Channels
+NAME "Misc E" "Ehrgeiz Supernova RGBW Advanced"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  19  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Advanced"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    2   100   1N   H   1   "Dimmer Low"      255     0     0
+2     1   L    3   100   1N   0   1   "Duration"          0     0     0
+2    61   L    4   100   1N   O   1   "Shutter"         255     0     0
+3    61   L    5   100   1N   0   1   "Shutter Effe"    255     0     0
+4     1   L    6   100   1N   A   1   "Colour"            0     0     0
+10    1   s    7   100   1N   T   1   "Red"             255   255     0
+0     0   L    8   100   1N   T   1   "Red Low"         255   255     0
+10   61   s    9   100   1N   U   1   "Green"           255   255     0
+0     0   L   10   100   1N   U   1   "Green Low"       255   255     0
+9    61   s   11   100   1N   V   1   "Blue"            255     0   230
+0     0   L   12   100   1N   V   1   "Blue Low"        255     0   230
+9     1   s   13   100   1N   0   1   "White"             0     0     0
+0     0   L   14   100   1N   0   1   "White Low"         0     0     0
+4    61   L   15   100   1N   0   1   "CTO"               0     0     0
+6     1   L   16   100   1N   0   1   "Pattern"           0     0     0
+7     1   L   17   100   1N   0   1   "Patt Spd"        127     0     0
+11    1   L   18   100   1N   0   1   "Control"           0     0     0
+11   61   L   19   100   1N   0   1   "Remote DMX"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Ehrgeiz
+Supernova RGBW
+Advanced
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   7   9  11
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  18
+"data"                0  B2
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Duration
+0   5    "Default"
+6   250  "Dur %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+251 255  "Blinder"
+REND
+
+RANGE 4  ;Shutter
+0   5    "Closed"
+6   10   "Single"
+11  250  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+251 255  "Open"
+REND
+
+RANGE 5  ;Shutter Effect
+0   15   "Closed"
+16  47   "Rnd St %3d%%"(c-a)*100/(b-a)
+48  79   "Op Pls %3d%%"(c-a)*100/(b-a)
+80  111  "Cl Pls %3d%%"(c-a)*100/(b-a)
+112 143  "Pulse  %3d%%"(c-a)*100/(b-a)
+144 199  "Pause  %3d%%"(c-a)*100/(b-a)
+200 239  "Strobe %3d%%"(c-a)*100/(b-a)
+240 255  "Open"
+REND
+
+RANGE 6  ;Colour
+0   5    "Open"
+6   10   "Moroccan Pk"
+11  15   "Pink"
+16  20   "Special Rs"
+21  25   "Follies Pk"
+26  30   "Fuchsia Pk"
+31  35   "Surprise Pk"
+36  40   "Congo Blue"
+41  45   "Tokyo Blue"
+46  50   "Deep Blue"
+51  55   "Just Blue"
+56  60   "Double CT B"
+61  65   "Medium Blue"
+66  70   "Slate Blue"
+71  75   "Full CT Blu"
+76  80   "Half CT Blu"
+81  85   "Steel Blue"
+86  90   "Lighter Blu"
+91  95   "Light Blue"
+96  100  "Med Blue Gr"
+101 105  "Dark Green"
+106 110  "Primary Grn"
+111 115  "Moss Green"
+116 120  "Fern Green"
+121 125  "JAS Green"
+126 130  "Lime Green"
+131 135  "Spring Yel"
+136 140  "Deep Amber"
+141 145  "Chrome Org"
+146 150  "Orange"
+151 155  "Gold Amber"
+156 160  "Millennium"
+161 165  "Deep Gold A"
+166 170  "Flame Red"
+171 185  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+186 190  "No Scroll"
+191 205  "Sc CCW %3d%%"100-((c-a)*100/(b-a))
+206 210  "No Scroll"
+211 225  "Random %3d%%"100-((c-a)*100/(b-a))
+226 230  "2700K"
+231 235  "3200K"
+236 240  "4200K"
+241 245  "5600K"
+246 250  "7200K"
+251 255  "8000K"
+REND
+
+RANGE 7  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Pattern
+0   20   "Safe"
+21  21   "Chase 1"
+22  22   "Chase 2"
+23  23   "Chase 3"
+24  24   "Chase 4"
+25  25   "Chase 5"
+26  26   "Chase 6"
+27  27   "Chase 7"
+28  28   "Chase 8"
+29  29   "Chase 9"
+30  30   "Chase 10"
+31  31   "Chase 11"
+32  32   "Chase 12"
+33  33   "Chase 13"
+34  34   "Chase 14"
+35  35   "Chase 15"
+36  36   "Chase 16"
+37  37   "Chase 17"
+38  38   "Chase 18"
+39  39   "Chase 19"
+40  40   "Chase 20"
+41  41   "Chase 21"
+42  42   "Chase 22"
+43  43   "Chase 23"
+44  44   "Chase 24"
+45  45   "Chase 25"
+46  46   "Chase 26"
+47  47   "Chase 27"
+48  48   "Chase 28"
+49  49   "Chase 29"
+50  50   "Chase 30"
+51  51   "Chase 31"
+52  52   "Chase 32"
+53  53   "Chase 33"
+54  54   "Chase 34"
+55  55   "Chase 35"
+56  56   "Chase 36"
+57  57   "Chase 37"
+58  58   "Chase 38"
+59  59   "Chase 39"
+60  60   "Chase 40"
+61  61   "Chase 41"
+62  62   "Chase 42"
+63  63   "Chase 43"
+64  64   "Chase 44"
+65  65   "Chase 45"
+66  66   "Chase 46"
+67  67   "Chase 47"
+68  68   "Chase 48"
+69  69   "Chase 49"
+70  70   "Chase 50"
+71  71   "Chase 51"
+72  72   "Chase 52"
+73  73   "Chase 53"
+74  74   "Chase 54"
+75  75   "Chase 55"
+76  76   "Fade 1"
+77  77   "Fade 2"
+78  78   "Fade 3"
+79  79   "Fade 4"
+80  80   "Fade 5"
+81  81   "Fade 6"
+82  82   "Fade 7"
+83  83   "Fade 8"
+84  84   "Fade 9"
+85  85   "Fade 10"
+86  86   "Fade 11"
+87  87   "Fade 12"
+88  88   "Fade 13"
+89  89   "Fade 14"
+90  90   "Fade 15"
+91  91   "Fade 16"
+92  92   "Fade 17"
+93  93   "Fade 18"
+94  94   "Fade 19"
+95  95   "Fade 20"
+96  96   "Fade 21"
+97  97   "Fade 22"
+98  98   "Fade 23"
+99  99   "Fade 24"
+100 100  "Fade 25"
+101 101  "Fade 26"
+102 102  "Fade 27"
+103 103  "Fade 28"
+104 104  "Fade 29"
+105 105  "Fade 30"
+106 106  "Fade 31"
+107 107  "Fade 32"
+108 108  "Fade 33"
+109 109  "Fade 34"
+110 110  "Fade 35"
+111 111  "Fade 36"
+112 112  "Fade 37"
+113 113  "Fade 38"
+114 114  "Fade 39"
+115 115  "Fade 40"
+116 116  "Fade 41"
+117 117  "Fade 42"
+118 118  "Fade 43"
+119 119  "Fade 44"
+120 120  "Fade 45"
+121 121  "Fade 46"
+122 122  "Fade 47"
+123 123  "Fade 48"
+124 124  "Fade 49"
+125 125  "Fade 50"
+126 126  "Fade 51"
+127 127  "Fade 52"
+128 128  "Fade 53"
+129 129  "Fade 54"
+130 130  "Fade 55"
+REND
+
+RANGE 17  ;Patt Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Control
+0   10   "Safe"
+11  15   "Fan Auto"
+16  20   "Fan Silent"
+21  25   "Fan Std"
+25  30   "Fan Fast"
+36  40   "Rmt DMX Low"
+46  50   "Rmt DMX Hi"
+56  60   "Dim Smooth"
+61  65   "Dim Fast"
+71  75   "Dim Linear"
+76  80   "Dim Theatre"
+81  85   "Dim Square"
+86  90   "Dim Inv Sq"
+96  100  "No DMX:Hold"
+101 105  "No DMX:Cls"
+106 110  "No DMX:Prg1"
+141 145  "DMX: Std"
+146 150  "DMX: Adv"
+151 155  "DMX: RGBW"
+156 160  "DMX: Pixel"
+161 165  "Output: Std"
+166 170  "Output: Col"
+171 175  "Output: Wht"
+176 180  "Reset"
+181 185  "Display ON"
+186 190  "Display OFF"
+201 205  "PWM 600 Hz"
+206 210  "PWM 1200 Hz"
+211 215  "PWM 2000 Hz"
+216 220  "PWM 2400 Hz"
+221 225  "PWM 6000 Hz"
+231 235  "Boot: Auto"
+236 240  "Boot: DMX"
+241 245  "Boot: Prog"
+246 250  "Boot: Stat"
+REND
+

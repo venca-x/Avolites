@@ -1,0 +1,662 @@
+; 'Clay Paky A.leda Wash K20 Shapes', 31 DMX Channels, filename: CPALW20P.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   13-06-12   Peter Budd        Created
+;   23-08-12   Peter Budd        Created from Terbly OV370Z-R
+;   28-08-12   Peter Budd        Created from Elation Platinum Wash ZXF Pro XL
+;   30-10-12   Peter Budd        Edited added cell layout.
+;   17-06-13   Peter Budd        Updated to include shape channels in standard mode, and colour channels.
+;   27-10-13   Nic Morris        Increased 16-bit functions to 2dp.  Increased shape speed functions to 1dp.
+;   27-10-13   Nic Morris        Standardised shutted function order.  Reversed shape transition and offset wheel direction.
+;   27-10-13   Nic Morris        Removed smoothing update from shape.
+;   27-10-13   Nic Morris        Added Extended RGBW mode.
+;   27-11-13   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CP_ALDWK20P                         mode=Shapes  31 DMX Channels
+NAME "Clay Paky" "A.leda Wash K20 Shapes"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  31  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Shapes"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=481
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   s    1   100   1N   T   1   "Red"             255   255     0
+0     0   L    2   100   1N   T   1   "Red Low"         255   255     0
+10   61   s    3   100   1N   U   1   "Green"           255   255     0
+0     0   L    4   100   1N   U   1   "Green Low"       255   255     0
+9    61   s    5   100   1N   V   1   "Blue"            255     0   230
+0     0   L    6   100   1N   V   1   "Blue Low"        255     0   230
+9     1   s    7   100   1N   0   1   "White"             0     0     0
+0     0   L    8   100   1N   0   1   "White Low"         0     0     0
+4     1   I    9   100   1N   A   1   "CTO"               0     0     0
+4    61   L   10   100   1N   0   1   "Colour Macro"      4     0     0
+2    61   L   11   100   1N   O   1   "Shutter"         106     0     0
+1     1   H   12   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s   13   100   1N   H   1   "Dimmer Low"      255     0     0
+3    61   s   14   100   1N   E   1   "Pan"             128     0     0
+0     0   L   15   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   16   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   17   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L   18   100   1N   0   1   "Function"          6     0     0
+8    61   L   19   100   1N   0   1   "Control"           0     0     0
+5     1   L   20   100   1N   Q   1   "Zoom"            127     0     0
+6     1   L   21   100   1N   0   1   "Shape"             4     0     0
+7     1   L   22   100   1N   0   1   "Shape Speed"     128     0     0
+7    61   L   23   100   1N   0   1   "Shape Smooth"      8     0     0
+20    1   I   24   100   1N   0   1   "Shape Red"         0     0     0
+20   61   I   25   100   1N   0   1   "Shape Green"       0     0     0
+19   61   I   26   100   1N   0   1   "Shape Blue"        0     0     0
+16   61   L   27   100   1N   0   1   "Shape White"       0     0     0
+16    1   L   28   100   1N   0   1   "Shape Dimmer"      0     0     0
+17    1   L   29   100   1N   0   1   "Back Dimmer"       0     0     0
+17   61   L   30   100   1N   R   1   "Shp Transiti"    255     0     0
+6    61   I   31   100   1N   P   1   "Shape Offset"      4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Clay Paky
+A.leda Wash K20
+Shapes
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  11
+"Open"               31  6A
+"Slow Strobe"        32  36
+"Fast Strobe"        33  67
+"Slow Random Strobe"  34  DB
+"Fast Random Strobe"  35  F5
+"Slow Pulse"         36  9E
+"Fast Pulse"         37  CF
+"Closed"             38   2
+PFEND
+
+PFTABLE "Pan/Tilt"   -1  14  16
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   1   3   5
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  80   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  80   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+PFTABLE "Beam"       -1  20
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset All"     1  19
+"data"                0  33
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset P/T"     2  19
+"data"                0  66
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset"         3  19
+"data"                0  C0
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Colour Macro
+0   9    "Open"
+10  10   "Red"
+11  11   "Green"
+12  12   "Blue"
+13  13   "Cyan"
+14  14   "Yellow"
+15  15   "Magenta"
+16  16   "7000K"
+17  17   "3700K"
+18  18   "5000K"
+19  19   "Black"
+20  22   "Medium Yell"
+23  26   "Straw Tint"
+27  28   "Surprise Pe"
+29  29   "Fire"
+30  30   "Medium Ambe"
+31  31   "Gold Amber"
+32  34   "Dark Amber"
+35  44   "Sunrise Red"
+45  45   "Light Pink"
+46  48   "Medium Pink"
+49  61   "Pink Carnat"
+62  67   "Light Laven"
+68  77   "Lavender"
+78  88   "Sky Blue"
+89  99   "Just Blue"
+100 109  "Yellow"
+110 111  "Spring Yell"
+112 112  "Light Amber"
+113 113  "Straw"
+114 114  "Deep Amber"
+115 116  "Orange"
+117 117  "Light Rose"
+118 118  "English Ros"
+119 119  "Light Salmo"
+120 120  "Middle Rose"
+121 122  "Dark Pink"
+123 124  "Magenta"
+125 125  "Peacock Blu"
+126 126  "Med Blu Grn"
+127 127  "Steel Blue"
+128 128  "Light Blue"
+129 130  "Deep Blue"
+131 133  "Leaf Green"
+134 135  "Dark Green"
+136 137  "Mauve"
+138 141  "Bright Pink"
+142 144  "Med Blue"
+145 145  "Deep Amber"
+146 146  "Pale Lavend"
+147 148  "Special Lav"
+149 150  "Primary Gre"
+151 156  "Bright Blue"
+157 161  "Apricot"
+162 171  "Pale Gold"
+172 173  "Bastard Amb"
+174 174  "Flame Red"
+175 178  "Daylight Bl"
+179 179  "Lilac Tint"
+180 183  "Deep Lavend"
+184 190  "Dark Steel "
+191 206  "Congo Blue"
+207 255  "Alice Blue"
+REND
+
+RANGE 11  ;Shutter
+0   3    "Closed"
+4   103  "Strobe %3d%%"(c-a)*100/(b-a)
+104 107  "Open"
+108 207  "Pulse %3d%%"(c-a)*100/(b-a)
+213 225  "Rand Slow"
+226 238  "Rand Med"
+239 251  "Rand Fast"
+REND
+
+RANGE 12  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Function
+0   11   "Function Of"
+12  24   "P/T Fast"
+25  37   "P/T Normal"
+38  42   "Dimmer 1"
+43  47   "Dimmer 2"
+48  52   "Dimmer 3"
+53  57   "Dimmer 4"
+58  62   "RGBW 1"
+63  67   "RGBW 2"
+68  72   "RGBW 3"
+73  77   "Halogen Off"
+78  82   "Halogen 1"
+83  87   "Halogen 2"
+88  92   "Halogen 3"
+93  97   "Halogen 4"
+98  102  "Halogen 5"
+103 250  "No Function"
+251 255  "Reset to De"
+REND
+
+RANGE 19  ;Control
+0   0    "Safe"
+26  76   "Reset Zoom"
+77  127  "Reset P/T"
+128 255  "Reset All"
+REND
+
+RANGE 20  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Shape
+0   7    "No Macro"
+8   8    "Ring 1"
+9   9    "Ring 2"
+10  10   "Ring 3"
+11  11   "Ring 4"
+12  12   "Ring 1+2"
+13  13   "Ring 1+3"
+14  14   "Ring 1+4"
+15  15   "Opening"
+16  16   "Opening Fil"
+17  17   "Open/Close"
+18  18   "Open/Close "
+19  19   "Var Radius"
+20  20   "Var Radius "
+21  21   "Rand Pixel"
+22  22   "Rand Pixel "
+23  23   "Rainbow 1"
+24  24   "Rainbow 2"
+25  25   "Fan"
+26  26   "Bar"
+27  27   "Half Moon"
+28  28   "Triangle"
+29  29   "Rot Bars"
+30  30   "Rot Arcs"
+31  31   "Rot Arcs Co"
+32  255  "Reserved"
+REND
+
+RANGE 22  ;Shape Speed
+0   126  "Closin %3d%%"100-((c-a)*100/(b-a))
+127 128  "No Spin"
+129 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Shape Smooth
+0   15   "Open"
+16  16   "Gamma 1"
+17  17   "Gamma 2"
+18  18   "Gamma 3"
+19  19   "Gamma 4"
+20  20   "Gamma 5"
+21  21   "Gamma 6"
+22  22   "Gamma 7"
+23  23   "Gamma 8"
+24  24   "Gamma 9"
+25  25   "Gamma 10"
+26  26   "Gamma 11"
+27  27   "Gamma 12"
+28  28   "Gamma 13"
+29  29   "Gamma 14"
+30  30   "Gamma 15"
+31  31   "Gamma 16"
+32  32   "Gamma 17"
+33  33   "Gamma 18"
+34  34   "Gamma 19"
+35  35   "Gamma 20"
+36  36   "Gamma 21"
+37  37   "Gamma 22"
+38  38   "Gamma 23"
+39  39   "Gamma 24"
+40  40   "Gamma 25"
+41  41   "Gamma 26"
+42  42   "Gamma 27"
+43  43   "Gamma 28"
+44  44   "Gamma 29"
+45  45   "Gamma 30"
+46  46   "Gamma 31"
+47  47   "Gamma 32"
+48  48   "Gamma 33"
+49  49   "Gamma 34"
+50  50   "Gamma 35"
+51  51   "Gamma 36"
+52  52   "Gamma 37"
+53  53   "Gamma 38"
+54  54   "Gamma 39"
+55  55   "Gamma 40"
+56  56   "Gamma 41"
+57  57   "Gamma 42"
+58  58   "Gamma 43"
+59  59   "Gamma 44"
+60  60   "Gamma 45"
+61  61   "Gamma 46"
+62  62   "Gamma 47"
+63  63   "Gamma 48"
+64  64   "Gamma 49"
+65  65   "Gamma 50"
+66  66   "Gamma 51"
+67  67   "Gamma 52"
+68  68   "Gamma 53"
+69  69   "Gamma 54"
+70  70   "Gamma 55"
+71  71   "Gamma 56"
+72  72   "Gamma 57"
+73  73   "Gamma 58"
+74  74   "Gamma 59"
+75  75   "Gamma 60"
+76  76   "Gamma 61"
+77  77   "Gamma 62"
+78  78   "Gamma 63"
+79  79   "Gamma 64"
+80  80   "Gamma 65"
+81  81   "Gamma 66"
+82  82   "Gamma 67"
+83  83   "Gamma 68"
+84  84   "Gamma 69"
+85  85   "Gamma 70"
+86  86   "Gamma 71"
+87  87   "Gamma 72"
+88  88   "Gamma 73"
+89  89   "Gamma 74"
+90  90   "Gamma 75"
+91  91   "Gamma 76"
+92  92   "Gamma 77"
+93  93   "Gamma 78"
+94  94   "Gamma 79"
+95  95   "Gamma 80"
+96  96   "Gamma 81"
+97  97   "Gamma 82"
+98  98   "Gamma 83"
+99  99   "Gamma 84"
+100 100  "Gamma 85"
+101 101  "Gamma 86"
+102 102  "Gamma 87"
+103 103  "Gamma 88"
+104 104  "Gamma 89"
+105 105  "Gamma 90"
+106 106  "Gamma 91"
+107 107  "Gamma 92"
+108 108  "Gamma 93"
+109 109  "Gamma 94"
+110 110  "Gamma 95"
+111 111  "Gamma 96"
+112 112  "Gamma 97"
+113 113  "Gamma 98"
+114 114  "Gamma 99"
+115 115  "Gamma 100"
+116 116  "Gamma 101"
+117 117  "Gamma 102"
+118 118  "Gamma 103"
+119 119  "Gamma 104"
+120 120  "Gamma 105"
+121 121  "Gamma 106"
+122 122  "Gamma 107"
+123 123  "Gamma 108"
+124 124  "Gamma 109"
+125 125  "Gamma 110"
+126 126  "Gamma 111"
+127 127  "Gamma 112"
+128 128  "Gamma 113"
+129 129  "Gamma 114"
+130 131  "Gamma 115"
+132 132  "Gamma 116"
+133 133  "Gamma 117"
+134 134  "Gamma 118"
+135 135  "Gamma 119"
+136 136  "Gamma 120"
+137 137  "Gamma 121"
+138 138  "Gamma 122"
+139 139  "Gamma 123"
+140 140  "Gamma 124"
+141 141  "Gamma 125"
+142 142  "Gamma 126"
+143 143  "Gamma 127"
+144 144  "Gamma 128"
+145 145  "Gamma 129"
+146 146  "Gamma 130"
+147 147  "Gamma 131"
+148 148  "Gamma 132"
+149 149  "Gamma 133"
+150 150  "Gamma 134"
+151 151  "Gamma 135"
+152 152  "Gamma 136"
+153 153  "Gamma 137"
+154 154  "Gamma 138"
+155 155  "Gamma 139"
+156 156  "Gamma 140"
+157 157  "Gamma 141"
+158 158  "Gamma 142"
+159 159  "Gamma 143"
+160 160  "Gamma 144"
+161 161  "Gamma 145"
+162 162  "Gamma 146"
+163 163  "Gamma 147"
+164 164  "Gamma 148"
+165 165  "Gamma 149"
+166 166  "Gamma 150"
+167 167  "Gamma 151"
+168 168  "Gamma 152"
+169 169  "Gamma 153"
+170 170  "Gamma 154"
+171 171  "Gamma 155"
+172 172  "Gamma 156"
+173 173  "Gamma 157"
+174 174  "Gamma 158"
+175 175  "Gamma 159"
+176 176  "Gamma 160"
+177 177  "Gamma 161"
+178 178  "Gamma 162"
+179 179  "Gamma 163"
+180 180  "Gamma 164"
+181 181  "Gamma 165"
+182 182  "Gamma 166"
+183 183  "Gamma 167"
+184 184  "Gamma 168"
+185 185  "Gamma 169"
+186 186  "Gamma 170"
+187 187  "Gamma 171"
+188 188  "Gamma 172"
+189 189  "Gamma 173"
+190 190  "Gamma 174"
+191 191  "Gamma 175"
+192 192  "Gamma 176"
+193 193  "Gamma 177"
+194 194  "Gamma 178"
+195 195  "Gamma 179"
+196 196  "Gamma 180"
+197 197  "Gamma 181"
+198 198  "Gamma 182"
+199 199  "Gamma 183"
+200 200  "Gamma 184"
+201 201  "Gamma 185"
+202 202  "Gamma 186"
+203 203  "Gamma 187"
+204 204  "Gamma 188"
+205 205  "Gamma 189"
+206 206  "Gamma 190"
+207 207  "Gamma 191"
+208 208  "Gamma 192"
+209 209  "Gamma 193"
+210 210  "Gamma 194"
+211 211  "Gamma 195"
+212 212  "Gamma 196"
+213 213  "Gamma 197"
+214 214  "Gamma 198"
+215 215  "Gamma 199"
+216 216  "Gamma 200"
+217 217  "Gamma 201"
+218 218  "Gamma 202"
+219 219  "Gamma 203"
+220 220  "Gamma 204"
+221 221  "Gamma 205"
+222 222  "Gamma 206"
+223 223  "Gamma 207"
+224 224  "Gamma 208"
+225 225  "Gamma 209"
+226 226  "Gamma 210"
+227 227  "Gamma 211"
+228 228  "Gamma 212"
+229 229  "Gamma 213"
+230 230  "Gamma 214"
+231 231  "Gamma 215"
+232 232  "Gamma 216"
+233 233  "Gamma 217"
+234 234  "Gamma 218"
+235 235  "Gamma 219"
+236 236  "Gamma 220"
+237 237  "Gamma 221"
+238 238  "Gamma 222"
+239 239  "Gamma 223"
+240 240  "Gamma 224"
+241 241  "Gamma 225"
+242 242  "Gamma 226"
+243 243  "Gamma 227"
+244 244  "Gamma 228"
+245 245  "Gamma 229"
+246 255  "Open"
+REND
+
+RANGE 24  ;Shape Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Shape Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Shape Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Shape White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Shape Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Back Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 30  ;Shp Transition
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 31  ;Shape Offset
+0   9    "No Macro"
+10  255  "Rand %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

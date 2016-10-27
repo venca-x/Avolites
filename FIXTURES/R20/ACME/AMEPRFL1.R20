@@ -1,0 +1,245 @@
+; 'Acme Power Flower Mode 1, 6 DMX', 6 DMX Channels, filename: AMEPRFL1.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   13-06-12   Peter Budd        Created
+;   13-06-12   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  AME_PwrFlw1                         mode=Mode 1, 6 DMX  6 DMX Channels
+NAME "Acme" "Power Flower Mode 1, 6 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 6 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    2   100   1N   O   1   "Shutter"          12     0     0
+6     1   I    3   100   1N   I   1   "Gobo"              2     0     0
+4     1   I    4   100   1N   A   1   "Colour"            7     0     0
+7     1   L    5   100   1N   K   1   "Reflector Ro"      4     0     0
+10    1   L    6   100   1N   0   1   "Control"          44     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Acme Power Flower
+Mode 1, 6 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   2
+"Open"               31   C
+"Slow Strobe"        32  4A
+"Fast Strobe"        33  83
+"Slow Random Strobe"  34  EC
+"Fast Random Strobe"  35  EF
+"Slow Pulse"         36  A0
+"Fast Pulse"         37  B5
+"Closed"             38   4
+PFEND
+
+PFTABLE "Gobo"       -1   3
+"Open"               11   2
+"Gobo 1"             12   6
+"Gobo 2"             13   A
+"Gobo 3"             14   E
+"Gobo 4"             15  12
+"Gobo 5"             16  16
+"Gobo 6"             17  1A
+"Gobo 7"             18  1E
+"Gobo 8"             19  22
+"Gobo 9"             20  26
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset All"     1   6
+"data"                0  CC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Shutter
+0   7    "Closed"
+8   15   "Open"
+16  131  "Strobe %3d%%"(c-a)*100/(b-a)
+132 139  "Open"
+140 181  "Pls Op %3d%%"(c-a)*100/(b-a)
+182 189  "Open"
+190 231  "Pls Cl  %3d%%"(c-a)*100/(b-a)
+232 239  "Open"
+240 247  "Rnd St %3d%%"(c-a)*100/(b-a)
+248 255  "Open"
+REND
+
+RANGE 3  ;Gobo
+0   3    "Open"
+4   7    "Gobo 1"
+8   11   "Gobo 2"
+12  15   "Gobo 3"
+16  19   "Gobo 4"
+20  23   "Gobo 5"
+24  27   "Gobo 6"
+28  31   "Gobo 7"
+32  35   "Gobo 8"
+36  39   "Gobo 9"
+40  43   "Gobo 10"
+44  47   "Gobo 11"
+48  51   "Gobo 12"
+52  55   "Gobo 13"
+56  59   "Gobo 14"
+60  63   "Gobo 15"
+64  67   "Open"
+68  71   "Gobo 1 Shak"
+72  75   "Gobo 2 Shak"
+76  79   "Gobo 3 Shak"
+80  83   "Gobo 4 Shak"
+84  87   "Gobo 5 Shak"
+88  91   "Gobo 6 Shak"
+92  95   "Gobo 7 Shak"
+96  99   "Gobo 8 Shak"
+100 103  "Gobo 9 Shak"
+104 107  "Gobo 10 Sha"
+108 111  "Gobo 11 Sha"
+112 115  "Gobo 12 Sha"
+116 119  "Gobo 13 Sha"
+120 123  "Gobo 14 Sha"
+124 127  "Gobo 15 Sha"
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Colour
+0   14   "Open"
+15  25   "Colour 1"
+26  35   "Colour 2"
+36  46   "Colour 3"
+47  56   "Colour 4"
+57  66   "Colour 5"
+67  77   "Colour 6"
+78  87   "Colour 7"
+88  98   "Colour 8"
+99  108  "Colour 9"
+109 119  "Colour 10"
+120 127  "Colour 11"
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Reflector Rot
+0   9    "No Scroll"
+10  120  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+121 135  "No Scroll"
+136 245  "Sc CCW %3d%%"(c-a)*100/(b-a)
+246 255  "No Scroll"
+REND
+
+RANGE 6  ;Control
+0   89   "Safe"
+90  99   "BO on Col"
+100 109  "Disable"
+110 119  "BO on Gobo"
+120 129  "Disable"
+130 199  "Safe"
+200 209  "Reset All"
+210 249  "Safe"
+250 255  "Stand-Alone"
+REND
+

@@ -1,0 +1,223 @@
+; 'Eurolite TS5', 5 DMX Channels, filename: EXTS-5.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   28-11-05   Ed                Created
+;   28-11-05   Ed                Checked
+;   18-07-06   D4 Pers Fixer     Updated Colour ID to Colour1
+;   18-07-06   D4 Pers Fixer     Updated Colour Func ID to Colour1Func
+;   18-07-06   D4 Pers Fixer     Updated Gobo ID to Gobo1
+;   18-07-06   D4 Pers Fixer     Updated Gobo Func ID to Gobo1Func
+;   18-07-06   D4 Pers Fixer     Updated Pan Power on to Locate value
+;   18-07-06   D4 Pers Fixer     Updated Tilt Power on to Locate value
+;   19-07-06   D4 Pers Fixer     Updated Colour Func ID to Colour1Func
+;   19-07-06   D4 Pers Fixer     Updated Gobo Func ID to Gobo1Func
+;   19-07-06   D4 Pers Fixer     Updated Gobo Func ID to Gobo1Func
+;   19-07-06   D4 Pers Fixer     Updated Gobo Func ID to Gobo1Func
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   05-03-14   Nic Morris        Standardised func function names.  Standardised conditions.  Added gobo function index.
+;   05-03-14   Nic Morris        Added palettes.  Added highlight and lowlight values.  Added pearl ref.
+;   05-03-14   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  EX_TS-5                             mode=5 DMX, 8bit  5 DMX Channels
+NAME "Eurolite" "TS5"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  5  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 5 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=507
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+4     1   L    3   100   1N   A   1   "Colour"            4    79    68
+6     1   L    4   100   1N   I   1   "Gobo"              2     0     0
+1     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Eurolite TS5
+5 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   3
+"Open"                1   4
+"Red"                 2  1A
+"Orange"              3  7A
+"Yellow"              4  4F
+"Green"               5   F
+"Cyan"                6  24
+"Light Blue"          7  44
+"Purple"              9  6F
+"Purple"             10  6F
+"Purple"              8  6F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Colour
+0   9    "Safe"
+10  20   "Green"
+21  31   "Red"
+32  41   "Cyan"
+42  52   "Light Green"
+53  63   "Rose"
+64  73   "Light Blue"
+74  84   "Yellow"
+85  95   "Green"
+96  105  "Pink"
+106 116  "Purple"
+117 128  "Orange"
+129 190  "Scroll %3d%%"(c-a)*100/(b-a)
+191 193  "Audio"
+194 223  "Scroll %3d%%"100-((c-a)*100/(b-a))
+224 225  "No Scroll"
+226 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Gobo
+0   5    "Closed"
+6   31   "Strobe %3d%%"(c-a)*100/(b-a)
+32  41   "Safe"
+42  52   "Gobo 1"
+53  63   "Gobo 2"
+64  73   "Gobo 3"
+74  84   "Gobo 4"
+85  95   "Gobo 5"
+96  105  "Gobo 6"
+106 116  "Gobo 7"
+117 127  "Gobo 8"
+128 137  "Gobo 9"
+148 155  "Gobo 1 %3d%%"(c-a)*100/(b-a)
+156 163  "Gobo 2 %3d%%"(c-a)*100/(b-a)
+164 171  "Gobo 3 %3d%%"(c-a)*100/(b-a)
+172 179  "Gobo 4 %3d%%"(c-a)*100/(b-a)
+180 187  "Gobo 5 %3d%%"(c-a)*100/(b-a)
+188 195  "Gobo 6 %3d%%"(c-a)*100/(b-a)
+196 203  "Gobo 7 %3d%%"(c-a)*100/(b-a)
+204 210  "Gobo 8 %3d%%"(c-a)*100/(b-a)
+211 217  "Gobo 9 %3d%%"(c-a)*100/(b-a)
+218 223  "Audio"
+224 225  "No Scroll"
+226 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

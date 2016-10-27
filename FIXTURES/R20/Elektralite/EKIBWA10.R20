@@ -1,0 +1,482 @@
+; 'Elektralite eyeBall RGBWA STAG', 12 DMX Channels, filename: EKIBWA10.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   29-08-15   Nic Morris        Created
+;   29-08-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-08-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  EKIBWA10                            mode=STAG  12 DMX Channels
+NAME "Elektralite" "eyeBall RGBWA STAG"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to STAG"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+4    61   L    5   100   1N   0   1   "White"             0     0     0
+4     1   L    6   100   1N   0   1   "Amber"             0     0     0
+9     1   L    7   100   1N   0   1   "Colour Macro"      5     0     0
+2    61   L    8   100   1N   O   1   "Shutter"           0     0     0
+8     1   L    9   100   1N   0   1   "Auto"              5     0     0
+8    61   L   10   100   1N   0   1   "Auto Spd"        127     0     0
+11    1   L   11   100   1N   0   1   "Dim Spd"           4     0     0
+11   61   L   12   100   1N   0   1   "ID"                0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Elektralite
+eyeBall RGBWA
+STAG
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Amber
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Colour Macro
+0   10   "Open"
+11  200  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+201 205  "3200K"
+206 210  "3400K"
+211 215  "4200K"
+216 220  "4900K"
+221 225  "5600K"
+226 230  "5900K"
+231 235  "6500K"
+236 240  "7200K"
+241 245  "8000K"
+246 250  "8500K"
+251 255  "10000K"
+REND
+
+RANGE 8  ;Shutter
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Auto
+0   10   "Open"
+11  20   "Fan Off"
+21  25   "Fan Low"
+26  30   "Fan High"
+31  40   "Fan Auto"
+51  60   "Red"
+61  70   "Green"
+71  80   "Blue"
+81  90   "White"
+91  100  "Amber"
+101 120  "Yellow"
+121 130  "Cyan"
+131 150  "Purple"
+151 170  "RGBWA Full"
+171 190  "Effect 1"
+191 210  "Effect 2"
+211 255  "Effect 3"
+REND
+
+RANGE 10  ;Auto Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Dim Spd
+0   9    "Linear"
+10  69   "Curve 1"
+70  129  "Curve 2"
+130 189  "Curve 3"
+190 255  "Curve 4"
+REND
+
+RANGE 12  ;ID
+0   0    "All"
+1   1    "ID 1"
+2   2    "ID 2"
+3   3    "ID 3"
+4   4    "ID 4"
+5   5    "ID 5"
+6   6    "ID 6"
+7   7    "ID 7"
+8   8    "ID 8"
+9   9    "ID 9"
+10  10   "ID 10"
+11  11   "ID 11"
+12  12   "ID 12"
+13  13   "ID 13"
+14  14   "ID 14"
+15  15   "ID 15"
+16  16   "ID 16"
+17  17   "ID 17"
+18  18   "ID 18"
+19  19   "ID 19"
+20  20   "ID 20"
+21  21   "ID 21"
+22  22   "ID 22"
+23  23   "ID 23"
+24  24   "ID 24"
+25  25   "ID 25"
+26  26   "ID 26"
+27  27   "ID 27"
+28  28   "ID 28"
+29  29   "ID 29"
+30  30   "ID 30"
+31  31   "ID 31"
+32  32   "ID 32"
+33  33   "ID 33"
+34  34   "ID 34"
+35  35   "ID 35"
+36  36   "ID 36"
+37  37   "ID 37"
+38  38   "ID 38"
+39  39   "ID 39"
+40  40   "ID 40"
+41  41   "ID 41"
+42  42   "ID 42"
+43  43   "ID 43"
+44  44   "ID 44"
+45  45   "ID 45"
+46  46   "ID 46"
+47  47   "ID 47"
+48  48   "ID 48"
+49  49   "ID 49"
+50  50   "ID 50"
+51  51   "ID 51"
+52  52   "ID 52"
+53  53   "ID 53"
+54  54   "ID 54"
+55  55   "ID 55"
+56  56   "ID 56"
+57  57   "ID 57"
+58  58   "ID 58"
+59  59   "ID 59"
+60  60   "ID 60"
+61  61   "ID 61"
+62  62   "ID 62"
+63  63   "ID 63"
+64  64   "ID 64"
+65  65   "ID 65"
+66  66   "ID 66"
+67  67   "ID 67"
+68  68   "ID 68"
+69  69   "ID 69"
+70  70   "ID 70"
+71  71   "ID 71"
+72  72   "ID 72"
+73  73   "ID 73"
+74  74   "ID 74"
+75  75   "ID 75"
+76  76   "ID 76"
+77  77   "ID 77"
+78  78   "ID 78"
+79  79   "ID 79"
+80  80   "ID 80"
+81  81   "ID 81"
+82  82   "ID 82"
+83  83   "ID 83"
+84  84   "ID 84"
+85  85   "ID 85"
+86  86   "ID 86"
+87  87   "ID 87"
+88  88   "ID 88"
+89  89   "ID 89"
+90  90   "ID 90"
+91  91   "ID 91"
+92  92   "ID 92"
+93  93   "ID 93"
+94  94   "ID 94"
+95  95   "ID 95"
+96  96   "ID 96"
+97  97   "ID 97"
+98  98   "ID 98"
+99  99   "ID 99"
+100 100  "ID 100"
+101 101  "ID 101"
+102 102  "ID 102"
+103 103  "ID 103"
+104 104  "ID 104"
+105 105  "ID 105"
+106 106  "ID 106"
+107 107  "ID 107"
+108 108  "ID 108"
+109 109  "ID 109"
+110 110  "ID 110"
+111 111  "ID 111"
+112 112  "ID 112"
+113 113  "ID 113"
+114 114  "ID 114"
+115 115  "ID 115"
+116 116  "ID 116"
+117 117  "ID 117"
+118 118  "ID 118"
+119 119  "ID 119"
+120 120  "ID 120"
+121 121  "ID 121"
+122 122  "ID 122"
+123 123  "ID 123"
+124 124  "ID 124"
+125 125  "ID 125"
+126 126  "ID 126"
+127 127  "ID 127"
+128 128  "ID 128"
+129 129  "ID 129"
+130 130  "ID 130"
+131 131  "ID 131"
+132 132  "ID 132"
+133 133  "ID 133"
+134 134  "ID 134"
+135 135  "ID 135"
+136 136  "ID 136"
+137 137  "ID 137"
+138 138  "ID 138"
+139 139  "ID 139"
+140 140  "ID 140"
+141 141  "ID 141"
+142 142  "ID 142"
+143 143  "ID 143"
+144 144  "ID 144"
+145 145  "ID 145"
+146 146  "ID 146"
+147 147  "ID 147"
+148 148  "ID 148"
+149 149  "ID 149"
+150 150  "ID 150"
+151 151  "ID 151"
+152 152  "ID 152"
+153 153  "ID 153"
+154 154  "ID 154"
+155 155  "ID 155"
+156 156  "ID 156"
+157 157  "ID 157"
+158 158  "ID 158"
+159 159  "ID 159"
+160 160  "ID 160"
+161 161  "ID 161"
+162 162  "ID 162"
+163 163  "ID 163"
+164 164  "ID 164"
+165 165  "ID 165"
+166 166  "ID 166"
+167 167  "ID 167"
+168 168  "ID 168"
+169 169  "ID 169"
+170 170  "ID 170"
+171 171  "ID 171"
+172 172  "ID 172"
+173 173  "ID 173"
+174 174  "ID 174"
+175 175  "ID 175"
+176 176  "ID 176"
+177 177  "ID 177"
+178 178  "ID 178"
+179 179  "ID 179"
+180 180  "ID 180"
+181 181  "ID 181"
+182 182  "ID 182"
+183 183  "ID 183"
+184 184  "ID 184"
+185 185  "ID 185"
+186 186  "ID 186"
+187 187  "ID 187"
+188 188  "ID 188"
+189 189  "ID 189"
+190 190  "ID 190"
+191 191  "ID 191"
+192 192  "ID 192"
+193 193  "ID 193"
+194 194  "ID 194"
+195 195  "ID 195"
+196 196  "ID 196"
+197 197  "ID 197"
+198 198  "ID 198"
+199 199  "ID 199"
+200 200  "ID 200"
+201 201  "ID 201"
+202 202  "ID 202"
+203 203  "ID 203"
+204 204  "ID 204"
+205 205  "ID 205"
+206 206  "ID 206"
+207 207  "ID 207"
+208 208  "ID 208"
+209 209  "ID 209"
+210 210  "ID 210"
+211 211  "ID 211"
+212 212  "ID 212"
+213 213  "ID 213"
+214 214  "ID 214"
+215 215  "ID 215"
+216 216  "ID 216"
+217 217  "ID 217"
+218 218  "ID 218"
+219 219  "ID 219"
+220 220  "ID 220"
+221 221  "ID 221"
+222 222  "ID 222"
+223 223  "ID 223"
+224 224  "ID 224"
+225 225  "ID 225"
+226 226  "ID 226"
+227 227  "ID 227"
+228 228  "ID 228"
+229 229  "ID 229"
+230 230  "ID 230"
+231 231  "ID 231"
+232 232  "ID 232"
+233 233  "ID 233"
+234 234  "ID 234"
+235 235  "ID 235"
+236 236  "ID 236"
+237 237  "ID 237"
+238 238  "ID 238"
+239 239  "ID 239"
+240 240  "ID 240"
+241 241  "ID 241"
+242 242  "ID 242"
+243 243  "ID 243"
+244 244  "ID 244"
+245 245  "ID 245"
+246 246  "ID 246"
+247 247  "ID 247"
+248 248  "ID 248"
+249 249  "ID 249"
+250 250  "ID 250"
+251 251  "ID 251"
+252 252  "ID 252"
+253 253  "ID 253"
+254 254  "ID 254"
+255 255  "ID 255"
+REND
+

@@ -1,0 +1,787 @@
+; 'Martin Mac 3 Wash', 21 DMX Channels, filename: MTMAC3_W.R20
+;  Copyright © Avolites Ltd. 2013
+;
+;   Date       By                Description
+;   18-07-12   Peter Budd        Created
+;   02-08-12   Peter Budd        Updated to spec
+;   19-11-12   Peter Budd        Edited corrected Gobo 2 Func
+;   19-11-12   Peter Budd        Edited corrected iris locate to 0%
+;   28-01-13   Peter Budd        Corrected Gobo function channels.
+;   16-04-13   Peter Budd        Created from Mac Viper Profile
+;   19-04-13   RDM Sync Tool     Added RDM Manufacturer information.
+;   03-06-13   Peter Budd        Created from Martin Mac Viper AirFX.
+;   03-06-13   Peter Budd        Created from the Martin Mac Viper Wash DX.
+;   03-06-13   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-06-13   Peter Budd        Edited ranges.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac3Wash                         mode=21 DMX, 16bit  21 DMX Channels
+NAME "Martin" "Mac 3 Wash"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  21  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 21 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=491
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          34     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    3   100   1N   H   1   "Dimmer Low"      255     0     0
+10    1   L    4   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    5   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    6   100   1N   D   1   "Yellow"            0   255    51
+4    61   L    7   100   1N   0   1   "CTO"               0     0     0
+4     1   I    8   100   1N   A   1   "Colour"          190     0     0
+9     1   L    9   100   1N   0   1   "CMY Macro"         9     0     0
+2     1   L   10   100   1N   G   1   "Iris"            199     0     0
+15    1   L   11   100   1N   Q   1   "Blade 1"           0     0     0
+15   61   L   12   100   1N   L   1   "Blade 2"           0     0     0
+12    1   L   13   100   1N   G   1   "Blade All Ro"     10     0     0
+5    61   L   14   100   1N   L   1   "Focus"           128     0     0
+5     1   L   15   100   1N   Q   1   "Zoom"            128     0     0
+3    61   s   16   100   1N   E   1   "Pan"             128     0     0
+0     0   L   17   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   18   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   19   100   1N   F   1   "Tilt Low"        128     0     0
+20    1   L   20   100   1N   0   1   "Control"           0     0     0
+16    1   L   21   100   1N   0   1   "Fix Adj Ctrl"     20     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin Mac 3 Wash
+21 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  22
+"Slow Strobe"        32  39
+"Fast Strobe"        33  32
+"Slow Random Strobe"  34  9D
+"Fast Random Strobe"  35  96
+"Slow Pulse"         36  61
+"Fast Pulse"         37  5A
+"Closed"             38   A
+PFEND
+
+PFTABLE "Pan/Tilt"   -1  16  18
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   4   5   6
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  7F  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Magenta"            10   0  FF   0
+"Lavender"            8  4A  91   F
+"Ultra Violet"        9  CC  FF   0
+PFEND
+
+PFTABLE "Beam"       -1  15  10
+"Zoom Small"         41   0  C7
+"Zoom Medium"        42  80  C7
+"Zoom Large"         43  FF  C7
+"Iris Small"         44  80  C7
+"Iris Medium"        45  80  64
+"Iris Large"         46  80   0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  20   8
+"data"                0   C  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Reset Shutter"  2  20   8
+"data"                0  11  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Reset Colour"  3  20   8
+"data"                0  16  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Reset Barndoor"  4  20   8
+"data"                0  1B  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Reset Beam"    5  20   8
+"data"                0  20  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Reset P/T"     6  20   8
+"data"                0  25  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Lamp On"       7  20
+"data"                0  2F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      8  20   8
+"data"                0  34  14
+"delay"               1  3C
+"data"                0   0  14
+MEND
+
+MACRO "Lamp Full"     9  20
+"data"                0  C5
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp 90%"     10  20
+"data"                0  CA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp 80%"     11  20
+"data"                0  CF
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp 70%"     12  20
+"data"                0  D4
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp 60%"     13  20
+"data"                0  D9
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Linear Curve" 14  20
+"data"                0  3E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Square Curve" 15  20
+"data"                0  43
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Inverse Square" 16  20
+"data"                0  48
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "S-Curve"      17  20
+"data"                0  4D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PT Speed Normal" 18  20
+"data"                0  57
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "PT Speed Fast" 19  20
+"data"                0  5C
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "PT Speed Slow" 20  20
+"data"                0  61
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Parameter Shortcuts On" 21  20
+"data"                0  8E
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Parameter Shortcuts Off" 22  20
+"data"                0  93
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Disable Beam Link" 23  20
+"data"                0  9D
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Illimuinate Display" 24  20
+"data"                0  ED
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Enable P/T Limit" 25  20  21   9
+"data"                0  39  2A   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Disable P/T Limit" 26  20  21   9
+"data"                0  39  34   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "P/T Limit Inside" 27  20  21   9
+"data"                0  39  3E   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "P/T Limit Outside" 28  20  21   9
+"data"                0  39  48   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Lower Pan Limit" 29  20  21   9
+"data"                0  39  52   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Upper Pan Limit" 30  20  21   9
+"data"                0  39  57   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Lower Tilt Limit" 31  20  21   9
+"data"                0  39  61   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Upper Tilt Limit" 32  20  21   9
+"data"                0  39  66   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Reset P/T Limits" 33  14  21   4   5   6
+"data"                0  1E  70   0   0   0
+"delay"               1  3C
+"data"                0   0  14   0   0   0
+MEND
+
+MACRO "Store Dimmer Calibration" 34  20  21   9
+"data"                0  39  7F   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Cyan Calibration" 35  20  21   9
+"data"                0  39  84   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Magenta Calibration" 36  20  21   9
+"data"                0  39  89   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Yellow Calibration" 37  20  21   9
+"data"                0  39  8E   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store CTC Calibration" 38  20  21   9
+"data"                0  39  93   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store CMYC Calibration" 39  20  21   9
+"data"                0  39  98   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Barndoor Calibration" 40  20  21   9
+"data"                0  39  D4   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Iris Calibration" 41  20  21   9
+"data"                0  39  D9   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Focus Calibration" 42  20  21   9
+"data"                0  39  DE   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Zoom Calibration" 43  20  21   9
+"data"                0  39  E3   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Pan Calibration" 44  20  21   9
+"data"                0  39  E8   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Store Tilt Calibration" 45  20  21   9
+"data"                0  39  ED   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+MACRO "Reset All Calibration" 46  20  21   9
+"data"                0  39  F7   8
+"delay"               1  3C
+"data"                0   0  14   9
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  64   "Strobe %3d%%"100-((c-a)*100/(b-a))
+65  69   "Open"
+70  84   "Pls Op %3d%%"100-((c-a)*100/(b-a))
+85  89  "Open"
+90  104  "Pls Cl %3d%%"100-((c-a)*100/(b-a))
+105 109   "Open"
+110 124  "Rnd St %3d%%"100-((c-a)*100/(b-a))
+125 129  "Open"
+130 144  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+145 149  "Open"
+150 164  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+165 169  "Open"
+170 184  "Burst %3d%%"100-((c-a)*100/(b-a))
+185 189  "Open"
+190 204  "Rnd Bu %3d%%"100-((c-a)*100/(b-a))
+205 209  "Open"
+210 224  "ESine %3d%%"100-((c-a)*100/(b-a))
+225 229  "Open"
+230 244  "EBurst %3d%%"100-((c-a)*100/(b-a))
+245 255  "Open"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Colour
+0   0    "Open"
+1   19   "Op/Bl %3d%%"(c-a)*100/(b-a)
+20  20   "Blue"
+20  39   "Bl/Grn %3d%%"(c-a)*100/(b-a)
+40  40   "Green"
+40  59   "Grn/Or %3d%%"(c-a)*100/(b-a)
+60  60   "Orange"
+60  79   "Or/MGr %3d%%"(c-a)*100/(b-a)
+80  80   "Minus Green"
+80  99   "MGr/Yl %3d%%"(c-a)*100/(b-a)
+100 100  "Yellow"
+100 119  "Yl/Cng %3d%%"(c-a)*100/(b-a)
+120 120  "Congo Blue"
+120 139  "Cng/Rd %3d%%"(c-a)*100/(b-a)
+140 140  "Red"
+140 160  "Red/Op %3d%%"(c-a)*100/(b-a)
+161 164  "Red"
+165 168  "Congo Blue"
+169 172  "Yellow"
+173 176  "Minus Green"
+177 180  "Orange"
+181 184  "Green"
+185 188  "Blue"
+189 192  "Open"
+193 214  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+215 221  "No Spin"
+222 243  "Sp CCW %3d%%"(c-a)*100/(b-a)
+244 247  "Fast"
+248 251  "Medium"
+252 255  "Slow"
+REND
+
+RANGE 9  ;CMY Macro
+5   10   "Macro"
+0   18   "No Effect"
+19  57   "Colour %3d%%"(c-a)*100/(b-a)
+58  83   "Rnd CMY Fas"
+84  109  "Rnd CMY Med"
+110 135  "Rnd CMY Slo"
+136 136  "Reserve 136"
+137 137  "Reserve 137"
+138 138  "Reserve 138"
+139 139  "Reserve 139"
+140 140  "Reserve 140"
+141 141  "Reserve 141"
+142 142  "Reserve 142"
+143 143  "Reserve 143"
+144 144  "Reserve 144"
+145 145  "Reserve 145"
+146 146  "Reserve 146"
+147 147  "Reserve 147"
+148 148  "Reserve 148"
+149 149  "Reserve 149"
+150 150  "Reserve 150"
+151 151  "Reserve 151"
+152 152  "Reserve 152"
+153 153  "Reserve 153"
+154 154  "Reserve 154"
+155 155  "Reserve 155"
+156 156  "Reserve 156"
+157 157  "Reserve 157"
+158 158  "Reserve 158"
+159 159  "Reserve 159"
+160 160  "Reserve 160"
+161 161  "Reserve 161"
+162 162  "Reserve 162"
+163 163  "Reserve 163"
+164 164  "Reserve 164"
+165 165  "Reserve 165"
+166 166  "Reserve 166"
+167 167  "Reserve 167"
+168 168  "Reserve 168"
+169 169  "Reserve 169"
+170 170  "Reserve 170"
+171 171  "Reserve 171"
+172 172  "Reserve 172"
+173 173  "Reserve 173"
+174 174  "Reserve 174"
+175 175  "Reserve 175"
+176 176  "Reserve 176"
+177 177  "Reserve 177"
+178 178  "Reserve 178"
+179 179  "Reserve 179"
+180 180  "Reserve 180"
+181 181  "Reserve 181"
+182 182  "Reserve 182"
+183 183  "Reserve 183"
+184 184  "Reserve 184"
+185 185  "Reserve 185"
+186 186  "Reserve 186"
+187 187  "Reserve 187"
+188 188  "Reserve 188"
+189 189  "Reserve 189"
+190 190  "Reserve 190"
+191 191  "Reserve 191"
+192 192  "Reserve 192"
+193 193  "Reserve 193"
+194 194  "Reserve 194"
+195 195  "Reserve 195"
+196 196  "Reserve 196"
+197 197  "Reserve 197"
+198 198  "Reserve 198"
+199 199  "Reserve 199"
+200 200  "Reserve 200"
+201 201  "Reserve 201"
+202 202  "Reserve 202"
+203 203  "Reserve 203"
+204 204  "Reserve 204"
+205 205  "Reserve 205"
+206 206  "Reserve 206"
+207 207  "Reserve 207"
+208 208  "Reserve 208"
+209 209  "Reserve 209"
+210 210  "Reserve 210"
+211 211  "Reserve 211"
+212 212  "Reserve 212"
+213 213  "Reserve 213"
+214 214  "Reserve 214"
+215 215  "Reserve 215"
+216 216  "Reserve 216"
+217 217  "Reserve 217"
+218 218  "Reserve 218"
+219 219  "Reserve 219"
+220 220  "Reserve 220"
+221 221  "Reserve 221"
+222 222  "Reserve 222"
+223 223  "Reserve 223"
+224 224  "Reserve 224"
+225 225  "Reserve 225"
+226 226  "Reserve 226"
+227 227  "Reserve 227"
+228 228  "Reserve 228"
+229 229  "Reserve 229"
+230 230  "Reserve 230"
+231 231  "Reserve 231"
+232 232  "Reserve 232"
+233 233  "Reserve 233"
+234 234  "Reserve 234"
+235 235  "Reserve 235"
+236 236  "Reserve 236"
+237 237  "Reserve 237"
+238 238  "Reserve 238"
+239 239  "Reserve 239"
+240 240  "Reserve 240"
+241 241  "Reserve 241"
+242 242  "Reserve 242"
+243 243  "Reserve 243"
+244 244  "Reserve 244"
+245 245  "Reserve 245"
+246 246  "Reserve 246"
+247 247  "Reserve 247"
+248 248  "Reserve 248"
+249 249  "Reserve 249"
+250 250  "Reserve 250"
+251 251  "Reserve 251"
+252 252  "Reserve 252"
+253 253  "Reserve 253"
+254 254  "Reserve 254"
+255 255  "Reserve 255"
+REND
+
+RANGE 10  ;Iris
+0   199  "%3d%%"100-((c-a)*100/(b-a))
+200 215  "Closed"
+216 229  "Pls Op %3d%%"100-((c-a)*100/(b-a))
+230 243  "Pls Cl %3d%%"100-((c-a)*100/(b-a))
+244 249  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+250 255  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;Blade 1
+0   255  "Pos %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Blade 2
+0   255  "Pos %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Blade All Rot
+0   200  "Index %3d°"-10+((c-a)*200/(b-a))
+201 255  "No Function"
+REND
+
+RANGE 14  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Control
+0   0    "Safe"
+10  14   "Reset All"
+15  19   "Reset Shutt"
+20  24   "Reset Colou"
+25  29   "Reset Barnd"
+30  34   "Reset Beam"
+35  39   "Reset P/T"
+40  44   "No Function"
+45  49   "Lamp On"
+50  54   "Lamp Off"
+55  59   "Enable Cali"
+60  64   "Linear Dim"
+65  69   "Square Dim"
+70  74   "Inv Square "
+75  79   "S-Curve Dim"
+80  84   "No Function"
+85  89   "Norm P/T Sp"
+90  94   "Fast P/T Sp"
+95  99   "Slow P/T Sp"
+100 139  "No Function"
+140 144  "Parameter O"
+145 149  "Parameter O"
+150 154  "No Function"
+155 159  "Disable Bea"
+195 199  "Lamp Full"
+200 204  "Lamp 90%"
+205 209  "Lamp 80%"
+210 214  "Lamp 70%"
+215 219  "Lamp 60%"
+220 234  "No Function"
+235 239  "Display On"
+240 244  "Display Off"
+245 255  "Safe"
+REND
+
+RANGE 21  ;Fix Adj Ctrl
+0   39   "Safe"
+40  44   "Enable P/TL"
+45  49   "Safe"
+50  54   "DisableP/TL"
+55  59   "Safe"
+60  64   "P/T Area In"
+65  69   "Safe"
+70  74   "P/T AreaOut"
+75  79   "Safe"
+80  84   "Str Pan Low"
+85  89   "Str Pan Hig"
+90  94   "Safe"
+95  99   "Str Tilt Lo"
+100 104  "Str Tilt Hi"
+105 109  "Safe"
+110 114  "Reset P/T L"
+115 124  "Safe"
+125 129  "Str Dim Cal"
+130 134  "Str Cyan Ca"
+135 139  "Str Magenta"
+140 144  "Str Yellow "
+145 149  "Str CTC Cal"
+150 154  "Str CMYC Ca"
+210 214  "Str Barndoo"
+215 219  "Str Iris Ca"
+220 224  "Str Focus C"
+225 229  "Str Zoom Ca"
+230 234  "Str Pan Cal"
+235 239  "Str Tilt Ca"
+240 244  "Safe"
+245 249  "Reset All C"
+250 255  "Safe"
+REND
+

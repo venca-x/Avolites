@@ -1,0 +1,229 @@
+; 'Prolight Equinox Carina', 8 DMX Channels, filename: PTEQCAR.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   10-01-14   Nic Morris        Created
+;   10-01-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   10-01-14   Nic Morris        Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PTEQCAR                             mode=8 DMX  8 DMX Channels
+NAME "Prolight" "Equinox Carina"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"          76     0     0
+6     1   L    2   100   1N   I   1   "Pattern"           2     0     0
+9     1   L    3   100   1N   0   1   "Shape"            25     0     0
+5     1   L    4   100   1N   Q   1   "Shape Zoom"      127     0     0
+9    61   L    5   100   1N   0   1   "Shape Spin"       24     0     0
+3    61   L    6   100   1N   E   1   "Shape X"         127     0     0
+3     1   L    7   100   1N   F   1   "Shape Y"         127     0     0
+8     1   L    8   100   1N   0   1   "Shape X/Y Sp"    255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Prolight
+Equinox Carina
+8 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   50   "Sound"
+51  101  "Pattern"
+102 152  "Shape"
+153 203  "Auto"
+204 255  "Blackout"
+REND
+
+RANGE 2  ;Pattern
+0   3    "Circle Zoom"
+4   7    "Short Line "
+8   11   "Circle Rot "
+12  15   "Circle Rot "
+16  19   "Circle"
+20  23   "Circle Rot "
+24  27   "Circle Left"
+28  31   "Half Circle"
+32  35   "Half Circle"
+36  39   "Half Circle"
+40  43   "Half Circle"
+44  47   "W Rot X"
+48  51   "W Rot Y"
+52  55   "Wave Rot X"
+56  59   "Line Waves"
+60  63   "Waves Left/"
+64  67   "Square Zoom"
+68  71   "Square X"
+72  75   "Square Y"
+76  79   "Square Zoom"
+80  83   "Triangle Zo"
+84  87   "Triangle Zo"
+88  91   "Moving Tria"
+92  95   "Moving Line"
+96  99   "Moving Pent"
+100 103  "Pentangle R"
+104 107  "Line Up/ Do"
+108 111  "Line Rot"
+112 115  "Line Rot Y"
+116 119  "Vertical Li"
+120 123  "Vertical Li"
+124 127  "Rot Leaf"
+128 131  "Leaf Zoom"
+132 135  "Hexagon Zoo"
+136 139  "Hexagon Rot"
+140 143  "Small Circl"
+144 147  "Small Circl"
+148 151  "Small Circl"
+152 155  "Dot Move"
+156 159  "Short Line "
+160 163  "Cloud Left/"
+164 167  "Cloud Rot Y"
+168 171  "Cloud Zoom "
+172 175  "Moving V"
+176 179  "V Rot X"
+180 183  "V Rot Y"
+184 187  "V Zoom"
+188 191  "V Rot Z"
+192 195  "Single Wave"
+196 199  "Short Line "
+200 203  "Short Line "
+204 207  "Double Wave"
+208 211  "Rot +"
+212 215  "Zoom +"
+216 219  "Line Rot Ce"
+220 223  "Short Line "
+224 227  "8 Rot"
+228 255  "Rectangle R"
+REND
+
+RANGE 3  ;Shape
+0   50   "Line"
+51  101  "Circle"
+102 152  "Square"
+153 203  "Dot"
+204 255  "Triange"
+REND
+
+RANGE 4  ;Shape Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Shape Spin
+0   49   "No Spin"
+50  149  "Spin C %3d%%"(c-a)*100/(b-a)
+150 255  "Spin C %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Shape X
+0   255  "X-Mo %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Shape Y
+0   255  "Y-Mo %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Shape X/Y Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

@@ -1,0 +1,276 @@
+; 'Martin SynchroZap QX250', 6 DMX Channels, filename: MTSYNCZP.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   01-10-15   Nic Morris        Created
+;   01-10-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-10-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MTSYNCZP                            mode=6 DMX  6 DMX Channels
+NAME "Martin" "SynchroZap QX250"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 6 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          30     0     0
+4     1   L    2   100   1N   A   1   "Colour"            4    58   148
+6     1   L    3   100   1N   I   1   "Gobo"              4     0     0
+5     1   L    4   100   1N   0   1   "Drum 1 Rot"      193     0     0
+5    61   L    5   100   1N   0   1   "Drum 2 Rot"      193     0     0
+6    61   L    6   100   1N   0   1   "Sync Rot"         10     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin
+SynchroZap QX250
+6 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  1E
+"Slow Strobe"        32  46
+"Fast Strobe"        33  28
+"Slow Random Strobe"  34  FC
+"Fast Random Strobe"  35  FF
+"Slow Pulse"         36  9C
+"Fast Pulse"         37  B4
+"Closed"             38   5
+PFEND
+
+PFTABLE "Colour"     -1   2
+"Open"                1   4
+"Deep Orange"         2  A6
+"Orange"              3  82
+"Yellow"              4  3A
+"Green"               5  70
+"Light Blue"          6  5E
+"Blue"                7  94
+"Magenta"             9  4C
+"Magenta"            10  4C
+"Pink"                8  16
+PFEND
+
+PFTABLE "Gobo"       -1   3
+"Open"               11   4
+"Gobo 1"             12   D
+"Gobo 2"             13  16
+"Gobo 3"             14  1F
+"Gobo 4"             15  28
+"Gobo 5"             16  31
+"Gobo 6"             17  3A
+"Gobo 7"             18  43
+"Gobo 8"             19  4C
+"Gobo 9"             20  55
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   1   2   3
+"data"                0  F4  70  55
+"delay"               1  3C
+"data"                0  1E   4   4
+MEND
+
+MACRO "Lamp On"       2   1
+"data"                0   F
+"delay"               1  3C
+"data"                0  1E
+MEND
+
+MACRO "Lamp Off"      3   1
+"data"                0  FC
+"delay"               1  3C
+"data"                0  1E
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   10   "Closed"
+11  19   "Lamp On"
+20  39   "Open"
+40  100  "Strobe %3d%%"100-((c-a)*100/(b-a))
+110 130  "Rnd Strobe "
+131 180  "Rnd Sound"
+181 239  "Closed"
+240 248  "Reset"
+249 255  "Lamp Off"
+REND
+
+RANGE 2  ;Colour
+0   8    "Open"
+9   17   "Op/ Pk"
+18  26   "Pink"
+27  35   "Pk/ L Grn"
+36  44   "Light Green"
+45  53   "L Grn/ Yel"
+54  62   "Yellow"
+63  71   "Yel/ Mag"
+72  80   "Magenta"
+81  89   "Mag/ L Bl"
+90  98   "Light Blue"
+99  107  "L Bl/ Grn"
+108 116  "Green"
+117 125  "Grn/ Org"
+126 134  "Orange"
+135 143  "Org/ Bl"
+144 152  "Blue"
+153 161  "Bl/ D Org"
+162 170  "Deep Orange"
+171 179  "D Org/ Op"
+180 187  "Open"
+188 237  "Scroll %3d%%"(c-a)*100/(b-a)
+238 248  "Open"
+249 255  "Sound"
+REND
+
+RANGE 3  ;Gobo
+0   8    "Open"
+9   17   "Gobo 1"
+18  26   "Gobo 2"
+27  35   "Gobo 3"
+36  44   "Gobo 4"
+45  53   "Gobo 5"
+54  62   "Gobo 6"
+63  71   "Gobo 7"
+72  80   "Gobo 8"
+81  89   "Gobo 9"
+90  98   "Gobo 10"
+99  107  "Gobo 11"
+108 116  "Gobo 12"
+117 125  "Gobo 13"
+126 134  "Gobo 14"
+135 143  "Gobo 15"
+144 152  "Gobo 16"
+153 161  "Gobo 17"
+162 170  "Gobo 18"
+171 179  "Gobo 19"
+180 187  "Open"
+188 237  "Scroll %3d%%"(c-a)*100/(b-a)
+238 248  "Open"
+249 255  "Sound"
+REND
+
+RANGE 4  ;Drum 1 Rot
+0   2    "No Spin"
+3   89   "Sp CCW %3d%%"(c-a)*100/(b-a)
+90  176  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+177 209  "No Spin"
+210 255  "Sound"
+REND
+
+RANGE 5  ;Drum 2 Rot
+0   2    "No Spin"
+3   89   "Sp CCW %3d%%"(c-a)*100/(b-a)
+90  176  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+177 209  "No Spin"
+210 255  "Sound"
+REND
+
+RANGE 6  ;Sync Rot
+0   19   "Off"
+20  39   "0 deg Off"
+40  59   "90 deg Off"
+60  79   "180 deg Off"
+80  99   "270 deg Off"
+100 194  "Sound Slow"
+195 224  "Sound Med"
+225 255  "Sound Fast"
+REND
+

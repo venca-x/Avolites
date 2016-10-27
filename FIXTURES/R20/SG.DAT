@@ -1,0 +1,746 @@
+;Eds New Shape File
+;   Edited to Lowercase 31-7-01
+;   Edited to 8 character lengths 31-07-01
+;<PATTERN> <"name">
+
+PATTERN "SIN"
+   0   18   30   47   5a   6a   76   7d
+  7f   7d   76   6a   5a   47   30   18
+   0 ffe8 ffd0 ffb9 ffa6 ff96 ff8a ff83
+ff80 ff83 ff8a ff96 ffa6 ffb9 ffd0 ffe8
+PEND
+
+;PATTERN "SIN"
+;   0  c7f 18df 2502 30ca 3c1a 46d5 50e2
+;5a27 628f 6a03 7071 75cb 7a02 7d0c 7ee2
+;7fff 7ee2 7d0c 7a02 75cb 7071 6a03 628f
+;5a27 50e2 46d5 3c1a 30ca 2502 18df  c7f
+;   0 f381 e721 dafe cf36 c3e6 b92b af1e
+;a5d9 9d71 95fd 8f8f 8a35 85fe 82f4 811e
+;8000 811e 82f4 85fe 8a35 8f8f 95fd 9d71
+;a5d9 af1e b92b c3e6 cf36 dafe e721 f381 
+;PEND16
+
+PATTERN "TRAPS"
+   0   20   40   5f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   5f   40   20
+   0 ffe0 ffc0 ffa1 ff80 ff80 ff80 ff80
+ff80 ff80 ff80 ff80 ff80 ffa1 ffc0 ffe0 
+PEND
+
+PATTERN "SAW"
+ff80 ff90 ffa0 ffb0 ffc0 ffd0 ffe0 fff0 
+   0   10   20   30   40   50   60   70
+  7f   70   60   50   40   30   20   10
+   0 fff0 ffe0 ffd0 ffc0 ffb0 ffa0 ff90  
+PEND
+
+PATTERN "RANDOM 1"
+  3c   10    4   18   32   54   78   65
+ffbf ff86 ffdf ffa5 ffbe ffcf ffd0 ff81
+  5f   42   3e   30   22   1a    9   45
+ffc3 ffe3 ffa6 fff0 ff8d ffd1 ffb6 ffc2
+PEND
+
+PATTERN "SPIRAL"
+   0    8   18   1a    0 ffd6 ffb9 ffc7
+   0   45   6a   4f    0 ffaa ff83 ffa6
+   0   5a   7d   56    0 ffb1 ff96 ffbb 
+   0   39   47   2a    0 ffe6 ffe8 fff8
+   0 fff8 ffe8 ffe6    0   2a   47   39 
+   0 ffbb ff96 ffb1    0   56   7d   5a
+   0 ffa6 ff83 ffaa    0   4f   6a   45
+   0 ffc7 ffb9 ffd6    0   1a   18    8
+PEND
+
+;PATTERN "SPIRAL"
+;   0 18df 30ca 46d5 5a27 6a03 75cb 7d0c
+;7fff 7d0c 75cb 6a03 5a27 46d5 30ca 18df
+;   0 f391 e79b dc96 d2ed caff c51b c17a
+;c000 c17a c51b caff d2ed dc96 e79b f391 
+;   0  637  c32 11b5 1689 1a80 1d72 1f43
+;1fff 1f43 1d72 1a80 1689 11b5  c32  637
+;   0 fce5 f9e7 f726 f4bc f2c0 f147 f05f   
+;f000 f05f f147 f2c0 f4bc f726 f9e7 fce5
+;   0  31b  619  8da  b44  d40  eb9  fa1 
+; fff  fa1  eb9  d40  b44  8da  619  31b
+;   0 f9c9 f3ce ee4b e977 e580 e28e e0bd
+;e000 e0bd e28e e580 e977 ee4b f3ce f9c9 
+;   0  c6f 1865 236a 2d13 3501 3ae5 3e86
+;3fff 3e86 3ae5 3501 2d13 236a 1865  c6f
+;   0 e721 cf36 b92b a5d9 95fd 8a35 82f4
+;8000 82f4 8a35 95fd a5d9 b92b cf36 e721 
+;PEND16
+
+PATTERN "STEP UP"
+   0    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0    0
+  7f   7f   7f   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+PATTERN "STEP DOWN"
+   0    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0    0
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80
+PEND
+
+PATTERN "FLICK UP"
+   0    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0   7f
+  7f    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0    0
+PEND
+
+PATTERN "FLICK DOWN"
+   0    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0 ff80
+ff80    0    0    0    0    0    0    0
+   0    0    0    0    0    0    0    0
+PEND
+
+PATTERN "PULSE1.1"
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+  7f   7f   7f   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+PATTERN "PULSE1.2"
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+PATTERN "PULSE1.3"
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80
+  7f   7f   7f   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+PATTERN "PULSE2.1"
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80 ff80 ff80   7f   7f   7f 
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+PATTERN "PULSE3.1"
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+ff80 ff80 ff80 ff80 ff80 ff80 ff80 ff80 
+  7f   7f   7f   7f   7f   7f   7f   7f
+PEND
+
+
+;SHAPE <"name">  <"pattern">
+;<Channel, 1=Color wheel, 2=Cyan, 3=Yellow, 4=Magenta, 5=Pan>
+;<6=Tilt, 7=Iris, 8=Dimmer>
+;<Ampitude (0..255)>
+;<rate, 512/(rate*16)=seconds>
+;<ramp 0=Off 1=ON>
+;<repeat-repeats pattern after repeat number of fixtures>
+;<spread-how the instruments are spread across the pattern, 0=even spread>
+;<phase-0..360, position where the pattern is picked up from>
+;<offset-base position for the channel 0..255)> 
+
+SHAPE "Circle 1" "SIN"
+5  40  64   0   0   1   0   0
+6  40  64   0   0   1  90   0
+SEND
+
+SHAPE "Circle Even" "SIN"
+5  40  64   0   0   0   0   0
+6  40  64   0   0   0  90   0
+SEND
+
+SHAPE "Rainbow Effect" "SIN"
+2  255  64   0   0   1    0   128
+20 255  64   0   0   1    0   128
+3  255  64   0   0   1  120   128
+21 255  64   0   0   1  120   128
+4  255  64   0   0   1  240   128
+22 255  64   0   0   1  240   128
+SEND
+
+SHAPE "Rainbow Spread" "SIN"
+2  255  64   0   0   4   0   128
+20 255  64   0   0   4   0   128
+3  255  64   0   0   4 120   128
+21 255  64   0   0   4 120   128
+4  255  64   0   0   4 240   128
+22 255  64   0   0   4 240   128
+SEND
+
+SHAPE "Iris" "SIN"
+7  255  64   0   0   1  0   128
+SEND
+
+SHAPE "Iris Spread" "SIN"
+7  255  64   0   0   0  0   128
+SEND
+
+SHAPE "Dimmer Spread" "SIN"
+8   255  32   0   0   0   0   128
+SEND
+
+SHAPE "Spiral" "SPIRAL"
+5  40   32   0   0   1   0   0
+6  40   32   0   0   1  11   0
+SEND
+
+SHAPE "Random" "RANDOM 1"
+5  40   16   0   0   1   0   0
+6  40   16   0   0   1  45   0
+SEND
+
+SHAPE "Random Spread" "RANDOM 1"
+5  80   16   0   0  0   0   0
+6  80   16   0   0  0  45   0
+SEND
+
+SHAPE "Tilt Saw" "SAW"
+6  80   64   0   0   0   0  0
+SEND
+
+SHAPE "Pan Saw" "SAW"
+5  80   64   0   0   0   0   0
+SEND
+
+SHAPE "Dimmer Saw" "SAW"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Pulse1.1" "PULSE1.1"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Pulse1.2" "PULSE1.2"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer PULSE1.3" "PULSE1.3"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Pulse2.1" "PULSE2.1"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Pulse3.1" "PULSE3.1"
+8  255  64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Step Up" "STEP UP"
+8  255  64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer Step Dwn" "STEP DOWN"
+8  255  64   0   0  0   0   0
+SEND
+
+
+SHAPE "Circle Parallel" "SIN"
+5  40  64   0   0   1   0   0
+6  40  64   0   0   1  90   0
+SEND
+
+SHAPE "Circle Even" "SIN"
+5  40  64   0   0   0   0   0
+6  40  64   0   0   0  90   0
+SEND
+
+SHAPE "Circle Odd/Eve" "SIN"
+5  40  64   0   0   2   0   0
+6  40  64   0   0   2  90   0
+SEND
+
+SHAPE "Pan Swing" "SIN"
+5  80   64   0   0  0   0   0
+SEND
+
+SHAPE "Tilt Swing" "SIN"
+6  80   64   0   0  0   0   0
+SEND
+ 
+SHAPE "Square Parallel" "TRAPS"
+5  40  64   0   0   1  90   0
+6  40  64   0   0   1   0   0
+SEND
+
+SHAPE "Square Even" "TRAPS"
+5  40  64   0   0   0  90   0
+6  40  64   0   0   0   0   0
+SEND
+
+SHAPE "Square Odd/Even" "TRAPS"
+5  40  64   0   0   2  90   0
+6  40  64   0   0   2   0   0
+SEND
+
+SHAPE "Square Corners" "TRAPS"
+5  40  64   0   0   5  90   0
+6  40  64   0   0   5   0   0
+SEND
+
+SHAPE "Square Spread7" "TRAPS"
+5  40  64   0   0   8  90   0
+6  40  64   0   0   8   0   0
+SEND
+
+SHAPE "Diamond Parallel" "SAW"
+5  60  64   0   0   1  90   0
+6  60  64   0   0   1   0   0
+SEND
+
+SHAPE "Diamond Even" "SAW"
+5  60  64   0   0   0  90   0
+6  60  64   0   0   0   0   0
+SEND
+
+SHAPE "Diamond Odd/Even" "SAW"
+5  60  64   0   0   2  90   0
+6  60  64   0   0   2   0   0
+SEND
+
+SHAPE "Pan Saw User" "SAW"
+5  80   64   0   0  0   0   0
+SEND
+
+SHAPE "Tilt Saw User" "SAW"
+6  80   64   0   0  0   0   0
+SEND
+
+SHAPE "Random Parallel" "RANDOM 1"
+5  90   16   0   0   1   0   0
+6  90   16   0   0   1  45   0
+SEND
+
+SHAPE "Random Even" "RANDOM 1"
+5  90   16   0   0   0   0   0
+6  90   16   0   0   0  45   0
+SEND
+
+SHAPE "Random Odd/Even" "RANDOM 1"
+5  90   16   0   0   2   0   0
+6  90   16   0   0   2  45   0
+SEND
+
+SHAPE "Spiral Parallel" "SPIRAL"
+5  60    8   0   0   1   0   0
+6  60    8   0   0   1  11   0
+SEND
+
+SHAPE "Spiral Even" "SPIRAL"
+5  60    8   0   0   0   0   0
+6  60    8   0   0   0  11   0
+SEND
+
+SHAPE "Rainbow Parallel" "SIN"
+2  255  32   0   0   1   0   128
+20 255  32   0   0   1   0   128
+3  255  32   0   0   1 120   128
+21 255  32   0   0   1 120   128
+4  255  32   0   0   1 240   128
+22 255  32   0   0   1 240   128
+SEND
+
+SHAPE "Rainbow Even" "SIN"
+2  255  32   0   0   0   0   128
+20 255  32   0   0   0   0   128
+3  255  32   0   0   0 120   128
+21 255  32   0   0   0 120   128
+4  255  32   0   0   0 240   128
+22 255  32   0   0   0 240   128
+SEND
+
+SHAPE "Rainbow Odd/Even" "SIN"
+2  255  32   0   0   2   0   128
+20 255  32   0   0   2   0   128
+3  255  32   0   0   2 120   128
+21 255  32   0   0   2 120   128
+4  255  32   0   0   2 240   128
+22 255  32   0   0   2 240   128
+SEND
+
+SHAPE "Rainbow User" "SIN"
+2  255  64   0   0   1   0   0
+20 255  64   0   0   1   0   0
+3  255  64   0   0   1 120   0
+21 255  64   0   0   1 120   0
+4  255  64   0   0   1 240   0
+22 255  64   0   0   1 240   0
+SEND
+
+SHAPE "Rainbow Even Usr" "SIN"
+2  255  64   0   0   0   0   0
+20 255  64   0   0   0   0   0
+3  255  64   0   0   0 120   0
+21 255  64   0   0   0 120   0
+4  255  64   0   0   0 240   0
+22 255  64   0   0   0 240   0
+SEND
+
+SHAPE "Cyan Parallel" "SIN"
+2  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Cyan Even" "SIN"
+2  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Cyan Odd/Even" "SIN"
+2  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Cyan User" "SIN"
+2  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Cyan Eve User" "SIN"
+2  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Magenta Parallel" "SIN"
+3  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Magenta Even" "SIN"
+3  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Magenta Odd/Even" "SIN"
+3  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Magenta User" "SIN"
+3  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Magenta Even Usr" "SIN"
+3  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Yellow Parallel" "SIN"
+4  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Yellow Even" "SIN"
+4  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Yellow Odd/Even" "SIN"
+4  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Yellow User" "SIN"
+4  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Yellow Even Usr" "SIN"
+4  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Red Parallel" "SIN"
+20  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Red Even" "SIN"
+20  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Red Odd/Even" "SIN"
+20  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Red User" "SIN"
+20  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Red Eve User" "SIN"
+20  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Green Parallel" "SIN"
+21  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Green Even" "SIN"
+21  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Green Odd/Even" "SIN"
+21  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Green User" "SIN"
+21  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Green Even Usr" "SIN"
+21  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Blue Parallel" "SIN"
+22  255  64   0   0   1   0   128
+SEND
+
+SHAPE "Blue Even" "SIN"
+22  255  64   0   0   0   0   128
+SEND
+
+SHAPE "Blue Odd/Even" "SIN"
+22  255  64   0   0   2   0   128
+SEND
+
+SHAPE "Blue User" "SIN"
+22  255  64   0   0   1   0   0
+SEND
+
+SHAPE "Blue Even Usr" "SIN"
+22  255  64   0   0   0   0   0
+SEND
+
+SHAPE "Col1Shak Parallel" "SIN"
+1   256  64   0   0   1   0   128
+SEND
+
+SHAPE "Col1Shak Even1" "SIN"
+1   256  64   0   0   0   0   128
+SEND
+
+SHAPE "Col1Shak Odd/Even" "SIN"
+1   256  64   0   0   2   0   128
+SEND
+
+SHAPE "Col1Shak" "SIN"
+1   256  64   0   0   1   0   0
+SEND
+
+SHAPE "Col1Shak Even2" "SIN"
+1   256  64   0   0   0   0   0
+SEND
+
+SHAPE "Col1Shak O/E" "SIN"
+1   256  64   0   0   2   0   0
+SEND
+
+SHAPE "Col1 Wave1Usr" "STEP UP"
+1    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col1 Wave2Usr" "STEP DOWN"
+1    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col1 UsrFlik up" "FLICK UP"
+1    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col1 UsrFlik dwn" "FLICK DOWN"
+1    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2Shak Parellel" "SIN"
+14   256  64   0   0   1   0   128
+SEND
+
+SHAPE "Col2Shak Even1" "SIN"
+14   256  64   0   0   0   0   128
+SEND
+
+SHAPE "Col2Shak Odd/Even" "SIN"
+14   256  64   0   0   2   0   128
+SEND
+
+SHAPE "Col2Shak" "SIN"
+14   256  64   0   0   1   0   0
+SEND
+
+SHAPE "Col2Shak Even2" "SIN"
+14   256  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2Shak O/E" "SIN"
+14   256  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2 Wave1Usr" "STEP UP"
+14    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2 Wave2Usr" "STEP DOWN"
+14    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2 UsrFlik up" "FLICK UP"
+14    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Col2 UsrFlik dwn" "FLICK DOWN"
+14    40  64   0   0   0   0   0
+SEND
+
+SHAPE "Gobo1 Shak" "SIN"
+9    256  64   0   0   1   0   128
+SEND
+
+SHAPE "Gobo1 Shak Eve" "SIN"
+9    256  64   0   0   0  0   128
+SEND
+
+SHAPE "Gobo1 Shak O/E" "SIN"
+9    256  64   0   0   2  0   128
+SEND
+
+SHAPE "Gobo1 Shak PlU" "SIN"
+9    40  64   0   0   1  0   0
+SEND
+
+SHAPE "Gobo1 Shak EvU" "SIN"
+9    40  64   0   0   0  0   0
+SEND
+
+SHAPE "Gobo2 Shak1" "SIN"
+10    40  64   0   0   1  0   128
+SEND
+
+SHAPE "Gobo2 Shak Eve" "SIN"
+10    40  64   0   0   0  0   128
+SEND
+
+SHAPE "Gobo2 Shak O/E" "SIN"
+10    40  64   0   0   2  0   128
+SEND
+
+SHAPE "Gobo2 Shak2" "SIN"
+10    40  64   0   0   1  0   0
+SEND
+
+SHAPE "Gobo2 Shak EvU" "SIN"
+10    40  64   0   0   0  0   0
+SEND
+
+SHAPE "Gobo1 Rot1" "SIN"
+11   60  64   0   0   1  0   192
+SEND
+
+SHAPE "Gobo1 Rot Eve" "SIN"
+11   60  64   0   0   0  0   192
+SEND
+
+SHAPE "Gobo1 Rot2" "SIN"
+11   60  64   0   0   1  0   0
+SEND
+
+SHAPE "Gobo2 Rot1" "SIN"
+13   60  64   0   0   1  0   192
+SEND
+
+SHAPE "Gobo2 Rot Even" "SIN"
+13   60  64   0   0   0  0   192
+SEND
+
+SHAPE "Gobo2 Rot2" "SIN"
+13   60  64   0   0   1  0   0
+SEND
+
+SHAPE "Focus Shak" "SIN"
+12   128  32   0   0   1  0   0
+SEND
+
+SHAPE "Focus ShakEv" "SIN"
+12   128  32   0   0   0  0   0
+SEND
+
+SHAPE "Focus Quake" "SPIRAL"
+12   128  16   0   0   1  0   0
+SEND
+
+SHAPE "Focus QuakeEvU" "SPIRAL"
+12   128  16   0   0   0  0   0
+SEND
+
+SHAPE "Iris Shak1" "SIN"
+7  255  64   0   0   1  0   128
+SEND
+
+SHAPE "Iris Shak Eve" "SIN"
+7  255  64   0   0   0  0   128
+SEND
+
+SHAPE "Iris Shak O/E" "SIN"
+7  255  64   0   0   2  0   128
+SEND
+
+SHAPE "Iris Flik" "FLICK UP"
+7  255  64   0   0   1  0   1
+SEND
+
+SHAPE "Iris Flik Eve" "FLICK UP"
+7  255  64   0   0   0  0   1
+SEND
+
+SHAPE "Iris Shak2" "SIN"
+7  255  64   0   0   1  0   0
+SEND
+
+SHAPE "Iris ShakEv2" "SIN"
+7  255  64   0   0   0  0   0
+SEND
+
+SHAPE "Iris ShakO/E2" "SIN"
+7  255  64   0   0   2  0   0
+SEND
+
+SHAPE "IrisFlik" "FLICK UP"
+7  255  64   0   0   1  0   0
+SEND
+
+SHAPE "IrisFlik Even" "FLICK UP"
+7  255  64   0   0   0  0   0
+SEND
+
+SHAPE "Dimmer Saw1" "SAW"
+8  255   64   0   0  1   0   128
+SEND
+
+SHAPE "Dimmer Saw Even" "SAW"
+8  255   64   0   0  0   0   128
+SEND
+
+SHAPE "Dimmer Saw O/E" "SAW"
+8  255   64   0   0  2   0   128
+SEND
+
+SHAPE "Dimmer Saw2" "SAW"
+8  255   64   0   0  1   0   0
+SEND
+
+SHAPE "Dimmer Saw EveU" "SAW"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer 1:1 User" "PULSE1.1"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer 1:2 User" "PULSE1.2"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer 1:3 User" "PULSE1.3"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer 2:1 User" "PULSE2.1"
+8  255   64   0   0  0   0   0
+SEND
+
+SHAPE "Dimmer 3:1 User" "PULSE3.1"
+8  255  64   0   0  0   0   0
+SEND
+

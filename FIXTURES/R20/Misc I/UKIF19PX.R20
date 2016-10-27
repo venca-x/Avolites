@@ -1,0 +1,804 @@
+; 'Infinity iW-1915 Pixel 21 DMX', 21 DMX Channels, filename: UKIF19PX.R20
+;  Copyright © Avolites Ltd. 2015
+;
+;   Date       By                Description
+;   08-08-15   Nic Morris        Created
+;   08-08-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-08-15   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKIF19PX                            mode=21 DMX  21 DMX Channels
+NAME "Misc I" "Infinity iW-1915 Pixel 21 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  21  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 21 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=491
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    3   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    2   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+10    1   L    6   100   1N   T   1   "Red"             255   255     0
+10   61   L    7   100   1N   U   1   "Green"           255   255     0
+9    61   L    8   100   1N   V   1   "Blue"            255     0   229
+4    61   L    9   100   1N   0   1   "White"             0     0     0
+4     1   L   10   100   1N   0   1   "CTO"               0     0     0
+14    1   L   11   100   1N   0   1   "FG Col"            0     0     0
+6     1   L   12   100   1N   0   1   "Effect 1"          0     0     0
+6    61   L   13   100   1N   0   1   "Effect 2"          8     0     0
+7    61   L   14   100   1N   0   1   "Effect 2 Rot"      0     0     0
+14   61   L   15   100   1N   0   1   "BG Col"            0     0     0
+12   61   L   16   100   1N   0   1   "BG Dimmer"         0     0     0
+1     1   H   17   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L   18   100   1N   O   1   "Shutter"          22     0     0
+5     1   L   19   100   1N   Q   1   "Zoom"            127     0     0
+11    1   L   20   100   1N   0   1   "Control"           4     0     0
+9     1   L   21   100   1N   0   1   "Macro"             4     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Infinity
+iW-1915 Pixel
+21 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  18
+"Open"               31  16
+"Slow Strobe"        32  2C
+"Fast Strobe"        33  19
+"Slow Random Strobe"  34  9D
+"Fast Random Strobe"  35  96
+"Slow Pulse"         36  4D
+"Fast Pulse"         37  46
+"Closed"             38   A
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6   7   8
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+PFTABLE "Beam"       -1  19
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset Pan"     1  20
+"data"                0  34
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Tilt"    2  20
+"data"                0  39
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset Zoom"    3  20
+"data"                0  3E
+"delay"               1  3C
+"data"                0   4
+MEND
+
+MACRO "Reset All"     4  20
+"data"                0  48
+"delay"               1  3C
+"data"                0   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;CTO
+0   0    "Open"
+1   255  "CTO %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;FG Col
+0   0    "Open"
+1   2    "2700K"
+3   4    "3200K"
+5   6    "4200K"
+7   8    "5600K"
+9   10   "8000K"
+11  239  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 247  "Grad %3d%%"100-((c-a)*100/(b-a))
+248 255  "Jump %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 12  ;Effect 1
+0   0    "All On"
+1   1    "Effect 1"
+2   2    "Effect 2"
+3   3    "Effect 3"
+4   4    "Effect 4"
+5   5    "Effect 5"
+6   6    "Effect 6"
+7   7    "Effect 7"
+8   8    "Effect 8"
+9   9    "Effect 9"
+10  10   "Effect 10"
+11  11   "Effect 11"
+12  12   "Effect 12"
+13  13   "Effect 13"
+14  14   "Effect 14"
+15  15   "Effect 15"
+16  16   "Effect 16"
+17  17   "Effect 17"
+18  18   "Effect 18"
+19  19   "Effect 19"
+20  20   "Effect 20"
+21  21   "Effect 21"
+22  22   "Effect 22"
+23  23   "Effect 23"
+24  24   "Effect 24"
+25  25   "Effect 25"
+26  26   "Effect 26"
+27  27   "Effect 27"
+28  28   "Effect 28"
+29  29   "Effect 29"
+30  30   "Effect 30"
+31  31   "Effect 31"
+32  32   "Effect 32"
+33  33   "Effect 33"
+34  34   "Effect 34"
+35  35   "Effect 35"
+36  36   "Effect 36"
+37  37   "Effect 37"
+38  38   "Effect 38"
+39  39   "Effect 39"
+40  40   "Effect 40"
+41  41   "Effect 41"
+42  42   "Effect 42"
+43  43   "Effect 43"
+44  44   "Effect 44"
+45  45   "Effect 45"
+46  46   "Effect 46"
+47  47   "Effect 47"
+48  48   "Effect 48"
+49  49   "Effect 49"
+50  50   "Effect 50"
+51  51   "Effect 51"
+52  52   "Effect 52"
+53  53   "Effect 53"
+54  54   "Effect 54"
+55  55   "Effect 55"
+56  56   "Effect 56"
+57  57   "Effect 57"
+58  58   "Effect 58"
+59  59   "Effect 59"
+60  60   "Effect 60"
+61  61   "Effect 61"
+62  62   "Effect 62"
+63  63   "Effect 63"
+64  64   "Effect 64"
+65  65   "Effect 65"
+66  66   "Effect 66"
+67  67   "Effect 67"
+68  68   "Effect 68"
+69  69   "Effect 69"
+70  70   "Effect 70"
+71  71   "Effect 71"
+72  72   "Effect 72"
+73  73   "Effect 73"
+74  74   "Effect 74"
+75  75   "Effect 75"
+76  76   "Effect 76"
+77  77   "Effect 77"
+78  78   "Effect 78"
+79  79   "Effect 79"
+80  80   "Effect 80"
+81  81   "Effect 81"
+82  82   "Effect 82"
+83  83   "Effect 83"
+84  84   "Effect 84"
+85  85   "Effect 85"
+86  86   "Effect 86"
+87  87   "Effect 87"
+88  88   "Effect 88"
+89  89   "Effect 89"
+90  90   "Effect 90"
+91  91   "Effect 91"
+92  92   "Effect 92"
+93  93   "Effect 93"
+94  94   "Effect 94"
+95  95   "Effect 95"
+96  96   "Effect 96"
+97  97   "Effect 97"
+98  98   "Effect 98"
+99  99   "Effect 99"
+100 100  "Effect 100"
+101 101  "Effect 101"
+102 102  "Effect 102"
+103 103  "Effect 103"
+104 104  "Effect 104"
+105 105  "Effect 105"
+106 106  "Effect 106"
+107 107  "Effect 107"
+108 108  "Effect 108"
+109 109  "Effect 109"
+110 110  "Effect 110"
+111 111  "Effect 111"
+112 112  "Effect 112"
+113 113  "Effect 113"
+114 114  "Effect 114"
+115 115  "Effect 115"
+116 116  "Effect 116"
+117 117  "Effect 117"
+118 118  "Effect 118"
+119 119  "Effect 119"
+120 120  "Effect 120"
+121 121  "Effect 121"
+122 122  "Effect 122"
+123 123  "Effect 123"
+124 124  "Effect 124"
+125 125  "Effect 125"
+126 126  "Effect 126"
+127 127  "Effect 127"
+128 128  "Effect 128"
+129 129  "Effect 129"
+130 130  "Effect 130"
+131 131  "Effect 131"
+132 132  "Effect 132"
+133 133  "Effect 133"
+134 134  "Effect 134"
+135 135  "Effect 135"
+136 136  "Effect 136"
+137 137  "Effect 137"
+138 138  "Effect 138"
+139 139  "Effect 139"
+140 140  "Effect 140"
+141 141  "Effect 141"
+142 142  "Effect 142"
+143 143  "Effect 143"
+144 144  "Effect 144"
+145 145  "Effect 145"
+146 146  "Effect 146"
+147 147  "Effect 147"
+148 148  "Effect 148"
+149 149  "Effect 149"
+150 150  "Effect 150"
+151 151  "Effect 151"
+152 152  "Effect 152"
+153 153  "Effect 153"
+154 154  "Effect 154"
+155 155  "Effect 155"
+156 156  "Effect 156"
+157 157  "Effect 157"
+158 158  "Effect 158"
+159 159  "Effect 159"
+160 160  "Effect 160"
+161 161  "Effect 161"
+162 162  "Effect 162"
+163 163  "Effect 163"
+164 164  "Effect 164"
+165 165  "Effect 165"
+166 166  "Effect 166"
+167 167  "Effect 167"
+168 168  "Effect 168"
+169 169  "Effect 169"
+170 170  "Effect 170"
+171 171  "Effect 171"
+172 172  "Effect 172"
+173 173  "Effect 173"
+174 174  "Effect 174"
+175 175  "Effect 175"
+176 176  "Effect 176"
+177 177  "Effect 177"
+178 178  "Effect 178"
+179 179  "Effect 179"
+180 180  "Effect 180"
+181 181  "Effect 181"
+182 182  "Effect 182"
+183 183  "Effect 183"
+184 184  "Effect 184"
+185 185  "Effect 185"
+186 186  "Effect 186"
+187 187  "Effect 187"
+188 188  "Effect 188"
+189 189  "Effect 189"
+190 190  "Effect 190"
+191 191  "Effect 191"
+192 192  "Effect 192"
+193 193  "Effect 193"
+194 194  "Effect 194"
+195 195  "Effect 195"
+196 196  "Effect 196"
+197 197  "Effect 197"
+198 198  "Effect 198"
+199 199  "Effect 199"
+200 200  "Effect 200"
+201 201  "Effect 201"
+202 202  "Effect 202"
+203 203  "Effect 203"
+204 204  "Effect 204"
+205 205  "Effect 205"
+206 206  "Effect 206"
+207 207  "Effect 207"
+208 208  "Effect 208"
+209 209  "Effect 209"
+210 210  "Effect 210"
+211 211  "Effect 211"
+212 212  "Effect 212"
+213 213  "Effect 213"
+214 214  "Effect 214"
+215 215  "Effect 215"
+216 216  "Effect 216"
+217 217  "Effect 217"
+218 218  "Effect 218"
+219 219  "Effect 219"
+220 220  "Effect 220"
+221 221  "Effect 221"
+222 222  "Effect 222"
+223 223  "Effect 223"
+224 224  "Effect 224"
+225 225  "Effect 225"
+226 226  "Effect 226"
+227 227  "Effect 227"
+228 228  "Effect 228"
+229 229  "Effect 229"
+230 230  "Effect 230"
+231 231  "Effect 231"
+232 232  "Effect 232"
+233 233  "Effect 233"
+234 234  "Effect 234"
+235 235  "Effect 235"
+236 236  "Effect 236"
+237 237  "Effect 237"
+238 238  "Effect 238"
+239 239  "Effect 239"
+240 240  "Effect 240"
+241 241  "Effect 241"
+242 242  "Effect 242"
+243 243  "Effect 243"
+244 244  "Effect 244"
+245 245  "Effect 245"
+246 246  "Effect 246"
+247 247  "Effect 247"
+248 248  "Effect 248"
+249 249  "Effect 249"
+250 250  "Effect 250"
+251 251  "Effect 251"
+252 252  "Effect 252"
+253 253  "Effect 253"
+254 254  "Effect 254"
+255 255  "All On"
+REND
+
+RANGE 13  ;Effect 2
+0   15   "Open"
+16  16   "Effect 1"
+17  17   "Effect 2"
+18  18   "Effect 3"
+19  19   "Effect 4"
+20  20   "Effect 5"
+21  21   "Effect 6"
+22  22   "Effect 7"
+23  23   "Effect 8"
+24  24   "Effect 9"
+25  25   "Effect 10"
+26  26   "Effect 11"
+27  27   "Effect 12"
+28  28   "Effect 13"
+29  29   "Effect 14"
+30  30   "Effect 15"
+31  31   "Effect 16"
+32  32   "Effect 17"
+33  33   "Effect 18"
+34  34   "Effect 19"
+35  35   "Effect 20"
+36  36   "Effect 21"
+37  37   "Effect 22"
+38  38   "Effect 23"
+39  39   "Effect 24"
+40  40   "Effect 25"
+41  41   "Effect 26"
+42  42   "Effect 27"
+43  43   "Effect 28"
+44  44   "Effect 29"
+45  45   "Effect 30"
+46  46   "Effect 31"
+47  47   "Effect 32"
+48  48   "Effect 33"
+49  49   "Effect 34"
+50  50   "Effect 35"
+51  51   "Effect 36"
+52  52   "Effect 37"
+53  53   "Effect 38"
+54  54   "Effect 39"
+55  55   "Effect 40"
+56  56   "Effect 41"
+57  57   "Effect 42"
+58  58   "Effect 43"
+59  59   "Effect 44"
+60  60   "Effect 45"
+61  61   "Effect 46"
+62  62   "Effect 47"
+63  63   "Effect 48"
+64  64   "Effect 49"
+65  65   "Effect 50"
+66  66   "Effect 51"
+67  67   "Effect 52"
+68  68   "Effect 53"
+69  69   "Effect 54"
+70  70   "Effect 55"
+71  71   "Effect 56"
+72  72   "Effect 57"
+73  73   "Effect 58"
+74  74   "Effect 59"
+75  75   "Effect 60"
+76  76   "Effect 61"
+77  77   "Effect 62"
+78  78   "Effect 63"
+79  79   "Effect 64"
+80  80   "Effect 65"
+81  81   "Effect 66"
+82  82   "Effect 67"
+83  83   "Effect 68"
+84  84   "Effect 69"
+85  85   "Effect 70"
+86  86   "Effect 71"
+87  87   "Effect 72"
+88  88   "Effect 73"
+89  89   "Effect 74"
+90  90   "Effect 75"
+91  91   "Effect 76"
+92  92   "Effect 77"
+93  93   "Effect 78"
+94  94   "Effect 79"
+95  95   "Effect 80"
+96  96   "Effect 81"
+97  97   "Effect 82"
+98  98   "Effect 83"
+99  99   "Effect 84"
+100 100  "Effect 85"
+101 101  "Effect 86"
+102 102  "Effect 87"
+103 103  "Effect 88"
+104 104  "Effect 89"
+105 105  "Effect 90"
+106 106  "Effect 91"
+107 107  "Effect 92"
+108 108  "Effect 93"
+109 109  "Effect 94"
+110 110  "Effect 95"
+111 111  "Effect 96"
+112 112  "Effect 97"
+113 113  "Effect 98"
+114 114  "Effect 99"
+115 115  "Effect 100"
+116 116  "Effect 101"
+117 135  "Effect 102"
+136 136  "Effect 103"
+137 137  "Effect 104"
+138 138  "Effect 105"
+139 139  "Effect 106"
+140 140  "Effect 107"
+141 141  "Effect 108"
+142 142  "Effect 109"
+143 143  "Effect 110"
+144 144  "Effect 111"
+145 145  "Effect 112"
+146 146  "Effect 113"
+147 147  "Effect 114"
+148 148  "Effect 115"
+149 149  "Effect 116"
+150 150  "Effect 117"
+151 151  "Effect 118"
+152 152  "Effect 119"
+153 153  "Effect 120"
+154 154  "Effect 121"
+155 155  "Effect 122"
+156 156  "Effect 123"
+157 157  "Effect 124"
+158 158  "Effect 125"
+159 159  "Effect 126"
+160 160  "Effect 127"
+161 161  "Effect 128"
+162 162  "Effect 129"
+163 163  "Effect 130"
+164 164  "Effect 131"
+165 165  "Effect 132"
+166 166  "Effect 133"
+167 167  "Effect 134"
+168 168  "Effect 135"
+169 169  "Effect 136"
+170 170  "Effect 137"
+171 171  "Effect 138"
+172 172  "Effect 139"
+173 173  "Effect 140"
+174 174  "Effect 141"
+175 175  "Effect 142"
+176 176  "Effect 143"
+177 177  "Effect 144"
+178 178  "Effect 145"
+179 179  "Effect 146"
+180 180  "Effect 147"
+181 181  "Effect 148"
+182 182  "Effect 149"
+183 183  "Effect 150"
+184 184  "Effect 151"
+185 185  "Effect 152"
+186 186  "Effect 153"
+187 187  "Effect 154"
+188 188  "Effect 155"
+189 189  "Effect 156"
+190 190  "Effect 157"
+191 191  "Effect 158"
+192 192  "Effect 159"
+193 193  "Effect 160"
+194 194  "Effect 161"
+195 195  "Effect 162"
+196 196  "Effect 163"
+197 197  "Effect 164"
+198 198  "Effect 165"
+199 199  "Effect 166"
+200 200  "Effect 167"
+201 201  "Effect 168"
+202 202  "Effect 169"
+203 203  "Effect 170"
+204 204  "Effect 171"
+205 205  "Effect 172"
+206 206  "Effect 173"
+207 207  "Effect 174"
+208 208  "Effect 175"
+209 209  "Effect 176"
+210 210  "Effect 177"
+211 211  "Effect 178"
+212 212  "Effect 179"
+213 213  "Effect 180"
+214 214  "Effect 181"
+215 215  "Effect 182"
+216 216  "Effect 183"
+217 217  "Effect 184"
+218 218  "Effect 185"
+219 219  "Effect 186"
+220 220  "Effect 187"
+221 221  "Effect 188"
+222 222  "Effect 189"
+223 223  "Effect 190"
+224 224  "Effect 191"
+225 225  "Effect 192"
+226 226  "Effect 193"
+227 227  "Effect 194"
+228 228  "Effect 195"
+229 229  "Effect 196"
+230 230  "Effect 197"
+231 231  "Effect 198"
+232 232  "Effect 199"
+233 233  "Effect 200"
+234 234  "Effect 201"
+235 235  "Effect 202"
+236 236  "Effect 203"
+237 255  "Effect 204"
+REND
+
+RANGE 14  ;Effect 2 Rot
+0   0    "Stop"
+1   255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;BG Col
+0   0    "Open"
+1   2    "2700K"
+3   4    "3200K"
+5   6    "4200K"
+7   8    "5600K"
+9   10   "8000K"
+11  239  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 247  "Grad %3d%%"100-((c-a)*100/(b-a))
+248 255  "Jump %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 16  ;BG Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Shutter
+0   19   "Closed"
+20  24   "Open"
+25  64   "Strobe %3d%%"100-((c-a)*100/(b-a))
+70  84   "Op Pls %3d%%"100-((c-a)*100/(b-a))
+90  104  "Cl Pls %3d%%"100-((c-a)*100/(b-a))
+110 124  "Rnd St %3d%%"100-((c-a)*100/(b-a))
+130 144  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+150 164  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+170 184  "Pulse  %3d%%"100-((c-a)*100/(b-a))
+190 204  "Rnd Pl %3d%%"100-((c-a)*100/(b-a))
+210 224  "Grad   %3d%%"100-((c-a)*100/(b-a))
+230 244  "Pulse  %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 19  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Control
+0   9    "Safe"
+10  14   "Move in Dk"
+20  24   "RGBW"
+25  29   "CMY"
+30  34   "Delay OFF"
+35  39   "Delay ON"
+50  54   "Reset Pan"
+55  59   "Reset Tilt"
+60  64   "Reset Zoom"
+70  74   "Reset All"
+115 119  "P/T Fast"
+120 124  "P/T Slow"
+125 129  "Fan Full"
+130 134  "Fan Auto"
+135 139  "Dim Fast"
+140 144  "Dim Smooth"
+REND
+
+RANGE 21  ;Macro
+0   7    "Safe"
+8   23   "Macro 1"
+24  39   "Macro 2"
+40  55   "Macro 3"
+56  71   "Macro 4"
+72  87   "Macro 5"
+88  103  "Macro 6"
+104 119  "Macro 7"
+120 135  "Macro 8"
+136 151  "Macro 9"
+152 167  "Macro 10"
+168 183  "Macro 11"
+184 199  "Macro 12"
+200 215  "Macro 13"
+216 231  "Macro 14"
+232 247  "Macro 15"
+248 255  "Macro 16"
+REND
+

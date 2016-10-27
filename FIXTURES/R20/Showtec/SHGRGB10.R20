@@ -1,0 +1,494 @@
+; 'Showtec Galactic RGB1000', 13 DMX Channels, filename: SHGRGB10.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   22-05-12   Peter Budd        Created
+;   22-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   22-05-12   Peter Budd        Updated ranges
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SH_GRGB1000                         mode=13 DMX, 8bit  13 DMX Channels
+NAME "Showtec" "Galactic RGB1000"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 13 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=499
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"         238     0     0
+6     1   I    2   100   1N   I   1   "Folders"           0     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           0     0     0
+3    61   L    4   100   1N   E   1   "X-Move"           62     0     0
+3     1   L    5   100   1N   F   1   "Y-Move"           62     0     0
+5     1   L    6   100   1N   Q   1   "Zoom"              5     0     0
+8    61   L    7   100   1N   0   1   "Y-Roll"            5     0     0
+8     1   L    8   100   1N   0   1   "X-Roll"            5     0     0
+9     1   L    9   100   1N   0   1   "Z-Roll"            5     0     0
+5    61   L   10   100   1N   L   1   "Clipping"          4     0     0
+2     1   L   11   100   1N   G   1   "Wave"              4     0     0
+4     1   L   12   100   1N   0   1   "Colour Macro"      8     0     0
+7     1   L   13   100   1N   K   1   "Pattern"          32     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec
+Galactic RGB1000
+13 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   73   "Closed"
+74  110  "PRG Show"
+111 147  "ILD Show"
+148 165  "Auto 1"
+166 184  "Auto 2"
+185 202  "Music 1"
+203 221  "Music 2"
+222 255  "DMX Mode"
+REND
+
+RANGE 2  ;Folders
+0   0    "Pattern 0"
+1   1    "Pattern 1"
+2   2    "Pattern 2"
+3   3    "Pattern 3"
+4   4    "Pattern 4"
+5   5    "Pattern 5"
+6   6    "Pattern 6"
+7   7    "Pattern 7"
+8   8    "Pattern 8"
+9   9    "Pattern 9"
+10  10   "Pattern 10"
+11  11   "Pattern 11"
+12  12   "Pattern 12"
+13  13   "Pattern 13"
+14  14   "Pattern 14"
+15  15   "Pattern 15"
+16  16   "Pattern 16"
+17  17   "Pattern 17"
+18  18   "Pattern 18"
+19  19   "Pattern 19"
+20  20   "Pattern 20"
+21  21   "Pattern 21"
+22  22   "Pattern 22"
+23  23   "Pattern 23"
+24  24   "Pattern 24"
+25  25   "Pattern 25"
+26  26   "Pattern 26"
+27  27   "Pattern 27"
+28  28   "Pattern 28"
+29  29   "Pattern 29"
+30  30   "Pattern 30"
+31  31   "Pattern 31"
+32  32   "Pattern 32"
+33  33   "Pattern 33"
+34  34   "Pattern 34"
+35  35   "Pattern 35"
+36  36   "Pattern 36"
+37  37   "Pattern 37"
+38  38   "Pattern 38"
+39  39   "Pattern 39"
+40  40   "Pattern 40"
+41  41   "Pattern 41"
+42  42   "Pattern 42"
+43  43   "Pattern 43"
+44  44   "Pattern 44"
+45  45   "Pattern 45"
+46  46   "Pattern 46"
+47  47   "Pattern 47"
+48  48   "Pattern 48"
+49  49   "Pattern 49"
+50  50   "Pattern 50"
+51  51   "Pattern 51"
+52  52   "Pattern 52"
+53  53   "Pattern 53"
+54  54   "Pattern 54"
+55  55   "Pattern 55"
+56  56   "Pattern 56"
+57  57   "Pattern 57"
+58  58   "Pattern 58"
+59  59   "Pattern 59"
+60  60   "Pattern 60"
+61  61   "Pattern 61"
+62  62   "Pattern 62"
+63  63   "Pattern 63"
+64  64   "Pattern 64"
+65  65   "Pattern 65"
+66  66   "Pattern 66"
+67  67   "Pattern 67"
+68  68   "Pattern 68"
+69  69   "Pattern 69"
+70  70   "Pattern 70"
+71  71   "Pattern 71"
+72  72   "Pattern 72"
+73  73   "Pattern 73"
+74  74   "Pattern 74"
+75  75   "Pattern 75"
+76  76   "Pattern 76"
+77  77   "Pattern 77"
+78  78   "Pattern 78"
+79  79   "Pattern 79"
+80  80   "Pattern 80"
+81  81   "Pattern 81"
+82  82   "Pattern 82"
+83  83   "Pattern 83"
+84  84   "Pattern 84"
+85  85   "Pattern 85"
+86  86   "Pattern 86"
+87  87   "Pattern 87"
+88  88   "Pattern 88"
+89  89   "Pattern 89"
+90  90   "Pattern 90"
+91  91   "Pattern 91"
+92  92   "Pattern 92"
+93  93   "Pattern 93"
+94  94   "Pattern 94"
+95  95   "Pattern 95"
+96  96   "Pattern 96"
+97  97   "Pattern 97"
+98  98   "Pattern 98"
+99  99   "Pattern 99"
+100 100  "Pattern 100"
+101 101  "Pattern 101"
+102 102  "Pattern 102"
+103 103  "Pattern 103"
+104 104  "Pattern 104"
+105 105  "Pattern 105"
+106 106  "Pattern 106"
+107 107  "Pattern 107"
+108 108  "Pattern 108"
+109 109  "Pattern 109"
+110 110  "Pattern 110"
+111 111  "Pattern 111"
+112 112  "Pattern 112"
+113 113  "Pattern 113"
+114 114  "Pattern 114"
+115 115  "Pattern 115"
+116 116  "Pattern 116"
+117 117  "Pattern 117"
+118 118  "Pattern 118"
+119 119  "Pattern 119"
+120 120  "Pattern 120"
+121 121  "Pattern 121"
+122 122  "Pattern 122"
+123 123  "Pattern 123"
+124 124  "Pattern 124"
+125 125  "Pattern 125"
+126 126  "Pattern 126"
+127 127  "Pattern 127"
+128 128  "Pattern 128"
+129 129  "Pattern 129"
+130 130  "Pattern 130"
+131 131  "Pattern 131"
+132 132  "Pattern 132"
+133 133  "Pattern 133"
+134 134  "Pattern 134"
+135 135  "Pattern 135"
+136 136  "Pattern 136"
+137 137  "Pattern 137"
+138 138  "Pattern 138"
+139 139  "Pattern 139"
+140 140  "Pattern 140"
+141 141  "Pattern 141"
+142 142  "Pattern 142"
+143 143  "Pattern 143"
+144 144  "Pattern 144"
+145 145  "Pattern 145"
+146 146  "Pattern 146"
+147 147  "Pattern 147"
+148 148  "Pattern 148"
+149 149  "Pattern 149"
+150 150  "Pattern 150"
+151 151  "Pattern 151"
+152 152  "Pattern 152"
+153 153  "Pattern 153"
+154 154  "Pattern 154"
+155 155  "Pattern 155"
+156 156  "Pattern 156"
+157 157  "Pattern 157"
+158 158  "Pattern 158"
+159 159  "Pattern 159"
+160 160  "Pattern 160"
+161 161  "Pattern 161"
+162 162  "Pattern 162"
+163 163  "Pattern 163"
+164 164  "Pattern 164"
+165 165  "Pattern 165"
+166 166  "Pattern 166"
+167 167  "Pattern 167"
+168 168  "Pattern 168"
+169 169  "Pattern 169"
+170 170  "Pattern 170"
+171 171  "Pattern 171"
+172 172  "Pattern 172"
+173 173  "Pattern 173"
+174 174  "Pattern 174"
+175 175  "Pattern 175"
+176 176  "Pattern 176"
+177 177  "Pattern 177"
+178 178  "Pattern 178"
+179 179  "Pattern 179"
+180 180  "Pattern 180"
+181 181  "Pattern 181"
+182 182  "Pattern 182"
+183 183  "Pattern 183"
+184 184  "Pattern 184"
+185 185  "Pattern 185"
+186 186  "Pattern 186"
+187 187  "Pattern 187"
+188 188  "Pattern 188"
+189 189  "Pattern 189"
+190 190  "Pattern 190"
+191 191  "Pattern 191"
+192 192  "Pattern 192"
+193 193  "Pattern 193"
+194 194  "Pattern 194"
+195 195  "Pattern 195"
+196 196  "Pattern 196"
+197 197  "Pattern 197"
+198 198  "Pattern 198"
+199 199  "Pattern 199"
+200 200  "Pattern 200"
+201 201  "Pattern 201"
+202 202  "Pattern 202"
+203 203  "Pattern 203"
+204 204  "Pattern 204"
+205 205  "Pattern 205"
+206 206  "Pattern 206"
+207 207  "Pattern 207"
+208 208  "Pattern 208"
+209 209  "Pattern 209"
+210 210  "Pattern 210"
+211 211  "Pattern 211"
+212 212  "Pattern 212"
+213 213  "Pattern 213"
+214 214  "Pattern 214"
+215 215  "Pattern 215"
+216 216  "Pattern 216"
+217 217  "Pattern 217"
+218 218  "Pattern 218"
+219 219  "Pattern 219"
+220 220  "Pattern 220"
+221 221  "Pattern 221"
+222 222  "Pattern 222"
+223 223  "Pattern 223"
+224 224  "Pattern 224"
+225 225  "Pattern 225"
+226 226  "Pattern 226"
+227 227  "Pattern 227"
+228 228  "Pattern 228"
+229 229  "Pattern 229"
+230 230  "Pattern 230"
+231 231  "Pattern 231"
+232 232  "Pattern 232"
+233 233  "Pattern 233"
+234 234  "Pattern 234"
+235 235  "Pattern 235"
+236 236  "Pattern 236"
+237 237  "Pattern 237"
+238 238  "Pattern 238"
+239 239  "Pattern 239"
+240 240  "Pattern 240"
+241 241  "Pattern 241"
+242 242  "Pattern 242"
+243 243  "Pattern 243"
+244 244  "Pattern 244"
+245 245  "Pattern 245"
+246 246  "Pattern 246"
+247 247  "Pattern 247"
+248 248  "Pattern 248"
+249 249  "Pattern 249"
+250 250  "Pattern 250"
+251 251  "Pattern 251"
+252 252  "Pattern 252"
+253 253  "Pattern 253"
+254 254  "Pattern 254"
+255 255  "Pattern 255"
+REND
+
+RANGE 3  ;Shutter
+0   10   "Open"
+11  199  "Strobe %3d%%"(c-a)*100/(b-a)
+200 255  "Sound"
+REND
+
+RANGE 4  ;X-Move
+0   125  "X-Mo %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 185  "Macr %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+186 225  "Rand %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+226 245  "Rand Pos"
+246 255  "Sound"
+REND
+
+RANGE 5  ;Y-Move
+0   125  "Y-Mo %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 185  "Macr %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+186 225  "Rand %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+226 245  "Rand Pos"
+246 255  "Sound"
+REND
+
+RANGE 6  ;Zoom
+0   10   "Original"
+11  100  "Zoom %3d%%"(c-a)*100/(b-a)
+101 150  "Pls Op %3d%%"(c-a)*100/(b-a)
+151 200  "Pls Cl %3d%%"(c-a)*100/(b-a)
+201 255  "Pulse %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Y-Roll
+0   10   "No Spin"
+11  110  "Index %3d%%"(c-a)*100/(b-a)
+111 255  "Spin %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;X-Roll
+0   10   "No Spin"
+11  110  "Index %3d%%"(c-a)*100/(b-a)
+111 255  "Spin %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Z-Roll
+0   10   "No Spin"
+11  110  "Index %3d%%"(c-a)*100/(b-a)
+111 255  "Spin %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Clipping
+0   9    "Original"
+10  74   "Fixed %3d%%"(c-a)*100/(b-a)
+75  104  "Pls Op %3d%%"(c-a)*100/(b-a)
+105 144  "Pls Cl %3d%%"(c-a)*100/(b-a)
+145 184  "Pulse  %3d%%"(c-a)*100/(b-a)
+185 223  "Clipping On"
+224 255  "Clipping Of"
+REND
+
+RANGE 11  ;Wave
+0   9    "Original"
+10  199  "Speed %3d%%"(c-a)*100/(b-a)
+200 255  "Amplit %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 12  ;Colour Macro
+0   17   "Open"
+18  33   "Red"
+34  50   "Green"
+51  67   "Blue"
+68  84   "Yellow"
+85  101  "Purple"
+102 118  "Cyan"
+119 135  "4 Fixed 1"
+136 152  "4 Fixed 2"
+153 169  "7 Colour"
+170 186  "4 Loop"
+187 203  "4 Loop"
+204 220  "7 Colour Lo"
+221 237  "Random"
+238 255  "Sound"
+REND
+
+RANGE 13  ;Pattern
+0   63   "Original"
+64  127  "Bright Pnt"
+128 191  "Blanking"
+192 255  "Points"
+REND
+

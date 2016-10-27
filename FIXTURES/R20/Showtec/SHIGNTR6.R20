@@ -1,0 +1,387 @@
+; 'Showtec Ignitor 6 7 DMX, Standard', 7 DMX Channels, filename: SHIGNTR6.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   23-05-12   Alessandro Fantin Created
+;   23-05-12   Peter Budd        Checked
+;   23-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SH_Ignitor6                         mode=7 DMX, Standard  7 DMX Channels
+NAME "Showtec" "Ignitor 6 7 DMX, Standard"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 7 DMX, Standard"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2     1   L    1   100   1N   O   1   "Dimmer 1"        100     0     0
+2    61   L    2   100   1N   0   1   "Strobe 1"        100     0     0
+8     1   L    3   100   1N   0   1   "Dimmer 2"        100     0     0
+8    61   I    4   100   1N   P   1   "Strobe 2"        100     0     0
+9     1   L    5   100   1N   0   1   "Dimmer 3"        100     0     0
+9    61   L    6   100   1N   0   1   "Strobe 3"        100     0     0
+10    1   L    7   100   1N   0   1   "Function"         38     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec Ignitor 6
+7 DMX, Standard
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 7  ;Function
+0   0    "Dim 1,2,3 0"
+1   1    "Dim 1,2,3 1"
+2   2    "Dim 1,2,3 2"
+3   3    "Dim 1,2,3 3"
+4   4    "Dim 1,2,3 4"
+5   5    "Dim 1,2,3 5"
+6   6    "Dim 1,2,3 6"
+7   7    "Dim 1,2,3 7"
+8   8    "Dim 1,2,3 8"
+9   9    "Dim 1,2,3 9"
+10  10   "Dim 1,2, 10"
+11  11   "Dim 1,2, 11"
+12  12   "Dim 1,2, 12"
+13  13   "Dim 1,2, 13"
+14  14   "Dim 1,2, 14"
+15  15   "Dim 1,2, 15"
+16  16   "Dim 1,2, 16"
+17  17   "Dim 1,2, 17"
+18  18   "Dim 1,2, 18"
+19  19   "Dim 1,2, 19"
+20  20   "Dim 1,2, 20"
+21  21   "Dim 1,2, 21"
+22  22   "Dim 1,2, 22"
+23  23   "Dim 1,2, 23"
+24  24   "Dim 1,2, 24"
+25  25   "Dim 1,2, 25"
+26  26   "Dim 1,2, 26"
+27  27   "Dim 1,2, 27"
+28  28   "Dim 1,2, 28"
+29  29   "Dim 1,2, 29"
+30  30   "Dim 1,2, 30"
+31  31   "Dim 1,2, 31"
+32  32   "Dim 1,2, 32"
+33  33   "Dim 1,2, 33"
+34  34   "Dim 1,2, 34"
+35  35   "Dim 1,2, 35"
+36  36   "Dim 1,2, 36"
+37  37   "Dim 1,2, 37"
+38  38   "Dim 1,2, 38"
+39  39   "Dim 1,2, 39"
+40  40   "Dim 1,2, 40"
+41  41   "Dim 1,2, 41"
+42  42   "Dim 1,2, 42"
+43  43   "Dim 1,2, 43"
+44  44   "Dim 1,2, 44"
+45  45   "Dim 1,2, 45"
+46  46   "Dim 1,2, 46"
+47  47   "Dim 1,2, 47"
+48  48   "Dim 1,2, 48"
+49  49   "Dim 1,2, 49"
+50  50   "Dim 1,2, 50"
+51  51   "Dim 1,2, 51"
+52  52   "Dim 1,2, 52"
+53  53   "Dim 1,2, 53"
+54  54   "Dim 1,2, 54"
+55  55   "Dim 1,2, 55"
+56  56   "Dim 1,2, 56"
+57  57   "Dim 1,2, 57"
+58  58   "Dim 1,2, 58"
+59  59   "Dim 1,2, 59"
+60  60   "Dim 1,2, 60"
+61  61   "Dim 1,2, 61"
+62  62   "Dim 1,2, 62"
+63  63   "Dim 1,2, 63"
+64  64   "Dim 1,2, 64"
+65  65   "Dim 1,2, 65"
+66  66   "Dim 1,2, 66"
+67  67   "Dim 1,2, 67"
+68  68   "Dim 1,2, 68"
+69  69   "Dim 1,2, 69"
+70  70   "Prog 1 70"
+71  71   "Prog 1 71"
+72  72   "Prog 1 72"
+73  73   "Prog 1 73"
+74  74   "Prog 1 74"
+75  75   "Prog 1 75"
+76  76   "Prog 1 76"
+77  77   "Prog 1 77"
+78  78   "Prog 1 78"
+79  79   "Prog 1 79"
+80  80   "Prog 1 80"
+81  81   "Prog 1 81"
+82  82   "Prog 1 82"
+83  83   "Prog 1 83"
+84  84   "Prog 1 84"
+85  85   "Prog 1 85"
+86  86   "Prog 1 86"
+87  87   "Prog 1 87"
+88  88   "Prog 1 88"
+89  89   "Prog 1 89"
+90  90   "Prog 1 90"
+91  91   "Prog 1 91"
+92  92   "Prog 1 92"
+93  93   "Prog 1 93"
+94  94   "Prog 1 94"
+95  95   "Prog 1 95"
+96  96   "Prog 1 96"
+97  97   "Prog 1 97"
+98  98   "Prog 1 98"
+99  99   "Prog 1 99"
+100 100  "Prog 1 100"
+101 101  "Prog 1 101"
+102 102  "Prog 1 102"
+103 103  "Prog 1 103"
+104 104  "Prog 1 104"
+105 105  "Prog 2 105"
+106 106  "Prog 2 106"
+107 107  "Prog 2 107"
+108 108  "Prog 2 108"
+109 109  "Prog 2 109"
+110 110  "Prog 2 110"
+111 111  "Prog 2 111"
+112 112  "Prog 2 112"
+113 113  "Prog 2 113"
+114 114  "Prog 2 114"
+115 115  "Prog 2 115"
+116 116  "Prog 2 116"
+117 117  "Prog 2 117"
+118 118  "Prog 2 118"
+119 119  "Prog 2 119"
+120 120  "Prog 2 120"
+121 121  "Prog 2 121"
+122 122  "Prog 2 122"
+123 123  "Prog 2 123"
+124 124  "Prog 2 124"
+125 125  "Prog 2 125"
+126 126  "Prog 2 126"
+127 127  "Prog 2 127"
+128 128  "Prog 2 128"
+129 129  "Prog 2 129"
+130 130  "Prog 2 130"
+131 131  "Prog 2 131"
+132 132  "Prog 2 132"
+133 133  "Prog 2 133"
+134 134  "Prog 2 134"
+135 135  "Prog 2 135"
+136 136  "Prog 2 136"
+137 137  "Prog 2 137"
+138 138  "Prog 2 138"
+139 139  "Prog 2 139"
+140 140  "Prog 3 140"
+141 141  "Prog 3 141"
+142 142  "Prog 3 142"
+143 143  "Prog 3 143"
+144 144  "Prog 3 144"
+145 145  "Prog 3 145"
+146 146  "Prog 3 146"
+147 147  "Prog 3 147"
+148 148  "Prog 3 148"
+149 149  "Prog 3 149"
+150 150  "Prog 3 150"
+151 151  "Prog 3 151"
+152 152  "Prog 3 152"
+153 153  "Prog 3 153"
+154 154  "Prog 3 154"
+155 155  "Prog 3 155"
+156 156  "Prog 3 156"
+157 157  "Prog 3 157"
+158 158  "Prog 3 158"
+159 159  "Prog 3 159"
+160 160  "Prog 3 160"
+161 161  "Prog 3 161"
+162 162  "Prog 3 162"
+163 163  "Prog 3 163"
+164 164  "Prog 3 164"
+165 165  "Prog 3 165"
+166 166  "Prog 3 166"
+167 167  "Prog 3 167"
+168 168  "Prog 3 168"
+169 169  "Prog 3 169"
+170 170  "Prog 3 170"
+171 171  "Prog 3 171"
+172 172  "Prog 3 172"
+173 173  "Prog 3 173"
+174 174  "Prog 3 174"
+175 175  "Prog 4 175"
+176 176  "Prog 4 176"
+177 177  "Prog 4 177"
+178 178  "Prog 4 178"
+179 179  "Prog 4 179"
+180 180  "Prog 4 180"
+181 181  "Prog 4 181"
+182 182  "Prog 4 182"
+183 183  "Prog 4 183"
+184 184  "Prog 4 184"
+185 185  "Prog 4 185"
+186 186  "Prog 4 186"
+187 187  "Prog 4 187"
+188 188  "Prog 4 188"
+189 189  "Prog 4 189"
+190 190  "Prog 4 190"
+191 191  "Prog 4 191"
+192 192  "Prog 4 192"
+193 193  "Prog 4 193"
+194 194  "Prog 4 194"
+195 195  "Prog 4 195"
+196 196  "Prog 4 196"
+197 197  "Prog 4 197"
+198 198  "Prog 4 198"
+199 199  "Prog 4 199"
+200 200  "Prog 4 200"
+201 201  "Prog 4 201"
+202 202  "Prog 4 202"
+203 203  "Prog 4 203"
+204 204  "Prog 4 204"
+205 205  "Prog 4 205"
+206 206  "Prog 4 206"
+207 207  "Prog 4 207"
+208 208  "Prog 4 208"
+209 209  "Prog 4 209"
+210 210  "Sound 1 210"
+211 211  "Sound 1 211"
+212 212  "Sound 1 212"
+213 213  "Sound 1 213"
+214 214  "Sound 1 214"
+215 215  "Sound 1 215"
+216 216  "Sound 1 216"
+217 217  "Sound 1 217"
+218 218  "Sound 1 218"
+219 219  "Sound 1 219"
+220 220  "Sound 1 220"
+221 221  "Sound 1 221"
+222 222  "Sound 1 222"
+223 223  "Sound 1 223"
+224 224  "Sound 1 224"
+225 225  "Sound 1 225"
+226 226  "Sound 1 226"
+227 227  "Sound 1 227"
+228 228  "Sound 1 228"
+229 229  "Sound 1 229"
+230 230  "Sound 1 230"
+231 231  "Sound 1 231"
+232 232  "Sound 1 232"
+233 233  "Sound 1 233"
+234 234  "Sound 1 234"
+235 235  "Sound 1 235"
+236 236  "Sound 1 236"
+237 237  "Sound 1 237"
+238 238  "Sound 1 238"
+239 239  "Sound 1 239"
+240 240  "Sound 1 240"
+241 241  "Sound 1 241"
+242 242  "Sound 1 242"
+243 243  "Sound 1 243"
+244 244  "Sound 1 244"
+245 245  "Sound 2 245"
+246 246  "Sound 2 246"
+247 247  "Sound 2 247"
+248 248  "Sound 2 248"
+249 249  "Sound 2 249"
+250 250  "Sound 2 250"
+251 251  "Sound 2 251"
+252 252  "Sound 2 252"
+253 253  "Sound 2 253"
+254 254  "Sound 2 254"
+255 255  "Sound 2 255"
+REND
+

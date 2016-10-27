@@ -1,0 +1,444 @@
+; 'Lanta Lighting Quasar Emerald', 12 DMX Channels, filename: LHQSEMLD.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   08-05-12   Peter Budd        Created
+;   08-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-05-12   Peter Budd        Corrected ranges
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  LH_QasEmrld                         mode=12 DMX, 8bit  12 DMX Channels
+NAME "Lanta Lighting" "Quasar Emerald"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 12 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10   61   L    1   100   1N   0   1   "Mode"            224     0     0
+6     1   I    2   100   1N   I   1   "Pattern"           0     0     0
+2    61   L    3   100   1N   O   1   "Shutter"          15     0     0
+20    1   L    4   100   1N   0   1   "Reserved"          0     0     0
+3    61   L    5   100   1N   E   1   "Pan"              32     0     0
+3     1   L    6   100   1N   F   1   "Tilt"             80     0     0
+5     1   L    7   100   1N   Q   1   "Zoom"              1     0     0
+20   61   L    8   100   1N   0   1   "Reserved"          0     0     0
+9     1   I    9   100   1N   P   1   "Y Axis Rot"       64     0     0
+9    61   L   10   100   1N   0   1   "X Axis Rot"       64     0     0
+19    1   L   11   100   1N   R   1   "Z Axis Rot"       64     0     0
+10    1   L   12   100   1N   0   1   "Control"         100     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Lanta Lighting
+Quasar Emerald
+12 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Mode
+0   63   "Closed"
+64  127  "Sound Mode"
+128 191  "Auto Mode"
+192 255  "DMX Mode"
+REND
+
+RANGE 2  ;Pattern
+0   0    "Static 1"
+1   1    "Static 2"
+2   2    "Static 3"
+3   3    "Static 4"
+4   4    "Static 5"
+5   5    "Static 6"
+6   6    "Static 7"
+7   7    "Static 8"
+8   8    "Static 9"
+9   9    "Static 10"
+10  10   "Static 11"
+11  11   "Static 12"
+12  12   "Static 13"
+13  13   "Static 14"
+14  14   "Static 15"
+15  15   "Static 16"
+16  16   "Static 17"
+17  17   "Static 18"
+18  18   "Static 19"
+19  19   "Static 20"
+20  20   "Static 21"
+21  21   "Static 22"
+22  22   "Static 23"
+23  23   "Static 24"
+24  24   "Static 25"
+25  25   "Static 26"
+26  26   "Static 27"
+27  27   "Static 28"
+28  28   "Static 29"
+29  29   "Static 30"
+30  30   "Static 31"
+31  31   "Static 32"
+32  32   "Static 33"
+33  33   "Static 34"
+34  34   "Static 35"
+35  35   "Static 36"
+36  36   "Static 37"
+37  37   "Static 38"
+38  38   "Static 39"
+39  39   "Static 40"
+40  40   "Dynamic 1"
+41  41   "Dynamic 2"
+42  42   "Dynamic 3"
+43  43   "Dynamic 4"
+44  44   "Dynamic 5"
+45  45   "Dynamic 6"
+46  46   "Dynamic 7"
+47  47   "Dynamic 8"
+48  48   "Dynamic 9"
+49  49   "Dynamic 10"
+50  50   "Dynamic 11"
+51  51   "Dynamic 12"
+52  52   "Dynamic 13"
+53  53   "Dynamic 14"
+54  54   "Dynamic 15"
+55  55   "Dynamic 16"
+56  56   "Dynamic 17"
+57  57   "Dynamic 18"
+58  58   "Dynamic 19"
+59  59   "Dynamic 20"
+60  60   "Dynamic 21"
+61  61   "Dynamic 22"
+62  62   "Dynamic 23"
+63  63   "Dynamic 24"
+64  64   "Dynamic 25"
+65  65   "Dynamic 26"
+66  66   "Dynamic 27"
+67  67   "Dynamic 28"
+68  68   "Dynamic 29"
+69  69   "Dynamic 30"
+70  70   "Dynamic 31"
+71  71   "Dynamic 32"
+72  72   "Dynamic 33"
+73  73   "Dynamic 34"
+74  74   "Dynamic 35"
+75  75   "Dynamic 36"
+76  76   "Dynamic 37"
+77  77   "Dynamic 38"
+78  78   "Dynamic 39"
+79  79   "Dynamic 40"
+80  80   "Dynamic 41"
+81  81   "Dynamic 42"
+82  82   "Dynamic 43"
+83  83   "Dynamic 44"
+84  84   "Dynamic 45"
+85  85   "Dynamic 46"
+86  86   "Dynamic 47"
+87  87   "Dynamic 48"
+88  88   "Dynamic 49"
+89  89   "Dynamic 50"
+90  90   "Dynamic 51"
+91  91   "Dynamic 52"
+92  92   "Dynamic 53"
+93  93   "Dynamic 54"
+94  94   "Dynamic 55"
+95  95   "Dynamic 56"
+96  96   "Dynamic 57"
+97  97   "Dynamic 58"
+98  98   "Dynamic 59"
+99  99   "Dynamic 60"
+100 100  "Dynamic 61"
+101 101  "Dynamic 62"
+102 102  "Dynamic 63"
+103 103  "Dynamic 64"
+104 104  "Dynamic 65"
+105 105  "Dynamic 66"
+106 106  "Dynamic 67"
+107 107  "Dynamic 68"
+108 108  "Dynamic 69"
+109 109  "Dynamic 70"
+110 110  "Dynamic 71"
+111 111  "Dynamic 72"
+112 112  "Dynamic 73"
+113 113  "Dynamic 74"
+114 114  "Dynamic 75"
+115 115  "Dynamic 76"
+116 116  "Dynamic 77"
+117 117  "Dynamic 78"
+118 118  "Dynamic 79"
+119 119  "Dynamic 80"
+120 120  "Dynamic 81"
+121 121  "Dynamic 82"
+122 122  "Dynamic 83"
+123 123  "Dynamic 84"
+124 124  "Dynamic 85"
+125 125  "Dynamic 86"
+126 126  "Dynamic 87"
+127 127  "Dynamic 88"
+128 128  "Dynamic 89"
+129 129  "Dynamic 90"
+130 130  "Dynamic 91"
+131 131  "Dynamic 92"
+132 132  "Dynamic 93"
+133 133  "Dynamic 94"
+134 134  "Dynamic 95"
+135 135  "Dynamic 96"
+136 136  "Dynamic 97"
+137 137  "Dynamic 98"
+138 138  "Dynamic 99"
+139 139  "Dynamic 100"
+140 140  "Dynamic 101"
+141 141  "Dynamic 102"
+142 142  "Dynamic 103"
+143 143  "Dynamic 104"
+144 144  "Dynamic 105"
+145 145  "Dynamic 106"
+146 146  "Dynamic 107"
+147 148  "Dynamic 108"
+149 149  "Dynamic 109"
+150 150  "Dynamic 110"
+151 151  "Dynamic 111"
+152 152  "Dynamic 112"
+153 153  "Dynamic 113"
+154 154  "Dynamic 114"
+155 155  "Dynamic 115"
+156 156  "Dynamic 116"
+157 157  "Dynamic 117"
+158 158  "Dynamic 118"
+159 159  "Dynamic 119"
+160 160  "Dynamic 120"
+161 161  "Dynamic 121"
+162 162  "Dynamic 122"
+163 163  "Dynamic 123"
+164 164  "Dynamic 124"
+165 165  "Dynamic 125"
+166 166  "Dynamic 126"
+167 167  "Dynamic 127"
+168 168  "Dynamic 128"
+169 169  "Dynamic 129"
+170 170  "Dynamic 130"
+171 171  "Dynamic 131"
+172 172  "Dynamic 132"
+173 173  "Dynamic 133"
+174 174  "Dynamic 134"
+175 175  "Dynamic 135"
+176 176  "Dynamic 136"
+177 177  "Dynamic 137"
+178 178  "Dynamic 138"
+179 179  "Dynamic 139"
+180 180  "Dynamic 140"
+181 181  "Dynamic 141"
+182 182  "Dynamic 142"
+183 183  "Dynamic 143"
+184 184  "Dynamic 144"
+185 185  "Dynamic 145"
+186 186  "Dynamic 146"
+187 187  "Dynamic 147"
+188 188  "Dynamic 148"
+189 189  "Dynamic 149"
+190 190  "Dynamic 150"
+191 191  "Dynamic 151"
+192 192  "Dynamic 152"
+193 193  "Dynamic 153"
+194 194  "Dynamic 154"
+195 195  "Dynamic 155"
+196 196  "Dynamic 156"
+197 197  "Dynamic 157"
+198 198  "Dynamic 158"
+199 199  "Dynamic 159"
+200 200  "Dynamic 160"
+201 201  "Dynamic 161"
+202 202  "Dynamic 162"
+203 203  "Dynamic 163"
+204 204  "Dynamic 164"
+205 205  "Dynamic 165"
+206 206  "Dynamic 166"
+207 207  "Dynamic 167"
+208 208  "Dynamic 168"
+209 209  "Dynamic 169"
+210 210  "Dynamic 170"
+211 211  "Dynamic 171"
+212 212  "Dynamic 172"
+213 213  "Dynamic 173"
+214 214  "Dynamic 174"
+215 215  "Dynamic 175"
+216 216  "Dynamic 176"
+217 217  "Dynamic 177"
+218 218  "Dynamic 178"
+219 219  "Dynamic 179"
+220 220  "Dynamic 180"
+221 221  "Dynamic 181"
+222 222  "Dynamic 182"
+223 223  "Dynamic 183"
+224 224  "Dynamic 184"
+225 225  "Dynamic 185"
+226 226  "Dynamic 186"
+227 227  "Dynamic 187"
+228 228  "Dynamic 188"
+229 229  "Dynamic 189"
+230 230  "Dynamic 190"
+231 231  "Dynamic 191"
+232 232  "Dynamic 192"
+233 233  "Dynamic 193"
+234 234  "Dynamic 194"
+235 235  "Dynamic 195"
+236 236  "Dynamic 196"
+237 237  "Dynamic 197"
+238 238  "Dynamic 198"
+239 239  "Dynamic 199"
+240 240  "Dynamic 200"
+241 241  "Dynamic 201"
+242 242  "Dynamic 202"
+243 243  "Dynamic 203"
+244 244  "Dynamic 204"
+245 245  "Dynamic 205"
+246 246  "Dynamic 206"
+247 247  "Dynamic 207"
+248 248  "Dynamic 208"
+249 249  "Dynamic 209"
+250 250  "Dynamic 210"
+251 251  "Dynamic 211"
+252 252  "Dynamic 212"
+253 253  "Dynamic 213"
+254 254  "Dynamic 214"
+255 255  "Dynamic 215"
+REND
+
+RANGE 3  ;Shutter
+0   30   "Open"
+31  255  "Strobe %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Pan
+0   64   "Safe"
+65  160  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+161 220  "One %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+221 255  "Two %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   160  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+161 220  "One %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+221 255  "Two %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Zoom
+0   2    "Safe"
+3   90   "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+91  146  "Auto %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+147 200  "Auto %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Y Axis Rot
+0   0    "Spin %3d%%"(c-a)*100/(b-a)
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;X Axis Rot
+0   0    "Spin %3d%%"(c-a)*100/(b-a)
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 11  ;Z Axis Rot
+0   0    "Spin %3d%%"(c-a)*100/(b-a)
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 12  ;Control
+0   200  "Safe"
+201 255  "Reset"
+REND
+

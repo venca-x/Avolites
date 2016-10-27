@@ -1,0 +1,441 @@
+; 'X-Laser Mobile Beat Single', 12 DMX Channels, filename: UKXLMBTS.R20
+;  Copyright © Avolites Ltd. 2012
+;
+;   Date       By                Description
+;   13-04-12   Peter Budd        Created
+;   13-04-12   Peter Budd        Created from X-Laser X-Beam
+;   13-04-12   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_XLXBEAMS                         mode=Single  12 DMX Channels
+NAME "Misc X" "X-Laser Mobile Beat Single"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Single"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"         228     0     0
+2    61   L    2   100   1N   O   1   "Shutter"           8     0     0
+6     1   L    3   100   1N   0   1   "Pattern"           0     0     0
+3     1   L    4   100   1N   F   1   "Tilt"            127     0     0
+3    61   L    5   100   1N   E   1   "Pan"             127     0     0
+8     1   L    6   100   1N   0   1   "X-Axis Rot"        0     0     0
+9     1   I    7   100   1N   P   1   "Y-Axis Rot"        0     0     0
+9    61   L    8   100   1N   R   1   "Rotation"          0     0     0
+5     1   L    9   100   1N   Q   1   "Zoom"             42     0     0
+5    61   L   10   100   1N   L   1   "Pattern Size"      0     0     0
+6    61   I   11   100   1N   I   1   "Beam Cohesio"      0     0     0
+7     1   L   12   100   1N   K   1   "Drawing Mode"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+X-Laser X-Beam
+Single
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   49   "Sound Actv"
+50  99   "Auto Aerial"
+100 149  "Auto Animat"
+150 199  "Sound"
+200 255  "Full Manual"
+REND
+
+RANGE 2  ;Shutter
+0   17   "Closed"
+16  245  "Strobe %3d%%"(c-a)*100/(b-a)
+246 255  "Open"
+REND
+
+RANGE 4  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;X-Axis Rot
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Y-Axis Rot
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Rotation
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+128 191  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Zoom
+0   85   "Big %3d%%"(c-a)*100/(b-a)
+86  170  "Small %3d%%"(c-a)*100/(b-a)
+171 255  "Zoom %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Pattern Size
+0   0    "Default"
+1   1    "Size 1"
+2   2    "Size 2"
+3   3    "Size 3"
+4   4    "Size 4"
+5   5    "Size 5"
+6   6    "Size 6"
+7   7    "Size 7"
+8   8    "Size 8"
+9   9    "Size 9"
+10  10   "Size 10"
+11  11   "Size 11"
+12  12   "Size 12"
+13  13   "Size 13"
+14  14   "Size 14"
+15  15   "Size 15"
+16  16   "Size 16"
+17  17   "Size 17"
+18  18   "Size 18"
+19  19   "Size 19"
+20  20   "Size 20"
+21  21   "Size 21"
+22  22   "Size 22"
+23  23   "Size 23"
+24  24   "Size 24"
+25  25   "Size 25"
+26  26   "Size 26"
+27  27   "Size 27"
+28  28   "Size 28"
+29  29   "Size 29"
+30  30   "Size 30"
+31  31   "Size 31"
+32  32   "Size 32"
+33  33   "Size 33"
+34  34   "Size 34"
+35  35   "Size 35"
+36  36   "Size 36"
+37  37   "Size 37"
+38  38   "Size 38"
+39  39   "Size 39"
+40  40   "Size 40"
+41  41   "Size 41"
+42  42   "Size 42"
+43  43   "Size 43"
+44  44   "Size 44"
+45  45   "Size 45"
+46  46   "Size 46"
+47  47   "Size 47"
+48  48   "Size 48"
+49  49   "Size 49"
+50  50   "Size 50"
+51  51   "Size 51"
+52  52   "Size 52"
+53  53   "Size 53"
+54  54   "Size 54"
+55  55   "Size 55"
+56  56   "Size 56"
+57  57   "Size 57"
+58  58   "Size 58"
+59  59   "Size 59"
+60  60   "Size 60"
+61  61   "Size 61"
+62  62   "Size 62"
+63  63   "Size 63"
+64  64   "Size 64"
+65  65   "Size 65"
+66  66   "Size 66"
+67  67   "Size 67"
+68  68   "Size 68"
+69  69   "Size 69"
+70  70   "Size 70"
+71  71   "Size 71"
+72  72   "Size 72"
+73  73   "Size 73"
+74  74   "Size 74"
+75  75   "Size 75"
+76  76   "Size 76"
+77  77   "Size 77"
+78  78   "Size 78"
+79  79   "Size 79"
+80  80   "Size 80"
+81  81   "Size 81"
+82  82   "Size 82"
+83  83   "Size 83"
+84  84   "Size 84"
+85  85   "Size 85"
+86  86   "Size 86"
+87  87   "Size 87"
+88  88   "Size 88"
+89  89   "Size 89"
+90  90   "Size 90"
+91  91   "Size 91"
+92  92   "Size 92"
+93  93   "Size 93"
+94  94   "Size 94"
+95  95   "Size 95"
+96  96   "Size 96"
+97  97   "Size 97"
+98  98   "Size 98"
+99  99   "Size 99"
+100 100  "Size 100"
+101 101  "Size 101"
+102 102  "Size 102"
+103 103  "Size 103"
+104 104  "Size 104"
+105 105  "Size 105"
+106 106  "Size 106"
+107 107  "Size 107"
+108 108  "Size 108"
+109 109  "Size 109"
+110 110  "Size 110"
+111 111  "Size 111"
+112 112  "Size 112"
+113 113  "Size 113"
+114 114  "Size 114"
+115 115  "Size 115"
+116 116  "Size 116"
+117 117  "Size 117"
+118 118  "Size 118"
+119 119  "Size 119"
+120 120  "Size 120"
+121 121  "Size 121"
+122 122  "Size 122"
+123 123  "Size 123"
+124 124  "Size 124"
+125 125  "Size 125"
+126 126  "Size 126"
+127 127  "Size 127"
+128 128  "Size 128"
+129 129  "Size 129"
+130 130  "Size 130"
+131 131  "Size 131"
+132 132  "Size 132"
+133 133  "Size 133"
+134 134  "Size 134"
+135 135  "Size 135"
+136 136  "Size 136"
+137 137  "Size 137"
+138 138  "Size 138"
+139 139  "Size 139"
+140 140  "Size 140"
+141 141  "Size 141"
+142 142  "Size 142"
+143 143  "Size 143"
+144 144  "Size 144"
+145 145  "Size 145"
+146 146  "Size 146"
+147 147  "Size 147"
+148 148  "Size 148"
+149 149  "Size 149"
+150 150  "Size 150"
+151 151  "Size 151"
+152 152  "Size 152"
+153 153  "Size 153"
+154 154  "Size 154"
+155 155  "Size 155"
+156 156  "Size 156"
+157 157  "Size 157"
+158 158  "Size 158"
+159 159  "Size 159"
+160 160  "Size 160"
+161 161  "Size 161"
+162 162  "Size 162"
+163 163  "Size 163"
+164 164  "Size 164"
+165 165  "Size 165"
+166 166  "Size 166"
+167 167  "Size 167"
+168 168  "Size 168"
+169 169  "Size 169"
+170 170  "Size 170"
+171 171  "Size 171"
+172 172  "Size 172"
+173 173  "Size 173"
+174 174  "Size 174"
+175 175  "Size 175"
+176 176  "Size 176"
+177 177  "Size 177"
+178 178  "Size 178"
+179 179  "Size 179"
+180 180  "Size 180"
+181 181  "Size 181"
+182 182  "Size 182"
+183 183  "Size 183"
+184 184  "Size 184"
+185 185  "Size 185"
+186 186  "Size 186"
+187 187  "Size 187"
+188 188  "Size 188"
+189 189  "Size 189"
+190 190  "Size 190"
+191 191  "Size 191"
+192 192  "Size 192"
+193 193  "Size 193"
+194 194  "Size 194"
+195 195  "Size 195"
+196 196  "Size 196"
+197 197  "Size 197"
+198 198  "Size 198"
+199 199  "Size 199"
+200 200  "Size 200"
+201 201  "Size 201"
+202 202  "Size 202"
+203 203  "Size 203"
+204 204  "Size 204"
+205 205  "Size 205"
+206 206  "Size 206"
+207 207  "Size 207"
+208 208  "Size 208"
+209 209  "Size 209"
+210 210  "Size 210"
+211 211  "Size 211"
+212 212  "Size 212"
+213 213  "Size 213"
+214 214  "Size 214"
+215 215  "Size 215"
+216 216  "Size 216"
+217 217  "Size 217"
+218 218  "Size 218"
+219 219  "Size 219"
+220 220  "Size 220"
+221 221  "Size 221"
+222 222  "Size 222"
+223 223  "Size 223"
+224 224  "Size 224"
+225 225  "Size 225"
+226 226  "Size 226"
+227 227  "Size 227"
+228 228  "Size 228"
+229 229  "Size 229"
+230 230  "Size 230"
+231 231  "Size 231"
+232 232  "Size 232"
+233 233  "Size 233"
+234 234  "Size 234"
+235 235  "Size 235"
+236 236  "Size 236"
+237 237  "Size 237"
+238 238  "Size 238"
+239 239  "Size 239"
+240 240  "Size 240"
+241 241  "Size 241"
+242 242  "Size 242"
+243 243  "Size 243"
+244 244  "Size 244"
+245 245  "Size 245"
+246 246  "Size 246"
+247 247  "Size 247"
+248 248  "Size 248"
+249 249  "Size 249"
+250 250  "Size 250"
+251 251  "Size 251"
+252 252  "Size 252"
+253 253  "Size 253"
+254 254  "Size 254"
+255 255  "Size 255"
+REND
+
+RANGE 12  ;Drawing Mode
+0   127  "Draw %3d%%"(c-a)*100/(b-a)
+128 255  "Effect %3d%%"(c-a)*100/(b-a)
+REND
+
