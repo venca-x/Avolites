@@ -140,21 +140,44 @@ PFTABLE "Pan/Tilt"   -1  10  12
 PFEND
 
 PFTABLE "Gobo"       -1   4
-"Open"               11   2
-"Gobo 1"             12   7
-"Gobo 2"             13   C
-"Gobo 3"             14  11
-"Gobo 4"             15  16
-"Gobo 5"             16  1B
-"Gobo 6"             17  20
-"Gobo 7"             18  25
-"Gobo 8"             19  2A
-"Gobo 9"             20  2F
+"Open"               11   0
+"Gobo 1"             12  3B
+"Gobo 2"             13  1B
+"Gobo 3"             14  1F
+"Gobo 4"             15  23
+"Gobo 5"             16  27
+"Gobo 6"             17  2B
+"Gobo 7"             18  2F
+"Gobo 8"             19  33
+"Gobo 9"             20  37
 PFEND
 
 PFTABLE "Beam"       -1   8
 "Frost Off"          47   0
 "Frost Full"         48  FF
+PFEND
+
+PFTABLE "Color"      -1     1
+"White"               1     0
+"Red"                 2     9
+"Yellow"              3    12
+"Green"               4    1A
+"Pink"                5    34
+"Purple"              6    4E
+"UV"                  7    78
+"Rainbow"             8    82
+PFEND
+
+PFTABLE "Shutter"    -1     2
+"Open"               31     0
+"Slow-fast1"         32     4
+"Slow-fast2"         33    32
+"Slow-fast3"         34    67
+"Fast-slow1"         35    6C
+"Fast-slow2"         36    CF
+"Free strobe1"       37    D5
+"Free strobe2"       38    E9
+"Free strobe3"       39    FC
 PFEND
 
 ;----------------------------------------------------------------------------
