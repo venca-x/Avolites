@@ -1,19 +1,9 @@
-; 'Unknown 7R Beam 230 20 DMX', 20 DMX Channels, filename: UK7R2302.R20
+; 'Megalite 7R Beam 230 20 DMX', 20 DMX Channels, filename: UK7RMEGA.R20
 ;  Copyright © Avolites Ltd. 2015
-;
-;   Date       By                Description
-;   19-11-10   John Rogers       Created to pre release specifications.
-;   08-02-11   John Rogers       Tested against fixture. Added physical info. Note Split Gel DMX values in Colour are fixed values and should be left as Text Only.
-;   10-07-12   Peter Budd        Created from Clay Paky Sharpy
-;   13-06-13   Peter Budd        Created from the Acco light Acco ray.
-;   08-08-15   Nic Morris        Created from Unknown Colour Beam 350
-;   08-08-15   Pers Creator      Created - Exported from Diamond 4 file.
-;   08-08-15   Nic Morris        Checked
-;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UK7R2302                            mode=20 DMX  20 DMX Channels
-NAME "Unknown" "7R Beam 230 20 DMX"
+DEVICE  UK7RMEGA                            mode=20 DMX  20 DMX Channels
+NAME "Megalite" "7R Beam 230 20 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -185,21 +175,8 @@ PFEND
 
 ;----------------------------------------------------------------------------
 ; Macros
-
-MACRO "Reset Effect"  1  15
-"data"                0  33
-"delay"               1  3C
-"data"                0   C
-MEND
-
-MACRO "Reset P/T"     2  15
-"data"                0  66
-"delay"               1  3C
-"data"                0   C
-MEND
-
 MACRO "Reset All"     3  15
-"data"                0  C0
+"data"                0  80
 "delay"               1  3C
 "data"                0   C
 MEND
