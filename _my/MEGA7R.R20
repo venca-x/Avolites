@@ -1,8 +1,8 @@
-; 'Megalite 7R Beam 230 20 DMX', 20 DMX Channels, filename: UK7RMEGA.R20
+; 'Megalite 7R Beam 230 20 DMX', 20 DMX Channels, filename: MEGA7R.R20
 ;  Copyright © Avolites Ltd. 2015
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UK7RMEGA                            mode=20 DMX  20 DMX Channels
+DEVICE  MEGA7R                            mode=20 DMX  20 DMX Channels
 NAME "Megalite" "7R Beam 230 20 DMX"
 ;
 ;----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-Unknown 7R Beam 230
+Megalite 7R Beam 230
 20 DMX
 
 INPUT fixture DMX No.
