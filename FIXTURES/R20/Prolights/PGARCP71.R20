@@ -1,15 +1,16 @@
-; 'Prolights ARCPAR7 4 DMX', 4 DMX Channels, filename: PGARCP71.R20
+; 'Prolights ARCPAR7FC 4 DMX', 4 DMX Channels, filename: PGARCP71.R20
 ;  Copyright © Avolites Ltd. 2014
 ;
 ;   Date       By                Description
 ;   06-09-14   Nic Morris        Created
 ;   06-09-14   Pers Creator      Created - Exported from Diamond 4 file.
 ;   06-09-14   Nic Morris        Checked
+;   29-03-17   Nic Morris        Changed name from ARCPAR7 to ARCPAR7FC in response to manufacturer request
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  PGARCP71                            mode=4 DMX  4 DMX Channels
-NAME "Prolights" "ARCPAR7 4 DMX"
+NAME "Prolights" "ARCPAR7FC 4 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -95,7 +96,7 @@ END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-Prolights ARCPAR7
+Prolights ARCPAR7FC
 4 DMX
 
 INPUT fixture DMX No.

@@ -10,6 +10,7 @@
 ;   21-07-11   Nic Morris        Created from V1200T-ER
 ;   21-07-11   Pers Creator      Created - Exported from Diamond 4 file.
 ;   21-07-11   Nic Morris        Checked.
+;   15-08-17   Nic Morris        Changed Colour Macro Random CMY to a variable range and tidied function names
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -258,9 +259,9 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 245  "BO on All"
+0   225  "Spd %3d%%"100-((c-a)*100/(b-a))
+226 235  "Move in Dk"
+236 245  "All in Dark"
 246 255  "Safe"
 REND
 
@@ -274,62 +275,62 @@ RANGE 8  ;Colour
 84  97   "Colour 6"
 98  111  "Colour 7"
 112 127  "Colour 8"
-128 189  "Scroll %3d%%"100-((c-a)*100/(b-a))
+128 189  "Sc CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Scroll"
-194 255  "Scro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 9  ;Gobo 1
-0   9    "No Scroll"
+0   9    "Open"
 10  19   "Gobo 1"
 20  29   "Gobo 2"
 30  39   "Gobo 3"
 40  49   "Gobo 4"
 50  59   "Gobo 5"
 60  69   "Gobo 6"
-70  89   "Gobo 1 %3d%%"(c-a)*100/(b-a)
-90  109  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-110 129  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-130 149  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-150 169  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-170 189  "Gobo 6 %3d%%"(c-a)*100/(b-a)
+70  89   "G1 Sk %3d%%"(c-a)*100/(b-a)
+90  109  "G2 Sk %3d%%"(c-a)*100/(b-a)
+110 129  "G3 Sk %3d%%"(c-a)*100/(b-a)
+130 149  "G4 Sk %3d%%"(c-a)*100/(b-a)
+150 169  "G5 Sk %3d%%"(c-a)*100/(b-a)
+170 189  "G6 Sk %3d%%"(c-a)*100/(b-a)
 190 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 10  ;Gobo 1 Rot
-0   127  "Ind %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-128 189  "Spin C %3d%%"100-((c-a)*100/(b-a))
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
+128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
-194 255  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 11  ;Gobo 2
-0   9    "No Scroll"
+0   9    "Open"
 10  19   "Gobo 1"
 20  29   "Gobo 2"
 30  39   "Gobo 3"
 40  49   "Gobo 4"
 50  59   "Gobo 5"
 60  69   "Gobo 6"
-70  89   "Gobo 1 %3d%%"(c-a)*100/(b-a)
-90  109  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-110 129  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-130 149  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-150 169  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-170 189  "Gobo 6 %3d%%"(c-a)*100/(b-a)
+70  89   "G1 Sk %3d%%"(c-a)*100/(b-a)
+90  109  "G2 Sk %3d%%"(c-a)*100/(b-a)
+110 129  "G3 Sk %3d%%"(c-a)*100/(b-a)
+130 149  "G4 Sk %3d%%"(c-a)*100/(b-a)
+150 169  "G5 Sk %3d%%"(c-a)*100/(b-a)
+170 189  "G6 Sk %3d%%"(c-a)*100/(b-a)
 190 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 12  ;Gobo 2 Rot
-0   127  "Ind %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-128 189  "Spin C %3d%%"100-((c-a)*100/(b-a))
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
+128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
-194 255  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 13  ;Prism
 0   41   "Open"
-42  83   "3-Facet Pri"
+42  83   "3-Facet"
 84  127  "3D Prism"
 128 135  "Macro 1"
 136 143  "Macro 2"
@@ -350,10 +351,10 @@ RANGE 13  ;Prism
 REND
 
 RANGE 14  ;Prism Rot
-0   127  "Ind %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-128 189  "Spin C %3d%%"100-((c-a)*100/(b-a))
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
+128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
-194 255  "Spi %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 15  ;Focus
@@ -368,8 +369,11 @@ RANGE 17  ;Shutter
 0   31   "Closed"
 32  63   "Open"
 64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
 128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
 192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
 REND
 
 RANGE 18  ;Dimmer
@@ -377,9 +381,9 @@ RANGE 18  ;Dimmer
 REND
 
 RANGE 19  ;Iris
-0   191  "%3d%%"100-((c-a)*100/(b-a))
-192 223  "Open P %3d%%"100-((c-a)*100/(b-a))
-224 255  "Clos %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+0   191  "Iris   %3d%%"(c-a)*100/(b-a)
+192 223  "Op Pls %3d%%"(c-a)*100/(b-a)
+224 255  "Cl Pls %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 20  ;Frost
@@ -388,9 +392,9 @@ REND
 
 RANGE 21  ;Animation
 0   7    "No Spin"
-8   127  "Spin C %3d%%"100-((c-a)*100/(b-a))
+8   127  "Sp CW  %3d%%"(c-a)*100/(b-a)
 128 135  "No Spin"
-136 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+136 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 22  ;CMY/Col Speed
@@ -429,28 +433,28 @@ RANGE 23  ;Colour Macros
 224 231  "Macro 28"
 232 239  "Macro 29"
 240 247  "Macro 30"
-248 255  "Random CMY"
+248 255  "Rnd %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 24  ;Control
-0   19   "Col/Gb Chan"
-20  29   "Colour Chan"
-30  39   "Col/Gb Chan"
+0   19   "C/G Normal"
+20  29   "Col Any Pos"
+30  39   "C/G Any Pos"
 40  59   "Lamp On"
 60  79   "Lamp Off"
 80  84   "Reset All"
 85  87   "Reset P/T"
-88  90   "Reset Colou"
-91  93   "Reset Gobos"
-94  96   "Reset      "
+88  90   "Reset Col"
+91  93   "Reset Gobo"
+94  96   "Reset Int"
 97  99   "Reset Other"
-100 119  "Internal Pr"
-120 139  "Internal Pr"
-140 159  "Internal Pr"
-160 179  "Internal Pr"
-180 199  "Internal Pr"
-200 219  "Internal Pr"
-220 239  "Internal Pr"
-240 255  "Music Contr"
+100 119  "Program 1"
+120 139  "Program 2"
+140 159  "Program 3"
+160 179  "Program 4"
+180 199  "Program 5"
+200 219  "Program 6"
+220 239  "Program 7"
+240 255  "Sound"
 REND
 

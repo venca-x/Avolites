@@ -5,11 +5,10 @@
 ;   29-06-04   Shahid Anwar      Updated
 ;   31-06-04   Oliver Waits      Checked
 ;   02-11-04   P Rogers          Edited Device Name
-;   10-03-06   E Spencer	 Added Macros, added full ranges to control channel,
-;                                added lee palettes and colour palettes and Revised some channel types
-;   30-05-06   E Spencer	 Changed effect attribute type to P from H to stop desk crashes
-;				 when a dimmer shape was run.  Fixed Zoom locate value.
+;   10-03-06   E Spencer	       Added Macros, added full ranges to control channel, added lee palettes and colour palettes and Revised some channel types
+;   30-05-06   E Spencer	       Changed effect attribute type to P from H to stop desk crashes when a dimmer shape was run.  Fixed Zoom locate value.
 ;   16-12-08   David Hunt        Fixed duplicate dmx values in range table
+;   16-11-16   Gregory Haynes    Removed new lines from comments.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed

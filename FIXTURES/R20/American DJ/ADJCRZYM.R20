@@ -4,6 +4,7 @@
 ;   Date       By                Description
 ;   06-09-14   Nic Morris        Created
 ;   25-04-15   Pers Creator      Created - Exported from Diamond 4 file.
+;   22-10-16   Nic Morris        Tidied function names
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -88,13 +89,13 @@ DIVBY=1
 DMX
 3    61   s    1   100   1N   E   1   "Pan"             128     0     0
 0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
-2    61   L   15   100   1N   O   1   "Shutter"           4     0     0
+2    61   L   15   100   1N   O   1   "Shutter"           0     0     0
 1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
-9     1   L   17   100   1N   0   1   "Chases"            4     0     0
+9     1   L   17   100   1N   0   1   "Chases"            0     0     0
 8     1   L   18   100   1N   0   1   "Chase Spd"       127     0     0
 8    61   L   19   100   1N   0   1   "P/T Speed"         0     0     0
-11    1   L   20   100   1N   0   1   "Control"          34     0     0
-11   61   L   21   100   1N   0   1   "Dim Curve"        10     0     0
+11    1   L   20   100   1N   0   1   "Control"           0     0     0
+11   61   L   21   100   1N   0   1   "Dim Curve"         0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -184,9 +185,9 @@ REND
 
 RANGE 15  ;Shutter
 0   7    "Open"
-8   131  "Stro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-140 181  "Open P %3d%%"(c-a)*100/(b-a)
-190 231  "Close  %3d%%"(c-a)*100/(b-a)
+8   131  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+140 181  "Op Pls %3d%%"(c-a)*100/(b-a)
+190 231  "Cl Pls %3d%%"(c-a)*100/(b-a)
 240 247  "Sound %3d%%"(c-a)*100/(b-a)
 REND
 
@@ -225,9 +226,9 @@ REND
 
 RANGE 20  ;Control
 0   69   "Safe"
-70  79   "Move in Dar"
-80  89   "Reset Tilt "
-90  99   "Reset Tilt "
+70  79   "Move in Dk"
+80  89   "Reset Tilt1"
+90  99   "Reset Tilt2"
 100 109  "Reset Pan"
 200 209  "Reset All"
 REND
@@ -236,7 +237,7 @@ RANGE 21  ;Dim Curve
 0   20   "Standard"
 21  40   "Stage"
 41  60   "TV"
-61  80   "Architectur"
+61  80   "Architect"
 81  100  "Theatre"
 101 255  "Default"
 REND

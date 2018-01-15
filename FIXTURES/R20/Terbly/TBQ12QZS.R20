@@ -257,7 +257,7 @@ RANGE 11  ;Zoom
 REND
 
 RANGE 16  ;Chase
-0   10   "Open"
+0   10   "No Chase"
 11  40   "Chase 1"
 41  70   "Chase 2"
 71  100  "Chase 3"
@@ -274,8 +274,8 @@ REND
 
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-225 235  "Move in Dar"
-236 255  "Reserved"
+225 235  "Move in Dk"
+236 255  "No Function"
 REND
 
 RANGE 10  ;Dim Spd

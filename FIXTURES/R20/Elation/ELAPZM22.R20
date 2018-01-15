@@ -1,10 +1,12 @@
 ; 'Elation Arena Par Zoom v2 6 DMX', 6 DMX Channels, filename: ELAPZM22.R20
-;  Copyright © Avolites Ltd. 2016
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   23-07-16   Nic Morris        Created
-;   23-07-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   23-07-16   Nic Morris        Checked
+;   24-07-16   Nic Morris        Fixed 6 and 10 DMX mode mapping in response to customer bug report.
+;   29-07-17   Nic Morris        Re-exported R20 6 and 10 DMX modes
+;   29-07-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-07-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -92,7 +94,7 @@ DMX
 9    61   L    3   100   1N   V   1   "Blue"            255     0   230
 9     1   L    4   100   1N   0   1   "White"             0     0     0
 5     1   L    5   100   1N   Q   1   "Zoom"            127     0     0
-1     1   H    6   100   1N   H   1   "Dimmer"          255     0     0
+8     1   L    6   100   1N   0   1   "Dim Spd"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -165,7 +167,12 @@ RANGE 5  ;Zoom
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 6  ;Dimmer
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+RANGE 6  ;Dim Spd
+0   20   "Standard"
+21  40   "Stage"
+41  60   "TV"
+61  80   "Architect"
+81  100  "Theatre"
+101 255  "Deafult"
 REND
 

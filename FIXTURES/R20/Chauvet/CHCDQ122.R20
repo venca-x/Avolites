@@ -1,15 +1,15 @@
-; 'Chauvet COLORdash Batten Quad 12 6 DMX', 6 DMX Channels, filename: CHCDQ122.R20
-;  Copyright © Avolites Ltd. 2013
+; 'Chauvet COLORdash Par-Q12 IP 6 DMX', 6 DMX Channels, filename: CHCDQ122.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
-;   12-12-13   Nic Morris        Created
-;   12-12-13   Pers Creator      Created - Exported from Diamond 4 file.
-;   12-12-13   Nic Morris        Checked.
+;   12-02-17   Nic Morris        Created
+;   12-02-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-02-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  CHCDQ122                            mode=6 DMX  6 DMX Channels
-NAME "Chauvet" "COLORdash Batten Quad 12 6 DMX"
+NAME "Chauvet" "COLORdash Par-Q12 IP 6 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -92,13 +92,13 @@ DMX
 10   61   L    3   100   1N   U   1   "Green"           255   255     0
 9    61   L    4   100   1N   V   1   "Blue"            255     0   229
 4    61   L    5   100   1N   0   1   "Amber"             0     0     0
-2    61   L    6   100   1N   O   1   "Shutter"           5     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Chauvet
-COLORdash Batten Quad 12
+COLORdash Par-Q12 IP
 6 DMX
 
 INPUT fixture DMX No.
@@ -124,7 +124,7 @@ PFTABLE "Colour"     -1   2   3   4
 "Blue"                7   0   0  FF
 "Purple"              9  7F   0  FF
 "Magenta"            10  FF   0  FF
-"Lavender"            8  B5  6E  F0
+"Lavender"            8  B5  6D  EF
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -161,6 +161,6 @@ REND
 
 RANGE 6  ;Shutter
 0   10   "Open"
-11  255  "Stro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+11  255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

@@ -9,11 +9,12 @@
 ;   05-04-13   Pers Creator      Created - Exported from Diamond 4 file.
 ;   05-04-13   Peter Budd        Edited ranges
 ;   17-06-13   Peter Budd        Created from the ACME XP-5R Beam F.
+;   18-11-16   Gregory Haynes    Changed name to match modes 1 and 2.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  ISO_XP5RFM1                         mode=Mode 3, 18 DMX  18 DMX Channels
-NAME "iSolution" "Xperior 5R Beam F Mode 3, 18 DMX"
+NAME "iSolution" "Xperior Beam F Mode 3, 18 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

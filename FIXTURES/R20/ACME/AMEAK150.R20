@@ -1,13 +1,15 @@
-; 'ACME AK150 & AK250', 1 DMX Channels, filename: AMEAK150.R20
+; 'ACME Aki Color 150 (AK-150)', 1 DMX Channels, filename: AMEAK150.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
-;   05-01-06   Pers Creator      Created - Exported from Diamond 4 file.
-;   05-01-06   Ed Spencer	 Checked
+;   23-04-17   Nic Morris        Created (split from AK150 AK250 for Capture)
+;   23-04-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-04-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  AK150AK250                          mode=1 DMX, 8bit  1 DMX Channels
-NAME "ACME" "AK150 AK250"
+DEVICE  AMEAK150                            mode=1 DMX  1 DMX Channels
+NAME "ACME" "Aki Color 150 (AK-150)"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -16,7 +18,7 @@ TYPE  1  1  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
-MIRROR  0   0   0
+MIRROR  0    0    0
 ;       |    |    |
 ;       |    |    |_______ maximum tilt movement (in degrees)
 ;       |    |____________ maximum pan movement (in degrees)
@@ -45,7 +47,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 1 DMX, 8bit"
+"Set to 1 DMX"
 ""
 ""
 DAEND
@@ -66,18 +68,18 @@ DIVBY=1
 ; DMX channel description
 ;
 ; Column by column description of each DMX channel
-; 1. The channels bank number (1..12)
+; 1. The channels bank number (1..20)
 ; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
 ; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
 ;    s=16-bit Fadeable LTP
 ; 4. DMX offset (1..number of DMX channels)
-; 5. The output level is proportionally recdced by this level (0..100%)
+; 5. The output level is proportionally reduced by this level (0..100%)
 ; 6. The curve number (applicable only to HTP channels), usually set to 1
 ; 7. Inverted (I) or Normal (N)
-; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
-;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
-;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
-;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
 ; 9. Checksum channel (Always 1)
 ;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
 ;11. The ON value of this channel (0..255)
@@ -85,13 +87,14 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-4     1   I    1   100   1N   A   1   "Colour"            0     0     0
+4     1   L    1   100   1N   A   1   "Colour"           11    49   101
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-ACME AK150 & AK250
-1 DMX, 8bit
+ACME
+Aki Color 150 (AK-150)
+1 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -106,19 +109,17 @@ END
 ;----------------------------------------------------------------------------
 ; Preset Palette Tables
 
-PFTABLE "Colors" -1  1
-"Open"		 1   00
-"Red"		 2   1A
-"Amber"          3   39
-"Yellow"         4   31
-"Light Green"	 5   59
-"Green"          6   48
-"Turquose"	 7   40
-"Cyan"           8   5F
-"Light Blue"     9   40
-"Blue"           10  66
-"Purple"         11  75
-"Magenta"        12  7C
+PFTABLE "Colour"     -1   1
+"Open"                1   8
+"Red"                 2  17
+"Amber"               3  35
+"Yellow"              4  2E
+"Green"               5  44
+"Cyan"                6  5B
+"Blue"                7  62
+"Purple"              9  71
+"Smalt"              10  6A
+"Smalt"               8  6A
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -135,7 +136,7 @@ PFEND
 
 RANGE 1  ;Colour
 0   7    "Blackout"
-8   15   "White"
+8   15   "Open"
 16  22   "3200K"
 23  30   "Red"
 31  37   "Carmine"
@@ -144,14 +145,14 @@ RANGE 1  ;Colour
 53  60   "Amber"
 61  67   "Aqua"
 68  75   "Green"
-76  82   "Deep Green"
+76  82   "Dark Green"
 83  90   "Light Green"
 91  97   "Cyan"
 98  105  "Blue"
 106 112  "Smalt"
 113 120  "Purple"
 121 127  "Pink"
-128 247  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
-248 255  "White"
+128 247  "Scrl %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+248 255  "Open"
 REND
 

@@ -1,12 +1,15 @@
-; 'Smoke Factory Tour-Hazer', 2 DMX Channels, filename: SFTHAZER.R20
+; 'Smoke Factory Tour-Hazer II', 2 DMX Channels, filename: SFTHAZE2.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
-;   16-10-06   D.Milligan        Created - Exported from Diamond 4 file.
+;   27-08-17   Nic Morris        Created
+;   27-08-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   27-08-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  SF_TourHaze                         mode=2 DMX, 8bit  2 DMX Channels
-NAME "Smoke Factory" "Tour Hazer"
+DEVICE  SFTHAZE2                            mode=2 DMX  2 DMX Channels
+NAME "Smoke Factory" "Tour-Hazer II"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -15,7 +18,7 @@ TYPE  1  2  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
-MIRROR  0   0   0
+MIRROR  0    0    0
 ;       |    |    |
 ;       |    |    |_______ maximum tilt movement (in degrees)
 ;       |    |____________ maximum pan movement (in degrees)
@@ -44,7 +47,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 2 DMX, 8bit"
+"Set to 2 DMX"
 ""
 ""
 DAEND
@@ -65,18 +68,18 @@ DIVBY=1
 ; DMX channel description
 ;
 ; Column by column description of each DMX channel
-; 1. The channels bank number (1..12)
+; 1. The channels bank number (1..20)
 ; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
 ; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
 ;    s=16-bit Fadeable LTP
 ; 4. DMX offset (1..number of DMX channels)
-; 5. The output level is proportionally recdced by this level (0..100%)
+; 5. The output level is proportionally reduced by this level (0..100%)
 ; 6. The curve number (applicable only to HTP channels), usually set to 1
 ; 7. Inverted (I) or Normal (N)
-; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
-;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
-;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
-;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
 ; 9. Checksum channel (Always 1)
 ;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
 ;11. The ON value of this channel (0..255)
@@ -84,14 +87,15 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-8     1   H    1   100   1N   0   1   "Pump"              0     0     0
-8    61   H    2   100   1N   0   1   "Fan"               0     0     0
+1     1   H    1   100   1N   H   1   "Haze"            255     0     0
+2    61   L    2   100   1N   0   1   "Fan"             255     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-Smoke Factory Tour-Hazer
-2 DMX, 8bit
+Smoke Factory
+Tour-Hazer II
+2 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -118,12 +122,11 @@ END
 ; 3. Displayed text (max 11 chars)
 ; Variables used a=low val, b=high val, c=DMX val
 
-RANGE 1  ;Pump
-0   0    "Safe"
-1   255  "%3d%%"0+(((c-a)*100)/(b-a))
+RANGE 1  ;Haze
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 2  ;Fan
-0   255  "Speed %3d%%"0+(((c-a)*100)/(b-a))
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

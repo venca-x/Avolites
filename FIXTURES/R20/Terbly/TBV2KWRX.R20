@@ -11,6 +11,7 @@
 ;   21-05-16   Nic Morris        Created from Terbly V1400W-ER
 ;   21-05-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   21-05-16   Nic Morris        Checked
+;   17-08-17   Nic Morris        Revised shutter locate.  Split 16bit dimmer into 2x8bit controls for compatibility.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -102,7 +103,7 @@ DMX
 3     1   s    6   100   1N   F   1   "Tilt"            127     0     0
 0     0   L   26   100   1N   F   1   "Tilt Low"        127     0     0
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
-11   61   L    8   100   1N   0   1   "P/T Mode"          0     0     0
+12   61   L    8   100   1N   0   1   "P/T Mode"          0     0     0
 9    61   s    9   100   1N   D   1   "Yellow"            0   255    51
 0     0   L   10   100   1N   D   1   "Yellow Low"        0   255    51
 9     1   s   11   100   1N   0   1   "CTO"               0     0     0
@@ -113,12 +114,12 @@ DMX
 0     0   L   16   100   1N   N   1   "Colour 2 Low"      0     0     0
 5     1   s   17   100   1N   Q   1   "Zoom"            127     0     0
 0     0   L   18   100   1N   Q   1   "Zoom Low"        127     0     0
-2    61   L   19   100   1N   O   1   "Shutter"          31     0     0
+2    61   L   19   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   20   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   21   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   21   100   1N   0   1   "Dimmer Low"      255     0     0
 8    61   L   22   100   1N   0   1   "Speed"             0     0     0
 6     1   L   23   100   1N   0   1   "Macros"            0     0     0
-11    1   L   24   100   1N   0   1   "Control"           0     0     0
+11   61   L   24   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -257,9 +258,9 @@ REND
 
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-226 235  "BO Move"
-236 245  "BO All"
-246 255  "Safe"
+226 235  "Move in Dk"
+236 245  "All in Dark"
+246 255  "No Function"
 REND
 
 RANGE 8  ;P/T Mode
@@ -322,7 +323,7 @@ RANGE 22  ;Speed
 REND
 
 RANGE 23  ;Macros
-0   7    "Safe"
+0   7    "Open"
 8   15   "Macro 1"
 16  23   "Macro 2"
 24  31   "Macro 3"

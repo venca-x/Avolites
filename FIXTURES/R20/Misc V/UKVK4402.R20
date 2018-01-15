@@ -5,6 +5,7 @@
 ;   05-10-16   Nic Morris        Created
 ;   05-10-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   05-10-16   Nic Morris        Checked
+;   10-01-17   Nic Morris        Revised Prism function names in response to manufacturer request (limited to 11chars)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -373,16 +374,16 @@ REND
 
 RANGE 14  ;Prism
 0   5    "Open"
-6   25   "Prism 1 Idx"
-26  50   "Prism 2 Idx"
-51  75   "Prism 3 Idx"
-76  100  "Prism 4 Idx"
-101 125  "Prism 5 Idx"
-126 150  "Prism 1 Spn"
-151 175  "Prism 2 Spn"
-176 200  "Prism 3 Spn"
-201 225  "Prism 4 Spn"
-226 255  "Prism 5 Spn"
+6   25   "Radial Idx"
+26  50   "Linear Idx"
+51  75   "8-Facet Idx"
+76  100  "Rad Zm Idx"
+101 125  "Oval Idx"
+126 150  "Radial Spn"
+151 175  "Linear Spn"
+176 200  "8-Facet Spn"
+201 225  "Rad Zm Spn"
+226 255  "Oval Spn"
 REND
 
 RANGE 16  ;Frost

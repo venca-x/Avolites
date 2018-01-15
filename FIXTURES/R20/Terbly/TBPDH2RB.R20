@@ -5,6 +5,8 @@
 ;   24-05-15   Nic Morris        Created
 ;   24-05-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   24-05-15   Nic Morris        Checked
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Revised locate values.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,27 +89,27 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-4     1   L    1   100   1N   A   1   "Left Col"          4     0     0
-14    1   L    2   100   1N   0   1   "Right Col"         4     0     0
-6     1   L    3   100   1N   I   1   "Left Gobo"         3     0     0
-16    1   L    4   100   1N   0   1   "Right Gobo"        3     0     0
+4     1   L    1   100   1N   A   1   "Left Col"          0     0     0
+14    1   L    2   100   1N   0   1   "Right Col"         0     0     0
+6     1   L    3   100   1N   I   1   "Left Gobo"         0     0     0
+16    1   L    4   100   1N   0   1   "Right Gobo"        0     0     0
 3    61   L    5   100   1N   E   1   "Pan"             128     0     0
 3     1   L    6   100   1N   F   1   "Left Tilt"       128     0     0
 13    1   L    7   100   1N   0   1   "Right Tilt"      128     0     0
 8     1   L    8   100   1N   0   1   "P/T Speed"         0     0     0
-9     1   L    9   100   1N   P   1   "Left Prism"       16     0     0
+9     1   L    9   100   1N   P   1   "Left Prism"        0     0     0
 9    61   L   10   100   1N   R   1   "Left Prism R"      0     0     0
-19    1   L   11   100   1N   0   1   "Right Prism"      16     0     0
+19    1   L   11   100   1N   0   1   "Right Prism"       0     0     0
 19   61   L   12   100   1N   0   1   "Right Prism "      0     0     0
 2    61   L   13   100   1N   O   1   "Left Shutter"     48     0     0
 1     1   H   14   100   1N   H   1   "Left Dimmer"     255     0     0
 12   61   L   15   100   1N   0   1   "Right Shutte"     48     0     0
 11    1   H   16   100   1N   0   1   "Right Dimmer"    255     0     0
-8    61   L   17   100   1N   0   1   "P/T Func"         40     0     0
-5    61   L   18   100   1N   0   1   "Pan Spin"         64     0     0
-5     1   L   19   100   1N   0   1   "Left Tilt Sp"     64     0     0
-15    1   L   20   100   1N   0   1   "Right Tilt S"     64     0     0
-11   61   L   21   100   1N   0   1   "Control"          10     0     0
+8    61   L   17   100   1N   0   1   "P/T Func"          0     0     0
+5    61   L   18   100   1N   0   1   "Pan Spin"          0     0     0
+5     1   L   19   100   1N   0   1   "Left Tilt Sp"      0     0     0
+15    1   L   20   100   1N   0   1   "Right Tilt S"      0     0     0
+11   61   L   21   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -158,49 +160,49 @@ PFEND
 
 MACRO "Lamp On"       1  21
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Lamp Off"      2  21
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset All"     3  21
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset P/T"     4  21
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Col"     5  21
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Gobo"    6  21
 "data"                0  5C
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Int"     7  21
 "data"                0  5F
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Other"   8  21
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -335,7 +337,7 @@ RANGE 8  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 226 235  "Move in Dk"
 236 245  "All in Dark"
-246 255  "Reserved"
+246 255  "No Function"
 REND
 
 RANGE 9  ;Left Prism
@@ -433,21 +435,21 @@ RANGE 17  ;P/T Func
 REND
 
 RANGE 18  ;Pan Spin
-0   127  "Safe"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
 REND
 
 RANGE 19  ;Left Tilt Spin
-0   127  "Safe"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
 REND
 
 RANGE 20  ;Right Tilt Spin
-0   127  "Safe"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"100-((c-a)*100/(b-a))

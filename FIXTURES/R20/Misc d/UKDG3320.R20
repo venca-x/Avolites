@@ -1,15 +1,16 @@
-; 'DAGE AD-3320', 20 DMX Channels, filename: UKDG3320.R20
-;  Copyright © Avolites Ltd. 2016
+; 'DAGE GT-3320', 20 DMX Channels, filename: UKDG3320.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
-;   25-05-16   Nic Morris        Created (poor documentation)
-;   25-05-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   25-05-16   Nic Morris        Checked
+;   17-11-17   Nic Morris        Created (very poor documentation)
+;   01-12-17   Nic Morris        Created from DAGE GT-3326 (charts are littered with errors)
+;   01-12-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-12-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKDG3320                            mode=20 DMX  20 DMX Channels
-NAME "Misc d" "DAGE AD-3320"
+NAME "Misc d" "DAGE GT-3320"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -18,7 +19,7 @@ TYPE  1  20  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
-MIRROR  2    0    0
+MIRROR  2   540  270
 ;       |    |    |
 ;       |    |    |_______ maximum tilt movement (in degrees)
 ;       |    |____________ maximum pan movement (in degrees)
@@ -88,30 +89,30 @@ DIVBY=1
 ;
 DMX
 3    61   s    1   100   1N   E   1   "Pan"             127     0     0
-0     0   L   18   100   1N   E   1   "Pan Low"         127     0     0
+0     0   L   19   100   1N   E   1   "Pan Low"         127     0     0
 3     1   s    2   100   1N   F   1   "Tilt"            127     0     0
-0     0   L   19   100   1N   F   1   "Tilt Low"        127     0     0
-8    61   L    3   100   1N   0   1   "P/T Speed"         0     0     0
+0     0   L   20   100   1N   F   1   "Tilt Low"        127     0     0
+8    61   L    3   100   1N   0   1   "P/T Speed"       255     0     0
 1     1   H    4   100   1N   H   1   "Dimmer"          255     0     0
-2    61   L    5   100   1N   O   1   "Shutter"         127     0     0
-4     1   L    6   100   1N   A   1   "Colour"            0    20    15
+2    61   L    5   100   1N   O   1   "Shutter"         255     0     0
 6     1   L    7   100   1N   I   1   "Gobo 1"            0     0     0
 6    61   L    8   100   1N   J   1   "Gobo 2"            0     0     0
-7    61   L    9   100   1N   M   1   "Gobo 2 Rot"        0     0     0
-8     1   L   10   100   1N   P   1   "Prism 1"           0     0     0
-9     1   L   11   100   1N   0   1   "Prism 2"           0     0     0
-9    61   L   12   100   1N   0   1   "Prism 2 Rot"       0     0     0
-10    1   L   13   100   1N   0   1   "Prism 3"           0     0     0
-10   61   L   14   100   1N   0   1   "Prism 3 Rot"       0     0     0
-5    61   L   15   100   1N   S   1   "Frost"             0     0     0
-5     1   L   16   100   1N   L   1   "Focus"           127     0     0
+7     1   L    9   100   1N   0   1   "Gobo 3"            0     0     0
+7    61   L   10   100   1N   0   1   "Gobo 3 Rot"        0     0     0
+5     1   L   15   100   1N   Q   1   "Zoom"            127     0     0
+5    61   L   16   100   1N   L   1   "Focus"           127     0     0
+9     1   L   11   100   1N   P   1   "Prism 1"           0     0     0
+9    61   L   12   100   1N   R   1   "Prism 1 Rot"       0     0     0
+10    1   L   13   100   1N   0   1   "Prism 2"           0     0     0
+10   61   L   14   100   1N   0   1   "Prism 2 Rot"       0     0     0
 11   61   L   17   100   1N   0   1   "Lamp"              0     0     0
-11    1   L   20   100   1N   0   1   "Reset"             0     0     0
+11    1   L   18   100   1N   0   1   "Reset"             0     0     0
+4     1   L    6   100   1N   A   1   "Colour"            0    42    32
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-DAGE AD-3320
+DAGE GT-3320
 20 DMX
 
 INPUT fixture DMX No.
@@ -149,46 +150,52 @@ PFEND
 PFTABLE "Colour"     -1   6
 "Open"                1   0
 "Red"                 2   A
-"Orange"              3  64
+"Orange"              3  3C
 "Yellow"              4  28
 "Green"               5  14
-"Light Blue"          6  6E
+"Aquamarine"          6  32
 "Blue"                7  1E
-"Purple"              9  32
-"Light Purple"       10  50
-"Purple"              8  32
+"Blue"                9  1E
+"Rose Red"           10  50
+"Pink"                8  46
 PFEND
 
-PFTABLE "Gobo"       -1   7   8
-"Open"               11   0   0
-"Gobo 1"             12   5   0
-"Gobo 2"             13   A   0
-"Gobo 3"             14   F   0
-"Gobo 4"             15  14   0
-"Gobo 5"             16  19   0
-"Gobo 6"             17  1E   0
-"Gobo 7"             18  23   0
-"Gobo 8"             19  28   0
-"Gobo 9"             20  2D   0
+PFTABLE "Gobo"       -1   7   8   9
+"Open"               11   0   0   0
+"Gobo 1"             12   5   0   0
+"Gobo 2"             13   A   0   0
+"Gobo 3"             14   F   0   0
+"Gobo 4"             15  14   0   0
+"Gobo 5"             16  19   0   0
+"Gobo 6"             17  1E   0   0
+"Gobo 7"             18  23   0   0
+"Gobo 8"             19  28   0   0
+"Gobo 9"             20  2D   0   0
+PFEND
+
+PFTABLE "Beam"       -1  15
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
 PFEND
 
 ;----------------------------------------------------------------------------
 ; Macros
 
-MACRO "Lamp Off"      1  17
+MACRO "Reset"         1  18
+"data"                0  FC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      2  17
 "data"                0  69
 "delay"               1  3C
 "data"                0   0
 MEND
 
-MACRO "Lamp On"       2  17
+MACRO "Lamp On"       3  17
 "data"                0  CD
-"delay"               1  3C
-"data"                0   0
-MEND
-
-MACRO "Reset"         3  20
-"data"                0  FC
 "delay"               1  3C
 "data"                0   0
 MEND
@@ -211,7 +218,7 @@ RANGE 2  ;Tilt
 REND
 
 RANGE 3  ;P/T Speed
-0   255  "%3d%%"100-((c-a)*100/(b-a))
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 4  ;Dimmer
@@ -219,142 +226,164 @@ RANGE 4  ;Dimmer
 REND
 
 RANGE 5  ;Shutter
-0   9    "Closed"
-10  250  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-255 255  "Open"
-REND
-
-RANGE 6  ;Colour
-0   0    "Open"
-10  10   "Red"
-20  20   "Green"
-30  30   "Blue"
-40  40   "Yellow"
-50  50   "Purple"
-60  60   "Dark Blue"
-70  70   "Pink"
-80  80   "Light Purpl"
-90  90   "Blue"
-100 100  "Orange"
-110 110  "Light Blue"
-120 120  "Yellow"
-130 130  "Light Green"
-140 140  "Cool"
-150 199  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-200 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+0   10   "Closed"
+11  250  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+251 255  "Open"
 REND
 
 RANGE 7  ;Gobo 1
-0   0    "Open"
-5   5    "Gobo 1"
-10  10   "Gobo 2"
-15  15   "Gobo 3"
-20  20   "Gobo 4"
-25  25   "Gobo 5"
-30  30   "Gobo 6"
-35  35   "Gobo 7"
-40  40   "Gobo 8"
-45  45   "Gobo 9"
-50  50   "Gobo 10"
-55  55   "Gobo 11"
-60  60   "Gobo 12"
-65  65   "Gobo 13"
-70  70   "Gobo 14"
-75  75   "Gobo 1 Shak"
-80  80   "Gobo 2 Shak"
-85  85   "Gobo 3 Shak"
-90  90   "Gobo 4 Shak"
-95  95   "Gobo 5 Shak"
-100 100  "Gobo 6 Shak"
-105 105  "Gobo 7 Shak"
-110 110  "Gobo 8 Shak"
-115 115  "Gobo 9 Shak"
-120 120  "Gobo 10 Sha"
-125 125  "Gobo 11 Sha"
-130 130  "Gobo 12 Sha"
-135 135  "Gobo 13 Sha"
-140 140  "Gobo 14 Sha"
-145 200  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-201 205  "No Scroll"
-206 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+0   4    "Open"
+5   9    "Gobo 1"
+10  14   "Gobo 2"
+15  19   "Gobo 3"
+20  24   "Gobo 4"
+25  29   "Gobo 5"
+30  34   "Gobo 6"
+35  39   "Gobo 7"
+40  44   "Gobo 8"
+45  49   "Gobo 9"
+50  54   "Gobo 10"
+55  59   "Gobo 11"
+60  64   "Gobo 12"
+65  69   "Gobo 13"
+70  74   "Gobo 14"
+75  79   "G1  Sk %3d%%"(c-a)*100/(b-a)
+80  84   "G2  Sk %3d%%"(c-a)*100/(b-a)
+85  89   "G3  Sk %3d%%"(c-a)*100/(b-a)
+90  94   "G4  Sk %3d%%"(c-a)*100/(b-a)
+95  99   "G5  Sk %3d%%"(c-a)*100/(b-a)
+100 104  "G6  Sk %3d%%"(c-a)*100/(b-a)
+105 109  "G7  Sk %3d%%"(c-a)*100/(b-a)
+110 114  "G8  Sk %3d%%"(c-a)*100/(b-a)
+115 119  "G9  Sk %3d%%"(c-a)*100/(b-a)
+120 124  "G10 Sk %3d%%"(c-a)*100/(b-a)
+125 129  "G11 Sk %3d%%"(c-a)*100/(b-a)
+130 134  "G12 Sk %3d%%"(c-a)*100/(b-a)
+135 139  "G13 Sk %3d%%"(c-a)*100/(b-a)
+140 143  "G14 Sk %3d%%"(c-a)*100/(b-a)
+144 200  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+201 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 8  ;Gobo 2
-0   0    "Open"
-5   5    "Gobo 1"
-10  10   "Gobo 2"
-15  15   "Gobo 3"
-20  20   "Gobo 4"
-25  25   "Gobo 5"
-30  30   "Gobo 6"
-35  35   "Gobo 7"
-40  40   "Gobo 8"
-45  45   "Gobo 1 Shk"
-50  50   "Gobo 2 Shk"
-55  55   "Gobo 3 Shk"
-60  60   "Gobo 4 Shk"
-65  65   "Gobo 5 Shk"
-70  70   "Gobo 6 Shk"
-75  75   "Gobo 7 Shk"
-80  80   "Gobo 8 Shk"
-85  179  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-170 175  "No Scroll"
-176 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+0   9    "Open"
+10  19   "Gobo 1"
+20  29   "Gobo 2"
+30  39   "Gobo 3"
+40  49   "Gobo 4"
+50  59   "Gobo 5"
+60  69   "Gobo 6"
+70  79   "Gobo 7"
+80  89   "G1 Sk %3d%%"(c-a)*100/(b-a)
+90  99   "G2 Sk %3d%%"(c-a)*100/(b-a)
+100 109  "G3 Sk %3d%%"(c-a)*100/(b-a)
+110 119  "G4 Sk %3d%%"(c-a)*100/(b-a)
+120 129  "G5 Sk %3d%%"(c-a)*100/(b-a)
+130 139  "G6 Sk %3d%%"(c-a)*100/(b-a)
+140 149  "G7 Sk %3d%%"(c-a)*100/(b-a)
+150 159  "No Anim"
+160 189  "Index %3d%%"(c-a)*100/(b-a)
+190 199  "Bounce %3d%%"(c-a)*100/(b-a)
+200 227  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+228 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
 REND
 
-RANGE 9  ;Gobo 2 Rot
-0   63   "Index %3d%%"(c-a)*100/(b-a)
-64  127  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
-128 191  "Sp CCW %3d%%"(c-a)*100/(b-a)
+RANGE 9  ;Gobo 3
+0   9    "Open"
+10  19   "Gobo 1"
+20  29   "Gobo 2"
+30  39   "Gobo 3"
+40  49   "Gobo 4"
+50  59   "Gobo 5"
+60  69   "Gobo 6"
+70  79   "Gobo 7"
+80  89   "G1 Sk %3d%%"(c-a)*100/(b-a)
+90  99   "G2 Sk %3d%%"(c-a)*100/(b-a)
+100 109  "G3 Sk %3d%%"(c-a)*100/(b-a)
+110 119  "G4 Sk %3d%%"(c-a)*100/(b-a)
+120 129  "G5 Sk %3d%%"(c-a)*100/(b-a)
+130 139  "G6 Sk %3d%%"(c-a)*100/(b-a)
+140 149  "G7 Sk %3d%%"(c-a)*100/(b-a)
+160 205  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+206 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Gobo 3 Rot
+0   120  "Index  %3d%%"(c-a)*100/(b-a)
+121 155  "Sp CW  %3d%%"(c-a)*100/(b-a)
+156 191  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
 192 255  "Bounce %3d%%"(c-a)*100/(b-a)
 REND
 
-RANGE 10  ;Prism 1
-0   127  "Open"
-128 255  "Prism"
-REND
-
-RANGE 11  ;Prism 2
-0   127  "Open"
-128 255  "Prism"
-REND
-
-RANGE 12  ;Prism 2 Rot
-0   63   "Index %3d%%"(c-a)*100/(b-a)
-64  127  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
-128 191  "Sp CCW %3d%%"(c-a)*100/(b-a)
-192 255  "Bounce %3d%%"(c-a)*100/(b-a)
-REND
-
-RANGE 13  ;Prism 3
-0   0    "Open"
-128 255  "Prism"
-REND
-
-RANGE 14  ;Prism 3 Rot
-0   63   "Index %3d%%"(c-a)*100/(b-a)
-64  127  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
-128 191  "Sp CCW %3d%%"(c-a)*100/(b-a)
-192 255  "Bounce %3d%%"(c-a)*100/(b-a)
-REND
-
-RANGE 15  ;Frost
-0   127  "Open"
-128 255  "Frost"
+RANGE 15  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 16  ;Focus
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 17  ;Lamp
-0   99   "Safe"
-100 110  "Lamp Off"
-200 210  "Lamp On"
+RANGE 11  ;Prism 1
+0   127  "Open"
+128 255  "8-Facet"
 REND
 
-RANGE 20  ;Reset
+RANGE 12  ;Prism 1 Rot
+0   63   "Index %3d%%"(c-a)*100/(b-a)
+64  127  "Sp CW  %3d%%"(c-a)*100/(b-a)
+128 190  "Sp CCW %3d%%"(c-a)*100/(b-a)
+191 255  "Bounce %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 13  ;Prism 2
+0   127  "Open"
+128 255  "24-Facet"
+REND
+
+RANGE 14  ;Prism 2 Rot
+0   63   "Index %3d%%"(c-a)*100/(b-a)
+64  127  "Sp CW  %3d%%"(c-a)*100/(b-a)
+128 190  "Sp CCW %3d%%"(c-a)*100/(b-a)
+191 255  "Bounce %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 17  ;Lamp
+0   100  "Safe"
+101 110  "Lamp Off"
+201 210  "Lamp On"
+REND
+
+RANGE 18  ;Reset
 0   249  "Safe"
 250 255  "Reset"
+REND
+
+RANGE 6  ;Colour
+0   4    "Open"
+5   9    "Op/ Rd"
+10  14   "Red"
+15  19   "Rd/ Grn"
+20  24   "Green"
+25  29   "Grn/ Blu"
+30  34   "Blue"
+35  39   "Blu/ Yel"
+40  44   "Yellow"
+45  49   "Yel/ Aq"
+50  54   "Aquamarine"
+55  59   "Aq/ Org"
+60  64   "Orange"
+65  69   "Org/ Pk"
+70  74   "Pink"
+75  79   "Pk/ Rs Rd"
+80  84   "Rose Red"
+85  89   "Rs Rd/3200K"
+90  94   "3200K"
+95  99   "3200K/8500K"
+100 104  "8500K"
+105 109  "8500K/L Blu"
+110 114  "Light Blue"
+115 119  "L Blu/ Op"
+120 190  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+191 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
 REND
 

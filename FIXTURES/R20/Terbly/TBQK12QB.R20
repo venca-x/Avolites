@@ -5,6 +5,8 @@
 ;   24-05-15   Nic Morris        Created
 ;   24-05-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   24-05-15   Nic Morris        Checked
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Revised locate values.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -96,12 +98,12 @@ DMX
 8    61   L    7   100   1N   0   1   "P/T Speed"         0     0     0
 2    61   L    8   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
-4    61   L   10   100   1N   0   1   "Colour Macro"      4     0     0
-4     1   L   11   100   1N   A   1   "Colour"            5     0     0
-7    61   L   12   100   1N   0   1   "Col Mode"         94     0     0
-7     1   L   13   100   1N   0   1   "Chase"             5     0     0
+4    61   L   10   100   1N   0   1   "Colour Macro"      0     0     0
+4     1   L   11   100   1N   A   1   "Colour"            0     0     0
+7    61   L   12   100   1N   0   1   "Col Mode"          0     0     0
+7     1   L   13   100   1N   0   1   "Chase"             0     0     0
 8     1   L   14   100   1N   0   1   "Chase Spd"       127     0     0
-11    1   L   15   100   1N   0   1   "Control"          40     0     0
+11    1   L   15   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -163,7 +165,7 @@ PFEND
 
 MACRO "Reset All"     1  15
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
@@ -203,7 +205,7 @@ REND
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 225 235  "Move in Dk"
-236 255  "Reserved"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Shutter
@@ -249,7 +251,7 @@ RANGE 12  ;Col Mode
 REND
 
 RANGE 13  ;Chase
-0   10   "Open"
+0   10   "No Chase"
 11  40   "Chase 1"
 41  70   "Chase 2"
 71  100  "Chase 3"

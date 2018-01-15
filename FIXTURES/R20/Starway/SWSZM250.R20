@@ -3,7 +3,7 @@
 ;   Date      By           Description
 ;  15-04-02   Edward       Created
 ;  20-10-04   GALAXY SHOW  Added Range Tables
-;  21-19-04   Phil         Checked Range tables and changed short name
+;  21-09-04   Phil         Checked Range tables and changed short name
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  SWSrvoZm250                                   16 DMX channels

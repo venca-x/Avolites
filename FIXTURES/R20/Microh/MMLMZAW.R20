@@ -1,10 +1,12 @@
 ; 'Microh LED Max Zoom AW', 5 DMX Channels, filename: MMLMZAW.R20
-;  Copyright © Avolites Ltd. 2016
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   29-08-16   Nic Morris        Created
-;   29-08-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   29-08-16   Nic Morris        Checked
+;   01-09-16   Nic Morris        Added Atlabase ID's.
+;   20-01-17   Nic Morris        Revised dimmer functions in response to bug report and inline with latest documentation.
+;   20-01-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   20-01-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,10 +89,8 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
-10    1   L    2   100   1N   0   1   "White 1"         255     0     0
-10   61   L    3   100   1N   0   1   "White 2"         255     0     0
-9    61   L    4   100   1N   0   1   "Amber"           255     0     0
+1     1   H    1   100   1N   H   1   "Dimmer"          189     0     0
+4     1   L    3   100   1N   A   1   "White 2"         255     0     0
 5     1   L    5   100   1N   Q   1   "Zoom"            127     0     0
 END
 ;
@@ -126,18 +126,12 @@ END
 ; Variables used a=low val, b=high val, c=DMX val
 
 RANGE 1  ;Dimmer
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 2  ;White 1
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+0   189  "Dim %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+189 250  "Strobe %3d%%"(c-a)*100/(b-a)
+251 255  "Open"
 REND
 
 RANGE 3  ;White 2
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 4  ;Amber
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

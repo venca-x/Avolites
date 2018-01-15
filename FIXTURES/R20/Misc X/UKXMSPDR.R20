@@ -3,8 +3,10 @@
 ;
 ;   Date       By                Description
 ;   30-01-16   Nic Morris        Created (no official documentation provided)
-;   30-01-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   30-01-16   Nic Morris        Checked
+;   18-11-16   Nic Morris        Updated Effect channel with discreet functions and added 37 channel mode in line with customer information.
+;   30-11-16   Nic Morris        Updated Tilt ranges with continuous spin in response to customer information.
+;   30-11-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-11-16   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,17 +89,16 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-3    61   L    1   100   1N   E   1   "Pan"             127     0     0
-5     1   L    2   100   1N   0   1   "Tilt 1"          127     0     0
-5    61   L    3   100   1N   0   1   "Tilt 2"          127     0     0
 1     1   H    4   100   1N   H   1   "Dimmer"          255     0     0
-2    61   L    5   100   1N   O   1   "Shutter"           4     0     0
+2    61   L    5   100   1N   O   1   "Shutter"           0     0     0
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+5     1   L    2   100   1N   Q   1   "Tilt 1"           62     0     0
+5    61   L    3   100   1N   L   1   "Tilt 2"           62     0     0
 10    1   L    6   100   1N   T   1   "Red"             255   255     0
 10   61   L    7   100   1N   U   1   "Green"           255   255     0
 9    61   L    8   100   1N   V   1   "Blue"            255     0   229
-4    61   L    9   100   1N   0   1   "White"             0     0     0
-9     1   L   10   100   1N   P   1   "Effect"            4     0     0
-8     1   L   11   100   1N   0   1   "Effect Spd"      128     0     0
+9     1   I   10   100   1N   P   1   "Effect"            0     0     0
+9    61   L   11   100   1N   R   1   "Effect Spd"      128     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -121,13 +122,13 @@ END
 PFTABLE "Pan/Tilt"   -1   1
 "Middle"             21  7F
 "Left"               22  4F
-"Right"              23  B0
+"Right"              23  AF
 "Top"                24  7F
 "Bottom"             25  7F
 "TLeft"              26  4F
-"TRight"             27  B0
+"TRight"             27  AF
 "BLeft"              28  4F
-"BRight"             29  B0
+"BRight"             29  AF
 PFEND
 
 PFTABLE "Colour"     -1   6   7   8
@@ -140,7 +141,7 @@ PFTABLE "Colour"     -1   6   7   8
 "Blue"                7   0   0  FF
 "Purple"              9  7F   0  FF
 "Magenta"            10  FF   0  FF
-"Lavender"            8  B5  6E  F0
+"Lavender"            8  B5  6D  EF
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -155,18 +156,6 @@ PFEND
 ; 3. Displayed text (max 11 chars)
 ; Variables used a=low val, b=high val, c=DMX val
 
-RANGE 1  ;Pan
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 2  ;Tilt 1
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 3  ;Tilt 2
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
 RANGE 4  ;Dimmer
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
@@ -174,6 +163,22 @@ REND
 RANGE 5  ;Shutter
 0   9    "Open"
 10  255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt 1
+0   127  "Tilt %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 3  ;Tilt 2
+0   127  "Tilt %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 6  ;Red
@@ -188,13 +193,33 @@ RANGE 8  ;Blue
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 9  ;White
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
 RANGE 10  ;Effect
 0   7    "Open"
-8   255  "FX %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+8   17   "Effect 1"
+18  27   "Effect 2"
+28  37   "Effect 3"
+38  47   "Effect 4"
+48  57   "Effect 5"
+58  67   "Effect 6"
+68  77   "Effect 7"
+78  87   "Effect 8"
+88  97   "Effect 9"
+98  107  "Effect 10"
+108 117  "Effect 11"
+118 127  "Effect 12"
+128 136  "Effect 13"
+137 146  "Effect 14"
+147 156  "Effect 15"
+157 166  "Effect 16"
+167 176  "Effect 17"
+177 186  "Effect 18"
+187 196  "Effect 19"
+197 206  "Effect 20"
+207 216  "Effect 21"
+217 226  "Effect 22"
+227 236  "Effect 23"
+237 246  "Effect 24"
+247 255  "Effect 25"
 REND
 
 RANGE 11  ;Effect Spd

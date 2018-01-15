@@ -1,22 +1,25 @@
-; 'Nullsoft Winamp', 20 DMX Channels, filename: NLWinamp.R20
+; 'Nullsoft Winamp', 19 DMX Channels, filename: NLWINAMP.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   11-08-04   Pers Creator      Created - Exported from Diamond 4 file.
 ;   01-11-04   Phil Rogers       Added NL prefix to device name and capitalised filename
+;   12-09-17   Gregory Haynes    Brought in line with version 2 of the plugin removing Visualisation channel and load functions from Play.
+;   12-09-17   Pers Creator      Created - Exported from Diamond 4 file.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  NL_Winamp                              mode=Full  20 DMX Channels
+DEVICE  NL_Winamp                           mode=Full  19 DMX Channels
 NAME "Nullsoft" "Winamp"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
 ; The middle number denotes the number of DMX channels used
-TYPE  1  20  M
+TYPE  1  19  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
-MIRROR  0   0   0
+MIRROR  0    0    0
 ;       |    |    |
 ;       |    |    |_______ maximum tilt movement (in degrees)
 ;       |    |____________ maximum pan movement (in degrees)
@@ -57,7 +60,7 @@ DAEND
 MINDMX=1
 ;
 ; maximum allowed dmx number
-MAXDMX=492
+MAXDMX=493
 ;
 ; DMX number must be divisible by this
 DIVBY=1
@@ -66,18 +69,18 @@ DIVBY=1
 ; DMX channel description
 ;
 ; Column by column description of each DMX channel
-; 1. The channels bank number (1..12)
+; 1. The channels bank number (1..20)
 ; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
 ; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
 ;    s=16-bit Fadeable LTP
 ; 4. DMX offset (1..number of DMX channels)
-; 5. The output level is proportionally recdced by this level (0..100%)
+; 5. The output level is proportionally reduced by this level (0..100%)
 ; 6. The curve number (applicable only to HTP channels), usually set to 1
 ; 7. Inverted (I) or Normal (N)
-; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
-;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
-;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
-;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
 ; 9. Checksum channel (Always 1)
 ;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
 ;11. The ON value of this channel (0..255)
@@ -85,26 +88,25 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-2     1   I    1   100   1N   0   1   "Play"              0     0     0
-3     1   s    2   100   1N   0   1   "Track Pos"         0     0     0
+2     1   I    1   100   1N   0   1   "Play"             24     0     0
+3     1   S    2   100   1N   0   1   "Track Pos"      0     0     0
 0     0   I    3   100   1N   0   1   "Track Po Low"      0     0     0
 1     1   H    4   100   1N   H   1   "Volume"          255     0     0
-4     1   I    5   100   1N   0   1   "Balance"         128     0     0
-4    61   I    6   100   1N   0   1   "Loop"              0     0     0
+4     1   I    5   100   1N   E   1   "Balance"         128     0     0
+4    61   I    6   100   1N   0   1   "Loop"              4     0     0
 2    61   I    7   100   1N   0   1   "Playlist"          0     0     0
-3    61   I    8   100   1N   0   1   "Viz"               0     0     0
-11    1   I    9   100   1N   0   1   "EQ On/Off"         0     0     0
-12    1   I   10   100   1N   0   1   "EQ 16K"           33     0     0
-12   61   I   11   100   1N   0   1   "EQ 14K"           33     0     0
-13    1   I   12   100   1N   0   1   "EQ 12K"           33     0     0
-13   61   I   13   100   1N   0   1   "EQ 6K"            33     0     0
-14    1   I   14   100   1N   0   1   "EQ 3K"            33     0     0
-14   61   I   15   100   1N   0   1   "EQ 1K"            33     0     0
-15    1   I   16   100   1N   0   1   "EQ 600"           33     0     0
-15   61   I   17   100   1N   0   1   "EQ 370"           33     0     0
-16    1   I   18   100   1N   0   1   "EQ 170"           33     0     0
-16   61   I   19   100   1N   0   1   "EQ 60"            33     0     0
-17    1   I   20   100   1N   0   1   "Preamp"           33     0     0
+11    1   I    8   100   1N   0   1   "EQ On/Off"         4     0     0
+12    1   I    9   100   1N   0   1   "EQ 16K"           33     0     0
+12   61   I   10   100   1N   0   1   "EQ 14K"           33     0     0
+13    1   I   11   100   1N   0   1   "EQ 12K"           33     0     0
+13   61   I   12   100   1N   0   1   "EQ 6K"            33     0     0
+14    1   I   13   100   1N   0   1   "EQ 3K"            33     0     0
+14   61   I   14   100   1N   0   1   "EQ 1K"            33     0     0
+15    1   I   15   100   1N   0   1   "EQ 600"           33     0     0
+15   61   I   16   100   1N   0   1   "EQ 320"           33     0     0
+16    1   I   17   100   1N   0   1   "EQ 180"           33     0     0
+16   61   I   18   100   1N   0   1   "EQ 70"            33     0     0
+17    1   I   19   100   1N   0   1   "Preamp"           33     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -157,19 +159,6 @@ PFTABLE "Item"       -1   7
 "Item 20"           120  19
 PFEND
 
-PFTABLE "Visualizer" -1   8
-"No Control"         21   0
-"F1"                 22   1
-"F2"                 23   2
-"F3"                 24   3
-"F4"                 25   4
-"F5"                 26   5
-"F6"                 27   6
-"F7"                 28   7
-"F8"                 29   8
-"F9"                 30   9
-PFEND
-
 ;----------------------------------------------------------------------------
 ; Macros
 
@@ -186,20 +175,21 @@ RANGE 1  ;Play
 0   9    "Stop"
 10  19   "Pause"
 20  29   "Play"
-30  39   "Load & Stop"
-40  49   "Load & Paus"
-50  59   "Load & Play"
-250 255  "Refresh"
+30  39   "Refresh"
+REND
+
+RANGE 2  ;Track Position
+0   234  "%4d.%02d Sec"(c-a)*6000/(b-a),100*((c-a)*6000%(b-a))/(b-a)
 REND
 
 RANGE 4  ;Volume
-0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 5  ;Balance
-0   127  "Left %3d%%"100-(((c-a)*100)/(b-a))
+0   127  "Left %3d%%"100-((c-a)*100/(b-a))
 128 128  "Center"
-129 255  "Right %3d%%"0+(((c-a)*100)/(b-a))
+129 255  "Right %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 6  ;Loop
@@ -208,93 +198,321 @@ RANGE 6  ;Loop
 REND
 
 RANGE 7  ;Playlist
-0   255  "Item %3d"0+(((c-a)*255)/(b-a))
+0   0    "Item 1"
+1   1    "Item 2"
+2   2    "Item 3"
+3   3    "Item 4"
+4   4    "Item 5"
+5   5    "Item 6"
+6   6    "Item 7"
+7   7    "Item 8"
+8   8    "Item 9"
+9   9    "Item 10"
+10  10   "Item 11"
+11  11   "Item 12"
+12  12   "Item 13"
+13  13   "Item 14"
+14  14   "Item 15"
+15  15   "Item 16"
+16  16   "Item 17"
+17  17   "Item 18"
+18  18   "Item 19"
+19  19   "Item 20"
+20  20   "Item 21"
+21  21   "Item 22"
+22  22   "Item 23"
+23  23   "Item 24"
+24  24   "Item 25"
+25  25   "Item 26"
+26  26   "Item 27"
+27  27   "Item 28"
+28  28   "Item 29"
+29  29   "Item 30"
+30  30   "Item 31"
+31  31   "Item 32"
+32  32   "Item 33"
+33  33   "Item 34"
+34  34   "Item 35"
+35  35   "Item 36"
+36  36   "Item 37"
+37  37   "Item 38"
+38  38   "Item 39"
+39  39   "Item 40"
+40  40   "Item 41"
+41  41   "Item 42"
+42  42   "Item 43"
+43  43   "Item 44"
+44  44   "Item 45"
+45  45   "Item 46"
+46  46   "Item 47"
+47  47   "Item 48"
+48  48   "Item 49"
+49  49   "Item 50"
+50  50   "Item 51"
+51  51   "Item 52"
+52  52   "Item 53"
+53  53   "Item 54"
+54  54   "Item 55"
+55  55   "Item 56"
+56  56   "Item 57"
+57  57   "Item 58"
+58  58   "Item 59"
+59  59   "Item 60"
+60  60   "Item 61"
+61  61   "Item 62"
+62  62   "Item 63"
+63  63   "Item 64"
+64  64   "Item 65"
+65  65   "Item 66"
+66  66   "Item 67"
+67  67   "Item 68"
+68  68   "Item 69"
+69  69   "Item 70"
+70  70   "Item 71"
+71  71   "Item 72"
+72  72   "Item 73"
+73  73   "Item 74"
+74  74   "Item 75"
+75  75   "Item 76"
+76  76   "Item 77"
+77  77   "Item 78"
+78  78   "Item 79"
+79  79   "Item 80"
+80  80   "Item 81"
+81  81   "Item 82"
+82  82   "Item 83"
+83  83   "Item 84"
+84  84   "Item 85"
+85  85   "Item 86"
+86  86   "Item 87"
+87  87   "Item 88"
+88  88   "Item 89"
+89  89   "Item 90"
+90  90   "Item 91"
+91  91   "Item 92"
+92  92   "Item 93"
+93  93   "Item 94"
+94  94   "Item 95"
+95  95   "Item 96"
+96  96   "Item 97"
+97  97   "Item 98"
+98  98   "Item 99"
+99  99   "Item 100"
+100 100  "Item 101"
+101 101  "Item 102"
+102 102  "Item 103"
+103 103  "Item 104"
+104 104  "Item 105"
+105 105  "Item 106"
+106 106  "Item 107"
+107 107  "Item 108"
+108 108  "Item 109"
+109 109  "Item 110"
+110 110  "Item 111"
+111 111  "Item 112"
+112 112  "Item 113"
+113 113  "Item 114"
+114 114  "Item 115"
+115 115  "Item 116"
+116 116  "Item 117"
+117 117  "Item 118"
+118 118  "Item 119"
+119 119  "Item 120"
+120 120  "Item 121"
+121 121  "Item 122"
+122 122  "Item 123"
+123 123  "Item 124"
+124 124  "Item 125"
+125 125  "Item 126"
+126 126  "Item 127"
+127 127  "Item 128"
+128 128  "Item 129"
+129 129  "Item 130"
+130 130  "Item 131"
+131 131  "Item 132"
+132 132  "Item 133"
+133 133  "Item 134"
+134 134  "Item 135"
+135 135  "Item 136"
+136 136  "Item 137"
+137 137  "Item 138"
+138 138  "Item 139"
+139 139  "Item 140"
+140 140  "Item 141"
+141 141  "Item 142"
+142 142  "Item 143"
+143 143  "Item 144"
+144 144  "Item 145"
+145 145  "Item 146"
+146 146  "Item 147"
+147 147  "Item 148"
+148 148  "Item 149"
+149 149  "Item 150"
+150 150  "Item 151"
+151 151  "Item 152"
+152 152  "Item 153"
+153 153  "Item 154"
+154 154  "Item 155"
+155 155  "Item 156"
+156 156  "Item 157"
+157 157  "Item 158"
+158 158  "Item 159"
+159 159  "Item 160"
+160 160  "Item 161"
+161 161  "Item 162"
+162 162  "Item 163"
+163 163  "Item 164"
+164 164  "Item 165"
+165 165  "Item 166"
+166 166  "Item 167"
+167 167  "Item 168"
+168 168  "Item 169"
+169 169  "Item 170"
+170 170  "Item 171"
+171 171  "Item 172"
+172 172  "Item 173"
+173 173  "Item 174"
+174 174  "Item 175"
+175 175  "Item 176"
+176 176  "Item 177"
+177 177  "Item 178"
+178 178  "Item 179"
+179 179  "Item 180"
+180 180  "Item 181"
+181 181  "Item 182"
+182 182  "Item 183"
+183 183  "Item 184"
+184 184  "Item 185"
+185 185  "Item 186"
+186 186  "Item 187"
+187 187  "Item 188"
+188 188  "Item 189"
+189 189  "Item 190"
+190 190  "Item 191"
+191 191  "Item 192"
+192 192  "Item 193"
+193 193  "Item 194"
+194 194  "Item 195"
+195 195  "Item 196"
+196 196  "Item 197"
+197 197  "Item 198"
+198 198  "Item 199"
+199 199  "Item 200"
+200 200  "Item 201"
+201 201  "Item 202"
+202 202  "Item 203"
+203 203  "Item 204"
+204 204  "Item 205"
+205 205  "Item 206"
+206 206  "Item 207"
+207 207  "Item 208"
+208 208  "Item 209"
+209 209  "Item 210"
+210 210  "Item 211"
+211 211  "Item 212"
+212 212  "Item 213"
+213 213  "Item 214"
+214 214  "Item 215"
+215 215  "Item 216"
+216 216  "Item 217"
+217 217  "Item 218"
+218 218  "Item 219"
+219 219  "Item 220"
+220 220  "Item 221"
+221 221  "Item 222"
+222 222  "Item 223"
+223 223  "Item 224"
+224 224  "Item 225"
+225 225  "Item 226"
+226 226  "Item 227"
+227 227  "Item 228"
+228 228  "Item 229"
+229 229  "Item 230"
+230 230  "Item 231"
+231 231  "Item 232"
+232 232  "Item 233"
+233 233  "Item 234"
+234 234  "Item 235"
+235 235  "Item 236"
+236 236  "Item 237"
+237 237  "Item 238"
+238 238  "Item 239"
+239 239  "Item 240"
+240 240  "Item 241"
+241 241  "Item 242"
+242 242  "Item 243"
+243 243  "Item 244"
+244 244  "Item 245"
+245 245  "Item 246"
+246 246  "Item 247"
+247 247  "Item 248"
+248 248  "Item 249"
+249 249  "Item 250"
+250 250  "Item 251"
+251 251  "Item 252"
+252 252  "Item 253"
+253 253  "Item 254"
+254 254  "Item 255"
+255 255  "Item 256"
 REND
 
-RANGE 8  ;Visualisation
-0   0    "No Control"
-1   1    "F1"
-2   2    "F2"
-3   3    "F3"
-4   4    "F4"
-5   5    "F5"
-6   6    "F6"
-7   7    "F7"
-8   8    "F8"
-9   9    "F9"
-10  10   "F10"
-11  11   "F11"
-12  12   "F12"
-13  13   "0"
-14  14   "1"
-15  15   "2"
-16  16   "3"
-17  17   "4"
-18  18   "5"
-19  19   "6"
-20  20   "7"
-21  21   "8"
-22  22   "9"
-255 255  "Random"
-REND
-
-RANGE 9  ;EQ On/Off
+RANGE 8  ;EQ On/Off
 0   9    "On"
 10  19   "Off"
 REND
 
-RANGE 10  ;EQ 16K
-33  64   "16K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "16K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 9  ;EQ 16K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 11  ;EQ 14K
-33  64   "14K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "14K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 10  ;EQ 14K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 12  ;EQ 12K
-33  64   "12K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "12K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 11  ;EQ 12K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 13  ;EQ 6K
-33  64   "6K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "6K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 12  ;EQ 6K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 14  ;EQ 3K
-33  64   "3K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "3K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 13  ;EQ 3K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 15  ;EQ 1K
-33  64   "16K %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "16K -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 14  ;EQ 1K
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 16  ;EQ 600
-33  64   "600 %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "600 -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 15  ;EQ 600
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 17  ;EQ 370
-33  64   "370 %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "370 -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 16  ;EQ 320
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 18  ;EQ 170
-33  64   "170 Hz %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "170 Hz %3d dB"12-(((c-a)*12)/(b-a))
+RANGE 17  ;EQ 180
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 19  ;EQ 60
-33  64   "60 %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "60 -%3d dB"12-(((c-a)*12)/(b-a))
+RANGE 18  ;EQ 70
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 
-RANGE 20  ;Preamp
-33  64   "Level  %3d dB"0+(((c-a)*12)/(b-a))
-0   33   "Level %3d dB"12-(((c-a)*12)/(b-a))
+RANGE 19  ;Preamp
+0   33   "-%2d dB"12-((c-a)*12/(b-a))
+33  64   "%2d dB"(c-a)*12/(b-a)
 REND
 

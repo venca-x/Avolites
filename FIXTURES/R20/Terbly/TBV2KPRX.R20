@@ -10,6 +10,9 @@
 ;   07-05-16   Nic Morris        Created from Terbly V3000P-R
 ;   07-05-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   07-05-16   Nic Morris        Checked
+;   05-05-17   Nic Morris        Changed All Blade Rot to locate at 50% in response to customer bug report.
+;   11-05-17   Nic Morris        Reverted blade rot to locate at zero.
+;   31-12-17   Nic Morris        Changed blades to two-point system in response to manufacturer request (documentation is incorrect)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -128,24 +131,24 @@ DMX
 15    1   L   32   100   1N   S   1   "Frost"            64     0     0
 8    61   L   33   100   1N   0   1   "Col Speed"         0     0     0
 9     1   L   34   100   1N   0   1   "Colour Macro"      4     0     0
-20    1   s   35   100   1N   0   1   "Blade 1"           0     0     0
-0     0   L   36   100   1N   0   1   "Blade 1 Low"       0     0     0
-20   61   s   37   100   1N   0   1   "Blade 1 Rot"       0     0     0
-0     0   L   38   100   1N   0   1   "Blade 1  Low"      0     0     0
-19    1   s   39   100   1N   0   1   "Blade 2"           0     0     0
-0     0   L   40   100   1N   0   1   "Blade 2 Low"       0     0     0
-19   61   s   41   100   1N   0   1   "Blade 2 Rot"       0     0     0
-0     0   L   42   100   1N   0   1   "Blade 2  Low"      0     0     0
-18    1   s   43   100   1N   0   1   "Blade 3"           0     0     0
-0     0   L   44   100   1N   0   1   "Blade 3 Low"       0     0     0
-18   61   s   45   100   1N   0   1   "Blade 3 Rot"       0     0     0
-0     0   L   46   100   1N   0   1   "Blade 3  Low"      0     0     0
-17    1   s   47   100   1N   0   1   "Blade 4"           0     0     0
-0     0   L   48   100   1N   0   1   "Blade 4 Low"       0     0     0
-17   61   s   49   100   1N   0   1   "Blade 4 Rot"       0     0     0
-0     0   L   50   100   1N   0   1   "Blade 4  Low"      0     0     0
-16   61   s   51   100   1N   0   1   "Blade All Ro"      0     0     0
-0     0   L   52   100   1N   0   1   "Blade Al Low"      0     0     0
+20    1   s   35   100   1N   0   1   "Blade 1A"          0     0     0
+0     0   L   36   100   1N   0   1   "Blade 1A Low"      0     0     0
+20   61   s   37   100   1N   0   1   "Blade 1B"          0     0     0
+0     0   L   38   100   1N   0   1   "Blade 1B Low"      0     0     0
+19    1   s   39   100   1N   0   1   "Blade 2A"          0     0     0
+0     0   L   40   100   1N   0   1   "Blade 2A Low"      0     0     0
+19   61   s   41   100   1N   0   1   "Blade 2B"          0     0     0
+0     0   L   42   100   1N   0   1   "Blade 2B Low"      0     0     0
+18    1   s   43   100   1N   0   1   "Blade 3A"          0     0     0
+0     0   L   44   100   1N   0   1   "Blade 3A Low"      0     0     0
+18   61   s   45   100   1N   0   1   "Blade 3B"          0     0     0
+0     0   L   46   100   1N   0   1   "Blade 3B Low"      0     0     0
+17    1   s   47   100   1N   0   1   "Blade 4A"          0     0     0
+0     0   L   48   100   1N   0   1   "Blade 4A Low"      0     0     0
+17   61   s   49   100   1N   0   1   "Blade 4B"          0     0     0
+0     0   L   50   100   1N   0   1   "Blade 4B Low"      0     0     0
+16   61   s   51   100   1N   0   1   "Blade All Ro"    128     0     0
+0     0   L   52   100   1N   0   1   "Blade Al Low"    128     0     0
 16    1   L   53   100   1N   0   1   "Blade Spd"         0     0     0
 15   61   L   54   100   1N   0   1   "Blade Macro"       4     0     0
 11    1   L   55   100   1N   0   1   "Control"          10     0     0
@@ -485,35 +488,35 @@ RANGE 34  ;Colour Macro
 248 255  "Random"
 REND
 
-RANGE 35  ;Blade 1
+RANGE 35  ;Blade 1A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 37  ;Blade 1 Rot
+RANGE 37  ;Blade 1B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 39  ;Blade 2
+RANGE 39  ;Blade 2A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 41  ;Blade 2 Rot
+RANGE 41  ;Blade 2B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 43  ;Blade 3
+RANGE 43  ;Blade 3A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 45  ;Blade 3 Rot
+RANGE 45  ;Blade 3B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 47  ;Blade 4
+RANGE 47  ;Blade 4A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 49  ;Blade 4 Rot
+RANGE 49  ;Blade 4B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 

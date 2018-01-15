@@ -7,6 +7,8 @@
 ;   05-04-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   05-04-16   Nic Morris        Checked
 ;   06-04-16   Nic Morris        Updated colours in response to manufacturer information.
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Corrected frost and focus attribute types.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -98,10 +100,10 @@ DMX
 3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
 0     0   L   14   100   1N   F   1   "Tilt Low"        128     0     0
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
-5    61   L    8   100   1N   S   1   "Focus"           128     0     0
-2    61   L    9   100   1N   O   1   "Shutter"         255     0     0
+5    61   L    8   100   1N   L   1   "Focus"           128     0     0
+2    61   L    9   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   10   100   1N   H   1   "Dimmer"          255     0     0
-2     1   L   11   100   1N   G   1   "Frost"             0     0     0
+2     1   L   11   100   1N   S   1   "Frost"             0     0     0
 11    1   L   12   100   1N   0   1   "Control"           0     0     0
 END
 ;
@@ -161,49 +163,49 @@ PFEND
 
 MACRO "Lamp On"       1  12
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Lamp Off"      2  12
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset All"     3  12
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset P/T"     4  12
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset Col"     5  12
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset Gobo"    6  12
 "data"                0  5C
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset Int"     7  12
 "data"                0  5F
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
 MACRO "Reset Other"   8  12
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   0
 MEND
 
@@ -256,7 +258,7 @@ RANGE 2  ;Gobo
 REND
 
 RANGE 3  ;Gobo Rot
-0   127  "Indx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -297,6 +299,7 @@ RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 226 235  "Move in Dk"
 236 245  "All in Dark"
+246 255  "No Function"
 REND
 
 RANGE 8  ;Focus
@@ -304,11 +307,14 @@ RANGE 8  ;Focus
 REND
 
 RANGE 9  ;Shutter
-0   63   "Closed"
+0   31   "Closed"
+32  63   "Open"
 64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
 128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
 192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
-255 255  "Open"
+224 255  "Open"
 REND
 
 RANGE 10  ;Dimmer

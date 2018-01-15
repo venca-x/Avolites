@@ -1,4 +1,4 @@
-; 'BSL Magic Zoom Ext 2 pt1', 21 DMX Channels, filename: UKBSLMZ5.R20
+; 'BSL Magic Zoom 7 Ext 2 pt1', 21 DMX Channels, filename: UKBSLMZ5.R20
 ;  Copyright © Avolites Ltd. 2015
 ;
 ;   Date       By                Description
@@ -8,11 +8,12 @@
 ;   08-03-15   Nic Morris        Created from Prolights Diamond7 (identical)
 ;   08-03-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   08-03-15   Nic Morris        Checked
+;   26-07-17   Nic Morris        Changed name from Magic Zoom to Magic Zoom 7 in response to manufacturer request
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKBSLMZ5                            mode=Ext 2 pt1  21 DMX Channels
-NAME "Misc B" "BSL Magic Zoom Ext 2 pt1"
+NAME "Misc B" "BSL Magic Zoom 7 Ext 2 pt1"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -115,7 +116,7 @@ END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-BSL Magic Zoom
+BSL Magic Zoom 7
 Ext 2 pt1
 
 INPUT fixture DMX No.

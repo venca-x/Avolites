@@ -8,6 +8,7 @@
 ;  11-11-05  Ed Spencer	 Added one second to macro delays
 ;  14-11-05  Ed 		 Fixed 16bit gobo rot
 ;  03-09-07  D.Milligan     Fixed Ranges
+;  08-04-08  Ion 	Updated the Control channel to the new software version
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -300,11 +301,23 @@ REND
 RANGE 22 ;Control
 0  0  "Safe"
 1  4  "Display On"
-5  80  "Safe"
+5  19  "Safe"
+20 25  "Snap On"
+26 29  "Safe"
+30 35  "Snap Off"
+36 39  "Safe"
+40 45  "DimFast"
+46 49  "Safe"
+50 55  "DimNorm"
+56 80  "Safe"
 81 87  "Reset"
 88 164  "Safe"
 165 171 "Lamp Off"
-171 248  "Safe"
+171 175  "Safe"
+176 181  "Lamp StndBay"
+181 198  "Safe"
+199 204  "Lamp Full"
+205 248  "Safe"
 249 255 "Lamp On"
 REND
 

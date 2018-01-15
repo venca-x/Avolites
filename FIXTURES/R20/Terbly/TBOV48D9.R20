@@ -4,6 +4,7 @@
 ;   Date       By                Description
 ;   21-05-12   Peter Budd        Created
 ;   21-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-08-17   Nic Morris        Changed CTO from instant to fading
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -90,9 +91,9 @@ DMX
 10   61   L    2   100   1N   U   1   "Green"           255   255     0
 9    61   L    3   100   1N   V   1   "Blue"            255     0   229
 9     1   L    4   100   1N   0   1   "White"             0     0     0
-4     1   I    5   100   1N   A   1   "CTO"               0     0     0
+4     1   L    5   100   1N   0   1   "CTO"               0     0     0
 4    61   L    6   100   1N   0   1   "Colour Macro"      0     0     0
-8     1   L    7   100   1N   0   1   "Macro"             5     0     0
+8     1   L    7   100   1N   0   1   "Macro"             0     0     0
 2    61   L    8   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
 END

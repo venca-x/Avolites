@@ -6,6 +6,8 @@
 ;   05-04-16   Nic Morris        Added Autofocus Adj and revised channel mapping in line with latest documentation in response to manufacturer bug report.
 ;   05-04-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   05-04-16   Nic Morris        Checked
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   16-08-17   Nic Morris        Revised locate values
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -97,23 +99,23 @@ DMX
 1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
 5     1   L    8   100   1N   Q   1   "Zoom"            128     0     0
 5    61   L    9   100   1N   L   1   "Focus"           128     0     0
-15    1   L   10   100   1N   0   1   "AutoFocus"        25     0     0
+15    1   L   10   100   1N   0   1   "AutoFocus"         0     0     0
 15   61   L   11   100   1N   0   1   "AutoFocus Ad"      0     0     0
-4     1   L   12   100   1N   A   1   "Colour"            3     0     0
+4     1   L   12   100   1N   A   1   "Colour"            0     0     0
 10    1   L   13   100   1N   B   1   "Cyan"              0     0   255
 10   61   L   14   100   1N   C   1   "Magenta"           0     0   255
 9    61   L   15   100   1N   D   1   "Yellow"            0   255    51
 4    61   L   16   100   1N   0   1   "CTO"               0     0     0
-9     1   L   17   100   1N   0   1   "Colour Macro"     16     0     0
+9     1   L   17   100   1N   0   1   "Colour Macro"      0     0     0
 8     1   L   18   100   1N   0   1   "Col Speed"         0     0     0
-6     1   L   19   100   1N   I   1   "Gobo 1"            5     0     0
+6     1   L   19   100   1N   I   1   "Gobo 1"            0     0     0
 7     1   L   20   100   1N   K   1   "Gobo 1 Rot"        0     0     0
-6    61   L   21   100   1N   J   1   "Gobo 2"            4     0     0
-7    61   L   22   100   1N   0   1   "Anim Spd"          4     0     0
-19    1   L   23   100   1N   P   1   "Prism"            16     0     0
+6    61   L   21   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   L   22   100   1N   0   1   "Anim Spd"          0     0     0
+19    1   L   23   100   1N   P   1   "Prism"             0     0     0
 19   61   L   24   100   1N   R   1   "Prism Rot"         0     0     0
-2     1   L   25   100   1N   S   1   "Frost"            64     0     0
-11    1   L   26   100   1N   0   1   "Control"          10     0     0
+2     1   L   25   100   1N   S   1   "Frost"             0     0     0
+11    1   L   26   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -196,49 +198,49 @@ PFEND
 
 MACRO "Lamp On"       1  26
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Lamp Off"      2  26
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset All"     3  26
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset P/T"     4  26
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Col"     5  26
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Gobo"    6  26
 "data"                0  5C
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Int"     7  26
 "data"                0  5F
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Other"   8  26
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -263,7 +265,7 @@ RANGE 5  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 226 235  "Move in Dk"
 236 245  "All in Dark"
-246 255  "Reserved"
+246 255  "Normal"
 REND
 
 RANGE 6  ;Shutter
@@ -290,7 +292,7 @@ RANGE 9  ;Focus
 REND
 
 RANGE 10  ;AutoFocus
-0   50   "Safe"
+0   50   "Off"
 51  150  "15m"
 151 255  "20m"
 REND
@@ -393,7 +395,7 @@ RANGE 19  ;Gobo 1
 REND
 
 RANGE 20  ;Gobo 1 Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -431,14 +433,14 @@ RANGE 21  ;Gobo 2
 REND
 
 RANGE 22  ;Anim Spd
-0   7    "Safe"
-8   255  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+0   7    "No Function"
+8   255  "Speed %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 23  ;Prism
 0   31   "Open"
 32  79   "8 Facet"
-80  127  "Line"
+80  127  "Linear"
 128 135  "Macro 1"
 136 143  "Macro 2"
 144 151  "Macro 3"
@@ -458,15 +460,15 @@ RANGE 23  ;Prism
 REND
 
 RANGE 24  ;Prism Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 25  ;Frost
-0   127  "Disable"
-128 255  "Enable"
+0   127  "Open"
+128 255  "Frost"
 REND
 
 RANGE 26  ;Control

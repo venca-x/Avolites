@@ -5,6 +5,8 @@
 ;   24-05-15   Nic Morris        Created
 ;   24-05-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   24-05-15   Nic Morris        Checked
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Revised locate values.  Split 16bit dimmer into 2x8bit controls for compatibility.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -125,16 +127,16 @@ DMX
 0     0   L   35   100   1N   0   1   "White 4 Low"       0     0     0
 2    61   L   36   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   37   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   38   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   38   100   1N   0   1   "Dimmer Low"      255     0     0
 5     1   s   39   100   1N   Q   1   "Zoom"            128     0     0
 0     0   L   40   100   1N   Q   1   "Zoom Low"        128     0     0
-4     1   L   41   100   1N   A   1   "Colour"            2     0     0
+4     1   L   41   100   1N   A   1   "Colour"            0     0     0
 2     1   L   42   100   1N   0   1   "Col Preset D"      0     0     0
-6     1   L   43   100   1N   0   1   "Chase"             7     0     0
+6     1   L   43   100   1N   0   1   "Chase"             0     0     0
 7     1   L   44   100   1N   0   1   "Chase Spd"       128     0     0
-8     1   L   45   100   1N   0   1   "Chase Fade"      127     0     0
-7    61   L   46   100   1N   0   1   "Col Mode"         94     0     0
-11    1   L   47   100   1N   0   1   "Control"          40     0     0
+8     1   L   45   100   1N   0   1   "Chase Fade"        0     0     0
+7    61   L   46   100   1N   0   1   "Col Mode"          0     0     0
+11   61   L   47   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -202,19 +204,19 @@ PFEND
 
 MACRO "Reset All"     1  47
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset P/T"     2  47
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset Other"   3  47
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
@@ -246,7 +248,7 @@ REND
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 225 235  "Move in Dk"
-236 255  "Reserved"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Blue 1
@@ -326,16 +328,16 @@ REND
 
 RANGE 41  ;Colour
 0   4    "Open"
-5   9    "2700K"
-10  14   "3200K"
-15  19   "4300K"
-20  24   "5600K"
-25  29   "6500K"
-30  34   "8000K"
+5   9    "White 2700K"
+10  14   "White 3200K"
+15  19   "White 4300K"
+20  24   "White 5600K"
+25  29   "White 6500K"
+30  34   "White 8000K"
 35  39   "Red"
 40  44   "Green"
 45  49   "Blue"
-50  54   "Natural W"
+50  54   "Natural Wht"
 55  59   "Full White"
 60  64   "Yellow"
 65  69   "Magenta"
@@ -363,7 +365,7 @@ RANGE 42  ;Col Preset Dim
 REND
 
 RANGE 43  ;Chase
-0   14   "Open"
+0   14   "No Chase"
 15  30   "Chase 1"
 31  46   "Chase 2"
 47  62   "Chase 3"

@@ -6,11 +6,12 @@
 ;   15-04-09   David Hunt        Checked
 ;   21-04-09   Jonathan Moreton  Checked
 ;   23-12-15   Nic Morris        Changed manufacturer from Unknown to Luxmore
+;   16-11-16   Gregory Haynes    Fixed quotes on name fields
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UK_LSB45M2                          mode=2 DMX, 8bit  2 DMX Channels
-NAME "Misc L" ""
+NAME "Misc L" "Luxmore StageBar 45 2 DMX, 8bit"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

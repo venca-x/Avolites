@@ -5,11 +5,12 @@
 ;   23-06-10   Pers Creator      Created - Exported from Diamond 4 file.
 ;   23-06-10   John Rogers       Corrected channel assignment error.
 ;   23-12-15   Nic Morris        Changed manufacturer from Unknown to W and T International Ltd
+;   16-11-16   Gregory Haynes    Shortened manufacturer name to W and T Intl Ltd
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKWTiS3108W                         mode=12 DMX, 16bit  12 DMX Channels
-NAME "Misc W" "W and T Interna iShow 3108 Wash"
+NAME "Misc W" "W and T Intl Lt iShow 3108 Wash"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

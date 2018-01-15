@@ -6,6 +6,7 @@
 ;   15-06-09   David Hunt        Checked
 ;   23-06-09   Jonathan Moreton  Checked
 ;   11-02-10   Gregory Haynes    Updated macro timings to 20 seconds
+;   17-08-17   Nic Morris        Split 16bit dimmer into 2x8bit controls for compatibility.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -102,15 +103,15 @@ DMX
 4    61   s   10   100   1N   0   1   "CTO"               0     0     0
 0     0   L   11   100   1N   0   1   "CTO Low"           0     0     0
 4     1   s   12   100   1N   A   1   "Colour"            0     0     0
-0     0   I   13   100   1N   A   1   "Colour Low"        0     0     0
+0     0   L   13   100   1N   A   1   "Colour Low"        0     0     0
 5     1   s   14   100   1N   Q   1   "Zoom"            128     0     0
 0     0   L   15   100   1N   Q   1   "Zoom Low"        128     0     0
 2    61   L   16   100   1N   O   1   "Shutter"          32     0     0
-1     1   s   17   100   1N   H   1   "Dimmer"          255     0     0
-0     0   H   18   100   1N   H   1   "Dimmer Low"      255     0     0
+1     1   H   17   100   1N   H   1   "Dimmer"          255     0     0
+11    1   H   18   100   1N   0   1   "Dimmer Low"      255     0     0
 8    61   L   19   100   1N   0   1   "CMY Speed"         0     0     0
-7     1   I   20   100   1N   0   1   "Colour Macro"      0     0     0
-9     1   I   21   100   1N   0   1   "Control"           0     0     0
+7     1   L   20   100   1N   0   1   "Colour Macro"      0     0     0
+9     1   L   21   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------

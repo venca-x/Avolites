@@ -6,6 +6,9 @@
 ;   29-10-12   Peter Budd        Created from the Terbly OV370Z-R
 ;   29-10-12   Pers Creator      Created - Exported from Diamond 4 file.
 ;   29-10-12   Peter Budd        Edited ranges
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   15-08-17   Nic Morris        Fixed duplicate attribute types.  Fixed chase 14 typo
+;   15-08-17   Nic Morris        Changed RGB2 from instant to fade
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -88,7 +91,7 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-11    1   L    1   100   1N   0   1   "Control"          40     0     0
+11    1   L    1   100   1N   0   1   "Control"           0     0     0
 2    61   L    2   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    3   100   1N   H   1   "Dimmer"          255     0     0
 5     1   L    4   100   1N   Q   1   "Zoom"            128     0     0
@@ -97,27 +100,27 @@ DMX
 3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
 0     0   L   30   100   1N   F   1   "Tilt Low"        128     0     0
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
-4     1   L    8   100   1N   0   1   "Colour Chase"      7     0     0
+4     1   L    8   100   1N   0   1   "Colour Chase"      0     0     0
 8    61   L    9   100   1N   0   1   "Chase Speed"     128     0     0
 7     1   L   10   100   1N   0   1   "Fade Chase"      255     0     0
-4    61   L   11   100   1N   0   1   "Colour Macro"     16     0     0
-7    61   L   12   100   1N   0   1   "Colour Mode"      94     0     0
+4    61   L   11   100   1N   0   1   "Colour Macro"      0     0     0
+7    61   L   12   100   1N   0   1   "Colour Mode"       0     0     0
 10    1   L   13   100   1N   0   1   "Red 1"           255   255     0
 10   61   L   14   100   1N   0   1   "Green 1"         255   255     0
 9    61   L   15   100   1N   0   1   "Blue 1"          255   255     0
 9     1   L   16   100   1N   0   1   "White 1"         255   255     0
-20    1   I   17   100   1N   0   1   "Red 2"           255   255     0
-20   61   I   18   100   1N   0   1   "Green 2"         255   255     0
-19   61   I   19   100   1N   0   1   "Blue 2"          255   255     0
+20    1   L   17   100   1N   0   1   "Red 2"           255   255     0
+20   61   L   18   100   1N   0   1   "Green 2"         255   255     0
+19   61   L   19   100   1N   0   1   "Blue 2"          255   255     0
 19    1   L   20   100   1N   0   1   "White 2"         255   255     0
-18    1   L   21   100   1N   H   1   "Red 3"           255   255     0
-18   61   L   22   100   1N   H   1   "Green 3"         255   255     0
-17   61   L   23   100   1N   H   1   "Blue 3"          255   255     0
-17    1   L   24   100   1N   H   1   "White 3"         255   255     0
-16    1   L   25   100   1N   H   1   "Red 4"           255   255     0
-16   61   L   26   100   1N   H   1   "Green 4"         255   255     0
-15   61   L   27   100   1N   H   1   "Blue 4"          255   255     0
-15    1   L   28   100   1N   H   1   "White 4"         255   255     0
+18    1   L   21   100   1N   0   1   "Red 3"           255   255     0
+18   61   L   22   100   1N   0   1   "Green 3"         255   255     0
+17   61   L   23   100   1N   0   1   "Blue 3"          255   255     0
+17    1   L   24   100   1N   0   1   "White 3"         255   255     0
+16    1   L   25   100   1N   0   1   "Red 4"           255   255     0
+16   61   L   26   100   1N   0   1   "Green 4"         255   255     0
+15   61   L   27   100   1N   0   1   "Blue 4"          255   255     0
+15    1   L   28   100   1N   0   1   "White 4"         255   255     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -185,19 +188,19 @@ PFEND
 
 MACRO "Reset All"     1   1
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset P/T"     2   1
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset"         3   1
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
@@ -256,13 +259,13 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 255  "No Func"
+0   225  "Spd %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Colour Chase
-0   14   "Open"
+0   14   "No Chase"
 15  30   "Chase 1"
 31  46   "Chase 2"
 47  62   "Chase 3"
@@ -276,14 +279,14 @@ RANGE 8  ;Colour Chase
 175 190  "Chase 11"
 191 206  "Chase 12"
 207 222  "Chase 13"
-223 238  "Colour 14"
+223 238  "Chase 14"
 239 255  "Chase 15"
 REND
 
 RANGE 9  ;Chase Speed
-0   125  "CCW %3d%%"100-((c-a)*100/(b-a))
-126 130  "No Scroll"
-131 255  "CW %3d%%"(c-a)*100/(b-a)
+0   125  "REV %3d%%"(c-a)*100/(b-a)
+126 130  "Stop"
+131 255  "FWD %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 10  ;Fade Chase

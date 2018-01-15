@@ -103,13 +103,13 @@ DMX
 8    61   L    7   100   1N   0   1   "P/T Speed"         0     0     0
 2    61   L    8   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
-6     1   L   10   100   1N   0   1   "Chase"             7     0     0
+6     1   L   10   100   1N   0   1   "Chase"             0     0     0
 7    61   L   11   100   1N   0   1   "Chase Speed"     128     0     0
 7     1   L   12   100   1N   0   1   "Chase Fade"      255     0     0
-4     1   L   13   100   1N   0   1   "Colour Macro"     16     0     0
-4    61   L   14   100   1N   0   1   "Colour Mode"      94     0     0
+4     1   L   13   100   1N   0   1   "Colour Macro"      0     0     0
+4    61   L   14   100   1N   0   1   "Colour Mode"       0     0     0
 5     1   L   15   100   1N   Q   1   "Zoom"            128     0     0
-11    1   L   16   100   1N   0   1   "Control"          40     0     0
+11    1   L   16   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -227,9 +227,9 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 255  "No Func"
+0   225  "Spd %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Shutter
@@ -248,7 +248,7 @@ RANGE 9  ;Dimmer
 REND
 
 RANGE 10  ;Chase
-0   14   "Open"
+0   14   "No Chase"
 15  30   "Chase 1"
 31  46   "Chase 2"
 47  62   "Chase 3"
@@ -262,14 +262,14 @@ RANGE 10  ;Chase
 175 190  "Chase 11"
 191 206  "Chase 12"
 207 222  "Chase 13"
-223 238  "Colour 14"
+223 238  "Chase 14"
 239 255  "Chase 15"
 REND
 
 RANGE 11  ;Chase Speed
-0   125  "CCW %3d%%"100-((c-a)*100/(b-a))
+0   125  "REV %3d%%"(c-a)*100/(b-a)
 126 130  "Stop"
-131 255  "CW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+131 255  "FWD %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 12  ;Chase Fade

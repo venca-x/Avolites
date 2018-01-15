@@ -6,10 +6,12 @@
 ;   13-06-13   Peter Budd        Created from the Ablelight EVA 60B.
 ;   18-09-13   Matt Benson       Edited gobo, colour and modes in accordance with the new manual
 ;   19-09-13   Pers Creator      Created - Exported from Diamond 4 file.
+;   16-11-16   Gregory Haynes    Added name field.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UK_AbA13BE2                         mode=Ex 2, 15 DMX  15 DMX Channels
+NAME "Misc A" "Ablelite ADA 130B Ex 2, 15 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

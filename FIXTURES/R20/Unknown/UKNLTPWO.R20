@@ -4,11 +4,12 @@
 ;   Date       By                Description
 ;   08-12-09   Pers Creator      Created - Exported from Diamond 4 file.
 ;   08-12-09   John Rogers       Checked.
+;   18-11-16   Gregory Haynes    Shortened name to within limits.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKNLTPWO             mode=With Optics, 8bit  24 DMX Channels
-NAME "Unknown" "Neo Laser Trinity Pro With Optics, 8bit"
+NAME "Unknown" "Neo Laser Trinity Pro Optics"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

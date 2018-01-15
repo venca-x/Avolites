@@ -1,15 +1,20 @@
-; 'Showtec Compact Par 7 Tri 4 DMX, 8bit', 4 DMX Channels, filename: SHP7TRI4.R20
-;  Copyright © Avolites Ltd. 2012
+; 'Showtec Compact Par 7 Tri 4 DMX', 4 DMX Channels, filename: SHP7TRI4.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   06-02-12   Peter Budd        Created
-;   06-02-12   Pers Creator      Created - Exported from Diamond 4 file.
-;   06-02-12   Peter Budd        Checked
+;   01-03-13   Peter Budd        Edited tidied up so red c-mix appears in else.
+;   11-02-14   RGB Power on UpdaterUpdated RGB Power on values to match Locate.
+;   25-05-16   AtlaBaseLibraryUpdaterAdded AltaBase information
+;   12-07-17   Nic Morris        Reordered red functions so that red c-mix is first function.  Revised speed and sensitivity wheel direction.
+;   12-07-17   Nic Morris        Fixed palettes.  Increased wheel resolution.  Re-exported R20's to fix red locate value in response to customer bug report.
+;   12-07-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-07-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  SH_PAR7TRI4                         mode=4 DMX, 8bit  4 DMX Channels
-NAME "Showtec" "Compact Par 7 Tri 4 DMX, 8bit"
+DEVICE  SH_PAR7TRI4                         mode=4 DMX  4 DMX Channels
+NAME "Showtec" "Compact Par 7 Tri 4 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -47,7 +52,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 4 DMX, 8bit"
+"Set to 4 DMX"
 ""
 ""
 DAEND
@@ -88,7 +93,7 @@ DIVBY=1
 ;
 DMX
 1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
-10    1   L    2   100   1N   T   1   "Red"               4     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
 10   61   L    3   100   1N   U   1   "Green"           255   255     0
 9    61   L    4   100   1N   V   1   "Blue"            255     0   229
 END
@@ -97,7 +102,7 @@ END
 TEXT
 Showtec
 Compact Par 7 Tri
-4 DMX, 8bit
+4 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -113,16 +118,16 @@ END
 ; Preset Palette Tables
 
 PFTABLE "Colour"     -1   2   3   4
-"Open"                1   8  FF  FF
-"Red"                 2   8   0   0
-"Amber"               3   8  7F   0
-"Yellow"              4   8  FF   0
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
 "Green"               5   0  FF   0
 "Cyan"                6   0  FF  FF
 "Blue"                7   0   0  FF
-"Purple"              9   4   0  FF
-"Magenta"            10   8   0  FF
-"Lavender"            8   6  6E  F0
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
 PFEND
 
 ;----------------------------------------------------------------------------

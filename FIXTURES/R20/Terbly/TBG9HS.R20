@@ -12,6 +12,8 @@
 ;   21-05-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   21-05-16   Nic Morris        Checked
 ;   26-05-16   Nic Morris        Fixed colour locate in respone to manufacturer bug report.
+;   15-08-17   Nic Morris        Added Autofocus ranges in response to bug report.
+;   02-01-18   Nic Morris        Revised colours in response to manufacturer request (documentation is wrong)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -94,7 +96,7 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-2    61   L    6   100   1N   O   1   "Shutter"          31     0     0
+2    61   L    6   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
 3    61   s    1   100   1N   E   1   "Pan"             127     0     0
 0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
@@ -255,13 +257,13 @@ RANGE 12  ;Colour
 11  19   "Red"
 20  28   "Blue"
 29  37   "Green"
-38  46   "Yellow"
-47  55   "Magenta"
-56  64   "Orange"
-65  73   "Aqua"
-74  82   "Purple"
-83  91   "Quad Colour"
-92  100  "Cyan"
+38  46   "Magenta"
+47  55   "Yellow"
+56  64   "Cyan"
+65  73   "Pink"
+74  82   "Orange"
+83  91   "Aqua"
+92  100  "Purple"
 101 109  "CTO"
 110 118  "CTB"
 119 127  "UV"
@@ -295,7 +297,7 @@ RANGE 13  ;Gobo 1
 REND
 
 RANGE 14  ;Gobo 1 Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -343,11 +345,11 @@ REND
 
 RANGE 16  ;Prism
 0   31   "Open"
-32  50   "8 Prism"
-51  69   "Line Prism"
-70  88   "10 Prism"
-89  107  "8 + 10 Pris"
-108 127  "10 + Line"
+32  50   "8 Facet"
+51  69   "Linear"
+70  88   "10 Facet"
+89  107  "8+10 Facet"
+108 127  "10+Linear"
 128 135  "Macro 1"
 136 143  "Macro 2"
 144 151  "Macro 3"
@@ -367,7 +369,7 @@ RANGE 16  ;Prism
 REND
 
 RANGE 17  ;Prism Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -375,8 +377,8 @@ REND
 
 RANGE 5  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 245  "BO on All"
+226 235  "Move in Dk"
+236 245  "All in Dark"
 246 255  "No Function"
 REND
 
@@ -404,6 +406,13 @@ REND
 
 RANGE 8  ;Zoom
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;AutoFocus
+0   50   "Off"
+51  127  "7.5m"
+128 191  "15m"
+192 255  "20m"
 REND
 
 RANGE 11  ;AutoFocus Adj

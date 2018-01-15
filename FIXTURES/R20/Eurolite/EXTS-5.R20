@@ -18,6 +18,7 @@
 ;   05-03-14   Nic Morris        Standardised func function names.  Standardised conditions.  Added gobo function index.
 ;   05-03-14   Nic Morris        Added palettes.  Added highlight and lowlight values.  Added pearl ref.
 ;   05-03-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-01-17   Nic Morris        Revised function names and changed gobo to locate at 'Open' in response to customer bug report.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -102,8 +103,8 @@ DIVBY=1
 DMX
 3    61   L    1   100   1N   E   1   "Pan"             127     0     0
 3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
-4     1   L    3   100   1N   A   1   "Colour"            4    79    68
-6     1   L    4   100   1N   I   1   "Gobo"              2     0     0
+4     1   L    3   100   1N   A   1   "Colour"            0    79    68
+6     1   L    4   100   1N   I   1   "Gobo"             32     0     0
 1     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
 END
 ;
@@ -171,7 +172,7 @@ RANGE 2  ;Tilt
 REND
 
 RANGE 3  ;Colour
-0   9    "Safe"
+0   9    "Open"
 10  20   "Green"
 21  31   "Red"
 32  41   "Cyan"
@@ -193,7 +194,7 @@ REND
 RANGE 4  ;Gobo
 0   5    "Closed"
 6   31   "Strobe %3d%%"(c-a)*100/(b-a)
-32  41   "Safe"
+32  41   "Open"
 42  52   "Gobo 1"
 53  63   "Gobo 2"
 64  73   "Gobo 3"
@@ -203,15 +204,15 @@ RANGE 4  ;Gobo
 106 116  "Gobo 7"
 117 127  "Gobo 8"
 128 137  "Gobo 9"
-148 155  "Gobo 1 %3d%%"(c-a)*100/(b-a)
-156 163  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-164 171  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-172 179  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-180 187  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-188 195  "Gobo 6 %3d%%"(c-a)*100/(b-a)
-196 203  "Gobo 7 %3d%%"(c-a)*100/(b-a)
-204 210  "Gobo 8 %3d%%"(c-a)*100/(b-a)
-211 217  "Gobo 9 %3d%%"(c-a)*100/(b-a)
+148 155  "G1 Sk %3d%%"(c-a)*100/(b-a)
+156 163  "G2 Sk %3d%%"(c-a)*100/(b-a)
+164 171  "G3 Sk %3d%%"(c-a)*100/(b-a)
+172 179  "G4 Sk %3d%%"(c-a)*100/(b-a)
+180 187  "G5 Sk %3d%%"(c-a)*100/(b-a)
+188 195  "G6 Sk %3d%%"(c-a)*100/(b-a)
+196 203  "G7 Sk %3d%%"(c-a)*100/(b-a)
+204 210  "G8 Sk %3d%%"(c-a)*100/(b-a)
+211 217  "G9 Sk %3d%%"(c-a)*100/(b-a)
 218 223  "Audio"
 224 225  "No Scroll"
 226 255  "Scroll %3d%%"(c-a)*100/(b-a)

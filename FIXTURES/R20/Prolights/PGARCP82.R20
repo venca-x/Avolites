@@ -1,4 +1,4 @@
-; 'Prolights ARCPAR18 6 DMX', 6 DMX Channels, filename: PGARCP82.R20
+; 'Prolights ARCPAR18FC 6 DMX', 6 DMX Channels, filename: PGARCP82.R20
 ;  Copyright © Avolites Ltd. 2014
 ;
 ;   Date       By                Description
@@ -6,11 +6,12 @@
 ;   06-09-14   Pers Creator      Created - Exported from Diamond 4 file.
 ;   06-09-14   Nic Morris        Checked
 ;   14-08-16   Nic Morris        Revised locate values.
+;   29-03-17   Nic Morris        Changed name from ARCPAR18 to ARCPAR18FC in response to manufacturer request
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  PGARCP82                            mode=6 DMX  6 DMX Channels
-NAME "Prolights" "ARCPAR18 6 DMX"
+NAME "Prolights" "ARCPAR18FC 6 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -98,7 +99,7 @@ END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-Prolights ARCPAR18
+Prolights ARCPAR18FC
 6 DMX
 
 INPUT fixture DMX No.

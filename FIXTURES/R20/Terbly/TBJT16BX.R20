@@ -5,6 +5,8 @@
 ;   12-04-12   Peter Budd        Created
 ;   12-04-12   Pers Creator      Created - Exported from Diamond 4 file.
 ;   12-04-12   Peter Budd        Updated Range names
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   15-08-17   Nic Morris        Fixed frost attribute type.  Fixed colour functions.  Tidied function names.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,18 +89,18 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-4     1   I    1   100   1N   A   1   "Colour"            4     0     0
-6     1   I    2   100   1N   I   1   "Gobo"              4     0     0
-9     1   I    3   100   1N   P   1   "Prism"             2     0     0
+4     1   L    1   100   1N   A   1   "Colour"            0     0     0
+6     1   L    2   100   1N   I   1   "Gobo"              0     0     0
+9     1   L    3   100   1N   P   1   "Prism"             0     0     0
 8     1   L    4   100   1N   0   1   "P/T Speed"         0     0     0
 3    61   s    5   100   1N   E   1   "Pan"             128     0     0
 0     0   L   11   100   1N   E   1   "Pan Low"         128     0     0
 3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
 0     0   L   12   100   1N   F   1   "Tilt Low"        128     0     0
-2    61   L    7   100   1N   O   1   "Shutter"          48    48    16
+2    61   L    7   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    8   100   1N   H   1   "Dimmer"          255     0     0
-5    61   L    9   100   1N   L   1   "Frost"             0     0     0
-8    61   L   10   100   1N   0   1   "Control"          10     0     0
+5    61   L    9   100   1N   S   1   "Frost"             0     0     0
+8    61   L   10   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -123,8 +125,6 @@ PFTABLE "Intensity"  -1   7
 "Open"               31  30
 "Slow Strobe"        32  50
 "Fast Strobe"        33  5F
-"Slow Random Strobe"  34  F0
-"Fast Random Strobe"  35  FF
 "Slow Pulse"         36  90
 "Fast Pulse"         37  9F
 "Closed"             38  10
@@ -165,19 +165,19 @@ PFEND
 
 MACRO "Lamp On"       1  10
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Lamp Off"      2  10
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset"         3  10
 "data"                0  5A
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -191,22 +191,22 @@ MEND
 ; Variables used a=low val, b=high val, c=DMX val
 
 RANGE 1  ;Colour
-0   9    "Open %3d%%"(c-a)*100/(b-a)
+0   9    "Open"
 10  19   "Colour 1"
-20  29   "Colour %3d%%"(c-a)*100/(b-a)
+20  29   "Colour 2"
 30  39   "Colour 3"
 40  49   "Colour 4"
-50  59   "Colour %3d%%"(c-a)*100/(b-a)
+50  59   "Colour 5"
 60  69   "Colour 6"
 70  79   "Colour 7"
 80  89   "Colour 8"
 90  99   "Colour 9"
 100 109  "Colour 10"
-110 119  "Colour %3d%%"(c-a)*100/(b-a)
-120 127  "Colour %3d%%"(c-a)*100/(b-a)
-128 189  "Scroll %3d%%"100-((c-a)*100/(b-a))
+110 119  "Colour 11"
+120 127  "Colour 12"
+128 189  "Sc CW %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Scroll"
-194 255  "Scroll %3d%%"(c-a)*100/(b-a)
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 2  ;Gobo
@@ -225,20 +225,20 @@ RANGE 2  ;Gobo
 96  103  "Gobo 12"
 104 111  "Gobo 13"
 112 119  "Gobo 14"
-120 126  "Gobo 1 %3d%%"(c-a)*100/(b-a)
-127 133  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-134 140  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-141 147  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-148 154  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-155 161  "Gobo 6 %3d%%"(c-a)*100/(b-a)
-162 168  "Gobo 7 %3d%%"(c-a)*100/(b-a)
-169 175  "Gobo 8 %3d%%"(c-a)*100/(b-a)
-176 182  "Gobo 9 %3d%%"(c-a)*100/(b-a)
-183 189  "Gobo10 %3d%%"(c-a)*100/(b-a)
-190 196  "Gobo11 %3d%%"(c-a)*100/(b-a)
-197 203  "Gobo12 %3d%%"(c-a)*100/(b-a)
-204 210  "Gobo13 %3d%%"(c-a)*100/(b-a)
-211 217  "Gobo14 %3d%%"(c-a)*100/(b-a)
+120 126  "G1  Sk %3d%%"(c-a)*100/(b-a)
+127 133  "G2  Sk %3d%%"(c-a)*100/(b-a)
+134 140  "G3  Sk %3d%%"(c-a)*100/(b-a)
+141 147  "G4  Sk %3d%%"(c-a)*100/(b-a)
+148 154  "G5  Sk %3d%%"(c-a)*100/(b-a)
+155 161  "G6  Sk %3d%%"(c-a)*100/(b-a)
+162 168  "G7  Sk %3d%%"(c-a)*100/(b-a)
+169 175  "G8  Sk %3d%%"(c-a)*100/(b-a)
+176 182  "G9  Sk %3d%%"(c-a)*100/(b-a)
+183 189  "G10 Sk %3d%%"(c-a)*100/(b-a)
+190 196  "G11 Sk %3d%%"(c-a)*100/(b-a)
+197 203  "G12 Sk %3d%%"(c-a)*100/(b-a)
+204 210  "G13 Sk %3d%%"(c-a)*100/(b-a)
+211 217  "G14 Sk %3d%%"(c-a)*100/(b-a)
 218 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
@@ -266,10 +266,10 @@ RANGE 3  ;Prism
 REND
 
 RANGE 4  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 245  "BO onChange"
-246 255  "No Func"
+0   225  "Speed %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 245  "All in Dark"
+246 255  "No Function"
 REND
 
 RANGE 5  ;Pan
@@ -285,7 +285,7 @@ RANGE 7  ;Shutter
 32  63   "Open"
 64  95   "Strobe %3d%%"(c-a)*100/(b-a)
 96  127  "Open"
-128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+128 159  "Pulse  %3d%%"(c-a)*100/(b-a)
 160 191  "Open"
 192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
 224 255  "Open"
@@ -300,9 +300,9 @@ RANGE 9  ;Frost
 REND
 
 RANGE 10  ;Control
-0   19   "Fixed Col"
-20  29   "Index Col"
-30  39   "Index Wheel"
+0   19   "Col Fixed"
+20  29   "Col Index"
+30  39   "C/G Index"
 40  59   "Lamp On"
 60  79   "Lamp Off"
 80  99   "Reset"

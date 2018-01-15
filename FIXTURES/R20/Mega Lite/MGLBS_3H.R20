@@ -4,11 +4,12 @@
 ;   Date       By                Description
 ;   29-12-10   Pers Creator      Created - Exported from Diamond 4 file.
 ;   29-12-10   Nic Morris        Checked.
+;   18-11-16   Gregory Haynes    Shortened name to within limits.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  MGL_BrSt_3H                          mode=Mode 1, DMX  3 DMX Channels
-NAME "Mega Lite" "Bright Stripe Mode 1 HTP, 3 DMX"
+NAME "Mega Lite" "Bright Stripe Mode 1 HTP"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

@@ -1,14 +1,15 @@
-; 'Robe/Anolis Fixture 1', 30 DMX Channels, filename: ROAP3602.R20
+; 'Robe Anolis ArcPower 360 30 DMX', 30 DMX Channels, filename: ROAP3602.R20
 ;
 ;   Date       By                Description
 ;   16-01-08   Pers Creator      Created - Exported from Diamond 4 file.
-;   16-01-08   Ion Balan	 	 Checked
+;   16-01-08   Ion Balan	 	     Checked
 ;   04-10-10   John Rogers       Edited channel types from Instant to LTP.
+;   16-11-16   Gregory Haynes    Revised fixture name so it is the correct length.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  ARCPW360M2                          mode=30 DMX, 8bit  30 DMX Channels
-NAME "Robe" "Anolis Arc Power 360, Mode 2, 30 DMX"
+NAME "Robe" "Anolis ArcPower 360 30 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

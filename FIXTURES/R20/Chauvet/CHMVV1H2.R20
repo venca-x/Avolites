@@ -3,8 +3,10 @@
 ;
 ;   Date       By                Description
 ;   02-10-16   Nic Morris        Created
-;   02-10-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   02-10-16   Nic Morris        Checked
+;   03-11-16   Nic Morris        Fixed prism 2 locate and function order in response to customer bug report.
+;   03-11-16   Nic Morris        Renamed Gobo 1 Rot to Gobo 2 Rot and revised Gobo func controls and conditionals accordingly (error in manual)
+;   03-11-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-11-16   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -102,12 +104,12 @@ DMX
 14    1   L   13   100   1N   0   1   "Colour 3"          0     0     0
 6     1   L   14   100   1N   I   1   "Gobo 1"            0     0     0
 6    61   L   15   100   1N   J   1   "Gobo 2"            0     0     0
-7     1   L   16   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+7    61   L   16   100   1N   M   1   "Gobo 2 Rot"        0     0     0
 9     1   L   17   100   1N   0   1   "Animation"         0     0     0
 8     1   L   18   100   1N   0   1   "Anim Rot"        127     0     0
 19    1   L   19   100   1N   0   1   "Prism 1"           0     0     0
 19   61   L   20   100   1N   0   1   "Prism 1 Rot"       0     0     0
-18    1   L   21   100   1N   0   1   "Prism 2"         133     0     0
+18    1   L   21   100   1N   0   1   "Prism 2"           0     0     0
 18   61   L   22   100   1N   0   1   "Prism 2 Rot"       0     0     0
 2     1   L   23   100   1N   S   1   "Frost"             0     0     0
 5     1   L   24   100   1N   Q   1   "Zoom"            127     0     0
@@ -371,7 +373,7 @@ RANGE 15  ;Gobo 2
 235 255  "G6 Sk %3d%%"(c-a)*100/(b-a)
 REND
 
-RANGE 16  ;Gobo 1 Rot
+RANGE 16  ;Gobo 2 Rot
 0   127  "Indx %3d%%"(c-a)*100/(b-a)
 128 190  "Sp CW  %3d%%"(c-a)*100/(b-a)
 191 192  "No Spin"

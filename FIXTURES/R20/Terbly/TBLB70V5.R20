@@ -4,6 +4,7 @@
 ;   Date       By                Description
 ;   21-05-12   Peter Budd        Created
 ;   21-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   16-08-17   Nic Morris        Changed Amber from instant to fading.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -89,7 +90,7 @@ DMX
 10    1   L    1   100   1N   T   1   "Red"             255   255     0
 10   61   L    2   100   1N   U   1   "Green"           255   255     0
 9    61   L    3   100   1N   V   1   "Blue"            255     0   229
-4     1   I    4   100   1N   A   1   "Amber"             0     0     0
+4     1   L    4   100   1N   0   1   "Amber"             0     0     0
 9     1   L    5   100   1N   0   1   "White"             0     0     0
 END
 ;

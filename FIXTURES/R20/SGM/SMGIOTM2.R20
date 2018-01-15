@@ -1,13 +1,14 @@
-;SGM SMGiotto Wash v 1.41 personality for the Pearl & Azure 2000.
+;SGM Giotto Wash 1200 Mode 2 personality for the Pearl & Azure 2000.
 ;   Date      By                Description
-;  16-09-04   Phil              Created from old Giotto Wash
-;   14-01-05  Phil      Revised device name
-;   22-06-05  Phil      Fixed problems with Pan/Tilt
+;   16-09-04  Phil              Created from old Giotto Wash
+;   14-01-05  Phil              Revised device name
+;   22-06-05  Phil              Fixed problems with Pan/Tilt
+;   16-11-16  Gregory Haynes    Changed name to include Mode 2.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  SM_GW1200M2                            Hi-Res 13 DMX channels
-NAME "SGM" "Giotto Wash 1200"
+NAME "SGM" "Giotto Wash 1200 Mode 2"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

@@ -1,20 +1,20 @@
-; 'Chauvet COLORdash Batten Quad 12 10 DMX', 10 DMX Channels, filename: CHCDQ123.R20
-;  Copyright © Avolites Ltd. 2013
+; 'Chauvet COLORdash Par-Q12 IP 4 DMX', 4 DMX Channels, filename: CHCDQ123.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
-;   12-12-13   Nic Morris        Created
-;   12-12-13   Pers Creator      Created - Exported from Diamond 4 file.
-;   12-12-13   Nic Morris        Checked.
+;   12-02-17   Nic Morris        Created
+;   12-02-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-02-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  CHCDQ123                            mode=10 DMX  10 DMX Channels
-NAME "Chauvet" "COLORdash Batten Qd 12 10 DMX"
+DEVICE  CHCDQ123                            mode=4 DMX  4 DMX Channels
+NAME "Chauvet" "COLORdash Par-Q12 IP 4 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
 ; The middle number denotes the number of DMX channels used
-TYPE  1  10  M
+TYPE  1  4  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
@@ -47,7 +47,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 10 DMX"
+"Set to 4 DMX"
 ""
 ""
 DAEND
@@ -59,7 +59,7 @@ DAEND
 MINDMX=1
 ;
 ; maximum allowed dmx number
-MAXDMX=502
+MAXDMX=508
 ;
 ; DMX number must be divisible by this
 DIVBY=1
@@ -87,23 +87,17 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
-10    1   L    2   100   1N   T   1   "Red"             255   255     0
-10   61   L    3   100   1N   U   1   "Green"           255   255     0
-9    61   L    4   100   1N   V   1   "Blue"            255     0   229
-4    61   L    5   100   1N   0   1   "Amber"             0     0     0
-2    61   L    6   100   1N   O   1   "Shutter"           5     0     0
-4     1   L    7   100   1N   A   1   "Colour Macro"      5     0     0
-9     1   L    8   100   1N   0   1   "Auto Program"      5     0     0
-8     1   L    9   100   1N   0   1   "Auto Speed"        0     0     0
-8    61   L   10   100   1N   0   1   "Dimmer Speed"     26     0     0
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
+4    61   L    4   100   1N   0   1   "Amber"             0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Chauvet
-COLORdash Batten Quad 12
-10 DMX
+COLORdash Par-Q12 IP
+4 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -118,7 +112,7 @@ END
 ;----------------------------------------------------------------------------
 ; Preset Palette Tables
 
-PFTABLE "Colour"     -1   2   3   4
+PFTABLE "Colour"     -1   1   2   3
 "Open"                1  FF  FF  FF
 "Red"                 2  FF   0   0
 "Amber"               3  FF  7F   0
@@ -128,7 +122,7 @@ PFTABLE "Colour"     -1   2   3   4
 "Blue"                7   0   0  FF
 "Purple"              9  7F   0  FF
 "Magenta"            10  FF   0  FF
-"Lavender"            8  B5  6E  F0
+"Lavender"            8  B5  6D  EF
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -143,73 +137,19 @@ PFEND
 ; 3. Displayed text (max 11 chars)
 ; Variables used a=low val, b=high val, c=DMX val
 
-RANGE 1  ;Dimmer
+RANGE 1  ;Red
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 2  ;Red
+RANGE 2  ;Green
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 3  ;Green
+RANGE 3  ;Blue
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 4  ;Blue
+RANGE 4  ;Amber
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 5  ;Amber
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 6  ;Shutter
-0   10   "Open"
-11  255  "Stro %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 7  ;Colour Macro
-0   10   "Safe"
-11  200  "Inde %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-201 205  "White 1"
-206 210  "White 2"
-211 215  "White 3"
-216 220  "White 4"
-221 225  "White 5"
-226 230  "White 6"
-231 235  "White 7"
-236 240  "White 8"
-241 245  "White 9"
-246 250  "White 10"
-251 255  "White 11"
-REND
-
-RANGE 8  ;Auto Program
-0   10   "Safe"
-11  30   "Auto 1"
-31  50   "Auto 2"
-51  70   "Auto 3"
-71  90   "Auto 4"
-91  110  "Auto 5"
-111 130  "Auto 6"
-131 150  "Auto 7"
-151 170  "Auto 8"
-171 190  "Auto 9"
-191 210  "Auto 10"
-211 230  "Auto 11"
-231 250  "Auto 12"
-251 255  "Auto 1-12"
-REND
-
-RANGE 9  ;Auto Speed
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 10  ;Dimmer Speed
-0   51   "Preset Spee"
-52  101  "Linear"
-102 152  "Curve 1"
-153 203  "Curve 2"
-204 255  "Curve 3"
 REND
 

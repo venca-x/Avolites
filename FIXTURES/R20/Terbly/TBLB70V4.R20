@@ -4,6 +4,7 @@
 ;   Date       By                Description
 ;   21-05-12   Peter Budd        Created
 ;   21-05-12   Pers Creator      Created - Exported from Diamond 4 file.
+;   16-08-17   Nic Morris        Changed saturation from instant to fade.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -86,8 +87,8 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-4     1   L    1   100   1N   0   1   "Colour Macro"     17     0     0
-4    61   I    2   100   1N   N   1   "Saturation"        0     0     0
+4     1   L    1   100   1N   0   1   "Colour Macro"      0     0     0
+4    61   L    2   100   1N   0   1   "Saturation"        0     0     0
 1     1   H    3   100   1N   H   1   "Dimmer"          255     0     0
 9     1   L    4   100   1N   0   1   "CTO"               0     0     0
 END

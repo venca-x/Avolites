@@ -1,15 +1,16 @@
-; 'Prolight Equniox Gemini Laser', 4 DMX Channels, filename: PTEQGMLR.R20
+; 'Prolight Equinox Gemini Laser', 4 DMX Channels, filename: PTEQGMLR.R20
 ;  Copyright © Avolites Ltd. 2012
 ;
 ;   Date       By                Description
 ;   08-02-12   Peter Budd        Created
 ;   08-02-12   Pers Creator      Created - Exported from Diamond 4 file.
 ;   08-02-12   Peter Budd        Checked
+;   22-03-17   Nic Morris        Fixed name (previously was 'Equniox')
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  PT_EQGmLsr                          mode=Standard  4 DMX Channels
-NAME "Prolight" "Equniox Gemini Laser"
+NAME "Prolight" "Equinox Gemini Laser"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -90,13 +91,13 @@ DMX
 9     1   L    1   100   1N   0   1   "Control"          74     0     0
 7     1   L    2   100   1N   K   1   "Gobo Rot"          0     0     0
 8     1   L    3   100   1N   0   1   "Speed"             0     0     0
-4     1   I    4   100   1N   A   1   "Colour"           34     0     0
+4     1   L    4   100   1N   A   1   "Colour"            0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Prolight
-Equniox Gemini Laser
+Equinox Gemini Laser
 Standard
 
 INPUT fixture DMX No.

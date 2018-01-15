@@ -7,6 +7,7 @@
 ;   02-08-12   Pers Creator      Created - Exported from Diamond 4 file.
 ;   02-08-12   Peter Budd        Updated ranges
 ;   22-08-12   Peter Budd        Updated ranges
+;   27-07-17   Nic Morris        Fixed iris locate in response to customer bug report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -108,7 +109,7 @@ DMX
 5    61   L   17   100   1N   L   1   "Frost"             0     0     0
 18   61   L   18   100   1N   P   1   "Prism"             5     0     0
 19    1   I   19   100   1N   P   1   "Prism Rot"         0     0     0
-2     1   L   20   100   1N   G   1   "Iris"            255     0     0
+2     1   L   20   100   1N   G   1   "Iris"              0     0     0
 5     1   s   21   100   1N   Q   1   "Zoom"            128     0     0
 0     0   L   22   100   1N   Q   1   "Zoom Low"        128     0     0
 15    1   s   23   100   1N   Q   1   "Focus"           128     0     0

@@ -6,6 +6,9 @@
 ;   02-11-15   Nic Morris        Updated to latest spec in response to manufacturer request
 ;   02-11-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   02-11-15   Nic Morris        Checked
+;   05-05-17   Nic Morris        Changed All Blade Rot to locate at 50% in response to customer bug report.
+;   11-05-17   Nic Morris        Reverted blade rot to locate at zero.
+;   31-12-17   Nic Morris        Changed blades to two-point system in response to manufacturer request (documentation is incorrect)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -116,15 +119,15 @@ DMX
 8     1   L   26   100   1N   R   1   "Prism Rot"         0     0     0
 15    1   L   27   100   1N   S   1   "Frost 1"          64     0     0
 16    1   L   28   100   1N   0   1   "Frost 2"          64     0     0
-20    1   L   29   100   1N   0   1   "Blade 1"           0     0     0
-20   61   L   30   100   1N   0   1   "Blade 1 Rot"       0     0     0
-19    1   L   31   100   1N   0   1   "Blade 2"           0     0     0
-19   61   L   32   100   1N   0   1   "Blade 2 Rot"       0     0     0
-18    1   L   33   100   1N   0   1   "Blade 3"           0     0     0
-18   61   L   34   100   1N   0   1   "Blade 3 Rot"       0     0     0
-17    1   L   35   100   1N   0   1   "Blade 4"           0     0     0
-17   61   L   36   100   1N   0   1   "Blade 4 Rot"       0     0     0
-16   61   L   37   100   1N   0   1   "Blade All Ro"      0     0     0
+20    1   L   29   100   1N   0   1   "Blade 1A"          0     0     0
+20   61   L   30   100   1N   0   1   "Blade 1B"          0     0     0
+19    1   L   31   100   1N   0   1   "Blade 2A"          0     0     0
+19   61   L   32   100   1N   0   1   "Blade 2B"          0     0     0
+18    1   L   33   100   1N   0   1   "Blade 3A"          0     0     0
+18   61   L   34   100   1N   0   1   "Blade 3B"          0     0     0
+17    1   L   35   100   1N   0   1   "Blade 4A"          0     0     0
+17   61   L   36   100   1N   0   1   "Blade 4B"          0     0     0
+16   61   L   37   100   1N   0   1   "Blade All Ro"    128     0     0
 12   61   L   38   100   1N   0   1   "Blade Spd"         0     0     0
 11    1   L   39   100   1N   0   1   "Control"          10     0     0
 END
@@ -465,35 +468,35 @@ RANGE 28  ;Frost 2
 128 255  "Enable"
 REND
 
-RANGE 29  ;Blade 1
+RANGE 29  ;Blade 1A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 30  ;Blade 1 Rot
+RANGE 30  ;Blade 1B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 31  ;Blade 2
+RANGE 31  ;Blade 2A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 32  ;Blade 2 Rot
+RANGE 32  ;Blade 2B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 33  ;Blade 3
+RANGE 33  ;Blade 3A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 34  ;Blade 3 Rot
+RANGE 34  ;Blade 3B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 35  ;Blade 4
+RANGE 35  ;Blade 4A
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 36  ;Blade 4 Rot
+RANGE 36  ;Blade 4B
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 

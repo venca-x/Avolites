@@ -6,6 +6,8 @@
 ;   24-05-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   24-05-15   Nic Morris        Checked
 ;   04-04-16   Nic Morris        Changed beam shape to locate at zero in attempt to fix manufacturer bug report
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Revised locate values.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -91,7 +93,7 @@ DMX
 10    1   L    1   100   1N   B   1   "Cyan"              0     0   255
 10   61   L    2   100   1N   C   1   "Magenta"           0     0   255
 9    61   L    3   100   1N   D   1   "Yellow"            0   255    51
-4     1   L    4   100   1N   A   1   "Colour"            9     0     0
+4     1   L    4   100   1N   A   1   "Colour"            0     0     0
 3    61   L    5   100   1N   E   1   "Pan"             128     0     0
 3     1   L    6   100   1N   F   1   "Tilt"            128     0     0
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
@@ -101,10 +103,10 @@ DMX
 2    61   L   11   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   12   100   1N   H   1   "Dimmer"          255     0     0
 8    61   L   13   100   1N   0   1   "Col Speed"         0     0     0
-4    61   L   14   100   1N   0   1   "Colour Macro"      4     0     0
-5     1   L   15   100   1N   0   1   "Frost 1"          64     0     0
-5    61   L   16   100   1N   0   1   "Frost 2"          64     0     0
-11    1   L   17   100   1N   0   1   "Control"          10     0     0
+4    61   L   14   100   1N   0   1   "Colour Macro"      0     0     0
+5     1   L   15   100   1N   S   1   "Frost 1"           0     0     0
+5    61   L   16   100   1N   0   1   "Frost 2"           0     0     0
+11    1   L   17   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -172,43 +174,43 @@ PFEND
 
 MACRO "Lamp On"       1  17
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Lamp Off"      2  17
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset All"     3  17
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset P/T"     4  17
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Col"     5  17
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Int"     6  17
 "data"                0  5F
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Other"   7  17
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -258,7 +260,7 @@ RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 226 235  "Move in Dk"
 236 245  "All in Dark"
-246 255  "Reserved"
+246 255  "No Function"
 REND
 
 RANGE 8  ;Beam Shape
@@ -283,7 +285,7 @@ RANGE 8  ;Beam Shape
 REND
 
 RANGE 9  ;Bm Shp Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
 128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -348,13 +350,13 @@ RANGE 14  ;Colour Macro
 REND
 
 RANGE 15  ;Frost 1
-0   127  "Disable"
-128 255  "Enable"
+0   127  "Open"
+128 255  "Frost"
 REND
 
 RANGE 16  ;Frost 2
-0   127  "Disable"
-128 255  "Enable"
+0   127  "Open"
+128 255  "Frost"
 REND
 
 RANGE 17  ;Control

@@ -11,6 +11,7 @@
 ;   01-06-16   Nic Morris        Added 11 DMX mode in response to manufacturer request (no documentation - guessed just 8bit PT).
 ;   01-06-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   01-06-16   Nic Morris        Checked
+;   17-08-17   Nic Morris        Revised locate values.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -102,8 +103,8 @@ DMX
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
 2    61   L    8   100   1N   O   1   "Shutter"          47     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
-4     1   L   10   100   1N   0   1   "Rainbow"           3     0     0
-11    1   L   11   100   1N   0   1   "Control"          39     0     0
+4     1   L   10   100   1N   0   1   "Rainbow"           0     0     0
+11    1   L   11   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -198,9 +199,9 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 255  "Safe"
+0   225  "Speed %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Shutter
@@ -227,7 +228,7 @@ REND
 RANGE 11  ;Control
 0   79   "Safe"
 80  84   "Reset All"
-85  87   "Reset_P/T"
+85  87   "Reset P/T"
 88  99   "Safe"
 100 119  "Program 1"
 120 139  "Program 2"

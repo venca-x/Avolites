@@ -1,15 +1,16 @@
-; 'BriteQ Stage Beamer Mk2 Tour STR=CLAS', 13 DMX Channels, filename: UKBQSB24.R20
+; 'BriteQ Stage Beamer Mk2 TR16 STR=CLAS', 13 DMX Channels, filename: UKBQSB24.R20
 ;  Copyright © Avolites Ltd. 2015
 ;
 ;   Date       By                Description
 ;   14-06-15   Nic Morris        Created
 ;   14-06-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   14-06-15   Nic Morris        Checked
+;   20-11-16   Nic Morris        Fixed mode name
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UKBQSB24                            mode=Tour STR=CLAS  13 DMX Channels
-NAME "Misc B" "Stage Beamer Mk2 Tour STR=CLAS"
+DEVICE  UKBQSB24                            mode=TR16 STR=CLAS  13 DMX Channels
+NAME "Misc B" "Stage Beamer Mk2 TR16 STR=CLAS"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -106,7 +107,7 @@ END
 TEXT
 BriteQ
 Stage Beamer Mk2
-Tour STR=CLAS
+TR16 STR=CLAS
 
 INPUT fixture DMX No.
 Press a Fixture

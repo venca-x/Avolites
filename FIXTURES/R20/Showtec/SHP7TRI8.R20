@@ -1,16 +1,20 @@
-; 'Showtec Compact Par 7 Tri 8 DMX, 8bit', 8 DMX Channels, filename: SHP7TRI8.R20
-;  Copyright © Avolites Ltd. 2012
+; 'Showtec Compact Par 7 Tri 8 DMX', 8 DMX Channels, filename: SHP7TRI8.R20
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   06-02-12   Peter Budd        Created
-;   06-02-12   Pers Creator      Created - Exported from Diamond 4 file.
-;   06-02-12   Peter Budd        Checked
-;   02-05-12   Peter Budd        Corrected red range table.
+;   01-03-13   Peter Budd        Edited tidied up so red c-mix appears in else.
+;   11-02-14   RGB Power on UpdaterUpdated RGB Power on values to match Locate.
+;   25-05-16   AtlaBaseLibraryUpdaterAdded AltaBase information
+;   12-07-17   Nic Morris        Reordered red functions so that red c-mix is first function.  Revised speed and sensitivity wheel direction.
+;   12-07-17   Nic Morris        Fixed palettes.  Increased wheel resolution.  Re-exported R20's to fix red locate value in response to customer bug report.
+;   12-07-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-07-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  SH_PAR7TRI8                         mode=8 DMX, 8bit  8 DMX Channels
-NAME "Showtec" "Compact Par 7 Tri 8 DMX, 8bit"
+DEVICE  SH_PAR7TRI8                         mode=8 DMX  8 DMX Channels
+NAME "Showtec" "Compact Par 7 Tri 8 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -48,7 +52,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 8 DMX, 8bit"
+"Set to 8 DMX"
 ""
 ""
 DAEND
@@ -89,20 +93,20 @@ DIVBY=1
 ;
 DMX
 1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
-10    1   L    2   100   1N   T   1   "Red"             255     0     0
+2    61   L    5   100   1N   O   1   "Shutter"           0     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
 10   61   L    3   100   1N   U   1   "Green"           255   255     0
 9    61   L    4   100   1N   V   1   "Blue"            255     0   229
-2    61   L    5   100   1N   O   1   "Shutter"           4     0     0
-4    61   L    6   100   1N   0   1   "Colour Func"       0     0     0
-9     1   L    7   100   1N   0   1   "ID Address"        4     0     0
-8     1   L    8   100   1N   0   1   "Fader Respon"    125     0     0
+9     1   L    6   100   1N   0   1   "Colour Func"       0     0     0
+11    1   L    7   100   1N   0   1   "ID"                0     0     0
+8     1   L    8   100   1N   0   1   "Fader Respon"      0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Showtec
 Compact Par 7 Tri
-8 DMX, 8bit
+8 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -117,22 +121,17 @@ END
 ;----------------------------------------------------------------------------
 ; Preset Palette Tables
 
-PFTABLE "Intensity"  -1   5
-"Open"               31  84
-"Closed"             38   4
-PFEND
-
 PFTABLE "Colour"     -1   2   3   4
-"Open"                1   8  FF  FF
-"Red"                 2   8   0   0
-"Amber"               3   8  7F   0
-"Yellow"              4   8  FF   0
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
 "Green"               5   0  FF   0
 "Cyan"                6   0  FF  FF
 "Blue"                7   0   0  FF
-"Purple"              9   4   0  FF
-"Magenta"            10   8   0  FF
-"Lavender"            8   6  6E  F0
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -151,8 +150,13 @@ RANGE 1  ;Dimmer
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
+RANGE 5  ;Shutter
+0   9    "Open"
+10  255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
 RANGE 2  ;Red
-0   255  "%3d%%"100-((c-a)*100/(b-a))
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 3  ;Green
@@ -161,11 +165,6 @@ REND
 
 RANGE 4  ;Blue
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 5  ;Shutter
-0   9    "Open"
-10  255  "Strobe %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 6  ;Colour Func
@@ -183,78 +182,78 @@ RANGE 6  ;Colour Func
 250 255  "Sound"
 REND
 
-RANGE 7  ;ID Address
-0   9    "ID 1-66"
-10  19   "ID 1"
-20  29   "ID 2"
-30  39   "ID 3"
-40  49   "ID 4"
-50  59   "ID 5"
-60  69   "ID 6"
-70  79   "ID 7"
-80  89   "ID 8"
-90  99   "ID 9"
-100 109  "ID 10"
-110 119  "ID 11"
-120 129  "ID 12"
-130 139  "ID 13"
-140 149  "ID 14"
-150 159  "ID 15"
-160 169  "ID 16"
-170 179  "ID 17"
-180 189  "ID 18"
-190 199  "ID 19"
-200 209  "ID 20"
-210 210  "ID 21"
-211 211  "ID 22"
-212 212  "ID 23"
-213 213  "ID 24"
-214 214  "ID 25"
-215 215  "ID 26"
-216 216  "ID 27"
-217 217  "ID 28"
-218 218  "ID 29"
-219 219  "ID 30"
-220 220  "ID 31"
-221 221  "ID 32"
-222 222  "ID 33"
-223 223  "ID 34"
-224 224  "ID 35"
-225 225  "ID 36"
-226 226  "ID 37"
-227 227  "ID 38"
-228 228  "ID 39"
-229 229  "ID 40"
-230 230  "ID 41"
-231 231  "ID 42"
-232 232  "ID 43"
-233 233  "ID 44"
-234 234  "ID 45"
-235 235  "ID 46"
-236 236  "ID 47"
-237 237  "ID 48"
-238 238  "ID 49"
-239 239  "ID 50"
-240 240  "ID 51"
-241 241  "ID 52"
-242 242  "ID 53"
-243 243  "ID 54"
-244 244  "ID 55"
-245 245  "ID 56"
-246 246  "ID 57"
-247 247  "ID 58"
-248 248  "ID 59"
-249 249  "ID 60"
-250 250  "ID 61"
-251 251  "ID 62"
-252 252  "ID 63"
-253 253  "ID 64"
-254 254  "ID 65"
-255 255  "ID 66"
+RANGE 7  ;ID
+0   9    "All IDs"
+10  19   "ID 1-20 1"
+20  29   "ID 1-20 2"
+30  39   "ID 1-20 3"
+40  49   "ID 1-20 4"
+50  59   "ID 1-20 5"
+60  69   "ID 1-20 6"
+70  79   "ID 1-20 7"
+80  89   "ID 1-20 8"
+90  99   "ID 1-20 9"
+100 109  "ID 1-20 10"
+110 119  "ID 1-20 11"
+120 129  "ID 1-20 12"
+130 139  "ID 1-20 13"
+140 149  "ID 1-20 14"
+150 159  "ID 1-20 15"
+160 169  "ID 1-20 16"
+170 179  "ID 1-20 17"
+180 189  "ID 1-20 18"
+190 199  "ID 1-20 19"
+200 209  "ID 1-20 20"
+210 210  "ID 21-66 21"
+211 211  "ID 21-66 22"
+212 212  "ID 21-66 23"
+213 213  "ID 21-66 24"
+214 214  "ID 21-66 25"
+215 215  "ID 21-66 26"
+216 216  "ID 21-66 27"
+217 217  "ID 21-66 28"
+218 218  "ID 21-66 29"
+219 219  "ID 21-66 30"
+220 220  "ID 21-66 31"
+221 221  "ID 21-66 32"
+222 222  "ID 21-66 33"
+223 223  "ID 21-66 34"
+224 224  "ID 21-66 35"
+225 225  "ID 21-66 36"
+226 226  "ID 21-66 37"
+227 227  "ID 21-66 38"
+228 228  "ID 21-66 39"
+229 229  "ID 21-66 40"
+230 230  "ID 21-66 41"
+231 231  "ID 21-66 42"
+232 232  "ID 21-66 43"
+233 233  "ID 21-66 44"
+234 234  "ID 21-66 45"
+235 235  "ID 21-66 46"
+236 236  "ID 21-66 47"
+237 237  "ID 21-66 48"
+238 238  "ID 21-66 49"
+239 239  "ID 21-66 50"
+240 240  "ID 21-66 51"
+241 241  "ID 21-66 52"
+242 242  "ID 21-66 53"
+243 243  "ID 21-66 54"
+244 244  "ID 21-66 55"
+245 245  "ID 21-66 56"
+246 246  "ID 21-66 57"
+247 247  "ID 21-66 58"
+248 248  "ID 21-66 59"
+249 249  "ID 21-66 60"
+250 250  "ID 21-66 61"
+251 251  "ID 21-66 62"
+252 252  "ID 21-66 63"
+253 253  "ID 21-66 64"
+254 254  "ID 21-66 65"
+255 255  "ID 21-66 66"
 REND
 
 RANGE 8  ;Fader Response
-0   250  "Instant"
+0   0    "Instant"
 251 255  "Delayed"
 REND
 

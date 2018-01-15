@@ -1,10 +1,11 @@
 ; 'Terbly LPAR7QZ 6 DMX', 6 DMX Channels, filename: TBLP7QZ1.R20
-;  Copyright © Avolites Ltd. 2016
+;  Copyright © Avolites Ltd. 2017
 ;
 ;   Date       By                Description
 ;   22-05-16   Nic Morris        Created
-;   22-05-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   22-05-16   Nic Morris        Checked
+;   10-05-17   Nic Morris        Updated colour macro ranges and added LEE colours in line with latest charts in response to customer request.
+;   10-05-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   10-05-17   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed

@@ -5,6 +5,8 @@
 ;   04-01-13   Peter Budd        Created
 ;   04-01-13   Pers Creator      Created - Exported from Diamond 4 file.
 ;   04-01-13   Peter Budd        Edited ranges
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Fixed duplicate attribute type
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -99,14 +101,14 @@ DMX
 2    61   L    8   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
 5     1   L   10   100   1N   Q   1   "Zoom"            128     0     0
-4     1   L   11   100   1N   A   1   "Colour 1"          4     0     0
-4    61   I   12   100   1N   N   1   "Colour 2"          2     0     0
-2     1   L   13   100   1N   0   1   "Colour Dimme"    255     0     0
-14    1   I   14   100   1N   A   1   "Colour Macro"      0     0     0
+4     1   L   11   100   1N   A   1   "Colour 1"          0     0     0
+4    61   L   12   100   1N   N   1   "Colour 2"          0     0     0
+2     1   L   13   100   1N   0   1   "Colour Dimme"      0     0     0
+14    1   L   14   100   1N   0   1   "Colour Macro"      0     0     0
 8    61   L   15   100   1N   0   1   "Macro Speed"       0     0     0
 14   61   L   16   100   1N   0   1   "Macro Fade"        0     0     0
-20   61   L   17   100   1N   0   1   "Colour Mode"      94     0     0
-20    1   L   18   100   1N   0   1   "Control"          40     0     0
+20   61   L   17   100   1N   0   1   "Colour Mode"       0     0     0
+20    1   L   18   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -174,19 +176,19 @@ PFEND
 
 MACRO "Reset All"     1  18
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset P/T"     2  18
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
 MACRO "Reset"         3  18
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0  28
 MEND
 
@@ -224,9 +226,9 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 255  "No Func"
+0   225  "Speed %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Shutter
@@ -250,29 +252,29 @@ REND
 
 RANGE 11  ;Colour 1
 0   7    "Open"
-8   39   "Red/Ye %3d%%"(c-a)*100/(b-a)
-40  71   "Yell/G %3d%%"(c-a)*100/(b-a)
+8   39   "Rd/Yel %3d%%"(c-a)*100/(b-a)
+40  71   "Yel/Gr %3d%%"(c-a)*100/(b-a)
 72  103  "Grn/Cy %3d%%"(c-a)*100/(b-a)
-104 135  "Cyn/Bl %3d%%"(c-a)*100/(b-a)
-136 167  "Bl/Mg %3d%%"(c-a)*100/(b-a)
-168 199  "Magent %3d%%"(c-a)*100/(b-a)
-200 231  "Red/Wh %3d%%"(c-a)*100/(b-a)
+104 135  "Cy/Blu %3d%%"(c-a)*100/(b-a)
+136 167  "Bl/Mag %3d%%"(c-a)*100/(b-a)
+168 199  "Mag/Rd %3d%%"(c-a)*100/(b-a)
+200 231  "Rd/Wht %3d%%"(c-a)*100/(b-a)
 232 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 12  ;Colour 2
 0   4    "Open"
-5   9    "2700K"
-10  14   "3200K"
-15  19   "4300K"
-20  24   "5600K"
-25  29   "6500K"
-30  34   "8000K"
+5   9    "White 2700K"
+10  14   "White 3200K"
+15  19   "White 4300K"
+20  24   "White 5600K"
+25  29   "White 6500K"
+30  34   "White 8000K"
 35  39   "Red"
 40  44   "Green"
 45  49   "Blue"
 50  54   "Open"
-55  59   "Yellow"
+55  59   "Warm Yellow"
 60  64   "Yellow"
 65  69   "Magenta"
 70  74   "Cyan"
@@ -282,14 +284,14 @@ RANGE 12  ;Colour 2
 90  94   "Steel"
 95  99   "Orange"
 100 104  "Straw"
-105 109  "Pale Lavand"
+105 109  "Pale Lav"
 110 114  "Pink"
 115 119  "Red/White"
 120 124  "Green/Red"
 125 129  "Blue/Red"
 130 134  "White/Red"
 135 139  "White/Pink"
-140 144  "White/Turqu"
+140 144  "White/Turq"
 145 149  "Red/White"
 150 255  "Open"
 REND

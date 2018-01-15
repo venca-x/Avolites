@@ -4,6 +4,7 @@
 ;   Date       By                Description
 ;   08-03-10   Pers Creator      Created - Exported from Diamond 4 file.
 ;   08-03-10   John Rogers       Checked.
+;   17-08-17   Nic Morris        Revised attribute types.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -86,9 +87,9 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-10    1   L    1   100   1N   0   1   "Red"             255   255     0
-10   61   L    2   100   1N   0   1   "Green"           255   255     0
-9    61   L    3   100   1N   0   1   "Blue"            255     0   229
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
 1     1   H    4   100   1N   H   1   "Dimmer"          255     0     0
 END
 ;

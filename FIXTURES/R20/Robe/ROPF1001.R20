@@ -6,6 +6,7 @@
 ;   20-02-14   Pers Creator      Created - Exported from Diamond 4 file.
 ;   20-02-14   Nic Morris        Checked
 ;   19-07-15   Nic Morris        Moved dimmer low into separate attribute in response to customer bug report
+;   17-12-16   Nic Morris        Revised dimmer range to try and fix display in response to customer bug report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -265,6 +266,6 @@ RANGE 12  ;Shutter
 REND
 
 RANGE 13  ;Dimmer
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

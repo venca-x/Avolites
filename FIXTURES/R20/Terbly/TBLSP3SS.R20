@@ -5,6 +5,8 @@
 ;   27-05-15   Nic Morris        Created
 ;   27-05-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   27-05-15   Nic Morris        Checked
+;   15-08-17   Nic Morris        Increased macro delay and revised gobo 1 rot ranges in response to bug report
+;   17-08-17   Nic Morris        Revised locate values.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -97,20 +99,20 @@ DMX
 0     0   L   24   100   1N   F   1   "Tilt Low"        128     0     0
 8    61   L    7   100   1N   0   1   "P/T Speed"         0     0     0
 18    1   L    8   100   1N   0   1   "Col Speed"         0     0     0
-4     1   L    9   100   1N   A   1   "Colour"            7     0     0
-6     1   L   10   100   1N   I   1   "Gobo 1"            4     0     0
+4     1   L    9   100   1N   A   1   "Colour"            0     0     0
+6     1   L   10   100   1N   I   1   "Gobo 1"            0     0     0
 7     1   L   11   100   1N   K   1   "Gobo 1 Rot"        0     0     0
-6    61   L   12   100   1N   J   1   "Gobo 2"            6     0     0
-9     1   L   13   100   1N   P   1   "Prism"            32     0     0
+6    61   L   12   100   1N   J   1   "Gobo 2"            0     0     0
+9     1   L   13   100   1N   P   1   "Prism"             0     0     0
 8     1   L   14   100   1N   R   1   "Prism Rot"         0     0     0
 2    61   L   15   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
-11   61   L   17   100   1N   0   1   "Dim Mode"         10     0     0
+11   61   L   17   100   1N   0   1   "Dim Mode"          0     0     0
 5     1   L   18   100   1N   L   1   "Focus"           128     0     0
 5    61   L   19   100   1N   Q   1   "Zoom"            128     0     0
-15    1   L   20   100   1N   S   1   "Frost"            64     0     0
+15    1   L   20   100   1N   S   1   "Frost"             0     0     0
 2     1   L   21   100   1N   G   1   "Iris"              0     0     0
-11    1   L   22   100   1N   0   1   "Control"          10     0     0
+11    1   L   22   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -193,31 +195,31 @@ PFEND
 
 MACRO "Reset All"     1  22
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset P/T"     2  22
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Col"     3  22
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Gobo"    4  22
 "data"                0  5C
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Other"   5  22
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -257,7 +259,7 @@ REND
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
 226 235  "Move in Dk"
-236 255  "Reserved"
+236 255  "No Function"
 REND
 
 RANGE 8  ;Col Speed
@@ -296,8 +298,9 @@ RANGE 10  ;Gobo 1
 REND
 
 RANGE 11  ;Gobo 1 Rot
-0   127  "Idx %3d%%"(c-a)*100/(b-a)
-128 193  "Sp CW  %3d%%"(c-a)*100/(b-a)
+0   127  "Index  %3d%%"(c-a)*100/(b-a)
+128 189  "Sp CW  %3d%%"(c-a)*100/(b-a)
+190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
@@ -381,12 +384,12 @@ RANGE 19  ;Zoom
 REND
 
 RANGE 20  ;Frost
-0   127  "Disable"
-128 255  "Enable"
+0   127  "Open"
+128 255  "Frost"
 REND
 
 RANGE 21  ;Iris
-0   191  "Iris %3d%%"(c-a)*100/(b-a)
+0   191  "Iris   %3d%%"(c-a)*100/(b-a)
 192 223  "Cl Pls %3d%%"(c-a)*100/(b-a)
 224 255  "Op Pls %3d%%"(c-a)*100/(b-a)
 REND

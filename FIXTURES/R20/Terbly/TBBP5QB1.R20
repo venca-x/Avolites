@@ -5,6 +5,7 @@
 ;   23-05-15   Nic Morris        Created
 ;   15-06-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   15-06-16   Nic Morris        Checked
+;   17-08-17   Nic Morris        Revised shutter functions.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,7 +88,7 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-2    61   L    8   100   1N   O   1   "Shutter"          47     0     0
+2    61   L    8   100   1N   O   1   "Shutter"          48     0     0
 1     1   H    9   100   1N   H   1   "Dimmer"          255     0     0
 10    1   L    1   100   1N   T   1   "Red"             255   255     0
 10   61   L    2   100   1N   U   1   "Green"           255   255     0
@@ -154,8 +155,11 @@ RANGE 8  ;Shutter
 0   31   "Closed"
 32  63   "Open"
 64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
 128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
 192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
 REND
 
 RANGE 9  ;Dimmer

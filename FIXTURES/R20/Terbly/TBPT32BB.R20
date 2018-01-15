@@ -5,6 +5,8 @@
 ;   12-07-13   Peter Budd        Created
 ;   12-07-13   Pers Creator      Created - Exported from Diamond 4 file.
 ;   04-04-16   Nic Morris        Changed prism to locate at zero in attempt to fix manufacturer bug report
+;   15-08-17   Nic Morris        Increased macro delay in response to bug report
+;   17-08-17   Nic Morris        Corrected frost and focus attribute types.  Revised function names.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -87,20 +89,20 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-4     1   I    1   100   1N   A   1   "Colour"            7     0     0
-6     1   I    2   100   1N   I   1   "Gobo 1"            4     0     0
+4     1   L    1   100   1N   A   1   "Colour"            0     0     0
+6     1   L    2   100   1N   I   1   "Gobo 1"            0     0     0
 7     1   L    3   100   1N   K   1   "Gobo 1 Rot"        0     0     0
-6    61   I    4   100   1N   J   1   "Gobo 2"            3     0     0
+6    61   L    4   100   1N   J   1   "Gobo 2"            0     0     0
 3    61   L    5   100   1N   E   1   "Pan"             128     0     0
 3     1   L    6   100   1N   F   1   "Tilt"            128     0     0
 8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
-9     1   I    8   100   1N   P   1   "Prism"             0     0     0
+9     1   L    8   100   1N   P   1   "Prism"             0     0     0
 9    61   L    9   100   1N   R   1   "Prism Rot"         0     0     0
-5     1   L   10   100   1N   Q   1   "Focus"           128     0     0
+5     1   L   10   100   1N   L   1   "Focus"           128     0     0
 2    61   L   11   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   12   100   1N   H   1   "Dimmer"          255     0     0
-5    61   L   13   100   1N   L   1   "Frost"            64     0     0
-10    1   L   14   100   1N   0   1   "Control"          10     0     0
+5    61   L   13   100   1N   S   1   "Frost"             0     0     0
+10    1   L   14   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -167,49 +169,49 @@ PFEND
 
 MACRO "Lamp On"       1  14
 "data"                0  32
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Lamp Off"      2  14
 "data"                0  46
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset"         3  14
 "data"                0  52
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset P/T"     4  14
 "data"                0  56
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Colour"  5  14
 "data"                0  59
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Gobo"    6  14
 "data"                0  5C
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Shutter"  7  14
 "data"                0  5F
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
 MACRO "Reset Other"   8  14
 "data"                0  62
-"delay"               1  3C
+"delay"               1  C8
 "data"                0   A
 MEND
 
@@ -247,14 +249,14 @@ RANGE 2  ;Gobo 1
 60  69   "Gobo 6"
 70  79   "Gobo 7"
 80  89   "Gobo 8"
-90  104  "Gobo 1 %3d%%"(c-a)*100/(b-a)
-105 119  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-120 134  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-135 149  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-150 164  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-165 179  "Gobo 6 %3d%%"(c-a)*100/(b-a)
-180 194  "Gobo 7 %3d%%"(c-a)*100/(b-a)
-195 209  "Gobo 8 %3d%%"(c-a)*100/(b-a)
+90  104  "G1 Sk %3d%%"(c-a)*100/(b-a)
+105 119  "G2 Sk %3d%%"(c-a)*100/(b-a)
+120 134  "G3 Sk %3d%%"(c-a)*100/(b-a)
+135 149  "G4 Sk %3d%%"(c-a)*100/(b-a)
+150 164  "G5 Sk %3d%%"(c-a)*100/(b-a)
+165 179  "G6 Sk %3d%%"(c-a)*100/(b-a)
+180 194  "G7 Sk %3d%%"(c-a)*100/(b-a)
+195 209  "G8 Sk %3d%%"(c-a)*100/(b-a)
 210 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
@@ -280,19 +282,19 @@ RANGE 4  ;Gobo 2
 88  95   "Gobo 11"
 96  103  "Gobo 12"
 104 111  "Gobo 13"
-112 119  "Gobo 1 %3d%%"(c-a)*100/(b-a)
-120 127  "Gobo 2 %3d%%"(c-a)*100/(b-a)
-128 135  "Gobo 3 %3d%%"(c-a)*100/(b-a)
-136 143  "Gobo 4 %3d%%"(c-a)*100/(b-a)
-144 151  "Gobo 5 %3d%%"(c-a)*100/(b-a)
-152 159  "Gobo 6 %3d%%"(c-a)*100/(b-a)
-160 167  "Gobo 7 %3d%%"(c-a)*100/(b-a)
-168 175  "Gobo 8 %3d%%"(c-a)*100/(b-a)
-176 183  "Gobo 9 %3d%%"(c-a)*100/(b-a)
-184 191  "Gobo10 %3d%%"(c-a)*100/(b-a)
-192 199  "Gobo11 %3d%%"(c-a)*100/(b-a)
-200 207  "Gobo12 %3d%%"(c-a)*100/(b-a)
-208 215  "Gobo13 %3d%%"(c-a)*100/(b-a)
+112 119  "G1  Sk %3d%%"(c-a)*100/(b-a)
+120 127  "G2  Sk %3d%%"(c-a)*100/(b-a)
+128 135  "G3  Sk %3d%%"(c-a)*100/(b-a)
+136 143  "G4  Sk %3d%%"(c-a)*100/(b-a)
+144 151  "G5  Sk %3d%%"(c-a)*100/(b-a)
+152 159  "G6  Sk %3d%%"(c-a)*100/(b-a)
+160 167  "G7  Sk %3d%%"(c-a)*100/(b-a)
+168 175  "G8  Sk %3d%%"(c-a)*100/(b-a)
+176 183  "G9  Sk %3d%%"(c-a)*100/(b-a)
+184 191  "G10 Sk %3d%%"(c-a)*100/(b-a)
+192 199  "G11 Sk %3d%%"(c-a)*100/(b-a)
+200 207  "G12 Sk %3d%%"(c-a)*100/(b-a)
+208 215  "G13 Sk %3d%%"(c-a)*100/(b-a)
 216 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
@@ -305,9 +307,9 @@ RANGE 6  ;Tilt
 REND
 
 RANGE 7  ;P/T Speed
-0   225  "%3d%%"100-((c-a)*100/(b-a))
-226 235  "BO on P/T"
-236 245  "BO on All"
+0   225  "Speed %3d%%"(c-a)*100/(b-a)
+226 235  "Move in Dk"
+236 245  "All in Dark"
 246 255  "No Function"
 REND
 
@@ -364,16 +366,16 @@ RANGE 13  ;Frost
 REND
 
 RANGE 14  ;Control
-0   19   "Colour Norm"
-20  29   "Colour Inde"
-30  39   "Colour and "
+0   19   "Col Fixed"
+20  29   "Col Index"
+30  39   "C/G Index"
 40  59   "Lamp On"
 60  79   "Lamp Off"
 80  84   "Reset"
 85  87   "Reset P/T"
-88  90   "Reset Colou"
+88  90   "Reset Col"
 91  93   "Reset Gobo"
-94  96   "Reset Shutt"
+94  96   "Reset Shut"
 97  99   "Reset Other"
 100 119  "Macro 1"
 120 139  "Macro 2"

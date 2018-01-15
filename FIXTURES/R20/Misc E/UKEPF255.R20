@@ -1,15 +1,16 @@
-; 'Epsilon Pro FlexCube25 117 DMX p3', 39 DMX Channels, filename: UKEPF255.R20
+; 'Epsilon Pro FlexCube25 116 DMX p3', 39 DMX Channels, filename: UKEPF255.R20
 ;  Copyright © Avolites Ltd. 2015
 ;
 ;   Date       By                Description
 ;   09-12-15   Nic Morris        Created
 ;   09-12-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   09-12-15   Nic Morris        Checked
+;   02-03-17   Nic Morris        Fixed channel count in mode name
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UKEPF255                            mode=117 DMX p3  39 DMX Channels
-NAME "Misc E" "Epsilon P FlexCube25 117 DMX p3"
+DEVICE  UKEPF255                            mode=116 DMX p3  39 DMX Channels
+NAME "Misc E" "Epsilon P FlexCube25 116 DMX p3"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -47,7 +48,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 117 DMX p3"
+"Set to 116 DMX p3"
 ""
 ""
 DAEND
@@ -132,7 +133,7 @@ END
 TEXT
 Epsilon Pro
 FlexCube25
-117 DMX p3
+116 DMX p3
 
 INPUT fixture DMX No.
 Press a Fixture

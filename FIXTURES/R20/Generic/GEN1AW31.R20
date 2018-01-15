@@ -6,11 +6,12 @@
 ;   28-07-11   Pers Creator      Created - Exported from Diamond 4 file.
 ;   28-07-11   Nic MOrris        Checked.
 ;   19-04-12   Pers Updater      Updated Long Light Name
+;   01-12-16   Nic Morris        Shortened long name to fit within limits
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  GEN_1AW31                           mode=R,G,B,A,W,x,x,D,x,x  10 DMX Channels
-NAME "Generic" "RGBAW, 10 DMX R,G,B,A,W,x,x,D,x,x"
+NAME "Generic" "RGBAW 10ch R,G,B,A,W,x,x,D,x,x"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

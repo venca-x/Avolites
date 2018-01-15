@@ -1,7 +1,7 @@
 ; "Martin Mac 600NT", 15 DMX channels, filename :mt600NT.r20
 ;
 ;   Date      By          Description
-;   11-19-00  B.White     Created from the standard 600 file
+;   11-09-00  B.White     Created from the standard 600 file
 ;   27-02-02   Edward     Changed Lamp OFF and RESET to overwrite function if disabled on fixture.
 ;   24-05-02   Edward     Modified CMY for visulaiser
 ;   06-08-04   Phil       Updated range tables to meet D4 standard names

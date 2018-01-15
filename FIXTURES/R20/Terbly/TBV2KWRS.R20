@@ -11,6 +11,7 @@
 ;   21-05-16   Nic Morris        Created from Terbly V1400W-ER
 ;   21-05-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   21-05-16   Nic Morris        Checked
+;   17-08-17   Nic Morris        Revised shutter locate.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -106,7 +107,7 @@ DMX
 4     1   L    9   100   1N   A   1   "Colour 1"          0     0     0
 4    61   L   10   100   1N   N   1   "Colour 2"          0     0     0
 5     1   L   11   100   1N   Q   1   "Zoom"            127     0     0
-2    61   L   12   100   1N   O   1   "Shutter"          31     0     0
+2    61   L   12   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   13   100   1N   H   1   "Dimmer"          255     0     0
 8    61   L   14   100   1N   0   1   "Speed"             0     0     0
 6     1   L   15   100   1N   0   1   "Macros"            0     0     0
@@ -257,9 +258,9 @@ REND
 
 RANGE 7  ;P/T Speed
 0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-226 235  "BO Move"
-236 245  "BO All"
-246 255  "Safe"
+226 235  "Move in Dk"
+236 245  "All in Dark"
+246 255  "No Function"
 REND
 
 RANGE 8  ;P/T Mode
@@ -314,7 +315,7 @@ RANGE 14  ;Speed
 REND
 
 RANGE 15  ;Macros
-0   7    "Safe"
+0   7    "Open"
 8   15   "Macro 1"
 16  23   "Macro 2"
 24  31   "Macro 3"

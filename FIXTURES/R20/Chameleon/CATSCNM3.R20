@@ -1,14 +1,16 @@
 ; "Chameleon Telescan Mk3", 20 DMX channels, filename :Catscnm3.r20
 ;  Copyright © Avolites Ltd. 2008
 ;
-;   Date      By            Description
-;   04-09-01  Edward        Created
-;   05-09-01  Edward        Revised atributes
-;   12-07-15  Nic Morris    Changed device name to match shortcode standards
+;   Date      By              Description
+;   04-09-01  Edward          Created
+;   05-09-01  Edward          Revised atributes
+;   12-07-15  Nic Morris      Changed device name to match shortcode standards
+;   16-11-16  Gregory Haynes  Added name field.
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  CETSCNM3                                 20 DMX channels
+NAME "Chameleon" "Telescan Mk3"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility

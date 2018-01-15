@@ -7,6 +7,7 @@
 ;   11-10-16   Nic Morris        Updated to release spec (completely different!)
 ;   11-10-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   11-10-16   Nic Morris        Checked
+;   12-11-16   Nic Morris        Fixed duplicate DMX range in response to auto gen report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -272,8 +273,7 @@ RANGE 8  ;Cyan
 REND
 
 RANGE 9  ;Magenta
-0   127  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-127 127  "Magenta"
+0   127  "Mag %3d%%"(c-a)*100/(b-a)
 128 132  "Mag/ P Rs"
 133 137  "Pale Rose"
 138 142  "P Rs/ Tan"
@@ -291,8 +291,7 @@ RANGE 9  ;Magenta
 REND
 
 RANGE 10  ;Yellow
-0   127  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-127 127  "Yellow"
+0   127  "Yel %3d%%"(c-a)*100/(b-a)
 128 132  "Yel/ L Grn"
 133 137  "Light Green"
 138 142  "L Grn/ D Gr"
