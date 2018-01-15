@@ -1,0 +1,343 @@
+; 'Lanling LV381RGB', 9 DMX Channels, filename: UKLLV381.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   26-04-17   Nic Morris        Created
+;   26-04-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-04-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKLLV381                            mode=9 DMX  9 DMX Channels
+NAME "Misc L" "Lanling LV381RGB"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  9  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 9 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=503
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+11    1   L    1   100   1N   0   1   "Mode"             74     0     0
+6     1   L    2   100   1N   0   1   "Pattern"           0     0     0
+3    61   L    3   100   1N   E   1   "X-Pos"           127     0     0
+3     1   L    4   100   1N   F   1   "Y-Pos"           127     0     0
+8     1   L    5   100   1N   0   1   "Scan Speed"        0     0     0
+7     1   L    6   100   1N   0   1   "Pattern Spd"     128     0     0
+5     1   L    7   100   1N   Q   1   "Pattern Size"    127     0     0
+4     1   L    8   100   1N   A   1   "Colour Selec"      0     0     0
+4    61   L    9   100   1N   0   1   "Colour Segme"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Lanling LV381RGB
+9 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Mode
+0   49   "Laser Off"
+50  99   "DMX Static"
+100 149  "DMX Dynamic"
+150 199  "Sound"
+200 255  "Auto"
+REND
+
+RANGE 3  ;X-Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Y-Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Scan Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Pattern Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Pattern Size
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Colour Select
+0   1    "W"
+2   3    "P"
+4   5    "C"
+6   7    "Y"
+8   9    "B"
+10  11   "R"
+12  13   "G"
+14  15   "WP"
+16  17   "WC"
+18  19   "WY"
+20  21   "PC"
+22  23   "PY"
+24  25   "PB"
+26  27   "CY"
+28  29   "CB"
+30  31   "CR"
+32  33   "YB"
+34  35   "YR"
+36  37   "YG"
+38  39   "BR"
+40  41   "BG"
+42  43   "BW"
+44  45   "RG"
+46  47   "RP"
+48  49   "RW"
+50  51   "GC"
+52  53   "GP"
+54  55   "GW"
+56  57   "WPC"
+58  59   "WPY"
+60  61   "WPB"
+62  63   "WPR"
+64  65   "WPG"
+66  67   "PCY"
+68  69   "PCB"
+70  71   "PCR"
+72  73   "PCG"
+74  75   "PYB"
+76  77   "CYB"
+78  79   "CYR"
+80  81   "CYG"
+82  83   "CBR"
+84  85   "CBW"
+86  87   "YBR"
+88  89   "YBG"
+90  91   "YBW"
+92  93   "YCW"
+94  95   "YPR"
+96  97   "BRG"
+98  99   "BRP"
+100 101  "BRW"
+102 103  "BGP"
+104 105  "BGW"
+106 107  "RGC"
+108 109  "RGP"
+110 111  "RGW"
+112 113  "RWC"
+114 115  "RWY"
+116 117  "GWC"
+118 119  "GWY"
+120 121  "GPY"
+122 123  "GBC"
+124 125  "GRY"
+126 127  "WPCY"
+128 129  "WPCB"
+130 131  "WPCR"
+132 133  "WPCG"
+134 135  "WPYB"
+136 137  "PCYB"
+138 139  "PCYR"
+140 141  "PCYG"
+142 143  "PCBR"
+144 145  "PCBG"
+146 147  "CYBR"
+148 149  "CYBG"
+150 151  "CYRG"
+152 153  "CYRW"
+154 155  "CYRB"
+156 157  "YBRG"
+158 159  "YBRW"
+160 161  "YBRP"
+162 163  "YBWC"
+164 165  "YBPC"
+166 167  "BRGW"
+168 169  "BRGP"
+170 171  "BRGC"
+172 173  "BRWP"
+174 175  "BRWC"
+176 177  "RGWP"
+178 179  "RGWC"
+180 181  "RGWY"
+182 183  "RGPC"
+184 185  "RGPY"
+186 187  "GWPY"
+188 189  "GWPB"
+190 191  "GWPR"
+192 193  "GWCY"
+194 195  "CWCB"
+196 197  "WPCYB"
+198 199  "WPCYR"
+200 201  "WPCYG"
+202 203  "PCYBR"
+204 205  "PCYBG"
+206 207  "PCBRG"
+208 209  "CYBRG"
+210 211  "CYBRW"
+212 213  "CYBGW"
+214 215  "YBRGW"
+216 217  "YBRGP"
+218 219  "YBRWP"
+220 221  "BRGWP"
+222 223  "BRGWC"
+224 225  "BRWPC"
+226 227  "RGWPC"
+228 229  "RGWPY"
+230 231  "RGWCY"
+232 233  "GWPCB"
+234 235  "GWPYB"
+236 237  "GPCYR"
+238 239  "WPCYBR"
+240 241  "PCYBRG"
+242 243  "CYBRGW"
+244 245  "YBRGWP"
+246 247  "BRGWPC"
+248 249  "RGWPCY"
+250 251  "GWPCYB"
+252 253  "WPCYBRG"
+254 255  "WPCYBRG Mov"
+REND
+
+RANGE 9  ;Colour Segment
+0   4    "1"
+5   9    "2"
+10  14   "3"
+15  19   "4"
+20  24   "5"
+25  29   "6"
+30  34   "7"
+35  39   "8"
+40  44   "9"
+45  49   "10"
+50  54   "11"
+55  59   "12"
+60  64   "13"
+65  69   "14"
+70  74   "15"
+75  79   "16"
+80  84   "17"
+85  89   "18"
+90  94   "19"
+95  99   "20"
+100 104  "21"
+105 109  "22"
+110 114  "23"
+115 119  "24"
+120 124  "25"
+125 130  "26"
+131 135  "27"
+136 140  "28"
+141 145  "29"
+146 150  "30"
+151 155  "31"
+156 160  "32"
+161 165  "33"
+166 170  "34"
+171 175  "35"
+176 180  "36"
+181 185  "37"
+186 190  "38"
+191 195  "39"
+196 200  "40"
+201 205  "41"
+206 210  "42"
+211 215  "43"
+216 220  "44"
+221 225  "45"
+226 230  "46"
+231 235  "47"
+236 240  "48"
+241 245  "49"
+246 250  "50"
+251 255  "51"
+REND
+

@@ -1,0 +1,266 @@
+; 'LEDJ Light Brick 16 DMX', 16 DMX Channels, filename: LJLTBRK5.R20
+;  Copyright © Avolites Ltd. 2014
+;
+;   Date       By                Description
+;   09-11-14   Nic Morris        Created
+;   09-11-14   Pers Creator      Created - Exported from Diamond 4 file.
+;   09-11-14   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  LJLTBRK5                            mode=16 DMX  16 DMX Channels
+NAME "LedJ" "Light Brick 16 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   L    1   100   1N   0   1   "Macro"             4     0     0
+10    1   L    2   100   1N   T   1   "Red 1"           255   255     0
+10   61   L    3   100   1N   U   1   "Green 1"         255   255     0
+9    61   L    4   100   1N   V   1   "Blue 1"          255     0   229
+8     1   L    5   100   1N   0   1   "Red 2"           255   255     0
+8    61   L    6   100   1N   0   1   "Green 2"         255   255     0
+9     1   L    7   100   1N   0   1   "Blue 2"          255     0   229
+7     1   L    8   100   1N   0   1   "Red 3"           255   255     0
+7    61   L    9   100   1N   0   1   "Green 3"         255   255     0
+6    61   L   10   100   1N   0   1   "Blue 3"          255     0   229
+5     1   L   11   100   1N   0   1   "Red 4"           255   255     0
+5    61   L   12   100   1N   0   1   "Green 4"         255   255     0
+6     1   L   13   100   1N   0   1   "Blue 4"          255     0   229
+4    61   L   14   100   1N   0   1   "Colour Macro"      4     0     0
+2    61   L   15   100   1N   O   1   "Shutter"           0     0     0
+1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+LEDJ Light Brick
+16 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  15
+"Closed"             38  7F
+PFEND
+
+PFTABLE "Colour"     -1   2   5   8  11   3   6   9  12   4   7  10  13
+"Open"                1  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF
+"Red"                 2  FF  FF  FF  FF   0   0   0   0   0   0   0   0
+"Amber"               3  FF  FF  FF  FF  7F  7F  7F  7F   0   0   0   0
+"Yellow"              4  FF  FF  FF  FF  FF  FF  FF  FF   0   0   0   0
+"Green"               5   0   0   0   0  FF  FF  FF  FF   0   0   0   0
+"Cyan"                6   0   0   0   0  FF  FF  FF  FF  FF  FF  FF  FF
+"Blue"                7   0   0   0   0   0   0   0   0  FF  FF  FF  FF
+"Purple"              9  7F  7F  7F  7F   0   0   0   0  FF  FF  FF  FF
+"Magenta"            10  FF  FF  FF  FF   0   0   0   0  FF  FF  FF  FF
+"Lavender"            8  B5  B5  B5  B5  6E  6E  6E  6E  F0  F0  F0  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Macro
+0   7    "Safe"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 143  "Macro 17"
+144 151  "Macro 18"
+152 159  "Macro 19"
+160 167  "Macro 20"
+168 175  "Macro 21"
+176 183  "Macro 22"
+184 191  "Macro 23"
+192 199  "Macro 24"
+200 207  "Macro 25"
+208 215  "Macro 26"
+216 223  "Macro 27"
+224 231  "Macro 28"
+232 239  "Macro 29"
+240 247  "Sound"
+REND
+
+RANGE 2  ;Red 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Red 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Green 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Blue 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Red 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Green 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Blue 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Red 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Green 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Blue 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Colour Macro
+0   7    "Open"
+8   15   "Red"
+16  23   "Green"
+24  31   "Blue"
+32  39   "Yellow"
+40  47   "Pink"
+48  55   "Turquoise"
+56  63   "Cold White"
+64  71   "Yellow Grn"
+72  79   "Light Pink"
+80  87   "Light Blue"
+88  95   "Golden Yell"
+96  103  "Light Blue"
+104 111  "Light Pink"
+112 119  "Pink"
+120 127  "Green Blue"
+128 135  "Neutral Wht"
+136 195  "Fade %3d%%"(c-a)*100/(b-a)
+196 255  "Change %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 15  ;Shutter
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

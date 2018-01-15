@@ -1,0 +1,399 @@
+; 'Terbly OK190Z-R Extended, 42 DMX', 42 DMX Channels, filename: TBOK190X.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   04-01-13   Peter Budd        Created
+;   11-02-14   RGB Power on UpdaterUpdated RGB Power on values to match Locate.
+;   14-04-16   Nic Morris        Changed colour macro, macro speed and macro fade to effect group and moved wheel slot accordingly in respones to manufacturer request.
+;   20-04-16   Nic Morris        Increased macro delay in response to manufacturer bug report.
+;   15-08-17   Nic Morris        Increased wheel resolution.  Standardised macro speed wheel directions.
+;   15-08-17   Nic Morris        Exported Standard and Extended R20 modes.
+;   15-08-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   15-08-17   Nic Morris        Checked
+;   17-08-17   Nic Morris        Minor tweak to control locate value.  Split 16bit dimmer into 2x 8bit controls for compatibility.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  TB_OK190ZRX                         mode=Extended, 42 DMX  42 DMX Channels
+NAME "Terbly" "OK190Z-R Extended, 42 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  42  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Extended, 42 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=470
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   28   100   1N   O   1   "Shutter"          47     0     0
+1     1   H   29   100   1N   H   1   "Dimmer"          255     0     0
+11    1   H   30   100   1N   0   1   "Dimmer Low"      255     0     0
+2     1   L   35   100   1N   0   1   "Col Preset D"      0     0     0
+3    61   s    5   100   1N   E   1   "Pan"             127     0     0
+0     0   L   41   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    6   100   1N   F   1   "Tilt"            127     0     0
+0     0   L   42   100   1N   F   1   "Tilt Low"        127     0     0
+20    1   s    1   100   1N   0   1   "Red 1"           255   255     0
+0     0   L    2   100   1N   0   1   "Red 1 Low"       255   255     0
+20   61   s    3   100   1N   0   1   "Green 1"         255   255     0
+0     0   L    4   100   1N   0   1   "Green 1 Low"     255   255     0
+19   61   s    8   100   1N   0   1   "Blue 1"          255     0   230
+0     0   L    9   100   1N   0   1   "Blue 1 Low"      255     0   230
+19    1   s   10   100   1N   0   1   "White 1"           0     0     0
+0     0   L   11   100   1N   0   1   "White 1 Low"       0     0     0
+18    1   s   12   100   1N   0   1   "Red 2"           255   255     0
+0     0   L   13   100   1N   0   1   "Red 2 Low"       255   255     0
+18   61   s   14   100   1N   0   1   "Green 2"         255   255     0
+0     0   L   15   100   1N   0   1   "Green 2 Low"     255   255     0
+17   61   s   16   100   1N   0   1   "Blue 2"          255     0   230
+0     0   L   17   100   1N   0   1   "Blue 2 Low"      255     0   230
+17    1   s   18   100   1N   0   1   "White 2"           0     0     0
+0     0   L   19   100   1N   0   1   "White 2 Low"       0     0     0
+16    1   s   20   100   1N   0   1   "Red 3"           255   255     0
+0     0   L   21   100   1N   0   1   "Red 3 Low"       255   255     0
+16   61   s   22   100   1N   0   1   "Green 3"         255   255     0
+0     0   L   23   100   1N   0   1   "Green 3 Low"     255   255     0
+15   61   s   24   100   1N   0   1   "Blue 3"          255     0   230
+0     0   L   25   100   1N   0   1   "Blue 3 Low"      255     0   230
+15    1   s   26   100   1N   0   1   "White 3"           0     0     0
+0     0   L   27   100   1N   0   1   "White 3 Low"       0     0     0
+4    61   L   33   100   1N   0   1   "Colour Macro"      0     0     0
+4     1   L   34   100   1N   0   1   "Col Preset"        0     0     0
+5     1   s   31   100   1N   Q   1   "Zoom"            127     0     0
+0     0   L   32   100   1N   Q   1   "Zoom Low"        127     0     0
+6     1   L   36   100   1N   0   1   "Macro"             0     0     0
+6    61   L   37   100   1N   0   1   "Macro Speed"     128     0     0
+7    61   L   38   100   1N   0   1   "Macro Fade"        0     0     0
+8    61   L    7   100   1N   0   1   "P/T Speed"         0     0     0
+12   61   L   39   100   1N   0   1   "Colour Mode"       0     0     0
+11   61   L   40   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Terbly OK190Z-R
+Extended, 42 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  28
+"Open"               31  20
+"Slow Strobe"        32  4F
+"Fast Strobe"        33  5F
+"Slow Random Strobe"  34  EF
+"Fast Random Strobe"  35  FF
+"Slow Pulse"         36  8F
+"Fast Pulse"         37  9F
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   5   6
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Beam"       -1  31
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset All"     1  40
+"data"                0  52
+"delay"               1  50
+"data"                0  27
+MEND
+
+MACRO "Reset P/T"     2  40
+"data"                0  56
+"delay"               1  50
+"data"                0  27
+MEND
+
+MACRO "Reset Other"   3  40
+"data"                0  62
+"delay"               1  50
+"data"                0  27
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 28  ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
+128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
+192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
+REND
+
+RANGE 29  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;Col Preset Dim
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Red 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blue 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;White 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Red 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Green 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Blue 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;White 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Red 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Green 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Blue 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;White 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Colour Macro
+0   7    "Open"
+8   39   "Rd/Yel %3d%%"(c-a)*100/(b-a)
+40  71   "Yel/Gr %3d%%"(c-a)*100/(b-a)
+72  103  "Grn/Cy %3d%%"(c-a)*100/(b-a)
+104 135  "Cy/Blu %3d%%"(c-a)*100/(b-a)
+136 167  "Bl/Mag %3d%%"(c-a)*100/(b-a)
+168 199  "Mag/Rd %3d%%"(c-a)*100/(b-a)
+200 231  "Rd/Wht %3d%%"(c-a)*100/(b-a)
+232 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 34  ;Col Preset
+0   4    "Open"
+5   9    "White 2700K"
+10  14   "White 3200K"
+15  19   "White 4300K"
+20  24   "White 5600K"
+25  29   "White 6500K"
+30  34   "White 8000K"
+35  39   "Red"
+40  44   "Green"
+45  49   "Blue"
+50  54   "Natural Wht"
+55  59   "Full White"
+60  64   "Yellow"
+65  69   "Magenta"
+70  74   "Cyan"
+75  79   "Pale Pink"
+80  84   "Turquoise"
+85  89   "Light Green"
+90  94   "Steel"
+95  99   "Orange"
+100 104  "Straw"
+105 109  "Pale Lav"
+110 114  "Pink"
+115 119  "Red/ White"
+120 124  "Green/ Red"
+125 129  "Blue/ Red"
+130 134  "White/ Red"
+135 139  "White/ Pink"
+140 144  "White/ Turq"
+145 149  "Red/ White"
+150 255  "Open"
+REND
+
+RANGE 31  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 36  ;Macro
+0   0    "No Macro"
+1   14   "Closed"
+15  30   "Macro 1"
+31  46   "Macro 2"
+47  62   "Macro 3"
+63  78   "Macro 4"
+79  94   "Macro 5"
+95  110  "Macro 6"
+111 126  "Macro 7"
+127 142  "Macro 8"
+143 158  "Macro 9"
+159 174  "Macro 10"
+175 190  "Macro 11"
+191 206  "Macro 12"
+207 222  "Macro 13"
+223 238  "Macro 14"
+239 255  "Macro 15"
+REND
+
+RANGE 37  ;Macro Speed
+0   125  "REV %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 130  "Stop"
+131 255  "FWD %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 38  ;Macro Fade
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;P/T Speed
+0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
+226 235  "Move in Dk"
+236 255  "No Function"
+REND
+
+RANGE 39  ;Colour Mode
+0   189  "Safe"
+190 254  "W-Bal Set"
+255 255  "W-Bal Store"
+REND
+
+RANGE 40  ;Control
+0   79   "Safe"
+80  84   "Reset All"
+85  87   "Reset P/T"
+88  96   "Safe"
+97  99   "Reset Other"
+100 119  "Macro 1"
+120 139  "Macro 2"
+140 159  "Macro 3"
+160 179  "Macro 4"
+180 199  "Macro 5"
+200 219  "Macro 6"
+220 239  "Macro 7"
+240 255  "Sound"
+REND
+

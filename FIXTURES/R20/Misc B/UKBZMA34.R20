@@ -1,0 +1,198 @@
+; 'BeamZ Multi Acis III MKII 4 DMX', 4 DMX Channels, filename: UKBZMA34.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   19-06-17   Nic Morris        Created
+;   19-06-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-06-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKBZMA34                            mode=4 DMX  4 DMX Channels
+NAME "Misc B" "BeamZ Multi Acis III MKII 4 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 4 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4    61   L    1   100   1N   A   1   "LED Colour"        0     0     0
+9    61   L    2   100   1N   0   1   "Laser Colour"      0     0     0
+5     1   L    3   100   1N   0   1   "Rotate"            0     0     0
+2     1   L    4   100   1N   0   1   "Strobe"            0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+BeamZ
+Multi Acis III MKII
+4 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;LED Colour
+0   10   "No Function"
+11  20   "Red"
+21  30   "Green"
+31  40   "Blue"
+41  50   "White"
+51  60   "Amber"
+61  70   "R+G"
+71  80   "R+B"
+81  90   "R+W"
+91  100  "R+A"
+101 110  "G+B"
+111 120  "G+W"
+121 130  "G+A"
+131 140  "B+W"
+141 150  "B+A"
+151 160  "R+B+A"
+161 170  "R+G+A"
+171 180  "B+W+A"
+181 190  "G+W+A"
+191 200  "R+W+A"
+201 210  "G+B+W+A"
+211 220  "R+B+W+A"
+221 230  "R+G+W+A"
+231 240  "R+G+B+A"
+241 250  "R+G+B+W"
+251 255  "R+G+B+W+A"
+REND
+
+RANGE 2  ;Laser Colour
+0   10   "No Function"
+11  100  "Red"
+101 200  "Green"
+201 255  "Red+Green"
+REND
+
+RANGE 3  ;Rotate
+0   10   "No Spin"
+11  127  "CW  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 138  "No Spin"
+139 255  "CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Strobe
+0   10   "No Function"
+11  20   "LED 1"
+21  30   "LED 2"
+31  40   "LED 3"
+41  50   "LED 4"
+51  60   "LED 5"
+61  70   "LED 6"
+71  80   "LED 7"
+81  90   "LED 8"
+91  100  "LED 1+5"
+101 110  "LED 2+6"
+111 120  "LED 3+7"
+121 130  "LED 4+8"
+131 140  "LED 1+2"
+141 150  "LED 3+4"
+151 160  "LED 5+6"
+161 170  "LED 7+8"
+171 180  "LED 1+8"
+181 190  "LED 4+5"
+191 200  "LED 1+3+5+7"
+201 210  "LED 2+4+6+8"
+211 220  "LED 3+4+5+6"
+221 230  "LED 1+2+7+8"
+231 240  "LED 1+2+3+4"
+241 250  "LED 5+6+7+8"
+251 255  "All LED"
+REND
+

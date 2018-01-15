@@ -1,0 +1,433 @@
+; 'KluitNET PowerPoint', 3 DMX Channels, filename: UKKNPPNT.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   19-10-16   Nic Morris        Created
+;   19-10-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-10-16   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKKNPPNT                            mode=3 DMX  3 DMX Channels
+NAME "Misc K" "KluitNET PowerPoint"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 3 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=509
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+11    1   L    2   100   1N   0   1   "Control"           0     0     0
+6     1   L    3   100   1N   0   1   "Slide"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+KluitNET PowerPoint
+3 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Next"          1   2
+"data"                0  70
+"delay"               1   5
+"data"                0   0
+MEND
+
+MACRO "Previous"      2   2
+"data"                0  89
+"delay"               1   5
+"data"                0   0
+MEND
+
+MACRO "Allow Transition"  3   2
+"data"                0   C
+"delay"               1   5
+"data"                0   0
+MEND
+
+MACRO "Start Show"    4   2
+"data"                0  25
+"delay"               1   5
+"data"                0   0
+MEND
+
+MACRO "Stop Show + Exit"  5   2
+"data"                0  3E
+"delay"               1   5
+"data"                0   0
+MEND
+
+MACRO "Show Blackscreen"  6   2
+"data"                0  57
+"delay"               1   5
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Control
+0   0    "Safe"
+1   24   "Allow Trans"
+25  49   "Start Show"
+50  74   "Stop + Exit"
+75  99   "Show Black"
+100 124  "Next"
+125 149  "Previous"
+REND
+
+RANGE 3  ;Slide
+0   0    "Safe"
+1   1    "Slide 1"
+2   2    "Slide 2"
+3   3    "Slide 3"
+4   4    "Slide 4"
+5   5    "Slide 5"
+6   6    "Slide 6"
+7   7    "Slide 7"
+8   8    "Slide 8"
+9   9    "Slide 9"
+10  10   "Slide 10"
+11  11   "Slide 11"
+12  12   "Slide 12"
+13  13   "Slide 13"
+14  14   "Slide 14"
+15  15   "Slide 15"
+16  16   "Slide 16"
+17  17   "Slide 17"
+18  18   "Slide 18"
+19  19   "Slide 19"
+20  20   "Slide 20"
+21  21   "Slide 21"
+22  22   "Slide 22"
+23  23   "Slide 23"
+24  24   "Slide 24"
+25  25   "Slide 25"
+26  26   "Slide 26"
+27  27   "Slide 27"
+28  28   "Slide 28"
+29  29   "Slide 29"
+30  30   "Slide 30"
+31  31   "Slide 31"
+32  32   "Slide 32"
+33  33   "Slide 33"
+34  34   "Slide 34"
+35  35   "Slide 35"
+36  36   "Slide 36"
+37  37   "Slide 37"
+38  38   "Slide 38"
+39  39   "Slide 39"
+40  40   "Slide 40"
+41  41   "Slide 41"
+42  42   "Slide 42"
+43  43   "Slide 43"
+44  44   "Slide 44"
+45  45   "Slide 45"
+46  46   "Slide 46"
+47  47   "Slide 47"
+48  48   "Slide 48"
+49  49   "Slide 49"
+50  50   "Slide 50"
+51  51   "Slide 51"
+52  52   "Slide 52"
+53  53   "Slide 53"
+54  54   "Slide 54"
+55  55   "Slide 55"
+56  56   "Slide 56"
+57  57   "Slide 57"
+58  58   "Slide 58"
+59  59   "Slide 59"
+60  60   "Slide 60"
+61  61   "Slide 61"
+62  62   "Slide 62"
+63  63   "Slide 63"
+64  64   "Slide 64"
+65  65   "Slide 65"
+66  66   "Slide 66"
+67  67   "Slide 67"
+68  68   "Slide 68"
+69  69   "Slide 69"
+70  70   "Slide 70"
+71  71   "Slide 71"
+72  72   "Slide 72"
+73  73   "Slide 73"
+74  74   "Slide 74"
+75  75   "Slide 75"
+76  76   "Slide 76"
+77  77   "Slide 77"
+78  78   "Slide 78"
+79  79   "Slide 79"
+80  80   "Slide 80"
+81  81   "Slide 81"
+82  82   "Slide 82"
+83  83   "Slide 83"
+84  84   "Slide 84"
+85  85   "Slide 85"
+86  86   "Slide 86"
+87  87   "Slide 87"
+88  88   "Slide 88"
+89  89   "Slide 89"
+90  90   "Slide 90"
+91  91   "Slide 91"
+92  92   "Slide 92"
+93  93   "Slide 93"
+94  94   "Slide 94"
+95  95   "Slide 95"
+96  96   "Slide 96"
+97  97   "Slide 97"
+98  98   "Slide 98"
+99  99   "Slide 99"
+100 100  "Slide 100"
+101 101  "Slide 101"
+102 102  "Slide 102"
+103 103  "Slide 103"
+104 104  "Slide 104"
+105 105  "Slide 105"
+106 106  "Slide 106"
+107 107  "Slide 107"
+108 108  "Slide 108"
+109 109  "Slide 109"
+110 110  "Slide 110"
+111 111  "Slide 111"
+112 112  "Slide 112"
+113 113  "Slide 113"
+114 114  "Slide 114"
+115 115  "Slide 115"
+116 116  "Slide 116"
+117 117  "Slide 117"
+118 118  "Slide 118"
+119 119  "Slide 119"
+120 120  "Slide 120"
+121 121  "Slide 121"
+122 122  "Slide 122"
+123 123  "Slide 123"
+124 124  "Slide 124"
+125 125  "Slide 125"
+126 126  "Slide 126"
+127 127  "Slide 127"
+128 128  "Slide 128"
+129 129  "Slide 129"
+130 130  "Slide 130"
+131 131  "Slide 131"
+132 132  "Slide 132"
+133 133  "Slide 133"
+134 134  "Slide 134"
+135 135  "Slide 135"
+136 136  "Slide 136"
+137 137  "Slide 137"
+138 138  "Slide 138"
+139 139  "Slide 139"
+140 140  "Slide 140"
+141 141  "Slide 141"
+142 142  "Slide 142"
+143 143  "Slide 143"
+144 144  "Slide 144"
+145 145  "Slide 145"
+146 146  "Slide 146"
+147 147  "Slide 147"
+148 148  "Slide 148"
+149 149  "Slide 149"
+150 150  "Slide 150"
+151 151  "Slide 151"
+152 152  "Slide 152"
+153 153  "Slide 153"
+154 154  "Slide 154"
+155 155  "Slide 155"
+156 156  "Slide 156"
+157 157  "Slide 157"
+158 158  "Slide 158"
+159 159  "Slide 159"
+160 160  "Slide 160"
+161 161  "Slide 161"
+162 162  "Slide 162"
+163 163  "Slide 163"
+164 164  "Slide 164"
+165 165  "Slide 165"
+166 166  "Slide 166"
+167 167  "Slide 167"
+168 168  "Slide 168"
+169 169  "Slide 169"
+170 170  "Slide 170"
+171 171  "Slide 171"
+172 172  "Slide 172"
+173 173  "Slide 173"
+174 174  "Slide 174"
+175 175  "Slide 175"
+176 176  "Slide 176"
+177 177  "Slide 177"
+178 178  "Slide 178"
+179 179  "Slide 179"
+180 180  "Slide 180"
+181 181  "Slide 181"
+182 182  "Slide 182"
+183 183  "Slide 183"
+184 184  "Slide 184"
+185 185  "Slide 185"
+186 186  "Slide 186"
+187 187  "Slide 187"
+188 188  "Slide 188"
+189 189  "Slide 189"
+190 190  "Slide 190"
+191 191  "Slide 191"
+192 192  "Slide 192"
+193 193  "Slide 193"
+194 194  "Slide 194"
+195 195  "Slide 195"
+196 196  "Slide 196"
+197 197  "Slide 197"
+198 198  "Slide 198"
+199 199  "Slide 199"
+200 200  "Slide 200"
+201 201  "Slide 201"
+202 202  "Slide 202"
+203 203  "Slide 203"
+204 204  "Slide 204"
+205 205  "Slide 205"
+206 206  "Slide 206"
+207 207  "Slide 207"
+208 208  "Slide 208"
+209 209  "Slide 209"
+210 210  "Slide 210"
+211 211  "Slide 211"
+212 212  "Slide 212"
+213 213  "Slide 213"
+214 214  "Slide 214"
+215 215  "Slide 215"
+216 216  "Slide 216"
+217 217  "Slide 217"
+218 218  "Slide 218"
+219 219  "Slide 219"
+220 220  "Slide 220"
+221 221  "Slide 221"
+222 222  "Slide 222"
+223 223  "Slide 223"
+224 224  "Slide 224"
+225 225  "Slide 225"
+226 226  "Slide 226"
+227 227  "Slide 227"
+228 228  "Slide 228"
+229 229  "Slide 229"
+230 230  "Slide 230"
+231 231  "Slide 231"
+232 232  "Slide 232"
+233 233  "Slide 233"
+234 234  "Slide 234"
+235 235  "Slide 235"
+236 236  "Slide 236"
+237 237  "Slide 237"
+238 238  "Slide 238"
+239 239  "Slide 239"
+240 240  "Slide 240"
+241 241  "Slide 241"
+242 242  "Slide 242"
+243 243  "Slide 243"
+244 244  "Slide 244"
+245 245  "Slide 245"
+246 246  "Slide 246"
+247 247  "Slide 247"
+248 248  "Slide 248"
+249 249  "Slide 249"
+250 250  "Slide 250"
+251 251  "Slide 251"
+252 252  "Slide 252"
+253 253  "Slide 253"
+254 254  "Slide 254"
+255 255  "Slide 255"
+REND
+

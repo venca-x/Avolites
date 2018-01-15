@@ -1,0 +1,474 @@
+; 'Philips Selecon PLFRESNEL1 LED 9 DMX, 8bit', 9 DMX Channels, filename: PHSPLF12.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   07-06-12   Peter Budd        Created
+;   14-08-12   Peter Budd        Updated R20 references to philips instead of unknown.
+;   19-04-13   RDM Sync Tool     Added RDM Manufacturer information.
+;   11-02-14   RGB Power on UpdaterUpdated RGB Power on values to match Locate.
+;   26-11-16   Nic Morris        Changed name from PLCYC LED to Selecon PLCYC LED
+;   26-11-16   Nic Morris        Added Atlabase ID's.
+;   24-02-17   Nic Morris        Created from Philips Selecon PLCYC LED
+;   24-02-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   24-02-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PHSPLF12                            mode=9 DMX, 8bit  9 DMX Channels
+NAME "Philips" "Selecon PLFRESNEL1 LED 9 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  9  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 9 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=503
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   230
+4    61   L    5   100   1N   0   1   "White"             0     0     0
+4     1   L    6   100   1N   A   1   "Colour Macro"      0     0     0
+11   61   L    7   100   1N   0   1   "Reserved"          0     0     0
+8     1   L    8   100   1N   0   1   "Speed"           255     0     0
+11    1   L    9   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Philips
+Selecon PLFRESNEL1 LED
+9 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset to Default"  1   9
+"data"                0   7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset All"     2   9
+"data"                0  FC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Quiet Mode"    3   9
+"data"                0   C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Normal Mode"   4   9
+"data"                0  10
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display On/Off"  5   9
+"data"                0   3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 1"   6   9
+"data"                0  14
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 2"   7   9
+"data"                0  16
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 3"   8   9
+"data"                0  18
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 4"   9   9
+"data"                0  1A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 5"  10   9
+"data"                0  1C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 6"  11   9
+"data"                0  1E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 7"  12   9
+"data"                0  20
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 8"  13   9
+"data"                0  22
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 9"  14   9
+"data"                0  24
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 10" 15   9
+"data"                0  26
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 11" 16   9
+"data"                0  28
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 12" 17   9
+"data"                0  2A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 13" 18   9
+"data"                0  2C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 14" 19   9
+"data"                0  2E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 15" 20   9
+"data"                0  30
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 16" 21   9
+"data"                0  32
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 17" 22   9
+"data"                0  34
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 18" 23   9
+"data"                0  36
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 19" 24   9
+"data"                0  38
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 20" 25   9
+"data"                0  3A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 21" 26   9
+"data"                0  3C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 22" 27   9
+"data"                0  3E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 23" 28   9
+"data"                0  40
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 24" 29   9
+"data"                0  42
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 25" 30   9
+"data"                0  44
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 26" 31   9
+"data"                0  46
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 27" 32   9
+"data"                0  48
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 28" 33   9
+"data"                0  4A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 29" 34   9
+"data"                0  4C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 30" 35   9
+"data"                0  4E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Store Col 31" 36   9
+"data"                0  50
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour Macro
+0   3    "Open"
+4   7    "0 Closed"
+8   11   "1 Scratch"
+12  15   "2 Warm Wht"
+16  19   "3 Cool Wht"
+20  23   "4 Daylight"
+24  27   "5 Arc Wht"
+28  31   "6 Red"
+32  35   "7 Yellow"
+36  39   "8 Daylt Blu"
+40  43   "9 Magenta"
+44  47   "10 Aqua"
+48  51   "11 Med Amb"
+52  55   "12 Lav"
+56  59   "13 Blue"
+60  63   "14 Lt Pink"
+64  67   "15 Green"
+68  71   "16 Pink"
+72  75   "17 Amb Wht"
+76  79   "18 Fuchsia"
+80  83   "19 Lt Amb"
+84  87   "20 Stl Blu"
+88  91   "21 Lt Grn"
+92  95   "22 Orange"
+96  99   "23 Med Pk"
+100 103  "24 Cyan"
+104 107  "25 Purple"
+108 111  "26 Custom"
+112 115  "27 Custom"
+116 119  "28 Custom"
+120 123  "29 Custom"
+124 127  "30 Custom"
+128 131  "31 Custom"
+132 255  "Reserved"
+REND
+
+RANGE 8  ;Speed
+0   249  "Speed %3d%%"100-((c-a)*100/(b-a))
+250 250  "Smooth 60ms"
+251 251  "Smooth 80ms"
+252 252  "Smooth 100m"
+253 253  "Smooth 120m"
+254 254  "Smooth 140m"
+255 255  "Smooth 160m"
+REND
+
+RANGE 9  ;Control
+0   2    "Safe"
+3   4    "Display"
+5   10   "Rst Default"
+11  13   "Quiet Mode"
+14  19   "Normal Mode"
+20  21   "Store Col 1"
+22  23   "Store Col 2"
+24  25   "Store Col 3"
+26  27   "Store Col 4"
+28  29   "Store Col 5"
+30  31   "Store Col 6"
+32  33   "Store Col 7"
+34  35   "Store Col 8"
+36  37   "Store Col 9"
+38  39   "Store Col10"
+40  41   "Store Col11"
+42  43   "Store Col12"
+44  45   "Store Col13"
+46  47   "Store Col14"
+48  49   "Store Col15"
+50  51   "Store Col16"
+52  53   "Store Col17"
+54  55   "Store Col18"
+56  57   "Store Col19"
+58  59   "Store Col20"
+60  61   "Store Col21"
+62  63   "Store Col22"
+64  65   "Store Col23"
+66  67   "Store Col24"
+68  69   "Store Col25"
+70  71   "Store Col26"
+72  73   "Store Col27"
+74  75   "Store Col28"
+76  77   "Store Col29"
+78  79   "Store Col30"
+80  81   "Store Col31"
+82  249  "Reserved"
+250 255  "Reset All"
+REND
+

@@ -1,0 +1,278 @@
+; 'Enttec LED Mapper 8 DMX', 8 DMX Channels, filename: UKENTLM2.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   18-08-17   Nic Morris        Created (limited documentation)
+;   18-08-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   18-08-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKENTLM2                            mode=8 DMX  8 DMX Channels
+NAME "Misc E" "Enttec LED Mapper 8 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+8     1   L    1   100   1N   0   1   "Remote Contr"      0     0     0
+6     1   L    2   100   1N   0   1   "Media Index"       0     0     0
+1     1   H    3   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    4   100   1N   T   1   "Red"             255   255     0
+10   61   L    5   100   1N   U   1   "Green"           255   255     0
+9    61   L    6   100   1N   V   1   "Blue"            255     0   229
+7     1   L    7   100   1N   0   1   "Playback Spe"      0     0     0
+8    61   L    8   100   1N   0   1   "Transition"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Enttec LED Mapper
+8 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   4   5   6
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Remote Control
+0   0    "Disabled"
+255 255  "Enabled"
+REND
+
+RANGE 2  ;Media Index
+0   0    "Empty"
+1   1    "Index 1"
+2   2    "Index 2"
+3   3    "Index 3"
+4   4    "Index 4"
+5   5    "Index 5"
+6   6    "Index 6"
+7   7    "Index 7"
+8   8    "Index 8"
+9   9    "Index 9"
+10  10   "Index 10"
+11  11   "Index 11"
+12  12   "Index 12"
+13  13   "Index 13"
+14  14   "Index 14"
+15  15   "Index 15"
+16  16   "Index 16"
+17  17   "Index 17"
+18  18   "Index 18"
+19  19   "Index 19"
+20  20   "Index 20"
+21  21   "Index 21"
+22  22   "Index 22"
+23  23   "Index 23"
+24  24   "Index 24"
+25  25   "Index 25"
+26  26   "Index 26"
+27  27   "Index 27"
+28  28   "Index 28"
+29  29   "Index 29"
+30  30   "Index 30"
+31  31   "Index 31"
+32  32   "Index 32"
+33  33   "Index 33"
+34  34   "Index 34"
+35  35   "Index 35"
+36  36   "Index 36"
+37  37   "Index 37"
+38  38   "Index 38"
+39  39   "Index 39"
+40  40   "Index 40"
+41  41   "Index 41"
+42  42   "Index 42"
+43  43   "Index 43"
+44  44   "Index 44"
+45  45   "Index 45"
+46  46   "Index 46"
+47  47   "Index 47"
+48  48   "Index 48"
+49  49   "Index 49"
+50  50   "Index 50"
+51  51   "Index 51"
+52  52   "Index 52"
+53  53   "Index 53"
+54  54   "Index 54"
+55  55   "Index 55"
+56  56   "Index 56"
+57  57   "Index 57"
+58  58   "Index 58"
+59  59   "Index 59"
+60  60   "Index 60"
+61  61   "Index 61"
+62  62   "Index 62"
+63  63   "Index 63"
+64  64   "Index 64"
+65  65   "Index 65"
+66  66   "Index 66"
+67  67   "Index 67"
+68  68   "Index 68"
+69  69   "Index 69"
+70  70   "Index 70"
+71  71   "Index 71"
+72  72   "Index 72"
+73  73   "Index 73"
+74  74   "Index 74"
+75  75   "Index 75"
+76  76   "Index 76"
+77  77   "Index 77"
+78  78   "Index 78"
+79  79   "Index 79"
+80  80   "Index 80"
+81  81   "Index 81"
+82  82   "Index 82"
+83  83   "Index 83"
+84  84   "Index 84"
+85  85   "Index 85"
+86  86   "Index 86"
+87  87   "Index 87"
+88  88   "Index 88"
+89  89   "Index 89"
+90  90   "Index 90"
+91  91   "Index 91"
+92  92   "Index 92"
+93  93   "Index 93"
+94  94   "Index 94"
+95  95   "Index 95"
+96  96   "Index 96"
+97  97   "Index 97"
+98  98   "Index 98"
+99  99   "Index 99"
+REND
+
+RANGE 3  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Playback Speed
+0   0    "Pause"
+1   24   "- %3d%%"(c-a)*100/(b-a)
+25  25   "1x"
+26  255  "+ %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Transition
+0   0    "No Trans"
+1   255  "Dura %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

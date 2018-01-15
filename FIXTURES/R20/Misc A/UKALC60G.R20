@@ -1,0 +1,405 @@
+; 'Arri Lighting SkyPanel S60-C (v4.x) Mode 17', 19 DMX Channels, filename: UKALC60G.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   21-05-16   Nic Morris        Created
+;   05-10-16   Peter Budd        Changed the name to the fixture name, corrected Mode 6.
+;   16-12-16   Nic Morris        Updated to firmware v2.5 specs.
+;   04-02-17   Nic Morris        Changed name from SkyPanel S60-C to SkyPanel S60-C (v4.x)
+;   04-02-17   Nic Morris        Harmonised Xfade to Col across range.  Added highlight/lowlight.
+;   17-02-17   Nic Morris        Exported R20 modes 17,18 and 19.
+;   17-02-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-02-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKALC60G                            mode=Mode 17  19 DMX Channels
+NAME "Misc A" "A SkyPanel S60-C (v4.x) Mode 17"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  19  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 17"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    2   100   1N   H   1   "Dimmer Low"      255     0     0
+7     1   L    3   100   1N   0   1   "Gel 1 CCT"        64     0     0
+8     1   L    4   100   1N   0   1   "Gel 1 Col Ma"     64     0     0
+5     1   L    5   100   1N   0   1   "Gel 1 Brand"      64     0     0
+6     1   L    6   100   1N   0   1   "Gel 1 Catego"     25     0     0
+4     1   L    7   100   1N   0   1   "Gel 1"             0     0     0
+9     1   s    8   100   1N   0   1   "Xfade to Col"      0   255   255
+0     0   L    9   100   1N   0   1   "Xfade to Low"      0   255   255
+7    61   L   10   100   1N   0   1   "Gel 2 CCT"        64     0     0
+8    61   L   11   100   1N   0   1   "Gel 2 Col Ma"     64     0     0
+5    61   L   12   100   1N   0   1   "Gel 2 Brand"      64     0     0
+6    61   L   13   100   1N   0   1   "Gel 2 Catego"     25     0     0
+4    61   L   14   100   1N   0   1   "Gel 2"             0     0     0
+10    1   L   15   100   1N   0   1   "Gel Transiti"      0     0     0
+2     1   L   16   100   1N   0   1   "Fan Spd"           0     0     0
+11   61   L   17   100   1N   0   1   "Reserved"          0     0     0
+12    1   L   18   100   1N   0   1   "Reserved"          0     0     0
+12   61   L   19   100   1N   0   1   "Reserved"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Arri Lighting
+SkyPanel S60-C (v4.x)
+Mode 17
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Gel 1 CCT
+0   128  "3200K"
+129 255  "5600K"
+REND
+
+RANGE 4  ;Gel 1 Col Match
+0   128  "Best"
+129 170  "Brightest"
+171 255  "No Col Gel"
+REND
+
+RANGE 5  ;Gel 1 Brand
+0   128  "Rosco"
+129 255  "Lee"
+REND
+
+RANGE 6  ;Gel 1 Category
+0   50   "Col Correct"
+51  101  "Cal/Filter"
+102 152  "Storato/600"
+153 203  "C-lux/Csmtc"
+204 255  "No Func/700"
+REND
+
+RANGE 7  ;Gel 1
+0   1    "Colour 1"
+2   3    "Colour 2"
+4   5    "Colour 3"
+6   7    "Colour 4"
+8   9    "Colour 5"
+10  11   "Colour 6"
+12  13   "Colour 7"
+14  15   "Colour 8"
+16  17   "Colour 9"
+18  19   "Colour 10"
+20  21   "Colour 11"
+22  23   "Colour 12"
+24  25   "Colour 13"
+26  27   "Colour 14"
+28  29   "Colour 15"
+30  31   "Colour 16"
+32  33   "Colour 17"
+34  35   "Colour 18"
+36  37   "Colour 19"
+38  39   "Colour 20"
+40  41   "Colour 21"
+42  43   "Colour 22"
+44  45   "Colour 23"
+46  47   "Colour 24"
+48  49   "Colour 25"
+50  51   "Colour 26"
+52  53   "Colour 27"
+54  55   "Colour 28"
+56  57   "Colour 29"
+58  59   "Colour 30"
+60  61   "Colour 31"
+62  63   "Colour 32"
+64  65   "Colour 33"
+66  67   "Colour 34"
+68  69   "Colour 35"
+70  71   "Colour 36"
+72  73   "Colour 37"
+74  75   "Colour 38"
+76  77   "Colour 39"
+78  79   "Colour 40"
+80  81   "Colour 41"
+82  83   "Colour 42"
+84  85   "Colour 43"
+86  87   "Colour 44"
+88  89   "Colour 45"
+90  91   "Colour 46"
+92  93   "Colour 47"
+94  95   "Colour 48"
+96  97   "Colour 49"
+98  99   "Colour 50"
+100 101  "Colour 51"
+102 103  "Colour 52"
+104 105  "Colour 53"
+106 107  "Colour 54"
+108 109  "Colour 55"
+110 111  "Colour 56"
+112 113  "Colour 57"
+114 115  "Colour 58"
+116 117  "Colour 59"
+118 119  "Colour 60"
+120 121  "Colour 61"
+122 123  "Colour 62"
+124 125  "Colour 63"
+126 127  "Colour 64"
+128 129  "Colour 65"
+130 131  "Colour 66"
+132 133  "Colour 67"
+134 135  "Colour 68"
+136 137  "Colour 69"
+138 139  "Colour 70"
+140 141  "Colour 71"
+142 143  "Colour 72"
+144 145  "Colour 73"
+146 147  "Colour 74"
+148 149  "Colour 75"
+150 151  "Colour 76"
+152 153  "Colour 77"
+154 155  "Colour 78"
+156 157  "Colour 79"
+158 159  "Colour 80"
+160 161  "Colour 81"
+162 163  "Colour 82"
+164 165  "Colour 83"
+166 167  "Colour 84"
+168 169  "Colour 85"
+170 171  "Colour 86"
+172 173  "Colour 87"
+174 175  "Colour 88"
+176 177  "Colour 89"
+178 255  "Reserved"
+REND
+
+RANGE 8  ;Xfade to Col
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Gel 2 CCT
+0   128  "3200K"
+129 255  "5600K"
+REND
+
+RANGE 11  ;Gel 2 Col Match
+0   128  "Best"
+129 170  "Brightest"
+171 255  "No Col Gel"
+REND
+
+RANGE 12  ;Gel 2 Brand
+0   128  "Rosco"
+129 255  "Lee"
+REND
+
+RANGE 13  ;Gel 2 Category
+0   50   "Col Correct"
+51  101  "Cal/Filter"
+102 152  "Storato/600"
+153 203  "C-lux/Csmtc"
+204 255  "No Func/700"
+REND
+
+RANGE 14  ;Gel 2
+0   1    "Colour 1"
+2   3    "Colour 2"
+4   5    "Colour 3"
+6   7    "Colour 4"
+8   9    "Colour 5"
+10  11   "Colour 6"
+12  13   "Colour 7"
+14  15   "Colour 8"
+16  17   "Colour 9"
+18  19   "Colour 10"
+20  21   "Colour 11"
+22  23   "Colour 12"
+24  25   "Colour 13"
+26  27   "Colour 14"
+28  29   "Colour 15"
+30  31   "Colour 16"
+32  33   "Colour 17"
+34  35   "Colour 18"
+36  37   "Colour 19"
+38  39   "Colour 20"
+40  41   "Colour 21"
+42  43   "Colour 22"
+44  45   "Colour 23"
+46  47   "Colour 24"
+48  49   "Colour 25"
+50  51   "Colour 26"
+52  53   "Colour 27"
+54  55   "Colour 28"
+56  57   "Colour 29"
+58  59   "Colour 30"
+60  61   "Colour 31"
+62  63   "Colour 32"
+64  65   "Colour 33"
+66  67   "Colour 34"
+68  69   "Colour 35"
+70  71   "Colour 36"
+72  73   "Colour 37"
+74  75   "Colour 38"
+76  77   "Colour 39"
+78  79   "Colour 40"
+80  81   "Colour 41"
+82  83   "Colour 42"
+84  85   "Colour 43"
+86  87   "Colour 44"
+88  89   "Colour 45"
+90  91   "Colour 46"
+92  93   "Colour 47"
+94  95   "Colour 48"
+96  97   "Colour 49"
+98  99   "Colour 50"
+100 101  "Colour 51"
+102 103  "Colour 52"
+104 105  "Colour 53"
+106 107  "Colour 54"
+108 109  "Colour 55"
+110 111  "Colour 56"
+112 113  "Colour 57"
+114 115  "Colour 58"
+116 117  "Colour 59"
+118 119  "Colour 60"
+120 121  "Colour 61"
+122 123  "Colour 62"
+124 125  "Colour 63"
+126 127  "Colour 64"
+128 129  "Colour 65"
+130 131  "Colour 66"
+132 133  "Colour 67"
+134 135  "Colour 68"
+136 137  "Colour 69"
+138 139  "Colour 70"
+140 141  "Colour 71"
+142 143  "Colour 72"
+144 145  "Colour 73"
+146 147  "Colour 74"
+148 149  "Colour 75"
+150 151  "Colour 76"
+152 153  "Colour 77"
+154 155  "Colour 78"
+156 157  "Colour 79"
+158 159  "Colour 80"
+160 161  "Colour 81"
+162 163  "Colour 82"
+164 165  "Colour 83"
+166 167  "Colour 84"
+168 169  "Colour 85"
+170 171  "Colour 86"
+172 173  "Colour 87"
+174 175  "Colour 88"
+176 177  "Colour 89"
+178 255  "Reserved"
+REND
+
+RANGE 15  ;Gel Transition
+0   51   "Direct"
+52  102  "Thru White"
+103 153  "Thru Black"
+154 204  "Over White"
+205 255  "Under White"
+REND
+
+RANGE 16  ;Fan Spd
+0   9    "No Function"
+10  60   "Low"
+61  120  "Variable"
+121 180  "High"
+181 250  "Max"
+251 255  "Off"
+REND
+

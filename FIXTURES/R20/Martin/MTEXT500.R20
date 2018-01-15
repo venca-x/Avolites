@@ -1,0 +1,273 @@
+; 'Martin Exterior Projection 500', 13 DMX Channels, filename: MTEXT500.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   05-01-17   Nic Morris        Created
+;   05-01-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-01-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MTEXT500                            mode=13 DMX  13 DMX Channels
+NAME "Martin" "Exterior Projection 500"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 13 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=499
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          34     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    3   100   1N   H   1   "Dimmer Low"      255     0     0
+4     1   L    4   100   1N   A   1   "Colour"            0     0     0
+6     1   L    5   100   1N   I   1   "Gobo"              0     0     0
+7     1   s    6   100   1N   K   1   "Gobo Rot"        127     0     0
+0     0   L    7   100   1N   K   1   "Gobo Rot Low"    127     0     0
+10    1   L    8   100   1N   0   1   "Gobo Anim"         0     0     0
+9     1   L    9   100   1N   P   1   "Prism"             0     0     0
+9    61   L   10   100   1N   R   1   "Prism Rot"         0     0     0
+5    61   s   11   100   1N   L   1   "Focus"           127     0     0
+0     0   L   12   100   1N   L   1   "Focus Low"       127     0     0
+11    1   L   13   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin
+Exterior Projection 500
+13 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  14
+"Slow Strobe"        32  7D
+"Fast Strobe"        33  C8
+"Closed"             38   0
+PFEND
+
+PFTABLE "Gobo"       -1   5
+"Open"               11   0
+"Gobo 1"             12  23
+"Gobo 2"             13  28
+"Gobo 3"             14  2D
+"Gobo 4"             15  32
+"Gobo 5"             16  37
+"Gobo 6"             17  3C
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  13
+"data"                0   C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Shortcut ON"   2  13
+"data"                0  2A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Shortcut OFF"  3  13
+"data"                0  2F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Auto BO ON"    4  13
+"data"                0  34
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Auto BO OFF"   5  13
+"data"                0  39
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display ON"    6  13
+"data"                0  3E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display OFF"   7  13
+"data"                0  43
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  200  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+211 255  "Rnd St %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Colour
+0   0    "Open"
+1   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+161 163  "Colour 1"
+164 166  "Colour 2"
+167 169  "Colour 3"
+170 172  "Colour 4"
+173 175  "Colour 5"
+176 178  "Colour 6"
+179 181  "Colour 7"
+182 184  "Colour 8"
+193 214  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+215 221  "No Scroll"
+222 243  "Sc CCW %3d%%"(c-a)*100/(b-a)
+244 247  "Rnd Fast"
+248 251  "Rnd Med"
+252 255  "Rnd Slow"
+REND
+
+RANGE 5  ;Gobo
+0   4    "Open"
+5   9    "Gobo 1 Idx"
+10  14   "Gobo 2 Idx"
+15  19   "Gobo 3 Idx"
+20  24   "Gobo 4 Idx"
+25  29   "Gobo 5 Idx"
+30  34   "Gobo 6 Idx"
+35  39   "Gobo 1 Spin"
+40  44   "Gobo 2 Spin"
+45  49   "Gobo 3 Spin"
+50  54   "Gobo 4 Spin"
+55  59   "Gobo 5 Spin"
+60  64   "Gobo 6 Spin"
+210 232  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+233 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Gobo Anim
+0   4    "Open"
+5   10   "Stop"
+11  255  "Anim %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Prism
+0   5    "Open"
+6   10   "Prism 1 Idx"
+11  15   "Prism 2 Idx"
+16  20   "Prism 1 Spn"
+21  25   "Prism 2 Spn"
+26  30   "Open"
+31  255  "Frst %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Focus
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Control
+0   9    "Safe"
+10  14   "Reset"
+40  44   "S/C ON"
+45  49   "S/C OFF"
+50  54   "Auto BO ON"
+55  59   "Auto BO OFF"
+60  64   "Display ON"
+65  69   "Display OFF"
+REND
+

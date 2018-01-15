@@ -1,0 +1,314 @@
+; 'ADB Warp 30 DMX, 16bit', 30 DMX Channels, filename: ADBWARPS.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   06-02-06   Ed                Created
+;   11-04-06   Ed Spencer        Moved all shutters into beam group
+;   18-07-06   D4 Pers Fixer     Updated Pan Power on to Locate value
+;   18-07-06   D4 Pers Fixer     Updated Tilt Power on to Locate value
+;   19-07-06   Ed                Checked
+;   10-12-08   Jonathan Moreton  Added Extra Mode
+;   11-12-08   David Hunt        Checked
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   16-09-10   Jonathan Moreton  Added Pending Dimmer to 25 DMX Mode
+;   19-04-12   Locate Fix        Updated locate, power on, highlight and lowlight values to valid values
+;   25-01-13   Peter Budd        Added blade control and 33 and 34 channel mode
+;   25-05-16   AtlaBaseLibraryUpdaterAdded AltaBase information
+;   30-10-16   Nic Morris        Added 30 DMX mode.
+;   30-10-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-10-16   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  ADBWARPS                            mode=30 DMX, 16bit  30 DMX Channels
+NAME "ADB" "Warp 30 DMX, 16bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  31  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 30 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=481
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    0   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    2   100   1N   E   1   "Pan"             127     0     0
+0     0   L    3   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    4   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    5   100   1N   F   1   "Tilt Low"        127     0     0
+6     1   s   22   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+0     0   L   23   100   1N   K   1   "Gobo 1 R Low"      0     0     0
+5     1   L    6   100   1N   Q   1   "Zoom"              0     0     0
+5    61   L    7   100   1N   L   1   "Focus"             0     0     0
+20   61   s    8   100   1N   0   1   "Shut A Rot"        0     0     0
+0     0   L    9   100   1N   0   1   "Shut A Low"        0     0     0
+20    1   L   10   100   1N   0   1   "Shut A Idx"        0     0     0
+19   61   s   11   100   1N   0   1   "Shut B Rot"        0     0     0
+0     0   L   12   100   1N   0   1   "Shut B Low"        0     0     0
+19    1   L   13   100   1N   0   1   "Shut B Idx"        0     0     0
+18   61   s   14   100   1N   0   1   "Shut C Rot"        0     0     0
+0     0   L   15   100   1N   0   1   "Shut C Low"        0     0     0
+18    1   L   16   100   1N   0   1   "Shut C Idx"        0     0     0
+17   61   s   17   100   1N   0   1   "Shut D Rot"        0     0     0
+0     0   L   18   100   1N   0   1   "Shut D Low"        0     0     0
+17    1   L   19   100   1N   0   1   "Shut D Idx"        0     0     0
+16   61   s   20   100   1N   0   1   "Shut Rot"          0     0     0
+0     0   L   21   100   1N   0   1   "Shut Rot Low"      0     0     0
+2     1   s   24   100   1N   G   1   "Iris"              0     0     0
+0     0   L   25   100   1N   G   1   "Iris Low"          0     0     0
+11    1   L    1   100   1N   0   1   "Control"           0     0     0
+12    1   L   26   100   1N   0   1   "Reserved"          0     0     0
+4     1   L   27   100   1N   A   1   "Colour"            0     0     0
+8     1   L   28   100   1N   0   1   "Scroll Speed"     63     0     0
+8    61   L   29   100   1N   0   1   "Scroll Fan"        0     0     0
+11   61   L   30   100   1N   0   1   "Scroll Reset"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+ADB Warp
+30 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   2   4
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 2  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Gobo 1 Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Shutter A Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Shutter A In
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Shutter B Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Shutter B In
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Shutter C Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Shutter C In
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Shutter D Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Shutter D In
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Shutter Rot
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Iris
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Control
+0   20   "Fire"
+21  25   "Park"
+26  30   "Online"
+31  35   "No Func"
+36  40   "Stealth"
+41  45   "Quiet"
+46  50   "Fast"
+51  55   "Reset All"
+56  60   "Reset Shut"
+61  65   "Reset Gobo"
+66  70   "Gobo2/Iris"
+71  75   "Reset Zoom"
+76  80   "Reset Focus"
+81  85   "Reset Pan"
+86  90   "Reset Tilt"
+91  95   "No Func"
+96  100  "Cal Lens"
+101 105  "Cal Shut"
+106 110  "Cal P/T"
+111 115  "Cal Iris/G"
+116 120  "No Func"
+121 125  "Pan Inv ON"
+126 130  "Pan Inv OFF"
+131 135  "Tlt Inv ON"
+136 140  "Tlt Inv OFF"
+141 145  "PT Swap ON"
+146 150  "PT Swap OFF"
+151 155  "Display ON"
+156 160  "Display OFF"
+161 165  "Factory Set"
+166 170  "User 1"
+171 175  "User 2"
+176 180  "User 3"
+181 185  "No Func"
+186 190  "DMX Address"
+191 195  "Accessory"
+196 200  "Gobo Mode I"
+201 205  "Gobo Mode R"
+206 210  "No Func"
+211 215  "No Func"
+216 220  "No Func"
+221 225  "No Func"
+226 230  "No Func"
+231 235  "No Func"
+236 240  "No Func"
+241 255  "Arm"
+REND
+
+RANGE 27  ;Colour
+0   0    "Frame 1"
+21  21   "Frame 2"
+43  43   "Frame 3"
+64  64   "Frame 4"
+85  85   "Frame 5"
+106 106  "Frame 6"
+128 128  "Frame 7"
+149 149  "Frame 8"
+170 170  "Frame 9"
+191 191  "Frame 10"
+213 213  "Frame 11"
+234 234  "Frame 12"
+255 255  "Frame 13"
+REND
+
+RANGE 28  ;Scroller Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Scroller Fan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 30  ;Scroller Reset
+0   0    "Safe"
+128 128  "Reset"
+REND
+

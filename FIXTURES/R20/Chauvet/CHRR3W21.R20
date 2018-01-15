@@ -1,0 +1,650 @@
+; 'Chauvet Rogue R3 Wash 21 DMX', 21 DMX Channels, filename: CHRR3W21.R20
+;  Copyright © Avolites Ltd. 2016
+;
+;   Date       By                Description
+;   29-10-16   Nic Morris        Created
+;   29-10-16   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-10-16   Nic Morris        Checked
+;   12-01-18   Nic Morris        Changed P/T speed to locate at zero in attempt to solve customer bug report (charts don't specify)
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CHRR3W21                            mode=21 DMX  21 DMX Channels
+NAME "Chauvet" "Rogue R3 Wash 21 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  21  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  230
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 21 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=491
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+1     1   H    6   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    7   100   1N   O   1   "Shutter"         255     0     0
+4     1   L    8   100   1N   0   1   "CTO"               0     0     0
+4    61   L    9   100   1N   A   1   "Colour"            0     0     0
+6     1   L   10   100   1N   I   1   "Gobo"              0     0     0
+6    61   L   11   100   1N   0   1   "Auto"              0     0     0
+7     1   L   12   100   1N   0   1   "Auto Spd"          0     0     0
+7    61   L   13   100   1N   0   1   "Auto Delay"      128     0     0
+14    1   L   14   100   1N   0   1   "BG Col"            0     0     0
+11    1   L   15   100   1N   0   1   "BG Col Dim"        0     0     0
+5     1   L   16   100   1N   Q   1   "Zoom"            127     0     0
+11   61   L   17   100   1N   0   1   "Control"           0     0     0
+10    1   L   18   100   1N   T   1   "Red"             255   255     0
+10   61   L   19   100   1N   U   1   "Green"           255   255     0
+9    61   L   20   100   1N   V   1   "Blue"            255     0   230
+9     1   L   21   100   1N   0   1   "White"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet Rogue R3 Wash
+21 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   7
+"Open"               31  FF
+"Slow Strobe"        32  2D
+"Fast Strobe"        33  19
+"Slow Pulse"         36  61
+"Fast Pulse"         37  5A
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  18  19  20
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+PFTABLE "Beam"       -1  16
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset Tilt"    1  17
+"data"                0  34
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Pan"     2  17
+"data"                0  39
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Zoom"    3  17
+"data"                0  3E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset All"     4  17
+"data"                0  48
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "RGBW mode"     5  17
+"data"                0  16
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "CMY mode"      6  17
+"data"                0  1B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Move in Dark"  7  17
+"data"                0   C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Invert"    8  17
+"data"                0  52
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Pan Invert"    9  17
+"data"                0  57
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Tilt Invert"  10  17
+"data"                0  5C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Pan Normal"   11  17
+"data"                0  61
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Tilt Normal"  12  17
+"data"                0  66
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Normal"   13  17
+"data"                0  6B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Low"      14  17
+"data"                0  7A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Full"     15  17
+"data"                0  7F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Auto"     16  17
+"data"                0  84
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Fast"     17  17
+"data"                0  89
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Smooth"   18  17
+"data"                0  8E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Shutter
+0   0    "Closed"
+25  64   "Strobe %3d%%"100-((c-a)*100/(b-a))
+70  84   "Op Pls %3d%%"100-((c-a)*100/(b-a))
+90  104  "Cl Pls %3d%%"100-((c-a)*100/(b-a))
+110 124  "Random %3d%%"100-((c-a)*100/(b-a))
+130 144  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+150 164  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+170 184  "Pulse  %3d%%"100-((c-a)*100/(b-a))
+190 204  "Rnd Pl %3d%%"100-((c-a)*100/(b-a))
+210 224  "Fade   %3d%%"100-((c-a)*100/(b-a))
+230 244  "Pulse2 %3d%%"100-((c-a)*100/(b-a))
+255 255  "Open"
+REND
+
+RANGE 8  ;CTO
+0   0    "Open"
+1   255  "CTO %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Colour
+0   0    "Open"
+1   2    "2700K"
+3   4    "3200K"
+5   6    "4200K"
+7   8    "5600K"
+9   10   "8000K"
+11  239  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 247  "Change %3d%%"100-((c-a)*100/(b-a))
+248 255  "Jump %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 10  ;Gobo
+0   9    "Open"
+10  11   "Gobo 1"
+12  13   "Gobo 2"
+14  15   "Gobo 3"
+16  17   "Gobo 4"
+18  19   "Gobo 5"
+20  21   "Gobo 6"
+22  23   "Gobo 7"
+24  25   "Gobo 8"
+26  27   "Gobo 9"
+28  29   "Gobo 10"
+30  31   "Gobo 11"
+32  33   "Gobo 12"
+34  35   "Gobo 13"
+36  37   "Gobo 14"
+38  39   "Gobo 15"
+40  41   "Gobo 16"
+42  43   "Gobo 17"
+44  45   "Gobo 18"
+46  47   "Gobo 19"
+48  49   "Gobo 20"
+50  51   "Gobo 21"
+52  53   "Gobo 22"
+54  55   "Gobo 23"
+56  57   "Gobo 24"
+58  59   "Gobo 25"
+60  61   "Gobo 26"
+62  63   "Gobo 27"
+64  65   "Gobo 28"
+66  67   "Gobo 29"
+68  69   "Gobo 30"
+70  71   "Gobo 31"
+72  73   "Gobo 32"
+74  75   "Gobo 33"
+76  77   "Gobo 34"
+78  79   "Gobo 35"
+80  81   "Gobo 36"
+82  83   "Gobo 37"
+84  85   "Gobo 38"
+86  87   "Gobo 39"
+88  89   "Gobo 40"
+90  91   "Gobo 41"
+92  93   "Gobo 42"
+94  95   "Gobo 43"
+96  97   "Gobo 44"
+98  99   "Gobo 45"
+100 101  "Gobo 46"
+102 103  "Gobo 47"
+104 105  "Gobo 48"
+106 107  "Gobo 49"
+108 109  "Gobo 50"
+110 111  "Gobo 51"
+112 113  "Gobo 52"
+114 115  "Gobo 53"
+116 117  "Gobo 54"
+118 119  "Gobo 55"
+120 121  "Gobo 56"
+122 123  "Gobo 57"
+124 125  "Gobo 58"
+126 127  "Gobo 59"
+128 129  "Gobo 60"
+130 131  "Gobo 61"
+132 133  "Gobo 62"
+134 135  "Gobo 63"
+136 137  "Gobo 64"
+138 139  "Gobo 65"
+140 141  "Gobo 66"
+142 143  "Gobo 67"
+144 145  "Gobo 68"
+146 147  "Gobo 69"
+148 149  "Gobo 70"
+150 151  "Gobo 71"
+152 153  "Gobo 72"
+154 155  "Gobo 73"
+156 157  "Gobo 74"
+158 159  "Gobo 75"
+160 161  "Gobo 76"
+162 163  "Gobo 77"
+164 165  "Gobo 78"
+166 167  "Gobo 79"
+168 169  "Gobo 80"
+170 171  "Gobo 81"
+172 173  "Gobo 82"
+174 175  "Gobo 83"
+176 177  "Gobo 84"
+178 179  "Gobo 85"
+180 181  "Gobo 86"
+182 183  "Gobo 87"
+184 185  "Gobo 88"
+186 187  "Gobo 89"
+188 189  "Gobo 90"
+190 191  "Gobo 91"
+192 193  "Gobo 92"
+194 195  "Gobo 93"
+196 197  "Gobo 94"
+198 199  "Gobo 95"
+200 201  "Gobo 96"
+202 203  "Gobo 97"
+204 205  "Gobo 98"
+206 207  "Gobo 99"
+208 209  "Gobo 100"
+210 211  "Gobo 101"
+212 213  "Gobo 102"
+214 215  "Gobo 103"
+216 217  "Gobo 104"
+218 219  "Gobo 105"
+220 221  "Gobo 106"
+222 223  "Gobo 107"
+224 225  "Gobo 108"
+226 227  "Gobo 109"
+228 229  "Gobo 110"
+230 231  "Gobo 111"
+232 233  "Gobo 112"
+234 235  "Gobo 113"
+236 237  "Gobo 114"
+238 239  "Gobo 115"
+240 241  "Gobo 116"
+242 243  "Gobo 117"
+244 245  "Gobo 118"
+246 247  "Gobo 119"
+248 249  "Gobo 120"
+250 251  "Gobo 121"
+REND
+
+RANGE 11  ;Auto
+0   15   "Safe"
+16  17   "Auto 1"
+18  19   "Auto 2"
+20  21   "Auto 3"
+22  23   "Auto 4"
+24  25   "Auto 5"
+26  27   "Auto 6"
+28  29   "Auto 7"
+30  31   "Auto 8"
+32  33   "Auto 9"
+34  36   "Auto 10"
+37  38   "Auto 11"
+39  40   "Auto 12"
+41  42   "Auto 13"
+43  44   "Auto 14"
+45  46   "Auto 15"
+47  48   "Auto 16"
+49  50   "Auto 17"
+51  52   "Auto 18"
+53  54   "Auto 19"
+55  56   "Auto 20"
+57  58   "Auto 21"
+59  60   "Auto 22"
+61  62   "Auto 23"
+63  64   "Auto 24"
+65  66   "Auto 25"
+67  68   "Auto 26"
+69  70   "Auto 27"
+71  72   "Auto 28"
+73  75   "Auto 29"
+76  77   "Auto 30"
+78  79   "Auto 31"
+80  81   "Auto 32"
+82  83   "Auto 33"
+84  85   "Auto 34"
+86  87   "Auto 35"
+88  89   "Auto 36"
+90  91   "Auto 37"
+92  93   "Auto 38"
+94  95   "Auto 39"
+96  97   "Auto 40"
+98  99   "Auto 41"
+100 101  "Auto 42"
+102 103  "Auto 43"
+104 105  "Auto 44"
+106 107  "Auto 45"
+108 109  "Auto 46"
+110 111  "Auto 47"
+112 114  "Auto 48"
+115 116  "Auto 49"
+117 118  "Auto 50"
+119 120  "Auto 51"
+121 122  "Auto 52"
+123 124  "Auto 53"
+125 126  "Auto 54"
+127 128  "Auto 55"
+129 130  "Auto 56"
+131 132  "Auto 57"
+133 134  "Auto 58"
+135 136  "Auto 59"
+137 138  "Auto 60"
+139 140  "Auto 61"
+141 142  "Auto 62"
+143 144  "Auto 63"
+145 146  "Auto 64"
+147 148  "Auto 65"
+149 150  "Auto 66"
+151 153  "Auto 67"
+154 155  "Auto 68"
+156 157  "Auto 69"
+158 159  "Auto 70"
+160 161  "Auto 71"
+162 163  "Auto 72"
+164 165  "Auto 73"
+166 167  "Auto 74"
+168 169  "Auto 75"
+170 171  "Auto 76"
+172 173  "Auto 77"
+174 175  "Auto 78"
+176 177  "Auto 79"
+178 179  "Auto 80"
+180 181  "Auto 81"
+182 183  "Auto 82"
+184 185  "Auto 83"
+186 187  "Auto 84"
+188 189  "Auto 85"
+190 192  "Auto 86"
+193 194  "Auto 87"
+195 196  "Auto 88"
+197 198  "Auto 89"
+199 200  "Auto 90"
+201 202  "Auto 91"
+203 204  "Auto 92"
+205 206  "Auto 93"
+207 208  "Auto 94"
+209 210  "Auto 95"
+211 212  "Auto 96"
+213 214  "Auto 97"
+215 216  "Auto 98"
+217 218  "Auto 99"
+219 220  "Auto 100"
+221 222  "Auto 101"
+223 224  "Auto 102"
+225 226  "Auto 103"
+227 228  "Auto 104"
+229 231  "Auto 105"
+232 233  "Auto 106"
+234 235  "Auto 107"
+236 237  "Auto 108"
+238 239  "Auto 109"
+240 241  "Auto 110"
+242 243  "Auto 111"
+244 245  "Auto 112"
+246 247  "Auto 113"
+248 249  "Auto 114"
+REND
+
+RANGE 12  ;Auto Spd
+0   0    "Stop"
+1   127  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+128 255  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 13  ;Auto Delay
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 14  ;BG Col
+0   0    "Open"
+1   2    "2700K"
+3   4    "3200K"
+5   6    "4200K"
+7   8    "5600K"
+9   10   "8000K"
+11  239  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+240 247  "Change %3d%%"100-((c-a)*100/(b-a))
+248 255  "Jump %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 15  ;BG Col Dim
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Control
+0   9    "Safe"
+10  14   "Move in Dk"
+20  24   "RGBW mode"
+25  29   "CMY mode"
+50  54   "Reset Tilt"
+55  59   "Reset Pan"
+60  64   "Reset Zoom"
+70  74   "Reset All"
+80  84   "P/T Invert"
+85  89   "Pan Invert"
+90  94   "Tilt Invert"
+95  99   "Pan Normal"
+100 104  "Tilt Normal"
+105 109  "P/T Normal"
+120 124  "Fan Low"
+125 129  "Fan Full"
+130 134  "Fan Auto"
+135 139  "Dim Fast"
+140 144  "Dim Smooth"
+REND
+
+RANGE 18  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+

@@ -1,0 +1,331 @@
+; 'Prolights JETSPOT1 Basic, 8bit', 8 DMX Channels, filename: PGJETS11.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   28-03-17   Nic Morris        Created
+;   28-03-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-03-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PGJETS11                            mode=Basic, 8bit  8 DMX Channels
+NAME "Prolights" "JETSPOT1 Basic, 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Basic, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+8     1   L    3   100   1N   0   1   "P/T Speed"         0     0     0
+2    61   L    4   100   1N   O   1   "Shutter"         255     0     0
+1     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
+4     1   L    6   100   1N   A   1   "Colour"            0    41    28
+6     1   L    7   100   1N   I   1   "Gobo"              0     0     0
+11    1   L    8   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Prolights JETSPOT1
+Basic, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   4
+"Open"               31  FF
+"Slow Strobe"        32  3A
+"Fast Strobe"        33  55
+"Slow Pulse"         36  85
+"Fast Pulse"         37  A0
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6
+"Open"                1   0
+"Dark Red"            2   D
+"Light Orange"        3  40
+"Yellow"              4  27
+"Green"               5  33
+"CTB"                 6  59
+"Dark Blue"           7  1A
+"UV"                  9  73
+"Magenta"            10  4D
+"UV"                  8  73
+PFEND
+
+PFTABLE "Gobo"       -1   7
+"Open"               11   0
+"Gobo 1"             12   7
+"Gobo 2"             13   D
+"Gobo 3"             14  13
+"Gobo 4"             15  1A
+"Gobo 5"             16  20
+"Gobo 6"             17  26
+"Gobo 7"             18  2D
+"Gobo 8"             19  33
+"Gobo 9"             20  39
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset Pan"     1   8
+"data"                0  68
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Tilt"    2   8
+"data"                0  72
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Col"     3   8
+"data"                0  7C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Gobo"    4   8
+"data"                0  86
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset All"     5   8
+"data"                0  CC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Move in Dark ON"  6   8
+"data"                0  2C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Move in Dark OFF"  7   8
+"data"                0  36
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Col in Dark ON"  8   8
+"data"                0  40
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Col in Dark OFF"  9   8
+"data"                0  4A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gobo in Dark ON" 10   8
+"data"                0  54
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gobo in Dark OFF" 11   8
+"data"                0  5E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 4  ;Shutter
+0   0    "Closed"
+31  85   "Strobe %3d%%"(c-a)*100/(b-a)
+106 160  "Pulse %3d%%"(c-a)*100/(b-a)
+181 235  "Rnd St %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 5  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour
+0   6    "Open"
+7   12   "Op/ D Rd"
+13  19   "Dark Red"
+20  25   "D Rd/ D Blu"
+26  31   "Dark Blue"
+32  38   "D Blu/ Yel"
+39  44   "Yellow"
+45  50   "Yel/ Grn"
+51  57   "Green"
+58  63   "Grn/ L Org"
+64  69   "Light Org"
+70  76   "L Org/ Mag"
+77  82   "Magenta"
+83  88   "Mag/ CTB"
+89  95   "CTB"
+96  101  "CTB/ CTO"
+102 107  "CTO"
+108 114  "CTO/ UV"
+115 120  "UV"
+121 127  "UV/ Op"
+128 189  "Sc CW  %3d%%"(c-a)*100/(b-a)
+190 193  "No Scroll"
+194 255  "Sc CCW %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Gobo
+0   6    "Open"
+7   12   "Gobo 1"
+13  18   "Gobo 2"
+19  25   "Gobo 3"
+26  31   "Gobo 4"
+32  37   "Gobo 5"
+38  44   "Gobo 6"
+45  50   "Gobo 7"
+51  56   "Gobo 8"
+57  63   "Gobo 9"
+64  71   "G1 Sk %3d%%"(c-a)*100/(b-a)
+72  78   "G2 Sk %3d%%"(c-a)*100/(b-a)
+79  85   "G3 Sk %3d%%"(c-a)*100/(b-a)
+86  92   "G4 Sk %3d%%"(c-a)*100/(b-a)
+93  99   "G5 Sk %3d%%"(c-a)*100/(b-a)
+100 106  "G6 Sk %3d%%"(c-a)*100/(b-a)
+107 113  "G7 Sk %3d%%"(c-a)*100/(b-a)
+114 120  "G8 Sk %3d%%"(c-a)*100/(b-a)
+121 127  "G9 Sk %3d%%"(c-a)*100/(b-a)
+128 191  "Sc CW  %3d%%"(c-a)*100/(b-a)
+192 255  "Sc CCW %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 8  ;Control
+0   39   "Safe"
+40  49   "Move Dk ON"
+50  59   "Move Dk OFF"
+60  69   "Col Dk ON"
+70  79   "Col Dk OFF"
+80  89   "Gobo Dk ON"
+90  99   "Gobo Dk OFF"
+100 109  "Reset Pan"
+110 119  "Reset Tilt"
+120 129  "Reset Col"
+130 139  "Reset Gobo"
+200 209  "Reset All"
+REND
+

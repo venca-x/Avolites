@@ -1,0 +1,413 @@
+; 'Free Color P1815 7 DMX', 7 DMX Channels, filename: UKFC8157.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   21-11-14   Valentin Vertey   Created
+;   10-01-17   Nic Morris        Removed dimmer display text.  Standardised shutter and macro speed display ranges.
+;   10-01-17   Nic Morris        Renamed 9 CH DMX mode to 9 DMX.  Changed colour macro value ranges from 0-10 to 1-8.
+;   10-01-17   Nic Morris        Changed RGB power on to match locate.
+;   10-01-17   Nic Morris        Standardised white and amber wheel slots.  Moved macro speed into special slot to match group.
+;   10-01-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   10-01-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKFC8157                            mode=7 DMX  7 DMX Channels
+NAME "Misc F" "Free Color P1815 7 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 7 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+4    61   L    5   100   1N   0   1   "White"             0     0     0
+9     1   L    7   100   1N   0   1   "Colour Macro"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Free Color P1815
+7 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Shutter
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Colour Macro
+0   7    "Open"
+8   8    "Colour 1 1"
+9   9    "Colour 1 2"
+10  10   "Colour 1 3"
+11  11   "Colour 1 4"
+12  12   "Colour 1 5"
+13  13   "Colour 1 6"
+14  14   "Colour 1 7"
+15  15   "Colour 1 8"
+16  16   "Colour 2 1"
+17  17   "Colour 2 2"
+18  18   "Colour 2 3"
+19  19   "Colour 2 4"
+20  20   "Colour 2 5"
+21  21   "Colour 2 6"
+22  22   "Colour 2 7"
+23  23   "Colour 2 8"
+24  24   "Colour 2 1"
+25  25   "Colour 2 2"
+26  26   "Colour 2 3"
+27  27   "Colour 2 4"
+28  28   "Colour 2 5"
+29  29   "Colour 2 6"
+30  30   "Colour 2 7"
+31  31   "Colour 2 8"
+32  32   "Colour 3 1"
+33  33   "Colour 3 2"
+34  34   "Colour 3 3"
+35  35   "Colour 3 4"
+36  36   "Colour 3 5"
+37  37   "Colour 3 6"
+38  38   "Colour 3 7"
+39  39   "Colour 3 8"
+40  40   "Colour 4 1"
+41  41   "Colour 4 2"
+42  42   "Colour 4 3"
+43  43   "Colour 4 4"
+44  44   "Colour 4 5"
+45  45   "Colour 4 6"
+46  46   "Colour 4 7"
+47  47   "Colour 4 8"
+48  48   "Colour 5 1"
+49  49   "Colour 5 2"
+50  50   "Colour 5 3"
+51  51   "Colour 5 4"
+52  52   "Colour 5 5"
+53  53   "Colour 5 6"
+54  54   "Colour 5 7"
+55  55   "Colour 5 8"
+56  56   "Colour 6 1"
+57  57   "Colour 6 2"
+58  58   "Colour 6 3"
+59  59   "Colour 6 4"
+60  60   "Colour 6 5"
+61  61   "Colour 6 6"
+62  62   "Colour 6 7"
+63  63   "Colour 6 8"
+64  64   "Colour 7 1"
+65  65   "Colour 7 2"
+66  66   "Colour 7 3"
+67  67   "Colour 7 4"
+68  68   "Colour 7 5"
+69  69   "Colour 7 6"
+70  70   "Colour 7 7"
+71  71   "Colour 7 8"
+72  72   "Colour 8 1"
+73  73   "Colour 8 2"
+74  74   "Colour 8 3"
+75  75   "Colour 8 4"
+76  76   "Colour 8 5"
+77  77   "Colour 8 6"
+78  78   "Colour 8 7"
+79  79   "Colour 8 8"
+80  80   "Colour 9 1"
+81  81   "Colour 9 2"
+82  82   "Colour 9 3"
+83  83   "Colour 9 4"
+84  84   "Colour 9 5"
+85  85   "Colour 9 6"
+86  86   "Colour 9 7"
+87  87   "Colour 9 8"
+88  89   "Colour 10 1"
+90  91   "Colour 10 2"
+92  93   "Colour 10 3"
+94  95   "Colour 10 4"
+96  97   "Colour 10 5"
+98  99   "Colour 10 6"
+100 101  "Colour 10 7"
+102 103  "Colour 10 8"
+104 104  "Colour 11 1"
+105 105  "Colour 11 2"
+106 106  "Colour 11 3"
+107 107  "Colour 11 4"
+108 108  "Colour 11 5"
+109 109  "Colour 11 6"
+110 110  "Colour 11 7"
+111 111  "Colour 11 8"
+112 112  "Colour 12 1"
+113 113  "Colour 12 2"
+114 114  "Colour 12 3"
+115 115  "Colour 12 4"
+116 116  "Colour 12 5"
+117 117  "Colour 12 6"
+118 118  "Colour 12 7"
+119 119  "Colour 12 8"
+120 120  "Colour 13 1"
+121 121  "Colour 13 2"
+122 122  "Colour 13 3"
+123 123  "Colour 13 4"
+124 124  "Colour 13 5"
+125 125  "Colour 13 6"
+126 126  "Colour 13 7"
+127 127  "Colour 13 8"
+128 128  "Colour 14 1"
+129 129  "Colour 14 2"
+130 130  "Colour 14 3"
+131 131  "Colour 14 4"
+132 132  "Colour 14 5"
+133 133  "Colour 14 6"
+134 134  "Colour 14 7"
+135 135  "Colour 14 8"
+136 136  "Colour 15 1"
+137 137  "Colour 15 2"
+138 138  "Colour 15 3"
+139 139  "Colour 15 4"
+140 140  "Colour 15 5"
+141 141  "Colour 15 6"
+142 142  "Colour 15 7"
+143 143  "Colour 15 8"
+144 144  "Colour 16 1"
+145 145  "Colour 16 2"
+146 146  "Colour 16 3"
+147 147  "Colour 16 4"
+148 148  "Colour 16 5"
+149 149  "Colour 16 6"
+150 150  "Colour 16 7"
+151 151  "Colour 16 8"
+152 152  "Colour 17 1"
+153 153  "Colour 17 2"
+154 154  "Colour 17 3"
+155 155  "Colour 17 4"
+156 156  "Colour 17 5"
+157 157  "Colour 17 6"
+158 158  "Colour 17 7"
+159 159  "Colour 17 8"
+160 160  "Colour 18 1"
+161 161  "Colour 18 2"
+162 162  "Colour 18 3"
+163 163  "Colour 18 4"
+164 164  "Colour 18 5"
+165 165  "Colour 18 6"
+166 166  "Colour 18 7"
+167 167  "Colour 18 8"
+168 168  "Colour 19 1"
+169 169  "Colour 19 2"
+170 170  "Colour 19 3"
+171 171  "Colour 19 4"
+172 172  "Colour 19 5"
+173 173  "Colour 19 6"
+174 174  "Colour 19 7"
+175 175  "Colour 19 8"
+176 176  "Colour 20 1"
+177 177  "Colour 20 2"
+178 178  "Colour 20 3"
+179 179  "Colour 20 4"
+180 180  "Colour 20 5"
+181 181  "Colour 20 6"
+182 182  "Colour 20 7"
+183 183  "Colour 20 8"
+184 184  "Colour 21 1"
+185 185  "Colour 21 2"
+186 186  "Colour 21 3"
+187 187  "Colour 21 4"
+188 188  "Colour 21 5"
+189 189  "Colour 21 6"
+190 190  "Colour 21 7"
+191 191  "Colour 21 8"
+192 192  "Colour 22 1"
+193 193  "Colour 22 2"
+194 194  "Colour 22 3"
+195 195  "Colour 22 4"
+196 196  "Colour 22 5"
+197 197  "Colour 22 6"
+198 198  "Colour 22 7"
+199 199  "Colour 22 8"
+200 200  "Colour 23 1"
+201 201  "Colour 23 2"
+202 202  "Colour 23 3"
+203 203  "Colour 23 4"
+204 204  "Colour 23 5"
+205 205  "Colour 23 6"
+206 206  "Colour 23 7"
+207 207  "Colour 23 8"
+208 208  "Colour 24 1"
+209 209  "Colour 24 2"
+210 210  "Colour 24 3"
+211 211  "Colour 24 4"
+212 212  "Colour 24 5"
+213 213  "Colour 24 6"
+214 214  "Colour 24 7"
+215 215  "Colour 24 8"
+216 216  "Colour 25 1"
+217 217  "Colour 25 2"
+218 218  "Colour 25 3"
+219 219  "Colour 25 4"
+220 220  "Colour 25 5"
+221 221  "Colour 25 6"
+222 222  "Colour 25 7"
+223 223  "Colour 25 8"
+224 224  "Colour 26 1"
+225 225  "Colour 26 2"
+226 226  "Colour 26 3"
+227 227  "Colour 26 4"
+228 228  "Colour 26 5"
+229 229  "Colour 26 6"
+230 230  "Colour 26 7"
+231 231  "Colour 26 8"
+232 232  "Colour 27 1"
+233 233  "Colour 27 2"
+234 234  "Colour 27 3"
+235 235  "Colour 27 4"
+236 236  "Colour 27 5"
+237 237  "Colour 27 6"
+238 238  "Colour 27 7"
+239 239  "Colour 27 8"
+240 240  "Colour 28 1"
+241 241  "Colour 28 2"
+242 242  "Colour 28 3"
+243 243  "Colour 28 4"
+244 244  "Colour 28 5"
+245 245  "Colour 28 6"
+246 246  "Colour 28 7"
+247 247  "Colour 28 8"
+248 248  "Colour 29 1"
+249 249  "Colour 29 2"
+250 250  "Colour 29 3"
+251 251  "Colour 29 4"
+252 252  "Colour 29 5"
+253 253  "Colour 29 6"
+254 254  "Colour 29 7"
+255 255  "Colour 29 8"
+REND
+

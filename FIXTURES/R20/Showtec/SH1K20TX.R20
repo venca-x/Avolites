@@ -1,0 +1,273 @@
+; 'Showtec Galactic 1K20 TXT', 20 DMX Channels, filename: SH1K20TX.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   03-10-15   Nic Morris        Created
+;   21-05-17   Nic Morris        Created from KAM TextBeam300
+;   13-09-17   Nic Morris        Created from Stairville DJ Lase RGB Pro Advanced 1000
+;   13-09-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   13-09-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SH1K20TX                            mode=20 DMX  20 DMX Channels
+NAME "Showtec" "Galactic 1K20 TXT"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  20  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 20 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=492
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    5   100   1N   0   1   "Text Drawing"      0     0     0
+3    61   L   14   100   1N   E   1   "Text X Pos"        0     0     0
+3     1   L   16   100   1N   F   1   "Text Y Pos"        0     0     0
+4     1   L    4   100   1N   A   1   "Text Colour"       0     0     0
+6     1   L    2   100   1N   0   1   "Text/Patt Gr"      0     0     0
+6    61   L    3   100   1N   0   1   "Text Spd/Pat"    128     0     0
+5     1   L    6   100   1N   Q   1   "Text Zoom"        64     0     0
+15    1   L    7   100   1N   0   1   "Text Zoom Sp"      0     0     0
+7    61   L    8   100   1N   0   1   "Text Y Rot"        0     0     0
+17   61   L    9   100   1N   0   1   "Text Y Rot S"      0     0     0
+7     1   L   10   100   1N   0   1   "Text X Rot"        0     0     0
+17    1   L   11   100   1N   0   1   "Text X Rot S"      0     0     0
+8     1   L   12   100   1N   0   1   "Text Z Rot"        0     0     0
+18    1   L   13   100   1N   0   1   "Text Z Rot S"      0     0     0
+9     1   L   18   100   1N   0   1   "Text Wave Si"      0     0     0
+10    1   L   19   100   1N   0   1   "Text Wave Fr"      0     0     0
+10   61   L   20   100   1N   0   1   "Text Wave Sp"      0     0     0
+11    1   L    1   100   1N   0   1   "Mode"            124     0     0
+13   61   L   15   100   1N   0   1   "Text X Pos S"      0     0     0
+13    1   L   17   100   1N   0   1   "Text Y Pos S"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec
+Galactic 1K20 TXT
+20 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;Text Drawing
+0   0    "No Function"
+1   127  "Man  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Auto %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Text X Pos
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "R->L"
+192 255  "L->R"
+REND
+
+RANGE 16  ;Text Y Pos
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Ascending"
+192 255  "Descending"
+REND
+
+RANGE 4  ;Text Colour
+0   7    "Default"
+8   15   "Red"
+16  23   "Green"
+24  31   "Yellow"
+32  39   "Blue"
+40  47   "Purple"
+48  57   "Cyan"
+58  63   "White"
+64  111  "Swtch1 %3d%%"(c-a)*100/(b-a)
+112 159  "Swtch2 %3d%%"(c-a)*100/(b-a)
+160 207  "Flow   %3d%%"(c-a)*100/(b-a)
+208 255  "Strobe %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 2  ;Text/Patt Grp
+0   25   "Text 0"
+26  51   "Text 1"
+52  77   "Text 2"
+78  103  "Text 3"
+104 129  "Text 4"
+130 155  "Text 5"
+156 181  "Text 6"
+182 207  "Text 7"
+208 233  "Text 8"
+234 255  "Text 9"
+REND
+
+RANGE 3  ;Text Spd/Patt
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Text Zoom
+0   127  "Zoom %3d%%"100-((c-a)*100/(b-a))
+128 169  "Open Pulse"
+170 209  "Close Pulse"
+210 255  "Pulse"
+REND
+
+RANGE 7  ;Text Zoom Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 8  ;Text Y Rot
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Spin CW"
+192 255  "Spin CCW"
+REND
+
+RANGE 9  ;Text Y Rot Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 10  ;Text X Rot
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Spin CW"
+192 255  "Spin CCW"
+REND
+
+RANGE 11  ;Text X Rot Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 12  ;Text Z Rot
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 191  "Spin CW"
+192 255  "Spin CCW"
+REND
+
+RANGE 13  ;Text Z Rot Spd
+0   0    ""
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 18  ;Text Wave Size
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Text Wave Freq
+0   31   "Freq 1"
+32  63   "Freq 2"
+64  95   "Freq 3"
+96  127  "Freq 4"
+128 159  "Freq 5"
+160 191  "Freq 6"
+192 223  "Freq 7"
+224 255  "Freq 8"
+REND
+
+RANGE 20  ;Text Wave Spd
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Spd  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Mode
+0   9    "Blackout"
+10  49   "Auto"
+50  99   "Sound"
+100 149  "Text"
+150 199  "BG Pattern"
+200 255  "FG Pattern"
+REND
+
+RANGE 15  ;Text X Pos Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 17  ;Text Y Pos Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+

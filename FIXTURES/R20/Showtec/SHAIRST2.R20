@@ -1,0 +1,293 @@
+; 'Showtec Airstrike V2', 10 DMX Channels, filename: SHAIRST2.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   24-02-17   Nic Morris        Created
+;   24-02-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   24-02-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SHAIRST2                            mode=10 DMX  10 DMX Channels
+NAME "Showtec" "Airstrike V2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 10 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          25     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+4     1   L    3   100   1N   A   1   "Colour"            0    87    55
+6     1   L    4   100   1N   I   1   "Gobo"              0     0     0
+3     1   L    5   100   1N   0   1   "Roller Rot"      194     0     0
+10    1   L    6   100   1N   0   1   "Mirror 1 Sha"     63     0     0
+10   61   L    7   100   1N   0   1   "Mirror 2 Sha"     63     0     0
+9     1   L    8   100   1N   0   1   "Mirror 3 Sha"     63     0     0
+9    61   L    9   100   1N   0   1   "Mirror 4 Sha"     63     0     0
+11    1   L   10   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec Airstrike V2
+10 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31   B
+"Slow Strobe"        32  8C
+"Fast Strobe"        33  F0
+"Closed"             38   0
+PFEND
+
+PFTABLE "Colour"     -1   3
+"Open"                1   0
+"Red"                 2  10
+"Amber"               3  40
+"Yellow"              4  50
+"Green"               5  20
+"Open"                6   0
+"Blue"                7  30
+"Blue"                9  30
+"Magenta"            10  60
+"Pink"                8  70
+PFEND
+
+PFTABLE "Gobo"       -1   4
+"Open"               11   0
+"Gobo 1"             12   5
+"Gobo 2"             13   A
+"Gobo 3"             14   F
+"Gobo 4"             15  14
+"Gobo 5"             16  19
+"Gobo 6"             17  1E
+"Gobo 7"             18  23
+"Gobo 8"             19  28
+"Gobo 9"             20  2D
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp OFF"      1  10
+"data"                0  7D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp ON"       2  10
+"data"                0  AF
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset"         3  10
+"data"                0  E4
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   10   "Closed"
+11  39   "Open"
+40  240  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+241 255  "Open"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Colour
+0   15   "Open"
+16  31   "Red"
+32  47   "Green"
+48  63   "Blue"
+64  79   "Amber"
+80  95   "Yellow"
+96  111  "Magenta"
+112 127  "Pink"
+128 191  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+192 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Gobo
+0   4    "Open"
+5   9    "Gobo 1"
+10  14   "Gobo 2"
+15  19   "Gobo 3"
+20  24   "Gobo 4"
+25  29   "Gobo 5"
+30  34   "Gobo 6"
+35  39   "Gobo 7"
+40  44   "Gobo 8"
+45  49   "Gobo 9"
+50  54   "Gobo 10"
+55  59   "Gobo 11"
+60  64   "Gobo 12"
+65  69   "Gobo 13"
+70  74   "Gobo 14"
+75  75   "Op  Sk %3d%%"(c-a)*100/(b-a)
+76  81   "G1  Sk %3d%%"(c-a)*100/(b-a)
+82  87   "G2  Sk %3d%%"(c-a)*100/(b-a)
+88  93   "G3  Sk %3d%%"(c-a)*100/(b-a)
+94  99   "G4  Sk %3d%%"(c-a)*100/(b-a)
+100 105  "G5  Sk %3d%%"(c-a)*100/(b-a)
+106 111  "G6  Sk %3d%%"(c-a)*100/(b-a)
+112 117  "G7  Sk %3d%%"(c-a)*100/(b-a)
+118 123  "G8  Sk %3d%%"(c-a)*100/(b-a)
+124 129  "G9  Sk %3d%%"(c-a)*100/(b-a)
+130 135  "G10 Sk %3d%%"(c-a)*100/(b-a)
+136 141  "G11 Sk %3d%%"(c-a)*100/(b-a)
+142 147  "G12 Sk %3d%%"(c-a)*100/(b-a)
+148 153  "G13 Sk %3d%%"(c-a)*100/(b-a)
+154 158  "G14 Sk %3d%%"(c-a)*100/(b-a)
+159 207  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+208 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Roller Rot
+0   63   "Index  %3d%%"(c-a)*100/(b-a)
+64  67   "Stop"
+68  127  "Shake  %3d%%"(c-a)*100/(b-a)
+128 132  "Stop"
+133 191  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+192 196  "Stop"
+197 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Mirror 1 Shake
+0   127  "Indx  %3d%%"(c-a)*100/(b-a)
+128 159  "Shk 1 %3d%%"(c-a)*100/(b-a)
+160 191  "Shk 2 %3d%%"(c-a)*100/(b-a)
+192 223  "Shk 3 %3d%%"(c-a)*100/(b-a)
+224 255  "Shk 4 %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Mirror 2 Shake
+0   127  "Indx  %3d%%"(c-a)*100/(b-a)
+128 159  "Shk 1 %3d%%"(c-a)*100/(b-a)
+160 191  "Shk 2 %3d%%"(c-a)*100/(b-a)
+192 223  "Shk 3 %3d%%"(c-a)*100/(b-a)
+224 255  "Shk 4 %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Mirror 3 Shake
+0   127  "Indx  %3d%%"(c-a)*100/(b-a)
+128 159  "Shk 1 %3d%%"(c-a)*100/(b-a)
+160 191  "Shk 2 %3d%%"(c-a)*100/(b-a)
+192 223  "Shk 3 %3d%%"(c-a)*100/(b-a)
+224 255  "Shk 4 %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Mirror 4 Shake
+0   127  "Indx  %3d%%"(c-a)*100/(b-a)
+128 159  "Shk 1 %3d%%"(c-a)*100/(b-a)
+160 191  "Shk 2 %3d%%"(c-a)*100/(b-a)
+192 223  "Shk 3 %3d%%"(c-a)*100/(b-a)
+224 255  "Shk 4 %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Control
+0   50   "Safe"
+51  100  "Energy Save"
+101 150  "Lamp OFF"
+151 200  "Lamp ON"
+201 225  "Auto Run"
+226 230  "Reset"
+231 255  "Sound"
+REND
+

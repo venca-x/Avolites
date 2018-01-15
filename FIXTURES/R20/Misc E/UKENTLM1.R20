@@ -1,0 +1,653 @@
+; 'Enttec LED Mapper 15 DMX', 15 DMX Channels, filename: UKENTLM1.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   18-08-17   Nic Morris        Created (limited documentation)
+;   18-08-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   18-08-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKENTLM1                            mode=15 DMX  15 DMX Channels
+NAME "Misc E" "Enttec LED Mapper 15 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 15 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+8     1   L    1   100   1N   0   1   "Remote Contr"      0     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    3   100   1N   H   1   "Dimmer Low"      255     0     0
+10    1   L    4   100   1N   T   1   "Red"             255   255     0
+10   61   L    5   100   1N   U   1   "Green"           255   255     0
+9    61   L    6   100   1N   V   1   "Blue"            255     0   229
+7     1   L    7   100   1N   0   1   "Media A Spee"      0     0     0
+7    61   L    8   100   1N   0   1   "Media B Spee"      0     0     0
+6     1   L    9   100   1N   0   1   "Media A Inde"      0     0     0
+6    61   L   10   100   1N   0   1   "Media B Inde"      0     0     0
+2    61   s   11   100   1N   0   1   "A-B Mix"           0     0     0
+0     0   L   12   100   1N   0   1   "A-B Mix Low"       0     0     0
+2     1   L   13   100   1N   0   1   "Modifier"          0     0     0
+9     1   L   14   100   1N   P   1   "Effect"            0     0     0
+11    1   L   15   100   1N   0   1   "Reserved"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Enttec LED Mapper
+15 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   4   5   6
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Remote Control
+0   0    "Disabled"
+255 255  "Enabled"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Media A Speed
+0   0    "Pause"
+1   24   "- %3d%%"(c-a)*100/(b-a)
+25  25   "1x"
+26  255  "+ %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Media B Speed
+0   0    "Pause"
+1   24   "- %3d%%"(c-a)*100/(b-a)
+25  25   "1x"
+26  255  "+ %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Media A Index
+0   0    "Empty"
+1   1    "Index 1"
+2   2    "Index 2"
+3   3    "Index 3"
+4   4    "Index 4"
+5   5    "Index 5"
+6   6    "Index 6"
+7   7    "Index 7"
+8   8    "Index 8"
+9   9    "Index 9"
+10  10   "Index 10"
+11  11   "Index 11"
+12  12   "Index 12"
+13  13   "Index 13"
+14  14   "Index 14"
+15  15   "Index 15"
+16  16   "Index 16"
+17  17   "Index 17"
+18  18   "Index 18"
+19  19   "Index 19"
+20  20   "Index 20"
+21  21   "Index 21"
+22  22   "Index 22"
+23  23   "Index 23"
+24  24   "Index 24"
+25  25   "Index 25"
+26  26   "Index 26"
+27  27   "Index 27"
+28  28   "Index 28"
+29  29   "Index 29"
+30  30   "Index 30"
+31  31   "Index 31"
+32  32   "Index 32"
+33  33   "Index 33"
+34  34   "Index 34"
+35  35   "Index 35"
+36  36   "Index 36"
+37  37   "Index 37"
+38  38   "Index 38"
+39  39   "Index 39"
+40  40   "Index 40"
+41  41   "Index 41"
+42  42   "Index 42"
+43  43   "Index 43"
+44  44   "Index 44"
+45  45   "Index 45"
+46  46   "Index 46"
+47  47   "Index 47"
+48  48   "Index 48"
+49  49   "Index 49"
+50  50   "Index 50"
+51  51   "Index 51"
+52  52   "Index 52"
+53  53   "Index 53"
+54  54   "Index 54"
+55  55   "Index 55"
+56  56   "Index 56"
+57  57   "Index 57"
+58  58   "Index 58"
+59  59   "Index 59"
+60  60   "Index 60"
+61  61   "Index 61"
+62  62   "Index 62"
+63  63   "Index 63"
+64  64   "Index 64"
+65  65   "Index 65"
+66  66   "Index 66"
+67  67   "Index 67"
+68  68   "Index 68"
+69  69   "Index 69"
+70  70   "Index 70"
+71  71   "Index 71"
+72  72   "Index 72"
+73  73   "Index 73"
+74  74   "Index 74"
+75  75   "Index 75"
+76  76   "Index 76"
+77  77   "Index 77"
+78  78   "Index 78"
+79  79   "Index 79"
+80  80   "Index 80"
+81  81   "Index 81"
+82  82   "Index 82"
+83  83   "Index 83"
+84  84   "Index 84"
+85  85   "Index 85"
+86  86   "Index 86"
+87  87   "Index 87"
+88  88   "Index 88"
+89  89   "Index 89"
+90  90   "Index 90"
+91  91   "Index 91"
+92  92   "Index 92"
+93  93   "Index 93"
+94  94   "Index 94"
+95  95   "Index 95"
+96  96   "Index 96"
+97  97   "Index 97"
+98  98   "Index 98"
+99  99   "Index 99"
+REND
+
+RANGE 10  ;Media B Index
+0   0    "Empty"
+1   1    "Index 1"
+2   2    "Index 2"
+3   3    "Index 3"
+4   4    "Index 4"
+5   5    "Index 5"
+6   6    "Index 6"
+7   7    "Index 7"
+8   8    "Index 8"
+9   9    "Index 9"
+10  10   "Index 10"
+11  11   "Index 11"
+12  12   "Index 12"
+13  13   "Index 13"
+14  14   "Index 14"
+15  15   "Index 15"
+16  16   "Index 16"
+17  17   "Index 17"
+18  18   "Index 18"
+19  19   "Index 19"
+20  20   "Index 20"
+21  21   "Index 21"
+22  22   "Index 22"
+23  23   "Index 23"
+24  24   "Index 24"
+25  25   "Index 25"
+26  26   "Index 26"
+27  27   "Index 27"
+28  28   "Index 28"
+29  29   "Index 29"
+30  30   "Index 30"
+31  31   "Index 31"
+32  32   "Index 32"
+33  33   "Index 33"
+34  34   "Index 34"
+35  35   "Index 35"
+36  36   "Index 36"
+37  37   "Index 37"
+38  38   "Index 38"
+39  39   "Index 39"
+40  40   "Index 40"
+41  41   "Index 41"
+42  42   "Index 42"
+43  43   "Index 43"
+44  44   "Index 44"
+45  45   "Index 45"
+46  46   "Index 46"
+47  47   "Index 47"
+48  48   "Index 48"
+49  49   "Index 49"
+50  50   "Index 50"
+51  51   "Index 51"
+52  52   "Index 52"
+53  53   "Index 53"
+54  54   "Index 54"
+55  55   "Index 55"
+56  56   "Index 56"
+57  57   "Index 57"
+58  58   "Index 58"
+59  59   "Index 59"
+60  60   "Index 60"
+61  61   "Index 61"
+62  62   "Index 62"
+63  63   "Index 63"
+64  64   "Index 64"
+65  65   "Index 65"
+66  66   "Index 66"
+67  67   "Index 67"
+68  68   "Index 68"
+69  69   "Index 69"
+70  70   "Index 70"
+71  71   "Index 71"
+72  72   "Index 72"
+73  73   "Index 73"
+74  74   "Index 74"
+75  75   "Index 75"
+76  76   "Index 76"
+77  77   "Index 77"
+78  78   "Index 78"
+79  79   "Index 79"
+80  80   "Index 80"
+81  81   "Index 81"
+82  82   "Index 82"
+83  83   "Index 83"
+84  84   "Index 84"
+85  85   "Index 85"
+86  86   "Index 86"
+87  87   "Index 87"
+88  88   "Index 88"
+89  89   "Index 89"
+90  90   "Index 90"
+91  91   "Index 91"
+92  92   "Index 92"
+93  93   "Index 93"
+94  94   "Index 94"
+95  95   "Index 95"
+96  96   "Index 96"
+97  97   "Index 97"
+98  98   "Index 98"
+99  99   "Index 99"
+REND
+
+RANGE 11  ;A-B Mix
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Effect
+0   0    "No Effect"
+1   1    "Crossfade"
+2   2    "Black Fade"
+3   3    "White Fade"
+4   4    "Various 4"
+5   5    "Various 5"
+6   6    "Various 6"
+7   7    "Various 7"
+8   8    "Various 8"
+9   9    "Various 9"
+10  10   "Various 10"
+11  11   "Various 11"
+12  12   "Various 12"
+13  13   "Various 13"
+14  14   "Various 14"
+15  15   "Various 15"
+16  16   "Various 16"
+17  17   "Various 17"
+18  18   "Various 18"
+19  19   "Various 19"
+20  20   "Various 20"
+21  21   "Various 21"
+22  22   "Various 22"
+23  23   "Various 23"
+24  24   "Various 24"
+25  25   "Various 25"
+26  26   "Various 26"
+27  27   "Various 27"
+28  28   "Various 28"
+29  29   "Various 29"
+30  30   "Various 30"
+31  31   "Various 31"
+32  32   "Various 32"
+33  33   "Various 33"
+34  34   "Various 34"
+35  35   "Various 35"
+36  36   "Various 36"
+37  37   "Various 37"
+38  38   "Various 38"
+39  39   "Various 39"
+40  40   "Various 40"
+41  41   "Various 41"
+42  42   "Various 42"
+43  43   "Various 43"
+44  44   "Various 44"
+45  45   "Various 45"
+46  46   "Various 46"
+47  47   "Various 47"
+48  48   "Various 48"
+49  49   "Various 49"
+50  50   "Various 50"
+51  51   "Various 51"
+52  52   "Various 52"
+53  53   "Various 53"
+54  54   "Various 54"
+55  55   "Various 55"
+56  56   "Various 56"
+57  57   "Various 57"
+58  58   "Various 58"
+59  59   "Various 59"
+60  60   "Various 60"
+61  61   "Various 61"
+62  62   "Various 62"
+63  63   "Various 63"
+64  64   "Various 64"
+65  65   "Various 65"
+66  66   "Various 66"
+67  67   "Various 67"
+68  68   "Various 68"
+69  69   "Various 69"
+70  70   "Various 70"
+71  71   "Various 71"
+72  72   "Various 72"
+73  73   "Various 73"
+74  74   "Various 74"
+75  75   "Various 75"
+76  76   "Various 76"
+77  77   "Various 77"
+78  78   "Various 78"
+79  79   "Various 79"
+80  80   "Various 80"
+81  81   "Various 81"
+82  82   "Various 82"
+83  83   "Various 83"
+84  84   "Various 84"
+85  85   "Various 85"
+86  86   "Various 86"
+87  87   "Various 87"
+88  88   "Various 88"
+89  89   "Various 89"
+90  90   "Various 90"
+91  91   "Various 91"
+92  92   "Various 92"
+93  93   "Various 93"
+94  94   "Various 94"
+95  95   "Various 95"
+96  96   "Various 96"
+97  97   "Various 97"
+98  98   "Various 98"
+99  99   "Various 99"
+100 100  "Various 100"
+101 101  "Various 101"
+102 102  "Various 102"
+103 103  "Various 103"
+104 104  "Various 104"
+105 105  "Various 105"
+106 106  "Various 106"
+107 107  "Various 107"
+108 108  "Various 108"
+109 109  "Various 109"
+110 110  "Various 110"
+111 111  "Various 111"
+112 112  "Various 112"
+113 113  "Various 113"
+114 114  "Various 114"
+115 115  "Various 115"
+116 116  "Various 116"
+117 117  "Various 117"
+118 118  "Various 118"
+119 119  "Various 119"
+120 120  "Various 120"
+121 121  "Various 121"
+122 122  "Various 122"
+123 123  "Various 123"
+124 124  "Various 124"
+125 125  "Various 125"
+126 126  "Various 126"
+127 127  "Various 127"
+128 128  "Various 128"
+129 129  "Various 129"
+130 130  "Various 130"
+131 131  "Various 131"
+132 132  "Various 132"
+133 133  "Various 133"
+134 134  "Various 134"
+135 135  "Various 135"
+136 136  "Various 136"
+137 137  "Various 137"
+138 138  "Various 138"
+139 139  "Various 139"
+140 140  "Various 140"
+141 141  "Various 141"
+142 142  "Various 142"
+143 143  "Various 143"
+144 144  "Various 144"
+145 145  "Various 145"
+146 146  "Various 146"
+147 147  "Various 147"
+148 148  "Various 148"
+149 149  "Various 149"
+150 150  "Various 150"
+151 151  "Various 151"
+152 152  "Various 152"
+153 153  "Various 153"
+154 154  "Various 154"
+155 155  "Various 155"
+156 156  "Various 156"
+157 157  "Various 157"
+158 158  "Various 158"
+159 159  "Various 159"
+160 160  "Various 160"
+161 161  "Various 161"
+162 162  "Various 162"
+163 163  "Various 163"
+164 164  "Various 164"
+165 165  "Various 165"
+166 166  "Various 166"
+167 167  "Various 167"
+168 168  "Various 168"
+169 169  "Various 169"
+170 170  "Various 170"
+171 171  "Various 171"
+172 172  "Various 172"
+173 173  "Various 173"
+174 174  "Various 174"
+175 175  "Various 175"
+176 176  "Various 176"
+177 177  "Various 177"
+178 178  "Various 178"
+179 179  "Various 179"
+180 180  "Various 180"
+181 181  "Various 181"
+182 182  "Various 182"
+183 183  "Various 183"
+184 184  "Various 184"
+185 185  "Various 185"
+186 186  "Various 186"
+187 187  "Various 187"
+188 188  "Various 188"
+189 189  "Various 189"
+190 190  "Various 190"
+191 191  "Various 191"
+192 192  "Various 192"
+193 193  "Various 193"
+194 194  "Various 194"
+195 195  "Various 195"
+196 196  "Various 196"
+197 197  "Various 197"
+198 198  "Various 198"
+199 199  "Various 199"
+200 200  "Various 200"
+201 201  "Various 201"
+202 202  "Various 202"
+203 203  "Various 203"
+204 204  "Various 204"
+205 205  "Various 205"
+206 206  "Various 206"
+207 207  "Various 207"
+208 208  "Various 208"
+209 209  "Various 209"
+210 210  "Various 210"
+211 211  "Various 211"
+212 212  "Various 212"
+213 213  "Various 213"
+214 214  "Various 214"
+215 215  "Various 215"
+216 216  "Various 216"
+217 217  "Various 217"
+218 218  "Various 218"
+219 219  "Various 219"
+220 220  "Various 220"
+221 221  "Various 221"
+222 222  "Various 222"
+223 223  "Various 223"
+224 224  "Various 224"
+225 225  "Various 225"
+226 226  "Various 226"
+227 227  "Various 227"
+228 228  "Various 228"
+229 229  "Various 229"
+230 230  "Various 230"
+231 231  "Various 231"
+232 232  "Various 232"
+233 233  "Various 233"
+234 234  "Various 234"
+235 235  "Various 235"
+236 236  "Various 236"
+237 237  "Various 237"
+238 238  "Various 238"
+239 239  "Various 239"
+240 240  "Various 240"
+241 241  "Various 241"
+242 242  "Various 242"
+243 243  "Various 243"
+244 244  "Various 244"
+245 245  "Various 245"
+246 246  "Various 246"
+247 247  "Various 247"
+248 248  "Various 248"
+249 249  "Various 249"
+250 250  "Various 250"
+251 251  "Various 251"
+252 252  "Various 252"
+253 253  "Various 253"
+254 254  "Various 254"
+255 255  "Various 255"
+REND
+

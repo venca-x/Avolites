@@ -1,0 +1,335 @@
+; 'FOS Chameleon Wash 24 DMX', 24 DMX Channels, filename: UKFOSCW1.R20
+;  Copyright © Avolites Ltd. 2017
+;
+;   Date       By                Description
+;   09-03-17   Nic Morris        Created (poor documentation)
+;   01-11-17   Nic Morris        Revised shutter functions, added DynamicFX Fade channel and 2 more cells in line with latest charts (no layout details)
+;   01-11-17   Nic Morris        Revised colour macro ranges ranges and changed dynamic to percentage.  Added auto control function.
+;   01-11-17   Nic Morris        Revised StaticFX and DynamicFX functions.  Added compatibility to 23 DMX mode for R20 export.
+;   01-11-17   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-11-17   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKFOSCW1                            mode=24 DMX  24 DMX Channels
+NAME "Misc F" "FOS Chameleon Wash 24 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  24  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 24 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=488
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+5     1   L    6   100   1N   Q   1   "Zoom"            127     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    8   100   1N   O   1   "Shutter"           0     0     0
+10    1   L    9   100   1N   T   1   "Red"             255   255     0
+10   61   L   10   100   1N   U   1   "Green"           255   255     0
+9    61   L   11   100   1N   V   1   "Blue"            255     0   229
+9     1   L   12   100   1N   0   1   "White"             0     0     0
+4    61   L   13   100   1N   0   1   "CTO"               0     0     0
+4     1   L   14   100   1N   0   1   "Colour Macro"      0     0     0
+14    1   L   15   100   1N   0   1   "Col Mac Spd"     128     0     0
+6     1   L   16   100   1N   0   1   "StaticFX"          0     0     0
+6    61   L   17   100   1N   0   1   "DynamicFX"         0     0     0
+7     1   L   18   100   1N   0   1   "DynamicFX Sp"    128     0     0
+7    61   L   19   100   1N   0   1   "DynamicFX Fa"      0     0     0
+20    1   L   20   100   1N   0   1   "BG Red"            0     0     0
+20   61   L   21   100   1N   0   1   "BG Green"          0     0     0
+19   61   L   22   100   1N   0   1   "BG Blue"           0     0     0
+19    1   L   23   100   1N   0   1   "BG White"          0     0     0
+11    1   L   24   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+FOS Chameleon Wash
+24 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Beam"       -1   6
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  24
+"data"                0  F8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Shutter
+0   15   "Open"
+16  135  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+136 209  "Pulse %3d%%"(c-a)*100/(b-a)
+210 255  "Thundr %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Colour Macro
+0   55   "No Macro"
+56  67   "Static 1"
+68  79   "Static 2"
+80  91   "Static 3"
+92  103  "Static 4"
+104 115  "Static 5"
+116 127  "Static 6"
+128 139  "Static 7"
+140 151  "Static 8"
+152 163  "Static 9"
+192 255  "Dyn %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 15  ;Col Mac Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 16  ;StaticFX
+0   29   "No Effect"
+30  35   "Effect 1"
+36  41   "Effect 2"
+42  47   "Effect 3"
+48  53   "Effect 4"
+54  59   "Effect 5"
+60  65   "Effect 6"
+66  71   "Effect 7"
+72  77   "Effect 8"
+78  83   "Effect 9"
+84  89   "Effect 10"
+90  95   "Effect 11"
+96  101  "Effect 12"
+102 107  "Effect 13"
+108 113  "Effect 14"
+114 119  "Effect 15"
+120 125  "Effect 16"
+126 131  "Effect 17"
+132 137  "Effect 18"
+138 143  "Effect 19"
+144 149  "Effect 20"
+150 155  "Effect 21"
+156 161  "Effect 22"
+162 167  "Effect 23"
+168 173  "Effect 24"
+174 179  "Effect 25"
+180 185  "Effect 26"
+186 191  "Effect 27"
+192 197  "Effect 28"
+198 203  "Effect 29"
+204 209  "Effect 30"
+210 215  "Effect 31"
+216 221  "Effect 32"
+222 227  "Effect 33"
+228 233  "Effect 34"
+234 239  "Effect 35"
+240 245  "Effect 36"
+246 251  "Effect 37"
+252 255  "Effect 38"
+REND
+
+RANGE 17  ;DynamicFX
+0   10   "No Effect"
+11  21   "Effect 1"
+22  32   "Effect 2"
+33  43   "Effect 3"
+44  54   "Effect 4"
+55  65   "Effect 5"
+66  76   "Effect 6"
+77  87   "Effect 7"
+88  98   "Effect 8"
+99  109  "Effect 9"
+110 120  "Effect 10"
+121 131  "Effect 11"
+132 142  "Effect 12"
+143 153  "Effect 13"
+154 164  "Effect 14"
+165 175  "Effect 15"
+176 186  "Effect 16"
+187 197  "Effect 17"
+198 208  "Effect 18"
+209 219  "Effect 19"
+220 230  "Effect 20"
+231 241  "Effect 21"
+242 255  "Effect 22"
+REND
+
+RANGE 18  ;DynamicFX Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 19  ;DynamicFX Fade
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;BG Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;BG Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;BG Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;BG White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Control
+0   79   "Safe"
+80  240  "Auto"
+241 255  "Reset"
+REND
+
