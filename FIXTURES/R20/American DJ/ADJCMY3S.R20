@@ -5,6 +5,7 @@
 ;   31-12-17   Nic Morris        Created
 ;   31-12-17   Pers Creator      Created - Exported from Diamond 4 file.
 ;   31-12-17   Nic Morris        Checked
+;   15-01-18   Nic Morris        Fixed iris range in response to auto-gen report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -449,7 +450,7 @@ RANGE 19  ;Dimmer
 REND
 
 RANGE 20  ;Iris
-0   255  "Iris   %3d%%"(c-a)*100/(b-a)
+0   191  "Iris   %3d%%"(c-a)*100/(b-a)
 192 223  "Cl Pls %3d%%"(c-a)*100/(b-a)
 224 255  "Op Pls %3d%%"(c-a)*100/(b-a)
 REND

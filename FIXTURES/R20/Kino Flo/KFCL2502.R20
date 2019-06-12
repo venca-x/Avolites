@@ -1,0 +1,274 @@
+; 'Kino Flo Celeb 250 DMX LED Colour 16bit, 7 DMX', 7 DMX Channels, filename: KFCL2502.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   15-12-16   Nic Morris        Created
+;   23-04-17   Nic Morris        Created from Kino Flo Select LED 30
+;   10-12-17   Nic Morris        Changed dimmer to intensity in HSI modes and linked to vdim for compatibility
+;   10-12-17   Nic Morris        Added channel counts to mode names.
+;   12-05-18   Nic Morris        Created from Kino Flo Diva-Lite LED 30
+;   12-05-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-05-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  KFCL2502                            mode=Colour 16bit, 7 DMX  7 DMX Channels
+NAME "Kino Flo" "Celeb 250 DMX LED Colour 16bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Colour 16bit, 7 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   L    3   100   1N   0   1   "CTO"               0     0     0
+5     1   L    4   100   1N   0   1   "Green Shift"       0     0     0
+5    61   L    5   100   1N   A   1   "Colour"            0     0     0
+4     1   L    6   100   1N   0   1   "Hue"               0     0     0
+4    61   L    7   100   1N   0   1   "Saturation"        0     0     0
+1     1   H    1   100   1N   H   1   "Intensity"       255     0     0
+11    1   H    2   100   1N   0   1   "Intensit Low"    255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Kino Flo
+Celeb 250 DMX LED
+Colour 16bit, 7 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 4  ;Green Shift
+0   11   "No Shift"
+12  22   "Full Magent"
+23  121  "-Grn %3d%%"100-((c-a)*100/(b-a))
+122 133  "No Shift"
+134 232  "+Grn %3d%%"(c-a)*100/(b-a)
+233 243  "Full Green"
+244 255  "No Shift"
+REND
+
+RANGE 5  ;Colour
+0   3    "Open"
+4   4    "KF Candle F"
+6   6    "KF Flo Warm"
+8   8    "KF Flo Cool"
+10  10   "KF LP Sodiu"
+12  12   "KF Mercury "
+14  14   "KF 20K Blue"
+16  16   "KF Green Sc"
+18  18   "KF Blue Scr"
+20  20   "Smokey Pink"
+22  22   "Dark Magent"
+24  24   "Bright Rose"
+26  26   "Pale Salmon"
+28  28   "Light Rose"
+30  30   "Light Salmo"
+32  32   "Magenta"
+34  34   "Pink"
+36  36   "Rosy Amber"
+38  38   "Pale Red"
+40  40   "Scarlet"
+42  42   "Loving Ambe"
+44  44   "Pale Rose"
+46  46   "Medium Red"
+48  48   "Gold Tint"
+50  50   "M Bastard A"
+52  52   "Bright Red"
+54  54   "Flame Red"
+56  56   "Primary Red"
+58  58   "Light Red"
+60  60   "Dark Salmon"
+62  62   "Fire"
+64  64   "Sunset Red"
+66  66   "Pale Gold"
+68  68   "English Ros"
+70  70   "Bastard Amb"
+72  72   "Surprise Pe"
+74  74   "Deep Gld Am"
+76  76   "Dark Amber"
+78  78   "Apricot"
+80  80   "Gold Amber"
+82  82   "Cosmetic Pe"
+84  84   "Deep Orange"
+86  86   "Chocolate"
+88  88   "Orange"
+90  90   "White Flame"
+92  92   "Medium Ambe"
+94  94   "Pale Amber "
+96  96   "Chrome Oran"
+98  98   "Straw Tint"
+100 100  "Straw"
+102 102  "Deep Straw"
+104 104  "Deep Amber"
+106 106  "Light Amber"
+108 108  "Yellow"
+110 110  "Medium Yell"
+112 112  "Spring Yell"
+114 114  "Pale Yellow"
+116 116  "Lime Green"
+118 118  "Pale Green"
+120 120  "Leaf Green"
+122 122  "Fern Green"
+124 124  "Primary Gre"
+126 126  "Moss Green"
+128 128  "Dark Y Gree"
+130 130  "Dark Green"
+132 132  "Marin Blue"
+134 134  "Peacock Blu"
+136 136  "Med Blue-Gr"
+138 138  "Sp Steel Bl"
+140 140  "Lagoon Blue"
+142 142  "Steel Blue"
+144 144  "Lighter Blu"
+146 146  "Summer Blue"
+148 148  "Light Blue"
+150 150  "Moonlight B"
+152 152  "Pale Blue"
+154 154  "Pale Navy B"
+156 156  "Mist Blue"
+158 158  "Bright Blue"
+160 160  "True Blue"
+162 162  "Dark Steel "
+164 164  "Daylight Bl"
+166 166  "Slate Blue"
+168 168  "Medium Blue"
+170 170  "Sky Blue"
+172 172  "Paler Laven"
+174 174  "Alice Blue"
+176 176  "Special Lav"
+178 178  "Pale Violet"
+180 180  "Just Blue"
+182 182  "Violet"
+184 184  "Dark Blue"
+186 186  "Surprise Pi"
+188 188  "Deeper Blue"
+190 190  "Special M B"
+192 192  "Zenith Blue"
+194 194  "Light Laven"
+196 196  "Palace Blue"
+198 198  "Lilac Tint"
+200 200  "Deep Blue"
+202 202  "Lavender Ti"
+204 204  "Pale Lavend"
+206 206  "Dark Lavend"
+208 208  "Lavender"
+210 210  "Deep Lavend"
+212 212  "Congo Blue"
+214 214  "Rose Purple"
+216 216  "Mauve"
+218 218  "Rose Pink"
+220 220  "Follies Pin"
+222 222  "Bright Pink"
+224 224  "Middle Rose"
+226 226  "Medium Pink"
+228 228  "Light Pink"
+230 230  "Dark Pink"
+232 232  "Flesh Pink"
+REND
+
+RANGE 6  ;Hue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Saturation
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Intensity
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+

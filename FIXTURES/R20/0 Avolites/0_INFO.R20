@@ -1,5 +1,5 @@
 DEVICE 0_INFO
-NAME "Avolites" "Database  created on 15Jan2018"
+NAME "Avolites" "Database  created on 12Jun2019"
 
 TYPE 1 0 M
 
@@ -9,7 +9,7 @@ DEVICEADDRESS
 "Personality Database"
 ""
 "Created:"
-"15 Jan 2018"
+"12 Jun 2019"
 ""
 "Avolites Ltd."
 ""
@@ -29,7 +29,7 @@ TEXT
 Personality Database
 
 Created:
-15 Jan 2018
+12 Jun 2019
 
 Avolites Ltd.
 END

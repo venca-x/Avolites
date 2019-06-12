@@ -1,0 +1,434 @@
+; 'Showtec LED Octostrip Set MKII 50 DMX p1', 26 DMX Channels, filename: SHOCTS2A.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   04-03-17   Nic Morris        Created
+;   30-01-18   Nic Morris        Added compatibility for 50 DMX mode R20 export.  Added product thumbnail.
+;   30-01-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-01-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SHOCTS2A                            mode=50 DMX p1  26 DMX Channels
+NAME "Showtec" "LED Octostrip Set MKII 50ch p1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  26  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 50 DMX p1"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=486
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   L    1   100   1N   0   1   "Program"           0     0     0
+4    61   L    2   100   1N   0   1   "Program Spd"     127     0     0
+8     1   H    3   100   1N   H   1   "Strip 1 Dimm"    255     0     0
+8    61   L    4   100   1N   O   1   "Strip 1 Stro"      0     0     0
+9     1   L    5   100   1N   A   1   "Colour Macro"      0     0     0
+10    1   L    6   100   1N   T   1   "Red 1"           255   255     0
+10   61   L    7   100   1N   U   1   "Green 1"         255   255     0
+9    61   L    8   100   1N   V   1   "Blue 1"          255     0   229
+5     1   H    9   100   1N   0   1   "Strip 2 Dimm"    255     0     0
+5    61   L   10   100   1N   0   1   "Strip 2 Stro"      0     0     0
+6     1   L   11   100   1N   0   1   "Colour Macro"      0     0     0
+7     1   L   12   100   1N   0   1   "Red 2"           255   255     0
+7    61   L   13   100   1N   0   1   "Green 2"         255   255     0
+6    61   L   14   100   1N   0   1   "Blue 2"          255     0   229
+18    1   H   15   100   1N   0   1   "Strip 3 Dimm"    255     0     0
+18   61   L   16   100   1N   0   1   "Strip 3 Stro"      0     0     0
+19    1   L   17   100   1N   0   1   "Colour Macro"      0     0     0
+20    1   L   18   100   1N   0   1   "Red 3"           255   255     0
+20   61   L   19   100   1N   0   1   "Green 3"         255   255     0
+19   61   L   20   100   1N   0   1   "Blue 3"          255     0   229
+15    1   H   21   100   1N   0   1   "Strip 4 Dimm"    255     0     0
+15   61   L   22   100   1N   0   1   "Strip 4 Stro"      0     0     0
+16    1   L   23   100   1N   0   1   "Colour Macro"      0     0     0
+17    1   L   24   100   1N   0   1   "Red 4"           255   255     0
+17   61   L   25   100   1N   0   1   "Green 4"         255   255     0
+16   61   L   26   100   1N   0   1   "Blue 4"          255     0   229
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Showtec
+LED Octostrip Set MKII
+50 DMX p1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Program
+0   0    "No Program"
+1   11   "Program 1"
+12  23   "Program 2"
+24  35   "Program 3"
+36  47   "Program 4"
+48  59   "Program 5"
+60  71   "Program 6"
+72  83   "Program 7"
+84  95   "Program 8"
+96  107  "Program 9"
+108 119  "Program 10"
+120 131  "Program 11"
+132 143  "Program 12"
+144 155  "Program 13"
+156 167  "Program 14"
+168 179  "Program 15"
+180 191  "Program 16"
+192 203  "Program 17"
+204 215  "Program 18"
+216 227  "Program 19"
+228 239  "Program 20"
+240 255  "Sound"
+REND
+
+RANGE 2  ;Program Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Strip 1 Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Strip 1 Strobe
+0   4    "Open"
+5   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Colour Macro 1
+0   5    "Open"
+6   11   "Colour 1"
+12  17   "Colour 2"
+18  23   "Colour 3"
+24  29   "Colour 4"
+30  35   "Colour 5"
+36  41   "Colour 6"
+42  47   "Colour 7"
+48  53   "Colour 8"
+54  59   "Colour 9"
+60  65   "Colour 10"
+66  71   "Colour 11"
+72  77   "Colour 12"
+78  83   "Colour 13"
+84  89   "Colour 14"
+90  95   "Colour 15"
+96  101  "Colour 16"
+102 107  "Colour 17"
+108 113  "Colour 18"
+114 119  "Colour 19"
+120 125  "Colour 20"
+126 131  "Colour 21"
+132 137  "Colour 22"
+138 143  "Colour 23"
+144 149  "Colour 24"
+150 155  "Colour 25"
+156 161  "Colour 26"
+162 167  "Colour 27"
+168 173  "Colour 28"
+174 179  "Colour 29"
+180 185  "Colour 30"
+186 191  "Colour 31"
+192 197  "Colour 32"
+198 203  "Colour 33"
+204 209  "Colour 34"
+210 215  "Colour 35"
+216 221  "Colour 36"
+222 227  "Colour 37"
+228 233  "Colour 38"
+234 255  "Colour 39"
+REND
+
+RANGE 6  ;Red 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Green 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blue 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Strip 2 Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Strip 2 Strobe
+0   4    "Open"
+5   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Colour Macro 2
+0   5    "Open"
+6   11   "Colour 1"
+12  17   "Colour 2"
+18  23   "Colour 3"
+24  29   "Colour 4"
+30  35   "Colour 5"
+36  41   "Colour 6"
+42  47   "Colour 7"
+48  53   "Colour 8"
+54  59   "Colour 9"
+60  65   "Colour 10"
+66  71   "Colour 11"
+72  77   "Colour 12"
+78  83   "Colour 13"
+84  89   "Colour 14"
+90  95   "Colour 15"
+96  101  "Colour 16"
+102 107  "Colour 17"
+108 113  "Colour 18"
+114 119  "Colour 19"
+120 125  "Colour 20"
+126 131  "Colour 21"
+132 137  "Colour 22"
+138 143  "Colour 23"
+144 149  "Colour 24"
+150 155  "Colour 25"
+156 161  "Colour 26"
+162 167  "Colour 27"
+168 173  "Colour 28"
+174 179  "Colour 29"
+180 185  "Colour 30"
+186 191  "Colour 31"
+192 197  "Colour 32"
+198 203  "Colour 33"
+204 209  "Colour 34"
+210 215  "Colour 35"
+216 221  "Colour 36"
+222 227  "Colour 37"
+228 233  "Colour 38"
+234 255  "Colour 39"
+REND
+
+RANGE 12  ;Red 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Green 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Blue 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Strip 3 Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Strip 3 Strobe
+0   4    "Open"
+5   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Colour Macro 3
+0   5    "Open"
+6   11   "Colour 1"
+12  17   "Colour 2"
+18  23   "Colour 3"
+24  29   "Colour 4"
+30  35   "Colour 5"
+36  41   "Colour 6"
+42  47   "Colour 7"
+48  53   "Colour 8"
+54  59   "Colour 9"
+60  65   "Colour 10"
+66  71   "Colour 11"
+72  77   "Colour 12"
+78  83   "Colour 13"
+84  89   "Colour 14"
+90  95   "Colour 15"
+96  101  "Colour 16"
+102 107  "Colour 17"
+108 113  "Colour 18"
+114 119  "Colour 19"
+120 125  "Colour 20"
+126 131  "Colour 21"
+132 137  "Colour 22"
+138 143  "Colour 23"
+144 149  "Colour 24"
+150 155  "Colour 25"
+156 161  "Colour 26"
+162 167  "Colour 27"
+168 173  "Colour 28"
+174 179  "Colour 29"
+180 185  "Colour 30"
+186 191  "Colour 31"
+192 197  "Colour 32"
+198 203  "Colour 33"
+204 209  "Colour 34"
+210 215  "Colour 35"
+216 221  "Colour 36"
+222 227  "Colour 37"
+228 233  "Colour 38"
+234 255  "Colour 39"
+REND
+
+RANGE 18  ;Red 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Green 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Blue 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Strip 4 Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Strip 4 Strobe
+0   4    "Open"
+5   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Colour Macro 4
+0   5    "Open"
+6   11   "Colour 1"
+12  17   "Colour 2"
+18  23   "Colour 3"
+24  29   "Colour 4"
+30  35   "Colour 5"
+36  41   "Colour 6"
+42  47   "Colour 7"
+48  53   "Colour 8"
+54  59   "Colour 9"
+60  65   "Colour 10"
+66  71   "Colour 11"
+72  77   "Colour 12"
+78  83   "Colour 13"
+84  89   "Colour 14"
+90  95   "Colour 15"
+96  101  "Colour 16"
+102 107  "Colour 17"
+108 113  "Colour 18"
+114 119  "Colour 19"
+120 125  "Colour 20"
+126 131  "Colour 21"
+132 137  "Colour 22"
+138 143  "Colour 23"
+144 149  "Colour 24"
+150 155  "Colour 25"
+156 161  "Colour 26"
+162 167  "Colour 27"
+168 173  "Colour 28"
+174 179  "Colour 29"
+180 185  "Colour 30"
+186 191  "Colour 31"
+192 197  "Colour 32"
+198 203  "Colour 33"
+204 209  "Colour 34"
+210 215  "Colour 35"
+216 221  "Colour 36"
+222 227  "Colour 37"
+228 233  "Colour 38"
+234 255  "Colour 39"
+REND
+
+RANGE 24  ;Red 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Green 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Blue 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

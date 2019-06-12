@@ -1,17 +1,20 @@
-; 'Event Lighting Pro PAR RGBW 5x8W (v1) 4 DMX', 4 DMX Channels, filename: UKEVP2D1.R20
-;  Copyright © Avolites Ltd. 2017
+; 'Event Lighting Pro PAR RGBA 5x8W 4 DMX', 4 DMX Channels, filename: UKEVP2D1.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   02-05-15   Nic Morris        Created
 ;   05-06-16   Nic Morris        Created from Event Lighting Propar
 ;   17-03-17   Nic Morris        Created from Event Lighting PRO PAR v2 (split for Capture)
-;   17-03-17   Pers Creator      Created - Exported from Diamond 4 file.
-;   17-03-17   Nic Morris        Checked
+;   21-03-17   Nic Morris        Added Atlabase ID's for 2 and 3 DMX modes.
+;   04-09-18   Nic Morris        Merged versions.  Added product thumbnail.
+;   26-10-18   Nic Morris        Created from Event Lighting Pro PAR RGBW 12x8W
+;   26-10-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-10-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKEVP2D1                            mode=4 DMX  4 DMX Channels
-NAME "Misc E" "Ev Pro PAR RGBW 5x8W (v1) 4 DMX"
+NAME "Misc E" "Event L Pro PAR RGBA 5x8W 4 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -92,13 +95,13 @@ DMX
 10    1   L    1   100   1N   T   1   "Red"             255   255     0
 10   61   L    2   100   1N   U   1   "Green"           255   255     0
 9    61   L    3   100   1N   V   1   "Blue"            255     0   229
-4    61   L    4   100   1N   0   1   "White"             0     0     0
+9     1   L    4   100   1N   0   1   "Amber"             0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Event Lighting
-Pro PAR RGBW 5x8W (v1)
+Pro PAR RGBA 5x8W
 4 DMX
 
 INPUT fixture DMX No.
@@ -151,7 +154,7 @@ RANGE 3  ;Blue
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 4  ;White
+RANGE 4  ;Amber
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

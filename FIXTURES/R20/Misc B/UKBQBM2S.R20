@@ -1,17 +1,20 @@
-; 'BriteQ BTX Beam 2R Standard 16ch', 16 DMX Channels, filename: UKBQBM2S.R20
-;  Copyright © Avolites Ltd. 2015
+; 'BriteQ BTX Beam 2R 16 DMX', 16 DMX Channels, filename: UKBQBM2S.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   07-10-14   solution-event    Created
 ;   17-04-15   Nic Morris        Inverted speed wheel direction.  Increased wheel resolution.  Added colour function index.
 ;   17-04-15   Nic Morris        Fixed gobo function index.  Added missing gobo raw function.
-;   17-04-15   Pers Creator      Created - Exported from Diamond 4 file.
-;   17-04-15   Nic Morris        Checked.
+;   25-05-16   AtlaBaseLibraryUpdaterAdded AltaBase information
+;   12-02-18   Nic Morris        Added product thumbnail.  Added physical pan/tilt ranges.  Added gobo swatches.
+;   12-02-18   Nic Morris        Re-exported R20's in response to customer bug report.
+;   12-02-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-02-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UKBQBM2S                            mode=Standard 16ch  16 DMX Channels
-NAME "Misc B" "Brite BTX Beam 2R Standard 16ch"
+DEVICE  UKBQBM2S                            mode=16 DMX  16 DMX Channels
+NAME "Misc B" "BriteQ BTX Beam 2R 16 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -20,7 +23,7 @@ TYPE  1  16  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
-MIRROR  2    0    0
+MIRROR  2   540  270
 ;       |    |    |
 ;       |    |    |_______ maximum tilt movement (in degrees)
 ;       |    |____________ maximum pan movement (in degrees)
@@ -49,7 +52,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to Standard 16ch"
+"Set to 16 DMX"
 ""
 ""
 DAEND
@@ -89,25 +92,28 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-3    61   s    1   100   1N   E   1   "Pan"             128     0     0
-0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
-3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
-0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
-8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
-8    61   L    7   100   1N   0   1   "P/T Macro"         4     0     0
-4     1   I    9   100   1N   A   1   "Colour"            1     1    60
-6     1   I   10   100   1N   I   1   "Gobo"              2     0     0
-9     1   I   12   100   1N   P   1   "Prism 2"           4     0     0
-9    61   L   13   100   1N   R   1   "Prism Rot"         0     0     0
-5     1   L   14   100   1N   Q   1   "Focus"           127     0     0
-2    61   L   15   100   1N   O   1   "Shutter"          12     0     0
+2    61   L   15   100   1N   O   1   "Shutter"         255     0     0
 1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
+4     1   L    9   100   1N   A   1   "Colour"            0     0     0
+6     1   L   10   100   1N   I   1   "Gobo"              0     0     0
+5    61   L   14   100   1N   L   1   "Focus"           127     0     0
+9     1   L   11   100   1N   P   1   "Prism 1"           0     0     0
+10    1   L   12   100   1N   0   1   "Prism 2"           0     0     0
+9    61   L   13   100   1N   R   1   "Prism Rot"         0     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+11    1   L    6   100   1N   0   1   "Control"           0     0     0
+13    1   L    7   100   1N   0   1   "P/T Macro"         0     0     0
+13   61   L    8   100   1N   0   1   "P/T Macro Sp"    128     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 BriteQ BTX Beam 2R
-Standard 16ch
+16 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -123,11 +129,11 @@ END
 ; Preset Palette Tables
 
 PFTABLE "Pan/Tilt"   -1   1   3
-"Middle"             21  80  80
-"Left"               22  4F  80
-"Right"              23  B0  80
-"Top"                24  80  4F
-"Bottom"             25  80  B0
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
 "TLeft"              26  4F  4F
 "TRight"             27  B0  B0
 "BLeft"              28  4F  B0
@@ -135,11 +141,11 @@ PFTABLE "Pan/Tilt"   -1   1   3
 PFEND
 
 PFTABLE "Colour"     -1   9
-"Open"                1   1
-"Colour 1"            2   6
-"Colour 2"            3   A
-"Colour 3"            4   E
-"Colour 4"            5  12
+"Open"                1   0
+"Colour 1"            2   5
+"Colour 2"            3   9
+"Colour 3"            4   D
+"Colour 4"            5  11
 "Colour 5"            6  16
 "Colour 6"            7  1A
 "Colour 7"            8  1E
@@ -148,16 +154,16 @@ PFTABLE "Colour"     -1   9
 PFEND
 
 PFTABLE "Gobo"       -1  10
-"Open"               11   2
-"Gobo 1"             12   5
-"Gobo 2"             13   8
-"Gobo 3"             14   B
-"Gobo 4"             15   E
-"Gobo 5"             16  11
-"Gobo 6"             17  14
-"Gobo 7"             18  17
-"Gobo 8"             19  1A
-"Gobo 9"             20  1D
+"Open"               11   0
+"Gobo 1"             12   4
+"Gobo 2"             13   7
+"Gobo 3"             14   A
+"Gobo 4"             15   D
+"Gobo 5"             16  10
+"Gobo 6"             17  13
+"Gobo 7"             18  16
+"Gobo 8"             19  19
+"Gobo 9"             20  1C
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -166,49 +172,121 @@ PFEND
 MACRO "Lamp On"       1   6
 "data"                0  86
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset P/T"     2   6
 "data"                0  90
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset Colour"  3   6
 "data"                0  9A
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset Gobo"    4   6
 "data"                0  A4
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset Shutter"  5   6
 "data"                0  AE
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset Beam"    6   6
 "data"                0  C2
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Reset All"     7   6
 "data"                0  CC
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
 MEND
 
 MACRO "Lamp Off"      8   6
 "data"                0  EA
 "delay"               1  3C
-"data"                0   E
+"data"                0   0
+MEND
+
+MACRO "Dim Conventional"  9   6
+"data"                0  22
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Linear"   10   6
+"data"                0  2C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Fast"     11   6
+"data"                0  36
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Norm"     12   6
+"data"                0  40
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Move in Dark On" 13   6
+"data"                0  4A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Move in Dark Off" 14   6
+"data"                0  54
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Col in Dark On" 15   6
+"data"                0  5E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Col in Dark Off" 16   6
+"data"                0  68
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gobo in Dark On" 17   6
+"data"                0  72
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gobo in Dark Off" 18   6
+"data"                0  7C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "All in Dark On" 19   6
+"data"                0  D6
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "All in Dark Off" 20   6
+"data"                0  E0
+"delay"               1  3C
+"data"                0   0
 MEND
 
 ;----------------------------------------------------------------------------
@@ -220,6 +298,20 @@ MEND
 ; 3. Displayed text (max 11 chars)
 ; Variables used a=low val, b=high val, c=DMX val
 
+RANGE 15  ;Shutter
+0   0    "Closed"
+16  131  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+132 167  "Op Pls %3d%%"(c-a)*100/(b-a)
+168 203  "Cl Pls %3d%%"(c-a)*100/(b-a)
+204 239  "Pulse  %3d%%"(c-a)*100/(b-a)
+240 247  "Rnd St %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 16  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
 RANGE 1  ;Pan
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
@@ -228,8 +320,160 @@ RANGE 3  ;Tilt
 0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
+RANGE 9  ;Colour
+0   2    "Open"
+3   4    "Op/ 1"
+5   6    "Colour 1"
+7   8    "1/ 2"
+9   10   "Colour 2"
+11  12   "2/ 3"
+13  14   "Colour 3"
+15  16   "3/ 4"
+17  18   "Colour 4"
+19  21   "4/ 5"
+22  23   "Colour 5"
+24  25   "5/ 6"
+26  27   "Colour 6"
+28  29   "6/ 7"
+30  31   "Colour 7"
+32  33   "7/ 8"
+34  35   "Colour 8"
+36  37   "8/ 9"
+38  39   "Colour 9"
+40  42   "9/ 10"
+43  44   "Colour 10"
+45  46   "10/ 11"
+47  48   "Colour 11"
+49  50   "11/ 12"
+51  52   "Colour 12"
+53  54   "12/ 13"
+55  56   "Colour 13"
+57  58   "13/ 14"
+59  60   "Colour 14"
+61  63   "14/ Op"
+64  127  "Index  %3d%%"(c-a)*100/(b-a)
+128 189  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+190 193  "No Scroll"
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Gobo
+0   3    "Open"
+4   6    "Gobo 1"
+7   9    "Gobo 2"
+10  12   "Gobo 3"
+13  15   "Gobo 4"
+16  18   "Gobo 5"
+19  21   "Gobo 6"
+22  24   "Gobo 7"
+25  27   "Gobo 8"
+28  30   "Gobo 9"
+31  33   "Gobo 10"
+34  36   "Gobo 11"
+37  39   "Gobo 12"
+40  42   "Gobo 13"
+43  45   "Gobo 14"
+46  48   "Gobo 15"
+49  51   "Gobo 16"
+52  55   "Gobo 17"
+56  59   "Op  Sk %3d%%"(c-a)*100/(b-a)
+60  63   "G1  Sk %3d%%"(c-a)*100/(b-a)
+64  67   "G2  Sk %3d%%"(c-a)*100/(b-a)
+68  71   "G3  Sk %3d%%"(c-a)*100/(b-a)
+72  75   "G4  Sk %3d%%"(c-a)*100/(b-a)
+76  79   "G5  Sk %3d%%"(c-a)*100/(b-a)
+80  83   "G6  Sk %3d%%"(c-a)*100/(b-a)
+84  87   "G7  Sk %3d%%"(c-a)*100/(b-a)
+88  91   "G8  Sk %3d%%"(c-a)*100/(b-a)
+92  95   "G9  Sk %3d%%"(c-a)*100/(b-a)
+96  99   "G10 Sk %3d%%"(c-a)*100/(b-a)
+100 103  "G11 Sk %3d%%"(c-a)*100/(b-a)
+104 107  "G12 Sk %3d%%"(c-a)*100/(b-a)
+108 111  "G13 Sk %3d%%"(c-a)*100/(b-a)
+112 115  "G14 Sk %3d%%"(c-a)*100/(b-a)
+116 119  "G15 Sk %3d%%"(c-a)*100/(b-a)
+120 123  "G16 Sk %3d%%"(c-a)*100/(b-a)
+124 127  "G17 Sk %3d%%"(c-a)*100/(b-a)
+128 189  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+190 193  "No Scroll"
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 14  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Prism 1
+0   7    "Open"
+8   127  "Prism"
+128 132  "Macro 1"
+133 137  "Macro 2"
+138 141  "Macro 3"
+142 146  "Macro 4"
+147 150  "Macro 5"
+151 155  "Macro 6"
+156 159  "Macro 7"
+160 164  "Macro 8"
+165 168  "Macro 9"
+169 173  "Macro 10"
+174 177  "Macro 11"
+178 182  "Macro 12"
+183 187  "Macro 13"
+188 191  "Macro 14"
+192 196  "Macro 15"
+197 200  "Macro 16"
+201 205  "Macro 17"
+206 209  "Macro 18"
+210 214  "Macro 19"
+215 218  "Macro 20"
+219 223  "Macro 21"
+224 227  "Macro 22"
+228 232  "Macro 23"
+233 236  "Macro 24"
+237 241  "Macro 25"
+242 246  "Macro 26"
+247 250  "Macro 27"
+251 255  "Macro 28"
+REND
+
+RANGE 12  ;Prism 2
+0   7    "Open"
+8   127  "Prism"
+REND
+
+RANGE 13  ;Prism Rot
+0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+190 193  "No Spin"
+194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
 RANGE 5  ;P/T Speed
 0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Control
+0   29   "Safe"
+30  39   "Dim Conv"
+40  49   "Dim Linear"
+50  59   "P/T Fast"
+60  69   "P/T Norm"
+70  79   "Move Dk On"
+80  89   "Move Dk Off"
+90  99   "Col Dk On"
+100 109  "Col Dk Off"
+110 119  "Gobo Dk On"
+120 129  "Gobo Dk Off"
+130 139  "Lamp On"
+140 149  "Reset P/T"
+150 159  "Reset Col"
+160 169  "Reset Gobo"
+170 179  "Reset Shut"
+190 199  "Reset Beam"
+200 209  "Reset All"
+210 219  "All Dk On"
+220 229  "All Dk Off"
+230 239  "Lamp Off"
 REND
 
 RANGE 7  ;P/T Macro
@@ -267,113 +511,7 @@ RANGE 7  ;P/T Macro
 248 255  "Macro 31"
 REND
 
-RANGE 9  ;Colour
-0   2    "Open"
-3   4    "Op+Col1"
-5   6    "Colour 1"
-7   8    "Col1+Col2"
-9   10   "Colour 2"
-11  12   "Col2+Col3"
-13  14   "Colour 3"
-15  16   "Col3+Col4"
-17  18   "Colour 4"
-19  21   "Col4+Col5"
-22  23   "Colour 5"
-24  25   "Col5+Col6"
-26  27   "Colour 6"
-28  29   "Col6+Col7"
-30  31   "Colour 7"
-32  33   "Col7+Col8"
-34  35   "Colour 8"
-36  37   "Col8+Col9"
-38  39   "Colour 9"
-40  42   "Col9+Col10"
-43  44   "Colour 10"
-45  46   "Col10+Col11"
-47  48   "Colour 11"
-49  50   "Col11+Col12"
-51  52   "Colour 12"
-53  54   "Col12+Col13"
-55  56   "Colour 13"
-57  58   "Col13+Col14"
-59  60   "Colour 14"
-61  63   "Col14+Op"
-64  127  "Index %3d%%"(c-a)*100/(b-a)
-128 189  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-190 193  "No Scroll"
-194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
-REND
-
-RANGE 10  ;Gobo
-0   3    "Open"
-4   6    "Gobo 1"
-7   9    "Gobo 2"
-10  12   "Gobo 3"
-13  15   "Gobo 4"
-16  18   "Gobo 5"
-19  21   "Gobo 6"
-22  24   "Gobo 7"
-25  27   "Gobo 8"
-28  30   "Gobo 9"
-31  33   "Gobo 10"
-34  36   "Gobo 11"
-37  39   "Gobo 12"
-40  42   "Gobo 13"
-43  45   "Gobo 14"
-46  48   "Gobo 15"
-49  51   "Gobo 16"
-52  55   "Gobo 17"
-56  59   "Open"
-60  63   "G1  Sk %3d%%"(c-a)*100/(b-a)
-64  67   "G2  Sk %3d%%"(c-a)*100/(b-a)
-68  71   "G3  Sk %3d%%"(c-a)*100/(b-a)
-72  75   "G4  Sk %3d%%"(c-a)*100/(b-a)
-76  79   "G5  Sk %3d%%"(c-a)*100/(b-a)
-80  83   "G6  Sk %3d%%"(c-a)*100/(b-a)
-84  87   "G7  Sk %3d%%"(c-a)*100/(b-a)
-88  91   "G8  Sk %3d%%"(c-a)*100/(b-a)
-92  95   "G9  Sk %3d%%"(c-a)*100/(b-a)
-96  99   "G10 Sk %3d%%"(c-a)*100/(b-a)
-100 103  "G11 Sk %3d%%"(c-a)*100/(b-a)
-104 107  "G12 Sk %3d%%"(c-a)*100/(b-a)
-108 111  "G13 Sk %3d%%"(c-a)*100/(b-a)
-112 115  "G14 Sk %3d%%"(c-a)*100/(b-a)
-116 119  "G15 Sk %3d%%"(c-a)*100/(b-a)
-120 123  "G16 Sk %3d%%"(c-a)*100/(b-a)
-124 127  "G17 Sk %3d%%"(c-a)*100/(b-a)
-128 189  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-190 193  "No Scroll"
-194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
-REND
-
-RANGE 12  ;Prism 2
-0   7    "Open"
-8   127  "Prism Effec"
-REND
-
-RANGE 13  ;Prism Rot
-0   127  "Idx %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-128 189  "CW %3d%%"100-((c-a)*100/(b-a))
-190 193  "No Spin"
-194 255  "CCW %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 14  ;Focus
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 15  ;Shutter
-0   7    "Closed"
-8   15   "Open"
-16  131  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-132 167  "Op Pls %3d%%"(c-a)*100/(b-a)
-168 203  "Cl Pls %3d%%"(c-a)*100/(b-a)
-204 239  "Pulse %3d%%"(c-a)*100/(b-a)
-240 247  "Rnd St %3d%%"(c-a)*100/(b-a)
-248 255  "Open"
-REND
-
-RANGE 16  ;Dimmer
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+RANGE 8  ;P/T Macro Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
 REND
 

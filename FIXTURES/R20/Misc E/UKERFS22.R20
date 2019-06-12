@@ -1,0 +1,588 @@
+; 'Ehrgeiz Fusion 2 Advanced, 17 DMX', 17 DMX Channels, filename: UKERFS22.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   05-10-18   Nic Morris        Created (note changing DMX mode via control channel is not supported)
+;   05-10-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-10-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKERFS22                            mode=Advanced, 17 DMX  17 DMX Channels
+NAME "Misc E" "Ehrge Fusion 2 Advanced, 17 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  17  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Advanced, 17 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   L    1   100   1N   A   1   "Colour"            0     0     0
+10    1   s    2   100   1N   T   1   "Red"             255   255     0
+0     0   L    3   100   1N   T   1   "Red Low"         255   255     0
+10   61   s    4   100   1N   U   1   "Green"           255   255     0
+0     0   L    5   100   1N   U   1   "Green Low"       255   255     0
+9    61   s    6   100   1N   V   1   "Blue"            255     0   230
+0     0   L    7   100   1N   V   1   "Blue Low"        255     0   230
+9     1   s    8   100   1N   0   1   "White"             0     0     0
+0     0   L    9   100   1N   0   1   "White Low"         0     0     0
+2    61   L   10   100   1N   O   1   "Shutter"         255     0     0
+1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s   12   100   1N   H   1   "Dimmer Low"      255     0     0
+4    61   L   13   100   1N   0   1   "CTO"               0     0     0
+6     1   L   14   100   1N   0   1   "Pattern"           0     0     0
+7     1   L   15   100   1N   0   1   "Pattern Spd"     127     0     0
+7    61   L   16   100   1N   0   1   "Pattern Fade"    127     0     0
+11    1   L   17   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Ehrgeiz Fusion 2
+Advanced, 17 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  10
+"Open"               31  FF
+"Slow Strobe"        32  DB
+"Fast Strobe"        33  EF
+"Slow Pulse"         36  3F
+"Fast Pulse"         37  4F
+"Closed"             38   0
+PFEND
+
+PFTABLE "Colour"     -1   2   4   6
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  17
+"data"                0  B7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Spd Smooth"  2  17
+"data"                0  3A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Spd Fast"  3  17
+"data"                0  3F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Curve Linear"  4  17
+"data"                0  49
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Curve Theatrical"  5  17
+"data"                0  4E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Curve Sqare"  6  17
+"data"                0  53
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Curve Inv Sq"  7  17
+"data"                0  58
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Hold"   8  17
+"data"                0  62
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Shutter Closed"  9  17
+"data"                0  67
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Play Program 1" 10  17
+"data"                0  6C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display On"   11  17
+"data"                0  76
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Off"  12  17
+"data"                0  7B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Standard" 13  17
+"data"                0  8F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Advanced" 14  17
+"data"                0  94
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Pattern" 15  17
+"data"                0  99
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Pixel" 16  17
+"data"                0  9E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Compressed" 17  17
+"data"                0  A3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "DMX Mode Pixel Dim" 18  17
+"data"                0  A8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Default"      19  17
+"data"                0  BC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boot Mode Auto" 20  17
+"data"                0  E9
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boot Mode DMX" 21  17
+"data"                0  EE
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boot Mode Program Play" 22  17
+"data"                0  F3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boot Mode Static" 23  17
+"data"                0  F8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Colour
+0   5    "Open"
+6   10   "Moroccan Pk"
+11  15   "Pink"
+16  20   "Special Rs"
+21  25   "Follies Pk"
+26  30   "Fuschia Pk"
+31  35   "Surprise Pk"
+36  40   "Congo Blue"
+41  45   "Tokyo Blue"
+46  50   "Deep Blue"
+51  55   "Just Blue"
+56  60   "Medium Blue"
+61  65   "Double CT B"
+66  70   "Slate Blue"
+71  75   "Full CT Blu"
+76  80   "Half CT Blu"
+81  85   "Steel Blue"
+86  90   "Lighter Blu"
+91  95   "Light Blue"
+96  100  "Medium Blue"
+101 105  "Dark Green"
+106 110  "Primary Grn"
+111 115  "Moss Green"
+116 120  "Fern Green"
+121 125  "JAS Green"
+126 130  "Lime Green"
+131 135  "Spring Yel"
+136 140  "Deep Amber"
+141 145  "Chrome Org"
+146 150  "Orange"
+151 155  "Gold Amber"
+156 160  "Millennium"
+161 165  "Deep Golden"
+166 170  "Flame Red"
+171 185  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+186 190  "No Scroll"
+191 205  "Sc CCW %3d%%"100-((c-a)*100/(b-a))
+206 210  "No Scroll"
+211 225  "Random %3d%%"100-((c-a)*100/(b-a))
+226 230  "Tungsten"
+231 235  "White 3200K"
+236 240  "White 4200K"
+241 245  "White 5600K"
+246 250  "White 7200K"
+251 255  "White 8000K"
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Shutter
+0   0    "Closed"
+16  47   "Rnd St %3d%%"(c-a)*100/(b-a)
+48  79   "Op Pls %3d%%"(c-a)*100/(b-a)
+80  111  "Cl pls %3d%%"(c-a)*100/(b-a)
+112 143  "Pulse  %3d%%"(c-a)*100/(b-a)
+144 199  "Pause %1d Sec"5-((c-a)*4/(b-a))
+200 239  "Strobe %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 11  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Pattern
+0   5    "No Pattern"
+6   6    "Static 1"
+7   7    "Static 2"
+8   8    "Static 3"
+9   9    "Static 4"
+10  10   "Static 5"
+11  11   "Static 6"
+12  12   "Static 7"
+13  13   "Static 8"
+14  14   "Static 9"
+15  15   "Static 10"
+16  16   "Static 11"
+17  17   "Static 12"
+18  18   "Static 13"
+19  19   "Static 14"
+20  20   "Static 15"
+21  21   "Static 16"
+22  22   "Static 17"
+23  23   "Static 18"
+24  24   "Static 19"
+25  25   "Static 20"
+26  26   "Static 21"
+27  27   "Static 22"
+28  28   "Static 23"
+29  29   "Static 24"
+30  30   "Static 25"
+31  31   "Static 26"
+32  32   "Static 27"
+33  33   "Static 28"
+34  34   "Static 29"
+35  35   "Static 30"
+36  36   "Static 31"
+37  37   "Static 32"
+38  38   "Static 33"
+39  39   "Static 34"
+40  40   "Static 35"
+41  41   "Static 36"
+42  42   "Static 37"
+43  43   "Static 38"
+44  44   "Static 39"
+45  45   "Static 40"
+46  46   "Static 41"
+47  47   "Static 42"
+48  48   "Static 43"
+49  49   "Static 44"
+50  50   "Static 45"
+51  51   "Static 46"
+52  52   "Static 47"
+53  53   "Static 48"
+54  54   "Static 49"
+55  55   "Static 50"
+56  56   "Static 51"
+57  57   "Static 52"
+58  58   "Static 53"
+59  59   "Static 54"
+60  60   "Static 55"
+61  61   "Static 56"
+62  62   "Static 57"
+63  63   "Static 58"
+64  64   "Static 59"
+65  65   "Static 60"
+66  66   "Static 61"
+67  67   "Static 62"
+68  68   "Static 63"
+69  69   "Static 64"
+70  70   "Static 65"
+71  71   "Static 66"
+72  72   "Static 67"
+73  73   "Static 68"
+74  74   "Static 69"
+75  75   "Static 70"
+76  76   "Static 71"
+77  77   "Static 72"
+78  78   "Static 73"
+79  79   "Static 74"
+80  80   "Anim 1 Std"
+81  81   "Anim 1 Rev"
+82  82   "Anim 1 Inv"
+83  83   "Anim 1 InvR"
+84  84   "Anim 2 Std"
+85  85   "Anim 2 Rev"
+86  86   "Anim 2 Inv"
+87  87   "Anim 2 InvR"
+88  88   "Anim 3 Std"
+89  89   "Anim 3 Rev"
+90  90   "Anim 3 Inv"
+91  91   "Anim 3 InvR"
+92  92   "Anim 4 Std"
+93  93   "Anim 4 Rev"
+94  94   "Anim 4 Inv"
+95  95   "Anim 4 InvR"
+96  96   "Anim 5 Std"
+97  97   "Anim 5 Rev"
+98  98   "Anim 5 Inv"
+99  99   "Anim 5 InvR"
+100 100  "Anim 6 Std"
+101 101  "Anim 6 Rev"
+102 102  "Anim 6 Inv"
+103 103  "Anim 6 InvR"
+104 104  "Anim 7 Std"
+105 105  "Anim 7 Rev"
+106 106  "Anim 7 Inv"
+107 107  "Anim 7 InvR"
+108 108  "Anim 8 Std"
+109 109  "Anim 8 Rev"
+110 110  "Anim 8 Inv"
+111 111  "Anim 8 InvR"
+112 112  "Anim 9 Std"
+113 113  "Anim 9 Rev"
+114 114  "Anim 9 Inv"
+115 115  "Anim 9 InvR"
+116 116  "Anim 10 Std"
+117 117  "Anim 10 Rev"
+118 118  "Anim 10 Inv"
+119 119  "Anim 10 InR"
+120 120  "Anim 11 Std"
+121 121  "Anim 11 Rev"
+122 122  "Anim 11 Inv"
+123 123  "Anim 11 InR"
+124 124  "Anim 12 Std"
+125 125  "Anim 12 Rev"
+126 126  "Anim 12 Inv"
+127 127  "Anim 12 InR"
+128 128  "Anim 13 Std"
+129 129  "Anim 13 Rev"
+130 130  "Anim 13 Inv"
+131 131  "Anim 13 InR"
+132 132  "Anim 14 Std"
+133 133  "Anim 14 Rev"
+134 134  "Anim 14 Inv"
+135 135  "Anim 14 InR"
+136 136  "Anim 15 Std"
+137 137  "Anim 15 Rev"
+138 138  "Anim 15 Inv"
+139 139  "Anim 15 InR"
+140 140  "Anim 16 Std"
+141 141  "Anim 16 Rev"
+142 142  "Anim 16 Inv"
+143 143  "Anim 16 InR"
+144 144  "Anim 17 Std"
+145 145  "Anim 17 Rev"
+146 146  "Anim 17 Inv"
+147 147  "Anim 17 InR"
+148 148  "Anim 18 Std"
+149 149  "Anim 18 Rev"
+150 150  "Anim 18 Inv"
+151 151  "Anim 18 InR"
+152 152  "Anim 19 Odd"
+153 153  "Anim 19 Eve"
+154 154  "Anim 20 Odd"
+155 155  "Anim 20 Eve"
+156 156  "Rand 1"
+157 157  "Rand 1 Inv"
+158 158  "Rand 2"
+159 159  "Rand 2 Inv"
+160 160  "Rand 3"
+161 161  "Rand 3 Inv"
+162 162  "Rand 4"
+163 163  "Rand 4 Inv"
+164 164  "Rand 5"
+165 165  "Rand 5 Inv"
+166 166  "Rand 6"
+167 167  "Rand 6 Inv"
+168 168  "Rand 7"
+169 169  "Rand 7 Inv"
+170 170  "Rand 8"
+171 171  "Rand 8 Inv"
+172 172  "Rand 9"
+173 173  "Rand 9 Inv"
+REND
+
+RANGE 15  ;Pattern Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Pattern Fade
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Control
+0   55   "Safe"
+56  60   "Dim Spd Sm"
+61  65   "Dim Spd Fst"
+71  75   "Dim Crv Lin"
+76  80   "Dim Crv Ttr"
+81  85   "Dim Crv Sq"
+86  90   "Dim Crv ISq"
+96  100  "No DMX Hold"
+101 105  "No DMX Cls"
+106 110  "No DMX Prg1"
+116 120  "Display On"
+121 125  "Display Off"
+141 145  "Mode Std"
+146 150  "Mode Adv"
+151 155  "Mode Patt"
+156 160  "Mode Pix"
+161 165  "Mode Comp"
+166 170  "Mode PixDim"
+181 185  "Reset"
+186 190  "Default"
+231 235  "Boot Auto"
+236 240  "Boot DMX"
+241 245  "Boot Prog"
+246 250  "Boot Static"
+REND
+

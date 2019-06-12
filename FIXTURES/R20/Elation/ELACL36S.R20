@@ -5,6 +5,7 @@
 ;   19-09-15   Nic Morris        Created
 ;   19-09-15   Pers Creator      Created - Exported from Diamond 4 file.
 ;   19-09-15   Nic Morris        Checked
+;   25-05-18   Nic Morris        Split 16bit dimmer into two 8bit controls in attempt to fix customer bug report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -100,12 +101,12 @@ DMX
 4     1   L   11   100   1N   0   1   "Colour Macro"      0     0     0
 2    61   L   12   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   13   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   14   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   14   100   1N   0   1   "Dimmer Low"      255     0     0
 9     1   L   15   100   1N   0   1   "Auto"              0     0     0
 8     1   L   16   100   1N   0   1   "Auto Spd"        127     0     0
-11   61   L   17   100   1N   0   1   "Dim Spd"          10     0     0
+12    1   L   17   100   1N   0   1   "Dim Spd"          10     0     0
 8    61   L   18   100   1N   0   1   "P/T Speed"         0     0     0
-11    1   L   19   100   1N   0   1   "Control"          40     0     0
+11   61   L   19   100   1N   0   1   "Control"          40     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -187,14 +188,14 @@ RANGE 3  ;Tilt
 REND
 
 RANGE 5  ;Pan Spin
-0   127  "Open"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 6  ;Tilt Spin
-0   127  "Open"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -217,7 +218,7 @@ RANGE 10  ;White
 REND
 
 RANGE 11  ;Colour Macro
-0   0    "Safe"
+0   0    "Open"
 1   4    "Macro 1"
 5   8    "Macro 2"
 9   12   "Macro 3"
@@ -297,7 +298,7 @@ RANGE 13  ;Dimmer
 REND
 
 RANGE 15  ;Auto
-0   0    "Open"
+0   0    "No Effect"
 1   20   "Macro 1"
 21  40   "Macro 2"
 41  60   "Macro 3"

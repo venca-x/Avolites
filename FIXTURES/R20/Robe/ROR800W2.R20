@@ -18,6 +18,7 @@
 ;   16-08-12   Pers Creator      Created - Exported from Diamond 4 file.
 ;   16-08-12   Peter Budd        Updated ranges
 ;   28-08-12   Peter Budd        Updated beam shaper range
+;   24-04-19   Nic Morris        Split 16bit dimmer into two 8bit controls for compatibility
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -121,7 +122,7 @@ DMX
 0     0   L   19   100   1N   Q   1   "Zoom Low"        128     0     0
 2    61   L   20   100   1N   O   1   "Shutter"           0     0     0
 1     1   H   21   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   22   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   22   100   1N   0   1   "Dimmer Low"      255     0     0
 END
 ;
 ;----------------------------------------------------------------------------

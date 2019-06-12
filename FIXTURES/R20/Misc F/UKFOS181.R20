@@ -1,15 +1,18 @@
-; 'FOS LED BAR 18x10 Pro Mode 1', 9 DMX Channels, filename: UKFOS181.R20
-;  Copyright © Avolites Ltd. 2016
+; 'FOS LED BAR 18x10 PRO 9 DMX', 9 DMX Channels, filename: UKFOS181.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   16-06-16   Nic Morris        Created (poor documentation)
-;   16-06-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   16-06-16   Nic Morris        Checked
+;   11-10-18   Nic Morris        Added product thumbnail.  Changed name from LED BAR 18x10 Pro to BAR 18x10 PRO.
+;   11-10-18   Nic Morris        Added Atlabase ID's.  Changed mode names to channel counts.  Updated in line with latest charts.
+;   11-10-18   Nic Morris        Added compatibility for R20 export.
+;   11-10-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   11-10-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  UKFOS181                            mode=Mode 1  9 DMX Channels
-NAME "Misc F" "FOS LED BAR 18x10 Pro Mode 1"
+DEVICE  UKFOS181                            mode=9 DMX  9 DMX Channels
+NAME "Misc F" "FOS LED BAR 18x10 PRO 9 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -47,7 +50,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to Mode 1"
+"Set to 9 DMX"
 ""
 ""
 DAEND
@@ -89,9 +92,9 @@ DIVBY=1
 DMX
 1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
 2    61   L    2   100   1N   O   1   "Shutter"           0     0     0
-6     1   L    3   100   1N   0   1   "Auto 1"            0     0     0
-6    61   L    4   100   1N   0   1   "Auto 2"            0     0     0
-7     1   L    5   100   1N   0   1   "Auto Spd"        127     0     0
+7     1   L    3   100   1N   0   1   "Functions"         0     0     0
+6    61   L    4   100   1N   0   1   "Pattern"           0     0     0
+7    61   L    5   100   1N   0   1   "Pattern Spd"     127     0     0
 10    1   L    6   100   1N   T   1   "Red"             255   255     0
 10   61   L    7   100   1N   U   1   "Green"           255   255     0
 9    61   L    8   100   1N   V   1   "Blue"            255     0   229
@@ -100,8 +103,8 @@ END
 ;
 ;----------------------------------------------------------------------------
 TEXT
-FOS LED BAR 18x10 Pro
-Mode 1
+FOS LED BAR 18x10 PRO
+9 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -146,36 +149,22 @@ RANGE 1  ;Dimmer
 REND
 
 RANGE 2  ;Shutter
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+0   4    "Open"
+5   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 3  ;Auto 1
-0   35   "Safe"
-36  45   "Auto 1"
-46  55   "Auto 2"
-56  65   "Auto 3"
-66  75   "Auto 4"
-76  85   "Auto 5"
-86  95   "Auto 6"
-96  105  "Auto 7"
-106 115  "Auto 8"
-116 125  "Auto 9"
-126 135  "Auto 10"
-136 145  "Auto 11"
-146 155  "Auto 12"
-156 165  "Auto 13"
-166 175  "Auto 14"
-176 185  "Auto 15"
-186 195  "Auto 16"
-196 205  "Auto 17"
-206 215  "Auto 18"
-216 225  "Auto 19"
-226 235  "Auto 20"
-236 245  "Auto 21"
+RANGE 3  ;Functions
+0   35   "No Effect"
+36  45   "Pattern 1"
+46  55   "Pattern 2"
+56  65   "Col Select"
+66  75   "Col Jump"
+76  85   "Gradient"
+86  245  "Auto Patt"
 246 255  "Sound"
 REND
 
-RANGE 5  ;Auto Spd
+RANGE 5  ;Pattern Spd
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 

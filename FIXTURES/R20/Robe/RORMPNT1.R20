@@ -13,6 +13,7 @@
 ;   21-10-17   Nic Morris        Added Atlabase ID's.
 ;   13-12-17   Pers Creator      Created - Exported from Diamond 4 file.
 ;   13-12-17   Nic Morris        Checked
+;   18-03-18   Nic Morris        Fixed macros in response to customer bug report (forward slash in macro name was causing it to terminate)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -234,7 +235,7 @@ MACRO "Reset Gobo"    4   6
 "data"                0   0
 MEND
 
-MACRO "Reset Int/ Hot Spot"  5   6
+MACRO "Reset Int Hot Spot"  5   6
 "data"                0  AE
 "delay"               1  3C
 "data"                0   0
@@ -414,13 +415,13 @@ MACRO "RoboSpot Enabled" 34   6
 "data"                0   0
 MEND
 
-MACRO "RoboSpot (Handle Faders+P/T only)" 35   6
+MACRO "RoboSpot (Handle Faders+PT only)" 35   6
 "data"                0  F7
 "delay"               1  3C
 "data"                0   0
 MEND
 
-MACRO "RoboSpot (P/T only)" 36   6
+MACRO "RoboSpot (PT only)" 36   6
 "data"                0  FC
 "delay"               1  3C
 "data"                0   0

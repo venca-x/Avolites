@@ -1,13 +1,15 @@
 ; 'Cyclops XL-230B 16 DMX', 16 DMX Channels, filename: UKCY2301.R20
-;  Copyright © Avolites Ltd. 2016
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   10-10-14   Nic Morris        Created
 ;   27-07-16   Nic Morris        Added Atlabase ID's.
 ;   28-07-16   Nic Morris        Swapped shutter open and closed ranges.
 ;   20-09-16   Nic Morris        Created from JHW Beam Spot 200
-;   20-09-16   Pers Creator      Created - Exported from Diamond 4 file.
-;   20-09-16   Nic Morris        Checked
+;   16-05-18   Nic Morris        Revised Atlabase ID's.  Added product thumbnail.
+;   06-10-18   Nic Morris        Updated in line with latest charts.
+;   06-10-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   06-10-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -96,16 +98,16 @@ DMX
 0     0   L   11   100   1N   E   1   "Pan Low"         127     0     0
 3     1   s   12   100   1N   F   1   "Tilt"            127     0     0
 0     0   L   13   100   1N   F   1   "Tilt Low"        127     0     0
-4     1   L    1   100   1N   A   1   "Colour"            0    80   140
+4     1   L    1   100   1N   A   1   "Colour"            0    69    86
 6     1   L    4   100   1N   I   1   "Gobo"              0     0     0
-5    61   L    8   100   1N   S   1   "Frost"             0     0     0
-5     1   L    9   100   1N   L   1   "Focus"           127     0     0
+5     1   L    8   100   1N   S   1   "Frost"             0     0     0
+5    61   L    9   100   1N   L   1   "Focus"           127     0     0
 9     1   L    5   100   1N   P   1   "Prism"             0     0     0
 9    61   L    6   100   1N   R   1   "Prism Rot"         0     0     0
 10    1   L    7   100   1N   P   1   "Effect"            0     0     0
 12    1   L   14   100   1N   0   1   "Function"          0     0     0
-11    1   L   15   100   1N   0   1   "Reset"            12     0     0
-11   61   L   16   100   1N   0   1   "Lamp"              4     0     0
+11    1   L   15   100   1N   0   1   "Reset"             0     0     0
+11   61   L   16   100   1N   0   1   "Lamp"              0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -150,14 +152,14 @@ PFEND
 PFTABLE "Colour"     -1   1
 "Open"                1   0
 "Red"                 2   A
-"Orange"              3  14
-"Yellow"              4  50
-"Green"               5  28
-"Cyan"                6  64
-"Blue"                7  8C
-"Magenta"             9  5A
-"Magenta"            10  5A
-"Lavender"            8  3C
+"Orange"              3  12
+"Yellow"              4  45
+"Light Green"         5  3C
+"Cyan"                6  23
+"Blue"                7  56
+"Blue"                9  56
+"Magenta"            10  1A
+"Lavender"            8  4D
 PFEND
 
 PFTABLE "Gobo"       -1   4
@@ -165,12 +167,17 @@ PFTABLE "Gobo"       -1   4
 "Gobo 1"             12   5
 "Gobo 2"             13   A
 "Gobo 3"             14   F
-"Gobo 4"             15  14
-"Gobo 5"             16  19
-"Gobo 6"             17  1E
-"Gobo 7"             18  23
-"Gobo 8"             19  28
-"Gobo 9"             20  2D
+"Gobo 4"             15  12
+"Gobo 5"             16  14
+"Gobo 6"             17  19
+"Gobo 7"             18  1E
+"Gobo 8"             19  23
+"Gobo 9"             20  26
+PFEND
+
+PFTABLE "Beam"       -1   8
+"Frost Off"          47   0
+"Frost Full"         48  FF
 PFEND
 
 ;----------------------------------------------------------------------------
@@ -179,31 +186,31 @@ PFEND
 MACRO "Lamp Off"      1  16
 "data"                0  37
 "delay"               1  3C
-"data"                0   4
+"data"                0   0
 MEND
 
 MACRO "Lamp On"       2  16
 "data"                0  B2
 "delay"               1  3C
-"data"                0   4
+"data"                0   0
 MEND
 
 MACRO "Reset Effects"  3  15
 "data"                0  33
 "delay"               1  3C
-"data"                0   C
+"data"                0   0
 MEND
 
 MACRO "Reset P/T"     4  15
 "data"                0  66
 "delay"               1  3C
-"data"                0   C
+"data"                0   0
 MEND
 
 MACRO "Reset All"     5  15
 "data"                0  BF
 "delay"               1  3C
-"data"                0   C
+"data"                0   0
 MEND
 
 ;----------------------------------------------------------------------------
@@ -216,11 +223,11 @@ MEND
 ; Variables used a=low val, b=high val, c=DMX val
 
 RANGE 2  ;Shutter
-0   3    "Closed"
+0   0    "Closed"
 4   103  "Strobe %3d%%"(c-a)*100/(b-a)
-108 207  "Pulse %3d%%"(c-a)*100/(b-a)
+108 207  "Pulse  %3d%%"(c-a)*100/(b-a)
 213 251  "Rnd St %3d%%"(c-a)*100/(b-a)
-252 255  "Open"
+255 255  "Open"
 REND
 
 RANGE 3  ;Dimmer
@@ -236,83 +243,80 @@ RANGE 12  ;Tilt
 REND
 
 RANGE 1  ;Colour
-0   4    "Open"
-5   5    "Op/ Red"
+0   0    "Open"
+5   5    "Op/ Rd"
 10  10   "Red"
-15  15   "Red/ Org"
-20  20   "Orange"
-25  25   "Org/ Aq"
-30  30   "Aquamarine"
-35  35   "Aq/ Grn"
-40  40   "Green"
-45  45   "Grn/ Lt Grn"
-50  50   "Light Green"
-55  55   "Lt Grn/ Lav"
-60  60   "Lavender"
-65  65   "Lav/ Pk"
-70  70   "Pink"
-75  75   "Pk/ Yell"
-80  80   "Yellow"
-85  85   "Yell/ Mag"
-90  90   "Magenta"
-95  95   "Mag/ Cy"
-100 100  "Cyan"
-105 105  "Cy/ 260"
-110 110  "CTO 260"
-115 115  "260/ 190"
-120 120  "CTO 190"
-125 125  "190/ CTB"
-130 130  "CTB 8000"
-135 135  "CTB/ Blue"
-140 140  "Blue"
-145 145  "Blue/ Op"
-150 255  "Scroll %3d%%"(c-a)*100/(b-a)
+13  13   "Rd/ Org"
+18  18   "Orange"
+22  22   "Org/ Mag"
+26  26   "Magenta"
+30  30   "Mag/ Cy"
+35  35   "Cyan"
+39  39   "Cy/ L Pk"
+43  43   "Light Pink"
+47  47   "L Pk/ Pk"
+52  52   "Pink"
+56  56   "Pk/ L Grn"
+60  60   "Light Green"
+64  64   "L Grn/ Yel"
+69  69   "Yellow"
+73  73   "Yel/ Lav"
+77  77   "Lavender"
+82  82   "Lav/ Blu"
+86  86   "Blue"
+90  90   "Blu/ CTB"
+94  94   "CTB"
+99  99   "CTB/ D Blu"
+103 103  "Dark Blue"
+107 107  "D Blu/ Grn"
+111 111  "Green"
+116 116  "Grn/ CTO"
+120 120  "CTO"
+124 124  "CTO/ Op"
+128 255  "Scrl %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 4  ;Gobo
-0   4    "Open"
+0   0    "Open"
 5   5    "Gobo 1"
 10  10   "Gobo 2"
 15  15   "Gobo 3"
-20  20   "Gobo 4"
-25  25   "Gobo 5"
-30  30   "Gobo 6"
-35  35   "Gobo 7"
-40  40   "Gobo 8"
-45  45   "Gobo 9"
-50  50   "Gobo 10"
-55  55   "Gobo 11"
-60  60   "Gobo 12"
-65  65   "Gobo 13"
-70  70   "Gobo 14"
-75  75   "Gobo 15"
-80  80   "Gobo 16"
-85  85   "Gobo 17"
-90  129  "Sc CW  %3d%%"100-((c-a)*100/(b-a))
-130 134  "No Scroll"
-135 170  "Sc CCW %3d%%"(c-a)*100/(b-a)
-171 175  "G1  Sk %3d%%"(c-a)*100/(b-a)
-176 180  "G2  Sk %3d%%"(c-a)*100/(b-a)
-181 185  "G3  Sk %3d%%"(c-a)*100/(b-a)
-186 190  "G4  Sk %3d%%"(c-a)*100/(b-a)
-191 195  "G5  Sk %3d%%"(c-a)*100/(b-a)
-196 200  "G6  Sk %3d%%"(c-a)*100/(b-a)
-201 205  "G7  Sk %3d%%"(c-a)*100/(b-a)
-206 210  "G8  Sk %3d%%"(c-a)*100/(b-a)
-211 215  "G9  Sk %3d%%"(c-a)*100/(b-a)
-216 220  "G10 Sk %3d%%"(c-a)*100/(b-a)
-221 225  "G11 Sk %3d%%"(c-a)*100/(b-a)
-226 230  "G12 Sk %3d%%"(c-a)*100/(b-a)
-231 235  "G13 Sk %3d%%"(c-a)*100/(b-a)
-236 240  "G14 Sk %3d%%"(c-a)*100/(b-a)
-241 245  "G15 Sk %3d%%"(c-a)*100/(b-a)
-246 250  "G16 Sk %3d%%"(c-a)*100/(b-a)
-251 255  "G17 Sk %3d%%"(c-a)*100/(b-a)
+18  18   "Gobo 4"
+20  20   "Gobo 5"
+25  25   "Gobo 6"
+30  30   "Gobo 7"
+35  35   "Gobo 8"
+38  38   "Gobo 9"
+40  40   "Gobo 10"
+45  45   "Gobo 11"
+50  50   "Gobo 12"
+55  55   "Gobo 13"
+58  58   "Gobo 14"
+60  60   "Gobo 15"
+65  65   "Gobo 16"
+70  70   "Gobo 17"
+72  113  "Sc CW  %3d%%"(c-a)*100/(b-a)
+114 117  "No Scroll"
+118 159  "Sc CCW %3d%%"(c-a)*100/(b-a)
+160 166  "G2  Sk %3d%%"(c-a)*100/(b-a)
+167 172  "G3  Sk %3d%%"(c-a)*100/(b-a)
+173 179  "G4  Sk %3d%%"(c-a)*100/(b-a)
+180 185  "G5  Sk %3d%%"(c-a)*100/(b-a)
+186 191  "G6  Sk %3d%%"(c-a)*100/(b-a)
+192 198  "G7  Sk %3d%%"(c-a)*100/(b-a)
+199 204  "G8  Sk %3d%%"(c-a)*100/(b-a)
+205 211  "G9  Sk %3d%%"(c-a)*100/(b-a)
+212 217  "G10 Sk %3d%%"(c-a)*100/(b-a)
+218 223  "G11 Sk %3d%%"(c-a)*100/(b-a)
+224 230  "G12 Sk %3d%%"(c-a)*100/(b-a)
+231 236  "G13 Sk %3d%%"(c-a)*100/(b-a)
+237 243  "G14 Sk %3d%%"(c-a)*100/(b-a)
+244 249  "G15 Sk %3d%%"(c-a)*100/(b-a)
+250 255  "G16 Sk %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 8  ;Frost
-0   127  "Open"
-128 255  "Frost"
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 9  ;Focus
@@ -326,7 +330,7 @@ REND
 
 RANGE 6  ;Prism Rot
 0   127  "Indx %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-128 190  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
+128 190  "Sp CW  %3d%%"(c-a)*100/(b-a)
 191 192  "No Spin"
 193 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND

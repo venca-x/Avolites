@@ -1,17 +1,20 @@
-; 'Event Lighting Pro PAR RGBW 5x8W (v1) 10 DMX', 10 DMX Channels, filename: UKEVP2D3.R20
-;  Copyright © Avolites Ltd. 2017
+; 'Event Lighting Pro PAR RGBA 5x8W 10 DMX', 10 DMX Channels, filename: UKEVP2D3.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   02-05-15   Nic Morris        Created
 ;   05-06-16   Nic Morris        Created from Event Lighting Propar
 ;   17-03-17   Nic Morris        Created from Event Lighting PRO PAR v2 (split for Capture)
-;   17-03-17   Pers Creator      Created - Exported from Diamond 4 file.
-;   17-03-17   Nic Morris        Checked
+;   21-03-17   Nic Morris        Added Atlabase ID's for 2 and 3 DMX modes.
+;   04-09-18   Nic Morris        Merged versions.  Added product thumbnail.
+;   26-10-18   Nic Morris        Created from Event Lighting Pro PAR RGBW 12x8W
+;   26-10-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-10-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
 DEVICE  UKEVP2D3                            mode=10 DMX  10 DMX Channels
-NAME "Misc E" "E Pro PAR RGBW 5x8W (v1) 10 DMX"
+NAME "Misc E" "Event  Pro PAR RGBA 5x8W 10 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
@@ -94,17 +97,17 @@ DMX
 10    1   L    1   100   1N   T   1   "Red"             255   255     0
 10   61   L    2   100   1N   U   1   "Green"           255   255     0
 9    61   L    3   100   1N   V   1   "Blue"            255     0   229
-4    61   L    4   100   1N   0   1   "White"             0     0     0
-5     1   L    7   100   1N   0   1   "Colour Macro"      0     0     0
+9     1   L    4   100   1N   0   1   "Amber"             0     0     0
+4     1   L    7   100   1N   0   1   "Colour Macro"      0     0     0
 6     1   L    8   100   1N   0   1   "Auto"              0     0     0
 6    61   L    9   100   1N   0   1   "Auto Spd"        127     0     0
-8     1   L   10   100   1N   0   1   "Dim Spd"           0     0     0
+8    61   L   10   100   1N   0   1   "Dim Spd"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Event Lighting
-Pro PAR RGBW 5x8W (v1)
+Pro PAR RGBA 5x8W
 10 DMX
 
 INPUT fixture DMX No.
@@ -166,7 +169,7 @@ RANGE 3  ;Blue
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 4  ;White
+RANGE 4  ;Amber
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
@@ -188,11 +191,12 @@ REND
 
 RANGE 8  ;Auto
 0   9    "No Effect"
-10  57   "Single Swtc"
-58  106  "Mixed Swtch"
-107 155  "Single Fade"
-156 204  "Mixed Fade"
-205 255  "Macro Fade"
+10  49   "RGBW Switch"
+50  90   "15 Col Swtc"
+91  131  "RGBW Fade"
+132 172  "15 Col Fade"
+173 213  "Macro Fade"
+214 255  "Sound"
 REND
 
 RANGE 9  ;Auto Spd
@@ -201,9 +205,10 @@ REND
 
 RANGE 10  ;Dim Spd
 0   9    "Preset"
-10  69   "Linear"
-70  130  "Curve 1"
-131 191  "Curve 2"
-192 255  "Curve 3"
+10  57   "Linear"
+58  106  "Curve 1"
+107 155  "Curve 2"
+156 204  "Curve 3"
+205 255  "Curve 4"
 REND
 

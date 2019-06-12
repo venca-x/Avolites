@@ -1,0 +1,202 @@
+; 'Spotlight Hyperion 300 Profile Zoom 25-50° 6 Colour Easy, 3 DMX', 3 DMX Channels, filename: SPHP25C1.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   14-11-18   Nic Morris        Created (confusing charts - particulary advanced strobe missing ranges and 'service' functions)
+;   14-11-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-11-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SPHP25C1                            mode=Easy, 3 DMX  3 DMX Channels
+NAME "Spotlight" "Hyperion Pro25-50 Col Easy"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Easy, 3 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=509
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+14    1   L    2   100   1N   0   1   "Colour Macro"      0     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Spotlight
+Hyperion 300 Profile Zoom 25-50° 6 Colour
+Easy, 3 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Colour Macro
+0   0    "Open"
+1   3    "2700K"
+4   7    "3000K"
+8   11   "3200K"
+12  15   "3500K"
+16  19   "4000K"
+20  23   "5600K"
+25  32   "Full White"
+24  27   "6500K"
+28  31   "8000K"
+36  39   "Red"
+40  43   "Green"
+44  47   "Blue"
+48  51   "Cyan"
+52  55   "Yellow"
+56  59   "Magenta"
+60  63   "Medium Amb"
+64  67   "Fire"
+68  71   "Bright Red"
+72  75   "Lavender"
+76  79   "Sky Blue"
+80  83   "Tokyo Blue"
+84  87   "Yellow"
+88  91   "Light Amber"
+92  95   "Straw"
+96  99   "Primary Red"
+100 103  "Dark Pink"
+104 107  "Peacock Blu"
+108 111  "Medium Blue"
+112 115  "Steel Blue"
+116 119  "Dark Blue"
+120 123  "Dark Green"
+124 127  "Mauve"
+128 131  "Bright Pink"
+132 135  "Marine Blue"
+136 139  "Medium Blue"
+140 143  "Golden Amb"
+144 147  "Pale Lav"
+148 151  "Pale Green"
+152 155  "Apricot"
+156 159  "Pale Rose"
+160 163  "Deep Orange"
+164 167  "Daylight Bl"
+168 171  "Lilac Tint"
+172 175  "Dark Lav"
+176 179  "Full CTB"
+180 183  "Half CTB"
+184 187  "Quarter CTB"
+188 191  "Full CTO"
+192 195  "Half CTO"
+196 199  "Quarter CTO"
+200 203  "Full MinusG"
+204 207  "Half MinusG"
+208 211  "Millenium"
+212 215  "Vanity Fair"
+216 219  "Custom 1"
+220 223  "Custom 2"
+224 227  "Custom 3"
+228 231  "Custom 4"
+232 235  "Custom 5"
+236 239  "Custom 6"
+240 243  "Custom 7"
+244 247  "Custom 8"
+248 251  "Custom 9"
+252 255  "Custom 10"
+REND
+
+RANGE 3  ;Shutter
+0   0    "Open"
+1   255  "Strb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

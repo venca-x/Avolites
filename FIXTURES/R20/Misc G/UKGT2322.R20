@@ -5,6 +5,7 @@
 ;   30-11-17   Nic Morris        Created (chart channel counts don't match and default values look wrong)
 ;   30-11-17   Pers Creator      Created - Exported from Diamond 4 file.
 ;   30-11-17   Nic Morris        Checked
+;   10-09-18   Nic Morris        Revised P/T locate in response to customer bug report (documentation is incorrect)
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -97,7 +98,7 @@ DMX
 5     1   L    8   100   1N   S   1   "Frost"             0     0     0
 3    61   L    9   100   1N   E   1   "Pan"             127     0     0
 3     1   L   10   100   1N   F   1   "Tilt"            127     0     0
-8     1   L   11   100   1N   0   1   "P/T Speed"       255     0     0
+8     1   L   11   100   1N   0   1   "P/T Speed"         0     0     0
 11    1   L   12   100   1N   0   1   "Control"           0     0     0
 END
 ;

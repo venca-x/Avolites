@@ -5,6 +5,7 @@
 ;   13-04-17   Nic Morris        Created
 ;   13-04-17   Pers Creator      Created - Exported from Diamond 4 file.
 ;   13-04-17   Nic Morris        Checked
+;   05-09-18   Nic Morris        Split 16bit dimmer into two 8bit controls for compatibility
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -98,14 +99,14 @@ DMX
 4     1   L    9   100   1N   0   1   "Colour Macro"      0     0     0
 2    61   L   10   100   1N   O   1   "Shutter"         255     0     0
 1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   12   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   12   100   1N   0   1   "Dimmer Low"      255     0     0
 5     1   L   13   100   1N   Q   1   "Zoom"            127     0     0
 6     1   L   14   100   1N   0   1   "Auto"              0     0     0
 6    61   L   15   100   1N   0   1   "Auto Spd"        127     0     0
 7    61   L   16   100   1N   0   1   "Auto Fade"         0     0     0
 8    61   L   17   100   1N   0   1   "Dim Spd"           0     0     0
 8     1   L   18   100   1N   0   1   "P/T Speed"         0     0     0
-11    1   L   19   100   1N   0   1   "Control"           0     0     0
+11   61   L   19   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------

@@ -1,0 +1,652 @@
+; 'Ignition Teatro LED Spot 100 FR 6 DMX', 6 DMX Channels, filename: UKIGS1F6.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   19-12-18   Nic Morris        Created
+;   19-12-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-12-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKIGS1F6                            mode=6 DMX  6 DMX Channels
+NAME "Misc I" "Ig Teatro LED Spot 100 FR 6 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 6 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"         255     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    3   100   1N   H   1   "Dimmer Low"      255     0     0
+11   61   L    4   100   1N   0   1   "Function"          0     0     0
+5     1   L    5   100   1N   Q   1   "Zoom"            127     0     0
+11    1   L    6   100   1N   0   1   "Reset"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Ignition
+Teatro LED Spot 100 FR
+6 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  FF
+"Slow Strobe"        32  4A
+"Fast Strobe"        33  77
+"Slow Pulse"         36  CC
+"Fast Pulse"         37  E5
+"Closed"             38   0
+PFEND
+
+PFTABLE "Beam"       -1   5
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   6
+"data"                0  87
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth Off"    2   4
+"data"                0  13
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 1 (25ms)"  3   4
+"data"                0  19
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 2 (50ms)"  4   4
+"data"                0  1B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 3 (75ms)"  5   4
+"data"                0  1D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 4 (100ms)"  6   4
+"data"                0  1F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 5 (125ms)"  7   4
+"data"                0  21
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 6 (150ms)"  8   4
+"data"                0  23
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 7 (175ms)"  9   4
+"data"                0  25
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 8 (200ms)" 10   4
+"data"                0  27
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 9 (225ms)" 11   4
+"data"                0  29
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 10 (250ms)" 12   4
+"data"                0  2B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 11 (275ms)" 13   4
+"data"                0  2D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 12 (300ms)" 14   4
+"data"                0  2F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 13 (325ms)" 15   4
+"data"                0  31
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 14 (350ms)" 16   4
+"data"                0  33
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 15 (375ms)" 17   4
+"data"                0  35
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 16 (400ms)" 18   4
+"data"                0  37
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 17 (425ms)" 19   4
+"data"                0  39
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 18 (450ms)" 20   4
+"data"                0  3B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 19 (475ms)" 21   4
+"data"                0  3D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Smooth 20 (500ms)" 22   4
+"data"                0  3F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gamma Quadratic" 23   4
+"data"                0  45
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Gamma Linear" 24   4
+"data"                0  4F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 610Hz" 25   4
+"data"                0  5E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 800Hz" 26   4
+"data"                0  69
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 1000Hz" 27   4
+"data"                0  6A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 1500Hz" 28   4
+"data"                0  6B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 2000Hz" 29   4
+"data"                0  6C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 2500Hz" 30   4
+"data"                0  6D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 3000Hz" 31   4
+"data"                0  6E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 3500Hz" 32   4
+"data"                0  6F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 4000Hz" 33   4
+"data"                0  70
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 4500Hz" 34   4
+"data"                0  71
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 5000Hz" 35   4
+"data"                0  72
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 5500Hz" 36   4
+"data"                0  73
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 6000Hz" 37   4
+"data"                0  74
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 6500Hz" 38   4
+"data"                0  75
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 7000Hz" 39   4
+"data"                0  76
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 7500Hz" 40   4
+"data"                0  77
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 8000Hz" 41   4
+"data"                0  78
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 8500Hz" 42   4
+"data"                0  79
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 9000Hz" 43   4
+"data"                0  7A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 9500Hz" 44   4
+"data"                0  7B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 10000Hz" 45   4
+"data"                0  7C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 11000Hz" 46   4
+"data"                0  7D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 12000Hz" 47   4
+"data"                0  7E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 13000Hz" 48   4
+"data"                0  7F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 14000Hz" 49   4
+"data"                0  80
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 15000Hz" 50   4
+"data"                0  81
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 16000Hz" 51   4
+"data"                0  82
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 17000Hz" 52   4
+"data"                0  83
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 18000Hz" 53   4
+"data"                0  84
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 19000Hz" 54   4
+"data"                0  85
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Output 20000Hz" 55   4
+"data"                0  86
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boost On"     56   4
+"data"                0  8B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Boost Off"    57   4
+"data"                0  95
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Standby Off" 58   4
+"data"                0  9F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Standby On" 59   4
+"data"                0  A9
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Hold"  60   4
+"data"                0  AF
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Blackout" 61   4
+"data"                0  B1
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX @100%" 62   4
+"data"                0  B3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX @60%"  63   4
+"data"                0  B5
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Custom" 64   4
+"data"                0  B7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Standard" 65   4
+"data"                0  ED
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Silent"   66   4
+"data"                0  F2
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Zoom Standard" 67   4
+"data"                0  F6
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Zoom Silent"  68   4
+"data"                0  FA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Set Default"  69   4
+"data"                0  FE
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   0    "Closed"
+30  119  "Strobe %3d%%"(c-a)*100/(b-a)
+120 149  "Op Pls %3d%%"(c-a)*100/(b-a)
+150 179  "Cl Pls %3d%%"(c-a)*100/(b-a)
+180 229  "Rnd St %3d%%"(c-a)*100/(b-a)
+230 235  "Single Flas"
+255 255  "Open"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Function
+0   14   "Safe"
+15  24   "Smooth Off"
+25  26   "Smooth 1"
+27  28   "Smooth 2"
+29  30   "Smooth 3"
+31  32   "Smooth 4"
+33  34   "Smooth 5"
+35  36   "Smooth 6"
+37  38   "Smooth 7"
+39  40   "Smooth 8"
+41  42   "Smooth 9"
+43  44   "Smooth 10"
+45  46   "Smooth 11"
+47  48   "Smooth 12"
+49  50   "Smooth 13"
+51  52   "Smooth 14"
+53  54   "Smooth 15"
+55  56   "Smooth 16"
+57  58   "Smooth 17"
+59  60   "Smooth 18"
+61  62   "Smooth 19"
+63  64   "Smooth 20"
+65  74   "Gamma Quad"
+75  84   "Gamma Lnear"
+85  104  "Output 610"
+105 105  "Output 800"
+106 106  "Output 1000"
+107 107  "Output 1500"
+108 108  "Output 2000"
+109 109  "Output 2500"
+110 110  "Output 3000"
+111 111  "Output 3500"
+112 112  "Output 4000"
+113 113  "Output 4500"
+114 114  "Output 5000"
+115 115  "Output 5500"
+116 116  "Output 6000"
+117 117  "Output 6500"
+118 118  "Output 7000"
+119 119  "Output 7500"
+120 120  "Output 8000"
+121 121  "Output 8500"
+122 122  "Output 9000"
+123 123  "Output 9500"
+124 124  "Output 10K"
+125 125  "Output 11K"
+126 126  "Output 12K"
+127 127  "Output 13K"
+128 128  "Output 14K"
+129 129  "Output 15K"
+130 130  "Output 16K"
+131 131  "Output 17K"
+132 132  "Output 18K"
+133 133  "Output 19K"
+134 134  "Output 20K"
+135 144  "Boost On"
+145 154  "Boost Off"
+155 164  "Display On"
+165 174  "Display Off"
+175 176  "No DMX Hold"
+177 178  "No DMX B/O"
+179 180  "No DMX 100%"
+181 182  "No DMX 60%"
+183 184  "No DMX User"
+235 239  "Fan Std"
+240 244  "Fan Silent"
+245 248  "Zoom Std"
+249 252  "Zoom Silent"
+253 255  "Set Default"
+REND
+
+RANGE 5  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Reset
+0   0    "Safe"
+16  255  "Reset"
+REND
+

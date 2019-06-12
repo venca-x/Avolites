@@ -1,0 +1,259 @@
+; 'SGM S-4', 13 DMX Channels, filename: SGMS-4.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   28-04-18   Nic Morris        Created
+;   28-04-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-04-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SGMS-4                              mode=13 DMX  13 DMX Channels
+NAME "SGM" "S-4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 13 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=499
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"         255     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s    3   100   1N   H   1   "Dimmer Low"      255     0     0
+4    61   L    4   100   1N   0   1   "Colour Macro"      0     0     0
+10    1   s    5   100   1N   T   1   "Red"             255   255     0
+0     0   L    6   100   1N   T   1   "Red Low"         255   255     0
+10   61   s    7   100   1N   U   1   "Green"           255   255     0
+0     0   L    8   100   1N   U   1   "Green Low"       255   255     0
+9    61   s    9   100   1N   V   1   "Blue"            255     0   230
+0     0   L   10   100   1N   V   1   "Blue Low"        255     0   230
+4     1   L   11   100   1N   0   1   "CTC"             182     0     0
+5     1   L   12   100   1N   Q   1   "Zoom"            124     0     0
+11    1   L   13   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+SGM S-4
+13 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   1
+"Open"               31  FF
+"Slow Strobe"        32  35
+"Fast Strobe"        33  12
+"Slow Pulse"         36  63
+"Fast Pulse"         37  59
+"Closed"             38   0
+PFEND
+
+PFTABLE "Colour"     -1   5   7   9
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+PFTABLE "Beam"       -1  12
+"Zoom Small"         41   0
+"Zoom Medium"        42  7C
+"Zoom Large"         43  F9
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset All"     1  13
+"data"                0   7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Head"    2  13
+"data"                0  16
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Zoom"    3  13
+"data"                0  1B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   0    "Closed"
+18  88   "Strobe %3d%%"100-((c-a)*100/(b-a))
+89  108  "Rnd Op %3d%%"100-((c-a)*100/(b-a))
+109 128  "Rnd Cl %3d%%"100-((c-a)*100/(b-a))
+129 178  "Rnd St %3d%%"100-((c-a)*100/(b-a))
+179 198  "Rnd Lt %3d%%"100-((c-a)*100/(b-a))
+199 208  "Rnd Db %3d%%"100-((c-a)*100/(b-a))
+209 218  "Rnd Tr %3d%%"100-((c-a)*100/(b-a))
+219 228  "Noise  %3d%%"100-((c-a)*100/(b-a))
+255 255  "Open"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Colour Macro
+0   4    "Open"
+5   9    "Congo"
+10  14   "Red"
+15  19   "Green"
+20  24   "Blue"
+25  29   "Orange"
+30  34   "Light Green"
+35  39   "Pink"
+40  44   "Light Blue"
+45  49   "Green"
+50  54   "Neon Green"
+55  59   "Magenta"
+60  64   "Cyan"
+65  69   "Yellow"
+70  74   "CTC"
+75  79   "Sc CW  %3d%%"100-((c-a)*100/(b-a))
+80  84   "Sc CCW %3d%%"(c-a)*100/(b-a)
+85  89   "Random"
+90  180  "Filter %3d%%"(c-a)*100/(b-a)
+181 199  "Minus Green"
+200 200  "Neutral"
+201 219  "Plus Green"
+245 249  "Raw A %3d%%"(c-a)*100/(b-a)
+250 255  "Raw M %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;CTC
+0   0    "5600K"
+1   4    "No CTC"
+5   255  "%5dK"2000+((c-a)*8000/(b-a))
+REND
+
+RANGE 12  ;Zoom
+0   249  "Zoom %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+250 255  "Manual"
+REND
+
+RANGE 13  ;Control
+0   4    "Safe"
+5   9    "Reset All"
+20  24   "Reset Head"
+25  29   "Reset Zoom"
+35  39   "Display On"
+40  44   "Display Off"
+45  49   "Power Off"
+50  54   "Opt Narrow"
+55  59   "Opt Wide"
+REND
+

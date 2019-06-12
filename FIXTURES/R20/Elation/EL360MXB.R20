@@ -5,6 +5,7 @@
 ;   08-01-16   Nic Morris        Created
 ;   08-01-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   08-01-16   Nic Morris        Checked
+;   25-05-18   Nic Morris        Split 16bit dimmer into two 8bit controls in attempt to fix customer bug report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -98,12 +99,12 @@ DMX
 4    61   L    9   100   1N   0   1   "Colour Macro"      0     0     0
 2    61   L   10   100   1N   O   1   "Shutter"          48     0     0
 1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   12   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   12   100   1N   0   1   "Dimmer Low"      255     0     0
 9     1   L   13   100   1N   0   1   "Auto"              0     0     0
 8     1   L   14   100   1N   0   1   "Auto Spd"        127     0     0
 11   61   L   15   100   1N   0   1   "Dim Spd"          10     0     0
 8    61   L   16   100   1N   0   1   "P/T Speed"         0     0     0
-11    1   L   17   100   1N   0   1   "Control"          40     0     0
+11   61   L   17   100   1N   0   1   "Control"          40     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -216,7 +217,7 @@ RANGE 8  ;White
 REND
 
 RANGE 9  ;Colour Macro
-0   0    "Safe"
+0   0    "Open"
 1   4    "Macro 1"
 5   8    "Macro 2"
 9   12   "Macro 3"
@@ -296,7 +297,7 @@ RANGE 11  ;Dimmer
 REND
 
 RANGE 13  ;Auto
-0   0    "Safe"
+0   0    "No Effect"
 1   10   "Macro 1"
 11  20   "Macro 2"
 21  30   "Macro 3"

@@ -1,22 +1,20 @@
-; 'Terbly LPAR7QZ 18 DMX', 18 DMX Channels, filename: TBLP7QZ3.R20
-;  Copyright © Avolites Ltd. 2017
+; 'Terbly LPAR7QZ 16 DMX', 16 DMX Channels, filename: TBLP7QZ3.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
-;   22-05-16   Nic Morris        Created
-;   10-05-17   Nic Morris        Updated colour macro ranges and added LEE colours in line with latest charts in response to customer request.
-;   10-05-17   Pers Creator      Created - Exported from Diamond 4 file.
-;   10-05-17   Nic Morris        Checked
-;   17-08-17   Nic Morris        Revised shutter functions.
+;   24-01-18   Nic Morris        Created (replaces previous version in line with latest documentation in response to manufacturer request)
+;   24-01-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   24-01-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  TBLP7QZ3                            mode=18 DMX  18 DMX Channels
-NAME "Terbly" "LPAR7QZ 18 DMX"
+DEVICE  TBLP7QZ3                            mode=16 DMX  16 DMX Channels
+NAME "Terbly" "LPAR7QZ 16 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
 ; The middle number denotes the number of DMX channels used
-TYPE  1  18  M
+TYPE  1  16  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
@@ -49,7 +47,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to 18 DMX"
+"Set to 16 DMX"
 ""
 ""
 DAEND
@@ -61,7 +59,7 @@ DAEND
 MINDMX=1
 ;
 ; maximum allowed dmx number
-MAXDMX=494
+MAXDMX=496
 ;
 ; DMX number must be divisible by this
 DIVBY=1
@@ -91,28 +89,26 @@ DIVBY=1
 DMX
 10    1   L    1   100   1N   T   1   "Red 1"           255   255     0
 10   61   L    2   100   1N   U   1   "Green 1"         255   255     0
-9    61   L    3   100   1N   V   1   "Blue 1"          255     0   230
+9    61   L    3   100   1N   V   1   "Blue 1"          255     0   229
 9     1   L    4   100   1N   0   1   "White 1"           0     0     0
 20    1   L    5   100   1N   0   1   "Red 2"           255   255     0
 20   61   L    6   100   1N   0   1   "Green 2"         255   255     0
-19   61   L    7   100   1N   0   1   "Blue 2"          255     0   230
+19   61   L    7   100   1N   0   1   "Blue 2"          255     0   229
 19    1   L    8   100   1N   0   1   "White 2"           0     0     0
-4    61   L    9   100   1N   A   1   "Colour"            0     0     0
-4     1   L   10   100   1N   0   1   "Colour Macro"      0     0     0
-2    61   L   12   100   1N   O   1   "Shutter"          48     0     0
-1     1   H   13   100   1N   H   1   "Dimmer"          255     0     0
-8     1   L   14   100   1N   0   1   "Dim Mode"          0     0     0
-8    61   L   15   100   1N   0   1   "Col Enable"        0     0     0
-11   61   L   16   100   1N   0   1   "Col Mode"          0     0     0
-5     1   L   17   100   1N   Q   1   "Zoom"            127     0     0
-11    1   L   18   100   1N   0   1   "Control"           0     0     0
-14    1   L   11   100   1N   0   1   "LEE Colour"        0     0     0
+4     1   L    9   100   1N   0   1   "Colour Macro"      0     0     0
+14    1   L   10   100   1N   0   1   "POLY Col"          0     0     0
+11    1   H   11   100   1N   0   1   "POLY Col Dim"      0     0     0
+8     1   L   12   100   1N   0   1   "POLY Col Fad"      0     0     0
+2    61   L   13   100   1N   O   1   "Shutter"           0     0     0
+1     1   H   14   100   1N   H   1   "Dimmer"          255     0     0
+5     1   L   15   100   1N   Q   1   "Zoom"            127     0     0
+12   61   L   16   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Terbly LPAR7QZ
-18 DMX
+16 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -127,16 +123,7 @@ END
 ;----------------------------------------------------------------------------
 ; Preset Palette Tables
 
-PFTABLE "Intensity"  -1  12
-"Open"               31  FF
-"Slow Strobe"        32  4F
-"Fast Strobe"        33  5F
-"Slow Pulse"         36  8F
-"Fast Pulse"         37  9F
-"Closed"             38   0
-PFEND
-
-PFTABLE "Beam"       -1  17
+PFTABLE "Beam"       -1  15
 "Zoom Small"         41   0
 "Zoom Medium"        42  7F
 "Zoom Large"         43  FF
@@ -144,12 +131,6 @@ PFEND
 
 ;----------------------------------------------------------------------------
 ; Macros
-
-MACRO "Reset"         1  18
-"data"                0  52
-"delay"               1  6E
-"data"                0   0
-MEND
 
 ;----------------------------------------------------------------------------
 ; Range Tables
@@ -161,131 +142,137 @@ MEND
 ; Variables used a=low val, b=high val, c=DMX val
 
 RANGE 1  ;Red 1
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 2  ;Green 1
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 3  ;Blue 1
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 4  ;White 1
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 5  ;Red 2
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 6  ;Green 2
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 7  ;Blue 2
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 8  ;White 2
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 9  ;Colour
-0   10   "Open"
-11  20   "2700K"
-21  30   "3200K"
-31  40   "4300K"
-41  50   "5600K"
-51  60   "6500K"
-61  70   "8000K"
-71  100  "B/R"
-101 130  "B/G"
-131 160  "G/R"
-161 190  "R/B"
-191 220  "G/B"
-221 255  "R/G"
+RANGE 9  ;Colour Macro
+0   7    "Open"
+8   39   "Rd-Yel %3d%%"(c-a)*100/(b-a)
+40  71   "Yel-Gr %3d%%"(c-a)*100/(b-a)
+72  103  "Grn-Cy %3d%%"(c-a)*100/(b-a)
+104 135  "Cy-Blu %3d%%"(c-a)*100/(b-a)
+136 167  "Bl-Mag %3d%%"(c-a)*100/(b-a)
+168 199  "Mag-Rd %3d%%"(c-a)*100/(b-a)
+200 231  "Rd-Wht %3d%%"(c-a)*100/(b-a)
+232 255  "Scroll %3d%%"(c-a)*100/(b-a)
 REND
 
-RANGE 10  ;Colour Macro
-0   0    "Open"
-1   7    "Macro 1"
-8   15   "Macro 2"
-16  23   "Macro 3"
-24  31   "Macro 4"
-32  39   "Macro 5"
-40  47   "Macro 6"
-48  55   "Macro 7"
-56  63   "Macro 8"
-64  71   "Macro 9"
-72  79   "Macro 10"
-80  87   "Macro 11"
-88  95   "Macro 12"
-96  103  "Macro 13"
-104 111  "Macro 14"
-112 119  "Macro 15"
-120 127  "Macro 16"
-128 135  "Macro 17"
-136 143  "Macro 18"
-144 151  "Macro 19"
-152 159  "Macro 20"
-160 167  "Macro 21"
-168 175  "Macro 22"
-176 183  "Macro 23"
-184 191  "Macro 24"
-192 199  "Macro 25"
-200 207  "Macro 26"
-208 215  "Macro 27"
-216 223  "Macro 28"
-224 231  "Macro 29"
-232 239  "Macro 30"
-240 247  "Macro 31"
-248 255  "Macro 32"
+RANGE 10  ;POLY Col
+0   27   "Open"
+28  31   "Pink#12"
+32  35   "Pink#140"
+36  39   "Pink#15"
+40  43   "Pink#16"
+44  47   "Pink#17"
+48  51   "Pink#170"
+52  55   "Pink#18"
+56  59   "Red#20"
+60  63   "Red#21"
+64  67   "Red#22"
+68  71   "Red#24"
+72  75   "Red#26"
+76  79   "Amber#31"
+80  83   "Amber#33"
+84  87   "Amber#34"
+88  91   "Amber#35"
+92  95   "Amber#36"
+96  99   "Amber#37"
+100 103  "Amber#38"
+104 107  "Yellow#40"
+108 111  "Yellow#41"
+112 115  "Yellow#43"
+116 119  "Yellow#44"
+120 123  "Yellow#45"
+124 127  "Yellow#46"
+128 131  "Green#52"
+132 135  "Green#53"
+136 139  "Green#54"
+140 143  "Green#55"
+144 147  "Green#560"
+148 151  "Green#57"
+152 155  "Green#58"
+156 159  "Green#59"
+160 163  "BG#63"
+164 167  "BG#64"
+168 171  "BG#65"
+172 175  "BG#66"
+176 179  "BG#67"
+180 183  "Blue#700"
+184 187  "Blue#71"
+188 191  "Blue#72"
+192 195  "Blue#73"
+196 199  "Blue#74"
+200 203  "Blue#76"
+204 207  "Blue#77"
+208 211  "Blue#78"
+212 215  "Blue#780"
+216 219  "Blue#783"
+220 223  "Blue#79"
+224 227  "Purple#81"
+228 231  "Purple#830"
+232 235  "Purple#84"
+236 239  "Purple#85"
+240 243  "Purple#86"
+244 247  "Purple#87"
+248 251  "Purple#878"
+252 255  "Purple#88"
 REND
 
-RANGE 12  ;Shutter
-0   31   "Closed"
-32  53   "Open"
-64  95   "Strobe %3d%%"(c-a)*100/(b-a)
-96  127  "Open"
-128 159  "Pulse %3d%%"(c-a)*100/(b-a)
-160 191  "Open"
-192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
-224 255  "Open"
+RANGE 11  ;POLY Col Dim
+0   255  "%3d%%"100-((c-a)*100/(b-a))
 REND
 
-RANGE 13  ;Dimmer
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+RANGE 12  ;POLY Col Fade
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 14  ;Dim Mode
-0   20   "Standard"
-21  40   "Stage"
-41  60   "TV"
-61  80   "Architect"
-81  100  "Theatre"
-101 255  "Default"
+RANGE 13  ;Shutter
+0   31   "Open"
+32  127  "Strobe %3d%%"(c-a)*100/(b-a)
+128 190  "Rnd St %3d%%"(c-a)*100/(b-a)
+191 255  "Pulse %3d%%"(c-a)*100/(b-a)
 REND
 
-RANGE 15  ;Col Enable
-0   189  "Safe"
-190 255  "Enable"
+RANGE 14  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 16  ;Col Mode
-0   189  "Safe"
-190 254  "Edit W Bal"
-255 255  "Store W Bal"
+RANGE 15  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 17  ;Zoom
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 18  ;Control
+RANGE 16  ;Control
 0   79   "Safe"
 80  84   "Reset"
+91  93   "Store W-Bal"
 100 119  "Program 1"
 120 139  "Program 2"
 140 159  "Program 3"
@@ -293,42 +280,5 @@ RANGE 18  ;Control
 180 199  "Program 5"
 200 219  "Program 6"
 220 239  "Program 7"
-REND
-
-RANGE 11  ;LEE Colour
-0   24   "Open"
-25  31   "Moroccan Pk"
-32  38   "Pink"
-39  45   "Special Rs"
-46  52   "Follies Pk"
-53  59   "Fuchsia Pk"
-60  66   "Surprise Pk"
-67  73   "Congo Blue"
-74  80   "Tokyo Blue"
-81  87   "Deep Blue"
-88  94   "Just Blue"
-95  101  "Medium Blue"
-102 108  "Double CT B"
-109 115  "Slate Blue"
-116 122  "Full CT Blu"
-123 129  "Half CT Blu"
-130 136  "Steel Blue"
-137 143  "Lighter Blu"
-144 150  "Light Blue"
-151 157  "Med Blue Gr"
-158 164  "Dark Green"
-165 171  "Primary Grn"
-172 178  "Moss Green"
-179 185  "Fern Green"
-186 192  "JAS Green"
-193 199  "Lime Green"
-200 206  "Spring Yell"
-207 213  "Deep Amber"
-214 220  "Chrome Org"
-221 227  "Orange"
-228 234  "Gold Amber"
-235 241  "Millennium"
-242 248  "Deep Gold A"
-249 255  "Flame Red"
 REND
 

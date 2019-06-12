@@ -5,6 +5,7 @@
 ;   03-09-16   Nic Morris        Created
 ;   03-09-16   Pers Creator      Created - Exported from Diamond 4 file.
 ;   03-09-16   Nic Morris        Checked
+;   25-05-18   Nic Morris        Split 16bit dimmer into two 8bit controls in attempt to fix customer bug report
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
@@ -98,14 +99,14 @@ DMX
 4     1   L    9   100   1N   0   1   "Colour Prese"      0     0     0
 2    61   L   10   100   1N   O   1   "Shutter"         255     0     0
 1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
-0     0   s   12   100   1N   H   1   "Dimmer Low"      255     0     0
+11    1   H   12   100   1N   0   1   "Dimmer Low"      255     0     0
 2     1   L   13   100   1N   Q   1   "Zoom"            127     0     0
 6     1   L   14   100   1N   0   1   "Auto"              0     0     0
 7     1   L   15   100   1N   0   1   "Auto Spd"        128     0     0
 7    61   L   16   100   1N   0   1   "Auto Fade"         0     0     0
-11   61   L   17   100   1N   0   1   "Dim Spd"           0     0     0
+12    1   L   17   100   1N   0   1   "Dim Spd"           0     0     0
 8     1   L   18   100   1N   0   1   "P/T Speed"         0     0     0
-11    1   L   19   100   1N   0   1   "Control"           0     0     0
+11   61   L   19   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
@@ -193,14 +194,14 @@ RANGE 2  ;Tilt
 REND
 
 RANGE 3  ;Pan Spin
-0   127  "Safe"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
 REND
 
 RANGE 4  ;Tilt Spin
-0   127  "Safe"
+0   127  "Normal"
 128 189  "Sp CW  %3d%%"100-((c-a)*100/(b-a))
 190 193  "No Spin"
 194 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
@@ -307,7 +308,7 @@ RANGE 13  ;Zoom
 REND
 
 RANGE 14  ;Auto
-0   0    "Safe"
+0   0    "No Effect"
 1   20   "Macro 1"
 21  40   "Macro 2"
 41  60   "Macro 3"

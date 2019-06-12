@@ -1,0 +1,679 @@
+; 'GLP Impression FR1', 16 DMX Channels, filename: GLPIFR11.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   07-02-18   Nic Morris        Created (charts only)
+;   05-04-18   Nic Morris        Updated in line with latest charts.  Added product thumbnail.
+;   05-04-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-04-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GLPIFR11                            mode=Normal, 16 DMX  16 DMX Channels
+NAME "GLP" "Impression FR1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  220
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Normal, 16 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
+9     1   L    5   100   1N   0   1   "Colour Macro"      0     0     0
+10    1   L    6   100   1N   T   1   "Red"             255   255     0
+10   61   L    7   100   1N   U   1   "Green"           255   255     0
+9    61   L    8   100   1N   V   1   "Blue"            255     0   229
+4    61   L    9   100   1N   0   1   "White"             0     0     0
+2    61   L   10   100   1N   O   1   "Shutter"         255     0     0
+1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
+0     0   s   12   100   1N   H   1   "Dimmer Low"      255     0     0
+4     1   L   13   100   1N   0   1   "CTO"               0     0     0
+11    1   L   14   100   1N   0   1   "Control"           0     0     0
+5     1   L   15   100   1N   Q   1   "Zoom"            128     0     0
+5    61   L   16   100   1N   0   1   "Pan Spin"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+GLP Impression FR1
+Normal, 16 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  10
+"Open"               31  FF
+"Slow Strobe"        32  DB
+"Fast Strobe"        33  EF
+"Slow Pulse"         36  3F
+"Fast Pulse"         37  4F
+"Closed"             38   0
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6   7   8
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6D  EF
+PFEND
+
+PFTABLE "Beam"       -1  15
+"Zoom Small"         41  FF
+"Zoom Medium"        42  80
+"Zoom Large"         43   0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1  14
+"data"                0  16
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Esoft"     2  14
+"data"                0  28
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Linear"    3  14
+"data"                0  2B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Dim Soft"      4  14
+"data"                0  2E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Off"   5  14
+"data"                0  3A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display On"    6  14
+"data"                0  3D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Normal"  7  14
+"data"                0  40
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Display Invert"  8  14
+"data"                0  43
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Blackout"  9  14
+"data"                0  4C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "No DMX Hold"  10  14
+"data"                0  4F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Fan Auto"     11  14
+"data"                0  58
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Feedback Off" 12  14
+"data"                0  6A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "P/T Feedback On" 13  14
+"data"                0  6D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Tilt Normal"  14  14
+"data"                0  76
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Tilt Invert"  15  14
+"data"                0  79
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Pan Normal"   16  14
+"data"                0  7C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Pan Invert"   17  14
+"data"                0  7F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Zoom Normal"  18  14
+"data"                0  82
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Zoom Invert"  19  14
+"data"                0  85
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 582 Hz"   20  14
+"data"                0  96
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 583 Hz"   21  14
+"data"                0  97
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 584 Hz"   22  14
+"data"                0  98
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 585 Hz"   23  14
+"data"                0  99
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 586 Hz"   24  14
+"data"                0  9A
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 587 Hz"   25  14
+"data"                0  9B
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 588 Hz"   26  14
+"data"                0  9C
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 589 Hz"   27  14
+"data"                0  9D
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 590 Hz"   28  14
+"data"                0  9E
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 591 Hz"   29  14
+"data"                0  9F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 592 Hz"   30  14
+"data"                0  A0
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 593 Hz"   31  14
+"data"                0  A1
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 594 Hz"   32  14
+"data"                0  A2
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 595 Hz"   33  14
+"data"                0  A3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 596 Hz"   34  14
+"data"                0  A4
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 597 Hz"   35  14
+"data"                0  A5
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 598 Hz"   36  14
+"data"                0  A6
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 599 Hz"   37  14
+"data"                0  A7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 600 Hz"   38  14
+"data"                0  A8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 601 Hz"   39  14
+"data"                0  A9
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 602 Hz"   40  14
+"data"                0  AA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 603 Hz"   41  14
+"data"                0  AB
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 604 Hz"   42  14
+"data"                0  AC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 605 Hz"   43  14
+"data"                0  AD
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 606 Hz"   44  14
+"data"                0  AE
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 607 Hz"   45  14
+"data"                0  AF
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 608 Hz"   46  14
+"data"                0  B0
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 609 Hz"   47  14
+"data"                0  B1
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 610 Hz"   48  14
+"data"                0  B2
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 611 Hz"   49  14
+"data"                0  B3
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 612 Hz"   50  14
+"data"                0  B4
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 613 Hz"   51  14
+"data"                0  B5
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 614 Hz"   52  14
+"data"                0  B6
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 615 Hz"   53  14
+"data"                0  B7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 616 Hz"   54  14
+"data"                0  B8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 617 Hz"   55  14
+"data"                0  B9
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 618 Hz"   56  14
+"data"                0  BA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 1200 Hz"  57  14
+"data"                0  C1
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 2400 Hz"  58  14
+"data"                0  C4
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 4800 Hz"  59  14
+"data"                0  C7
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "PWM 9600 Hz"  60  14
+"data"                0  CA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Colour Macro
+0   7    "Open"
+8   15   "Red"
+16  23   "Amber"
+24  31   "Warm Yellow"
+32  39   "Yellow"
+40  47   "Green"
+48  55   "Turquoise"
+56  63   "Cyan"
+64  71   "Blue"
+72  79   "Lavender"
+80  87   "Mauve"
+88  95   "Magenta"
+96  103  "Pink"
+104 111  "White 3200K"
+112 119  "White 5600K"
+120 127  "White 7200K"
+128 128  "No Scroll"
+129 223  "Scroll %3d%%"(c-a)*100/(b-a)
+224 255  "Random %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Shutter
+0   0    "Closed"
+16  47   "Pulse %3d%%"(c-a)*100/(b-a)
+48  79   "Rnd Op %3d%%"(c-a)*100/(b-a)
+80  111  "Rnd Cl %3d%%"(c-a)*100/(b-a)
+112 143  "Rnd Pl %3d%%"(c-a)*100/(b-a)
+144 199  "Pause %3d%%"(c-a)*100/(b-a)
+200 239  "Strobe %3d%%"(c-a)*100/(b-a)
+255 255  "Open"
+REND
+
+RANGE 11  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;CTO
+0   10   "Open"
+11  255  "CTO %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Control
+0   20   "Safe"
+21  23   "Reset"
+39  41   "Dim Esoft"
+42  44   "Dim Linear"
+45  47   "Dim Soft"
+57  59   "Display Off"
+60  62   "Display On"
+63  65   "Display Nrm"
+66  68   "Display Inv"
+75  77   "No DMX B/O"
+78  80   "No DMX Hold"
+87  89   "Fan Auto"
+105 107  "P/T FB Off"
+108 110  "P/T FB On"
+117 119  "Tilt Normal"
+120 122  "Tilt Invert"
+123 125  "Pan Normal"
+126 128  "Pan Invert"
+129 131  "Zoom Normal"
+132 134  "Zoom Invert"
+150 150  "PWM 582 Hz"
+151 151  "PWM 583 Hz"
+152 152  "PWM 584 Hz"
+153 153  "PWM 585 Hz"
+154 154  "PWM 586 Hz"
+155 155  "PWM 587 Hz"
+156 156  "PWM 588 Hz"
+157 157  "PWM 589 Hz"
+158 158  "PWM 590 Hz"
+159 159  "PWM 591 Hz"
+160 160  "PWM 592 Hz"
+161 161  "PWM 593 Hz"
+162 162  "PWM 594 Hz"
+163 163  "PWM 595 Hz"
+164 164  "PWM 596 Hz"
+165 165  "PWM 597 Hz"
+166 166  "PWM 598 Hz"
+167 167  "PWM 599 Hz"
+168 168  "PWM 600 Hz"
+169 169  "PWM 601 Hz"
+170 170  "PWM 602 Hz"
+171 171  "PWM 603 Hz"
+172 172  "PWM 604 Hz"
+173 173  "PWM 605 Hz"
+174 174  "PWM 606 Hz"
+175 175  "PWM 607 Hz"
+176 176  "PWM 608 Hz"
+177 177  "PWM 609 Hz"
+178 178  "PWM 610 Hz"
+179 179  "PWM 611 Hz"
+180 180  "PWM 612 Hz"
+181 181  "PWM 613 Hz"
+182 182  "PWM 614 Hz"
+183 183  "PWM 615 Hz"
+184 184  "PWM 616 Hz"
+185 185  "PWM 617 Hz"
+186 186  "PWM 618 Hz"
+192 194  "PWM 1200 Hz"
+195 197  "PWM 2400 Hz"
+198 200  "PWM 4800 Hz"
+201 203  "PWM 9600 Hz"
+REND
+
+RANGE 15  ;Zoom
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 16  ;Pan Spin
+0   0    "Normal"
+1   127  "Sp CW  %3d%%"(c-a)*100/(b-a)
+128 128  "No Spin"
+129 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+

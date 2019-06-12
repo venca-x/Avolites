@@ -1,0 +1,195 @@
+; 'Alien PAR 60x3W 2 DMX', 2 DMX Channels, filename: UKALN602.R20
+;  Copyright © Avolites Ltd. 2018
+;
+;   Date       By                Description
+;   31-03-18   Nic Morris        Created (assume 18 dmx mode shutter channel 1 is an error in charts)
+;   31-03-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   31-03-18   Nic Morris        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UKALN602                            mode=2 DMX  2 DMX Channels
+NAME "Misc A" "Alien PAR 60x3W 2 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  2  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 2 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=510
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   L    1   100   1N   0   1   "Auto"              0     0     0
+8     1   L    2   100   1N   0   1   "Auto Spd"        127     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Alien PAR 60x3W
+2 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Auto
+0   0    "No Effect"
+1   4    "Preset 1"
+5   8    "Preset 2"
+9   12   "Preset 3"
+13  16   "Preset 4"
+17  20   "Preset 5"
+21  24   "Preset 6"
+25  28   "Preset 7"
+29  32   "Preset 8"
+33  36   "Preset 9"
+37  40   "Preset 10"
+41  44   "Preset 11"
+45  48   "Preset 12"
+49  52   "Preset 13"
+53  56   "Preset 14"
+57  60   "Preset 15"
+61  64   "Preset 16"
+65  68   "Preset 17"
+69  72   "Preset 18"
+73  76   "Preset 19"
+77  80   "Preset 20"
+81  84   "Preset 21"
+85  88   "Preset 22"
+89  92   "Preset 23"
+93  96   "Preset 24"
+97  100  "Preset 25"
+101 104  "Preset 26"
+105 108  "Preset 27"
+109 112  "Preset 28"
+113 116  "Preset 29"
+117 120  "Preset 30"
+121 124  "Preset 31"
+125 128  "Preset 32"
+129 132  "Preset 33"
+133 136  "Preset 34"
+137 140  "Preset 35"
+141 144  "Preset 36"
+145 148  "Preset 37"
+149 152  "Preset 38"
+153 156  "Preset 39"
+157 160  "Preset 40"
+161 164  "Preset 41"
+165 168  "Preset 42"
+169 172  "Preset 43"
+173 176  "Preset 44"
+177 180  "Preset 45"
+181 184  "Preset 46"
+185 188  "Preset 47"
+189 192  "Preset 48"
+193 196  "Preset 49"
+197 200  "Preset 50"
+201 204  "Preset 51"
+205 208  "Preset 52"
+209 212  "Preset 53"
+213 216  "Preset 54"
+217 220  "Preset 55"
+221 224  "Preset 56"
+225 228  "Preset 57"
+229 232  "Preset 58"
+233 236  "Preset 59"
+237 240  "Preset 60"
+241 244  "Preset 61"
+245 248  "Preset 62"
+249 252  "Preset 63"
+253 255  "Preset 64"
+REND
+
+RANGE 2  ;Auto Spd
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

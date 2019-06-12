@@ -1,22 +1,23 @@
-; 'Terbly OK12Q Extended', 25 DMX Channels, filename: TBQK12QX.R20
-;  Copyright © Avolites Ltd. 2015
+; 'Terbly OK12Q Extended, 21 DMX', 21 DMX Channels, filename: TBQK12QX.R20
+;  Copyright © Avolites Ltd. 2018
 ;
 ;   Date       By                Description
 ;   24-05-15   Nic Morris        Created
-;   24-05-15   Pers Creator      Created - Exported from Diamond 4 file.
-;   24-05-15   Nic Morris        Checked
-;   15-08-17   Nic Morris        Increased macro delay in response to bug report
-;   17-08-17   Nic Morris        Revised locate values.
+;   20-04-16   Nic Morris        Increased macro delay in response to manufacturer bug report.
+;   19-12-17   Nic Morris        Added Atlabase ID's.  Added channel counts to mode names.  Added product thumbnail.
+;   22-03-18   Nic Morris        Removed 3rd cell from Extended mode in line with latest charts in response to manufacturer request.
+;   22-03-18   Pers Creator      Created - Exported from Diamond 4 file.
+;   22-03-18   Nic Morris        Checked
 ;
 ;----------------------------------------------------------------------------
 ; The device name, upto 11 characters, no spaces are allowed
-DEVICE  TBQK12QX                            mode=Extended  25 DMX Channels
-NAME "Terbly" "OK12Q Extended"
+DEVICE  TBQK12QX                            mode=Extended, 21 DMX  21 DMX Channels
+NAME "Terbly" "OK12Q Extended, 21 DMX"
 ;
 ;----------------------------------------------------------------------------
 ; The Type of instrument, 1 & M must required for backward compatibility
 ; The middle number denotes the number of DMX channels used
-TYPE  1  25  M
+TYPE  1  21  M
 ;
 ;----------------------------------------------------------------------------
 ; Mirror/Head resolution
@@ -49,7 +50,7 @@ DEVICEADDRESS
 "DMX     %03d"d
 ""
 ""
-"Set to Extended"
+"Set to Extended, 21 DMX"
 ""
 ""
 DAEND
@@ -61,7 +62,7 @@ DAEND
 MINDMX=1
 ;
 ; maximum allowed dmx number
-MAXDMX=487
+MAXDMX=491
 ;
 ; DMX number must be divisible by this
 DIVBY=1
@@ -89,18 +90,14 @@ DIVBY=1
 ;13. The Lowlight level of this channel
 ;
 DMX
-3    61   s    1   100   1N   E   1   "Pan"             128     0     0
-0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
-3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
-0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
-8    61   L    5   100   1N   0   1   "P/T Speed"         0     0     0
-2    61   L    6   100   1N   O   1   "Shutter"          48     0     0
+2    61   L    6   100   1N   O   1   "Shutter"         255     0     0
 1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             127     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         127     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            127     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        127     0     0
 4    61   L    8   100   1N   0   1   "Colour Macro"      0     0     0
 4     1   L    9   100   1N   A   1   "Colour"            0     0     0
-7    61   L   10   100   1N   0   1   "Col Mode"          0     0     0
-7     1   L   11   100   1N   0   1   "Chase"             0     0     0
-8     1   L   12   100   1N   0   1   "Chase Spd"       127     0     0
 10    1   L   13   100   1N   T   1   "Red 1"           255   255     0
 10   61   L   14   100   1N   U   1   "Green 1"         255   255     0
 9    61   L   15   100   1N   V   1   "Blue 1"          255     0   229
@@ -109,17 +106,17 @@ DMX
 20   61   L   18   100   1N   0   1   "Green 2"         255   255     0
 19   61   L   19   100   1N   0   1   "Blue 2"          255     0   229
 19    1   L   20   100   1N   0   1   "White 2"           0     0     0
-18    1   L   21   100   1N   0   1   "Red 3"           255   255     0
-18   61   L   22   100   1N   0   1   "Green 3"         255   255     0
-17   61   L   23   100   1N   0   1   "Blue 3"          255     0   229
-17    1   L   24   100   1N   0   1   "White 3"           0     0     0
-11    1   L   25   100   1N   0   1   "Control"           0     0     0
+6     1   L   11   100   1N   0   1   "Chase"             0     0     0
+6    61   L   12   100   1N   0   1   "Chase Spd"       127     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+11   61   L   10   100   1N   0   1   "Col Mode"          0     0     0
+11    1   L   21   100   1N   0   1   "Control"           0     0     0
 END
 ;
 ;----------------------------------------------------------------------------
 TEXT
 Terbly OK12Q
-Extended
+Extended, 21 DMX
 
 INPUT fixture DMX No.
 Press a Fixture
@@ -135,48 +132,33 @@ END
 ; Preset Palette Tables
 
 PFTABLE "Intensity"  -1   6
-"Open"               31  30
-"Slow Strobe"        32  50
+"Open"               31  FF
+"Slow Strobe"        32  4F
 "Fast Strobe"        33  5F
-"Slow Random Strobe"  34  F0
-"Fast Random Strobe"  35  FF
-"Slow Pulse"         36  90
+"Slow Pulse"         36  8F
 "Fast Pulse"         37  9F
-"Closed"             38  10
+"Closed"             38   0
 PFEND
 
 PFTABLE "Pan/Tilt"   -1   1   3
-"Middle"             21  80  80
-"Left"               22  4F  80
-"Right"              23  B0  80
-"Top"                24  80  4F
-"Bottom"             25  80  B0
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
 "TLeft"              26  4F  4F
 "TRight"             27  B0  B0
 "BLeft"              28  4F  B0
 "BRight"             29  B0  4F
 PFEND
 
-PFTABLE "Colour"     -1  13  17  21  14  18  22  15  19  23
-"Open"                1  FF  FF  FF  FF  FF  FF  FF  FF  FF
-"Red"                 2  FF  FF  FF   0   0   0   0   0   0
-"Amber"               3  FF  FF  FF  7F  7F  7F   0   0   0
-"Yellow"              4  FF  FF  FF  FF  FF  FF   0   0   0
-"Green"               5   0   0   0  FF  FF  FF   0   0   0
-"Cyan"                6   0   0   0  FF  FF  FF  FF  FF  FF
-"Blue"                7   0   0   0   0   0   0  FF  FF  FF
-"Purple"              9  7F  7F  7F   0   0   0  FF  FF  FF
-"Magenta"            10  FF  FF  FF   0   0   0  FF  FF  FF
-"Lavender"            8  B5  B5  B5  6E  6E  6E  F0  F0  F0
-PFEND
-
 ;----------------------------------------------------------------------------
 ; Macros
 
-MACRO "Reset All"     1  25
+MACRO "Reset"         1  21
 "data"                0  52
-"delay"               1  C8
-"data"                0  28
+"delay"               1  50
+"data"                0   0
 MEND
 
 ;----------------------------------------------------------------------------
@@ -187,20 +169,6 @@ MEND
 ; 2. High DMX value (inclusive)
 ; 3. Displayed text (max 11 chars)
 ; Variables used a=low val, b=high val, c=DMX val
-
-RANGE 1  ;Pan
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 3  ;Tilt
-0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 5  ;P/T Speed
-0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
-225 235  "Move in Dk"
-236 255  "No Function"
-REND
 
 RANGE 6  ;Shutter
 0   31   "Closed"
@@ -215,6 +183,14 @@ REND
 
 RANGE 7  ;Dimmer
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 8  ;Colour Macro
@@ -236,28 +212,6 @@ RANGE 9  ;Colour
 161 190  "R/B %3d%%"(c-a)*100/(b-a)
 191 220  "G/B %3d%%"(c-a)*100/(b-a)
 221 255  "R/G %3d%%"(c-a)*100/(b-a)
-REND
-
-RANGE 10  ;Col Mode
-0   189  "Safe"
-190 254  "Edit W Bal"
-255 255  "Store W Bal"
-REND
-
-RANGE 11  ;Chase
-0   10   "No Chase"
-11  40   "Chase 1"
-41  70   "Chase 2"
-71  100  "Chase 3"
-101 130  "Chase 4"
-131 160  "Chase 5"
-161 190  "Chase 6"
-191 220  "Chase 7"
-221 255  "Chase 8"
-REND
-
-RANGE 12  ;Chase Spd
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
 RANGE 13  ;Red 1
@@ -292,23 +246,35 @@ RANGE 20  ;White 2
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 21  ;Red 3
+RANGE 11  ;Chase
+0   10   "No Chase"
+11  40   "Chase 1"
+41  70   "Chase 2"
+71  100  "Chase 3"
+101 130  "Chase 4"
+131 160  "Chase 5"
+161 190  "Chase 6"
+191 220  "Chase 7"
+221 255  "Chase 8"
+REND
+
+RANGE 12  ;Chase Spd
 0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
 REND
 
-RANGE 22  ;Green 3
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+RANGE 5  ;P/T Speed
+0   225  "Speed %3d%%"100-((c-a)*100/(b-a))
+225 235  "Move in Dk"
+236 255  "No Function"
 REND
 
-RANGE 23  ;Blue 3
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+RANGE 10  ;Col Mode
+0   189  "Safe"
+190 254  "Edit W Bal"
+255 255  "Store W Bal"
 REND
 
-RANGE 24  ;White 3
-0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
-REND
-
-RANGE 25  ;Control
+RANGE 21  ;Control
 0   79   "Safe"
 80  84   "Reset All"
 85  87   "Reserved"
